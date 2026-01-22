@@ -1,0 +1,2852 @@
+[
+  {
+    "NPC ID": "1",
+    "Name": "Angry Bones",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Angry_Bones.gif"
+  },
+  {
+    "NPC ID": "2",
+    "Name": "Anomura Fungus",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Anomura_Fungus.gif"
+  },
+  {
+    "NPC ID": "3",
+    "Name": "Antlion",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Antlion.gif"
+  },
+  {
+    "NPC ID": "4",
+    "Name": "Antlion Charger",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Antlion_Charger.gif"
+  },
+  {
+    "NPC ID": "5",
+    "Name": "Antlion Larva",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Antlion_Larva.gif"
+  },
+  {
+    "NPC ID": "6",
+    "Name": "Antlion Swarmer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Antlion_Swarmer.gif"
+  },
+  {
+    "NPC ID": "7",
+    "Name": "Baby Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Baby_Slime.gif"
+  },
+  {
+    "NPC ID": "8",
+    "Name": "Bee",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Bee.gif"
+  },
+  {
+    "NPC ID": "9",
+    "Name": "Black Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Black_Slime.gif"
+  },
+  {
+    "NPC ID": "10",
+    "Name": "Blazing Wheel",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blazing_Wheel.gif"
+  },
+  {
+    "NPC ID": "11",
+    "Name": "Blood Crawler",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blood_Crawler.gif"
+  },
+  {
+    "NPC ID": "12",
+    "Name": "Blue Jellyfish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blue_Jellyfish.gif"
+  },
+  {
+    "NPC ID": "13",
+    "Name": "Blue Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blue_Slime.gif"
+  },
+  {
+    "NPC ID": "14",
+    "Name": "Bone Serpent",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Bone_Serpent.gif"
+  },
+  {
+    "NPC ID": "15",
+    "Name": "Cave Bat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Cave_Bat.gif"
+  },
+  {
+    "NPC ID": "16",
+    "Name": "Cochineal Beetle",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Cochineal_Beetle.gif"
+  },
+  {
+    "NPC ID": "17",
+    "Name": "Crab",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crab.gif"
+  },
+  {
+    "NPC ID": "18",
+    "Name": "Crawdad",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crawdad.gif"
+  },
+  {
+    "NPC ID": "19",
+    "Name": "Crimera",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crimera.gif"
+  },
+  {
+    "NPC ID": "20",
+    "Name": "Cursed Skull",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Cursed_Skull.gif"
+  },
+  {
+    "NPC ID": "21",
+    "Name": "Cyan Beetle",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Cyan_Beetle.gif"
+  },
+  {
+    "NPC ID": "22",
+    "Name": "Dark Caster",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dark_Caster.gif"
+  },
+  {
+    "NPC ID": "23",
+    "Name": "Demon",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Demon.gif"
+  },
+  {
+    "NPC ID": "24",
+    "Name": "Demon Eye",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Demon_Eye.gif"
+  },
+  {
+    "NPC ID": "25",
+    "Name": "Devourer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Devourer.gif"
+  },
+  {
+    "NPC ID": "26",
+    "Name": "Doctor Bones",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Doctor_Bones.gif"
+  },
+  {
+    "NPC ID": "27",
+    "Name": "Dungeon Guardian",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dungeon_Guardian.gif"
+  },
+  {
+    "NPC ID": "28",
+    "Name": "Dungeon Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dungeon_Slime.gif"
+  },
+  {
+    "NPC ID": "29",
+    "Name": "Eater of Souls",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Eater_of_Souls.gif"
+  },
+  {
+    "NPC ID": "30",
+    "Name": "Face Monster",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Face_Monster.gif"
+  },
+  {
+    "NPC ID": "31",
+    "Name": "Fire Imp",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Fire_Imp.gif"
+  },
+  {
+    "NPC ID": "32",
+    "Name": "Frozen Zombie",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Frozen_Zombie.gif"
+  },
+  {
+    "NPC ID": "33",
+    "Name": "Fungi Bulb",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Fungi_Bulb.gif"
+  },
+  {
+    "NPC ID": "34",
+    "Name": "Ghost (enemy)",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ghost_(enemy).gif"
+  },
+  {
+    "NPC ID": "35",
+    "Name": "Giant Antlion Charger",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Antlion_Charger.gif"
+  },
+  {
+    "NPC ID": "36",
+    "Name": "Giant Antlion Swarmer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Antlion_Swarmer.gif"
+  },
+  {
+    "NPC ID": "37",
+    "Name": "Giant Shelly",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Shelly.gif"
+  },
+  {
+    "NPC ID": "38",
+    "Name": "Giant Worm",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Worm.gif"
+  },
+  {
+    "NPC ID": "39",
+    "Name": "Gnome",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Gnome.gif"
+  },
+  {
+    "NPC ID": "40",
+    "Name": "Goblin Scout",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Goblin_Scout.gif"
+  },
+  {
+    "NPC ID": "41",
+    "Name": "Granite Elemental",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Granite_Elemental.gif"
+  },
+  {
+    "NPC ID": "42",
+    "Name": "Granite Golem",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Granite_Golem.gif"
+  },
+  {
+    "NPC ID": "43",
+    "Name": "Green Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Green_Slime.gif"
+  },
+  {
+    "NPC ID": "44",
+    "Name": "Harpy",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Harpy.gif"
+  },
+  {
+    "NPC ID": "45",
+    "Name": "Hellbat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hellbat.gif"
+  },
+  {
+    "NPC ID": "46",
+    "Name": "Hoplite",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hoplite.gif"
+  },
+  {
+    "NPC ID": "47",
+    "Name": "Hornet",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hornet.gif"
+  },
+  {
+    "NPC ID": "48",
+    "Name": "Ice Bat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ice_Bat.gif"
+  },
+  {
+    "NPC ID": "49",
+    "Name": "Ice Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ice_Slime.gif"
+  },
+  {
+    "NPC ID": "50",
+    "Name": "Jungle Bat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Jungle_Bat.gif"
+  },
+  {
+    "NPC ID": "51",
+    "Name": "Jungle Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Jungle_Slime.gif"
+  },
+  {
+    "NPC ID": "52",
+    "Name": "Lac Beetle",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Lac_Beetle.gif"
+  },
+  {
+    "NPC ID": "53",
+    "Name": "Lava Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Lava_Slime.gif"
+  },
+  {
+    "NPC ID": "54",
+    "Name": "Maggot Zombie",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Maggot_Zombie.gif"
+  },
+  {
+    "NPC ID": "55",
+    "Name": "Man Eater",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Man_Eater.gif"
+  },
+  {
+    "NPC ID": "56",
+    "Name": "Meteor Head",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Meteor_Head.gif"
+  },
+  {
+    "NPC ID": "57",
+    "Name": "Mother Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Mother_Slime.gif"
+  },
+  {
+    "NPC ID": "58",
+    "Name": "Mushi Ladybug",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Mushi_Ladybug.gif"
+  },
+  {
+    "NPC ID": "59",
+    "Name": "Nymph",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Nymph.gif"
+  },
+  {
+    "NPC ID": "60",
+    "Name": "Pinky",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pinky.gif"
+  },
+  {
+    "NPC ID": "61",
+    "Name": "Pink Jellyfish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pink_Jellyfish.gif"
+  },
+  {
+    "NPC ID": "62",
+    "Name": "Piranha",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Piranha.gif"
+  },
+  {
+    "NPC ID": "63",
+    "Name": "Purple Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Purple_Slime.gif"
+  },
+  {
+    "NPC ID": "64",
+    "Name": "Raven",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Raven.gif"
+  },
+  {
+    "NPC ID": "65",
+    "Name": "Red Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Red_Slime.gif"
+  },
+  {
+    "NPC ID": "66",
+    "Name": "Salamander",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Salamander.gif"
+  },
+  {
+    "NPC ID": "67",
+    "Name": "Sand Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Sand_Slime.gif"
+  },
+  {
+    "NPC ID": "68",
+    "Name": "Sea Snail",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Sea_Snail.gif"
+  },
+  {
+    "NPC ID": "69",
+    "Name": "Shark",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Shark.gif"
+  },
+  {
+    "NPC ID": "70",
+    "Name": "Skeleton",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Skeleton.gif"
+  },
+  {
+    "NPC ID": "71",
+    "Name": "Snatcher",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Snatcher.gif"
+  },
+  {
+    "NPC ID": "72",
+    "Name": "Snow Flinx",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Snow_Flinx.gif"
+  },
+  {
+    "NPC ID": "73",
+    "Name": "Spike Ball",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Spike_Ball.gif"
+  },
+  {
+    "NPC ID": "74",
+    "Name": "Spiked Ice Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Spiked_Ice_Slime.gif"
+  },
+  {
+    "NPC ID": "75",
+    "Name": "Spiked Jungle Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Spiked_Jungle_Slime.gif"
+  },
+  {
+    "NPC ID": "76",
+    "Name": "Spore Bat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Spore_Bat.gif"
+  },
+  {
+    "NPC ID": "77",
+    "Name": "Spore Skeleton",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Spore_Skeleton.gif"
+  },
+  {
+    "NPC ID": "78",
+    "Name": "Spore Zombie",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Spore_Zombie.gif"
+  },
+  {
+    "NPC ID": "79",
+    "Name": "Squid",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Squid.gif"
+  },
+  {
+    "NPC ID": "80",
+    "Name": "Tim",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Tim.gif"
+  },
+  {
+    "NPC ID": "81",
+    "Name": "Tomb Crawler",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Tomb_Crawler.gif"
+  },
+  {
+    "NPC ID": "82",
+    "Name": "Undead Miner",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Undead_Miner.gif"
+  },
+  {
+    "NPC ID": "83",
+    "Name": "Undead Viking",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Undead_Viking.gif"
+  },
+  {
+    "NPC ID": "84",
+    "Name": "Voodoo Demon",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Voodoo_Demon.gif"
+  },
+  {
+    "NPC ID": "85",
+    "Name": "Vulture",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Vulture.gif"
+  },
+  {
+    "NPC ID": "86",
+    "Name": "Wall Creeper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Wall_Creeper.gif"
+  },
+  {
+    "NPC ID": "87",
+    "Name": "Yellow Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Yellow_Slime.gif"
+  },
+  {
+    "NPC ID": "88",
+    "Name": "Zombie",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Zombie.gif"
+  },
+  {
+    "NPC ID": "89",
+    "Name": "Angler Fish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Angler_Fish.gif"
+  },
+  {
+    "NPC ID": "90",
+    "Name": "Angry Trapper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Angry_Trapper.gif"
+  },
+  {
+    "NPC ID": "91",
+    "Name": "Arapaima",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Arapaima.gif"
+  },
+  {
+    "NPC ID": "92",
+    "Name": "Armored Skeleton",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Armored_Skeleton.gif"
+  },
+  {
+    "NPC ID": "93",
+    "Name": "Armored Viking",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Armored_Viking.gif"
+  },
+  {
+    "NPC ID": "94",
+    "Name": "Basilisk",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Basilisk.gif"
+  },
+  {
+    "NPC ID": "95",
+    "Name": "Black Recluse",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Black_Recluse.gif"
+  },
+  {
+    "NPC ID": "96",
+    "Name": "Blood Feeder",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blood_Feeder.gif"
+  },
+  {
+    "NPC ID": "97",
+    "Name": "Blood Jelly",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blood_Jelly.gif"
+  },
+  {
+    "NPC ID": "98",
+    "Name": "Blood Mummy",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blood_Mummy.gif"
+  },
+  {
+    "NPC ID": "99",
+    "Name": "Blue Cultist Archer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blue_Cultist_Archer.gif"
+  },
+  {
+    "NPC ID": "100",
+    "Name": "Blue Armored Bones",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blue_Armored_Bones.gif"
+  },
+  {
+    "NPC ID": "101",
+    "Name": "Bone Lee",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Bone_Lee.gif"
+  },
+  {
+    "NPC ID": "102",
+    "Name": "Chaos Elemental",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Chaos_Elemental.gif"
+  },
+  {
+    "NPC ID": "103",
+    "Name": "Clinger",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Clinger.gif"
+  },
+  {
+    "NPC ID": "104",
+    "Name": "Corrupt Mimic",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Corrupt_Mimic.gif"
+  },
+  {
+    "NPC ID": "105",
+    "Name": "Corrupt Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Corrupt_Slime.gif"
+  },
+  {
+    "NPC ID": "106",
+    "Name": "Corruptor",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Corruptor.gif"
+  },
+  {
+    "NPC ID": "107",
+    "Name": "Crimslime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crimslime.gif"
+  },
+  {
+    "NPC ID": "108",
+    "Name": "Crimson Axe",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crimson_Axe.gif"
+  },
+  {
+    "NPC ID": "109",
+    "Name": "Crimson Mimic",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crimson_Mimic.gif"
+  },
+  {
+    "NPC ID": "110",
+    "Name": "Cursed Hammer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Cursed_Hammer.gif"
+  },
+  {
+    "NPC ID": "111",
+    "Name": "Dark Mummy",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dark_Mummy.gif"
+  },
+  {
+    "NPC ID": "112",
+    "Name": "Derpling",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Derpling.gif"
+  },
+  {
+    "NPC ID": "113",
+    "Name": "Desert Spirit",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Desert_Spirit.gif"
+  },
+  {
+    "NPC ID": "114",
+    "Name": "Diabolist",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Diabolist.gif"
+  },
+  {
+    "NPC ID": "115",
+    "Name": "Digger",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Digger.gif"
+  },
+  {
+    "NPC ID": "116",
+    "Name": "Dreamer Ghoul",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dreamer_Ghoul.gif"
+  },
+  {
+    "NPC ID": "117",
+    "Name": "Dune Splicer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dune_Splicer.gif"
+  },
+  {
+    "NPC ID": "118",
+    "Name": "Dungeon Spirit",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dungeon_Spirit.gif"
+  },
+  {
+    "NPC ID": "119",
+    "Name": "Enchanted Sword (NPC)",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Enchanted_Sword_(NPC).gif"
+  },
+  {
+    "NPC ID": "120",
+    "Name": "Floaty Gross",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Floaty_Gross.gif"
+  },
+  {
+    "NPC ID": "121",
+    "Name": "Flying Snake",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Flying_Snake.gif"
+  },
+  {
+    "NPC ID": "122",
+    "Name": "Fungo Fish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Fungo_Fish.gif"
+  },
+  {
+    "NPC ID": "123",
+    "Name": "Gastropod",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Gastropod.gif"
+  },
+  {
+    "NPC ID": "124",
+    "Name": "Ghoul",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ghoul.gif"
+  },
+  {
+    "NPC ID": "125",
+    "Name": "Giant Bat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Bat.gif"
+  },
+  {
+    "NPC ID": "126",
+    "Name": "Giant Cursed Skull",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Cursed_Skull.gif"
+  },
+  {
+    "NPC ID": "127",
+    "Name": "Giant Flying Fox",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Flying_Fox.gif"
+  },
+  {
+    "NPC ID": "128",
+    "Name": "Giant Fungi Bulb",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Fungi_Bulb.gif"
+  },
+  {
+    "NPC ID": "129",
+    "Name": "Giant Tortoise",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Giant_Tortoise.gif"
+  },
+  {
+    "NPC ID": "130",
+    "Name": "Green Jellyfish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Green_Jellyfish.gif"
+  },
+  {
+    "NPC ID": "131",
+    "Name": "Hallowed Mimic",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hallowed_Mimic.gif"
+  },
+  {
+    "NPC ID": "132",
+    "Name": "Hell Armored Bones",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hell_Armored_Bones.gif"
+  },
+  {
+    "NPC ID": "133",
+    "Name": "Herpling",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Herpling.gif"
+  },
+  {
+    "NPC ID": "134",
+    "Name": "Hoppin' Jack",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hoppin'_Jack.gif"
+  },
+  {
+    "NPC ID": "135",
+    "Name": "Ice Elemental",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ice_Elemental.gif"
+  },
+  {
+    "NPC ID": "136",
+    "Name": "Ice Mimic",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ice_Mimic.gif"
+  },
+  {
+    "NPC ID": "137",
+    "Name": "Ice Tortoise",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ice_Tortoise.gif"
+  },
+  {
+    "NPC ID": "138",
+    "Name": "Ichor Sticker",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ichor_Sticker.gif"
+  },
+  {
+    "NPC ID": "139",
+    "Name": "Icy Merman",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Icy_Merman.gif"
+  },
+  {
+    "NPC ID": "140",
+    "Name": "Illuminant Bat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Illuminant_Bat.gif"
+  },
+  {
+    "NPC ID": "141",
+    "Name": "Illuminant Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Illuminant_Slime.gif"
+  },
+  {
+    "NPC ID": "142",
+    "Name": "Jungle Creeper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Jungle_Creeper.gif"
+  },
+  {
+    "NPC ID": "143",
+    "Name": "Lamia",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Lamia.gif"
+  },
+  {
+    "NPC ID": "144",
+    "Name": "Lava Bat",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Lava_Bat.gif"
+  },
+  {
+    "NPC ID": "145",
+    "Name": "Light Mummy",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Light_Mummy.gif"
+  },
+  {
+    "NPC ID": "146",
+    "Name": "Lihzahrd",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Lihzahrd.gif"
+  },
+  {
+    "NPC ID": "147",
+    "Name": "Lunatic Devote",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Lunatic_Devote.gif"
+  },
+  {
+    "NPC ID": "148",
+    "Name": "Martian Probe",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Martian_Probe.gif"
+  },
+  {
+    "NPC ID": "149",
+    "Name": "Medusa",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Medusa.gif"
+  },
+  {
+    "NPC ID": "150",
+    "Name": "Mimic",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Mimic.gif"
+  },
+  {
+    "NPC ID": "151",
+    "Name": "Moss Hornet",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Moss_Hornet.gif"
+  },
+  {
+    "NPC ID": "152",
+    "Name": "Moth",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Moth.gif"
+  },
+  {
+    "NPC ID": "153",
+    "Name": "Mummy",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Mummy.gif"
+  },
+  {
+    "NPC ID": "154",
+    "Name": "Necromancer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Necromancer.gif"
+  },
+  {
+    "NPC ID": "155",
+    "Name": "Paladin",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Paladin.gif"
+  },
+  {
+    "NPC ID": "156",
+    "Name": "Pigron",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pigron.gif"
+  },
+  {
+    "NPC ID": "157",
+    "Name": "Pixie",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pixie.gif"
+  },
+  {
+    "NPC ID": "158",
+    "Name": "Possessed Armor",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Possessed_Armor.gif"
+  },
+  {
+    "NPC ID": "159",
+    "Name": "Ragged Caster",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ragged_Caster.gif"
+  },
+  {
+    "NPC ID": "160",
+    "Name": "Red Devil",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Red_Devil.gif"
+  },
+  {
+    "NPC ID": "161",
+    "Name": "Rock Golem",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Rock_Golem.gif"
+  },
+  {
+    "NPC ID": "162",
+    "Name": "Rune Wizard",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Rune_Wizard.gif"
+  },
+  {
+    "NPC ID": "163",
+    "Name": "Rusty Armored Bones",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Rusty_Armored_Bones.gif"
+  },
+  {
+    "NPC ID": "164",
+    "Name": "Sand Poacher",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Sand_Poacher.gif"
+  },
+  {
+    "NPC ID": "165",
+    "Name": "Skeleton Archer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Skeleton_Archer.gif"
+  },
+  {
+    "NPC ID": "166",
+    "Name": "Skeleton Commando",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Skeleton_Commando.gif"
+  },
+  {
+    "NPC ID": "167",
+    "Name": "Skeleton Sniper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Skeleton_Sniper.gif"
+  },
+  {
+    "NPC ID": "168",
+    "Name": "Slimeling",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Slimeling.gif"
+  },
+  {
+    "NPC ID": "169",
+    "Name": "Slimer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Slimer.gif"
+  },
+  {
+    "NPC ID": "170",
+    "Name": "Tactical Skeleton",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Tactical_Skeleton.gif"
+  },
+  {
+    "NPC ID": "171",
+    "Name": "Tainted Ghoul",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Tainted_Ghoul.gif"
+  },
+  {
+    "NPC ID": "172",
+    "Name": "Tortured Soul",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Tortured_Soul.gif"
+  },
+  {
+    "NPC ID": "173",
+    "Name": "Toxic Sludge",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Toxic_Sludge.gif"
+  },
+  {
+    "NPC ID": "174",
+    "Name": "Unicorn",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Unicorn.gif"
+  },
+  {
+    "NPC ID": "175",
+    "Name": "Vile Ghoul",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Vile_Ghoul.gif"
+  },
+  {
+    "NPC ID": "176",
+    "Name": "Wandering Eye",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Wandering_Eye.gif"
+  },
+  {
+    "NPC ID": "177",
+    "Name": "Werewolf",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Werewolf.gif"
+  },
+  {
+    "NPC ID": "178",
+    "Name": "Wolf",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Wolf.gif"
+  },
+  {
+    "NPC ID": "179",
+    "Name": "World Feeder",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/World_Feeder.gif"
+  },
+  {
+    "NPC ID": "180",
+    "Name": "Wraith",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Wraith.gif"
+  },
+  {
+    "NPC ID": "181",
+    "Name": "Wyvern",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Wyvern.gif"
+  },
+  {
+    "NPC ID": "182",
+    "Name": "Blood Eel",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blood_Eel.gif"
+  },
+  {
+    "NPC ID": "183",
+    "Name": "Blood Squid",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blood_Squid.gif"
+  },
+  {
+    "NPC ID": "184",
+    "Name": "Blood Zombie",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Blood_Zombie.gif"
+  },
+  {
+    "NPC ID": "185",
+    "Name": "Chattering Teeth Bomb",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Chattering_Teeth_Bomb.gif"
+  },
+  {
+    "NPC ID": "186",
+    "Name": "Clown",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Clown.gif"
+  },
+  {
+    "NPC ID": "187",
+    "Name": "Corrupt Bunny",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Corrupt_Bunny.gif"
+  },
+  {
+    "NPC ID": "188",
+    "Name": "Corrupt Goldfish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Corrupt_Goldfish.gif"
+  },
+  {
+    "NPC ID": "189",
+    "Name": "Corrupt Penguin",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Corrupt_Penguin.gif"
+  },
+  {
+    "NPC ID": "190",
+    "Name": "Dreadnautilus",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dreadnautilus.gif"
+  },
+  {
+    "NPC ID": "191",
+    "Name": "Drippler",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Drippler.gif"
+  },
+  {
+    "NPC ID": "192",
+    "Name": "Hemogoblin Shark",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hemogoblin_Shark.gif"
+  },
+  {
+    "NPC ID": "193",
+    "Name": "The Groom",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/The_Groom.gif"
+  },
+  {
+    "NPC ID": "194",
+    "Name": "The Bride",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/The_Bride.gif"
+  },
+  {
+    "NPC ID": "195",
+    "Name": "Vicious Bunny",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Vicious_Bunny.gif"
+  },
+  {
+    "NPC ID": "196",
+    "Name": "Vicious Goldfish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Vicious_Goldfish.gif"
+  },
+  {
+    "NPC ID": "197",
+    "Name": "Vicious Penguin",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Vicious_Penguin.gif"
+  },
+  {
+    "NPC ID": "198",
+    "Name": "Wandering Eye Fish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Wandering_Eye_Fish.gif"
+  },
+  {
+    "NPC ID": "199",
+    "Name": "Zombie Merman",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Zombie_Merman.gif"
+  },
+  {
+    "NPC ID": "200",
+    "Name": "Angry Dandelion",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Angry_Dandelion.gif"
+  },
+  {
+    "NPC ID": "201",
+    "Name": "Windy Balloon",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Windy_Balloon.gif"
+  },
+  {
+    "NPC ID": "202",
+    "Name": "Angry Nimbus",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Angry_Nimbus.gif"
+  },
+  {
+    "NPC ID": "203",
+    "Name": "Flying Fish",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Flying_Fish.gif"
+  },
+  {
+    "NPC ID": "204",
+    "Name": "Ice Golem",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ice_Golem.gif"
+  },
+  {
+    "NPC ID": "205",
+    "Name": "Rainbow Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Rainbow_Slime.gif"
+  },
+  {
+    "NPC ID": "206",
+    "Name": "Raincoat Zombie",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Raincoat_Zombie.gif"
+  },
+  {
+    "NPC ID": "207",
+    "Name": "Umbrella Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Umbrella_Slime.gif"
+  },
+  {
+    "NPC ID": "208",
+    "Name": "Angry Tumbler",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Angry_Tumbler.gif"
+  },
+  {
+    "NPC ID": "209",
+    "Name": "Bone Biter",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Bone_Biter.gif"
+  },
+  {
+    "NPC ID": "210",
+    "Name": "Crystal Thresher",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crystal_Thresher.gif"
+  },
+  {
+    "NPC ID": "211",
+    "Name": "Flesh Reaver",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Flesh_Reaver.gif"
+  },
+  {
+    "NPC ID": "212",
+    "Name": "Sand Elemental",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Sand_Elemental.gif"
+  },
+  {
+    "NPC ID": "213",
+    "Name": "Sand Shark",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Sand_Shark.gif"
+  },
+  {
+    "NPC ID": "214",
+    "Name": "Goblin Archer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Goblin_Archer.gif"
+  },
+  {
+    "NPC ID": "215",
+    "Name": "Goblin Peon",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Goblin_Peon.gif"
+  },
+  {
+    "NPC ID": "216",
+    "Name": "Goblin Sorcerer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Goblin_Sorcerer.gif"
+  },
+  {
+    "NPC ID": "217",
+    "Name": "Goblin Summoner",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Goblin_Summoner.gif"
+  },
+  {
+    "NPC ID": "218",
+    "Name": "Goblin Thief",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Goblin_Thief.gif"
+  },
+  {
+    "NPC ID": "219",
+    "Name": "Goblin Warrior",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Goblin_Warrior.gif"
+  },
+  {
+    "NPC ID": "220",
+    "Name": "Shadowflame Apparition",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Shadowflame_Apparition.gif"
+  },
+  {
+    "NPC ID": "221",
+    "Name": "Drakin",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Drakin.gif"
+  },
+  {
+    "NPC ID": "222",
+    "Name": "Etherian Javelin Thrower",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Etherian_Javelin_Thrower.gif"
+  },
+  {
+    "NPC ID": "223",
+    "Name": "Etherian Goblin",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Etherian_Goblin.gif"
+  },
+  {
+    "NPC ID": "224",
+    "Name": "Etherian Goblin Bomber",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Etherian_Goblin_Bomber.gif"
+  },
+  {
+    "NPC ID": "225",
+    "Name": "Etherian Lightning Bug",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Etherian_Lightning_Bug.gif"
+  },
+  {
+    "NPC ID": "226",
+    "Name": "Etherian Wyvern",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Etherian_Wyvern.gif"
+  },
+  {
+    "NPC ID": "227",
+    "Name": "Kobold",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Kobold.gif"
+  },
+  {
+    "NPC ID": "228",
+    "Name": "Kobold Glider",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Kobold_Glider.gif"
+  },
+  {
+    "NPC ID": "229",
+    "Name": "Wither Beast",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Wither_Beast.gif"
+  },
+  {
+    "NPC ID": "230",
+    "Name": "Mister Stabby",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Mister_Stabby.gif"
+  },
+  {
+    "NPC ID": "231",
+    "Name": "Snow Balla",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Snow_Balla.gif"
+  },
+  {
+    "NPC ID": "232",
+    "Name": "Snowman Gangsta",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Snowman_Gangsta.gif"
+  },
+  {
+    "NPC ID": "233",
+    "Name": "Parrot",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Parrot.gif"
+  },
+  {
+    "NPC ID": "234",
+    "Name": "Pirate Captain",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pirate_Captain.gif"
+  },
+  {
+    "NPC ID": "235",
+    "Name": "Pirate Corsair",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pirate_Corsair.gif"
+  },
+  {
+    "NPC ID": "236",
+    "Name": "Pirate Crossbower",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pirate_Crossbower.gif"
+  },
+  {
+    "NPC ID": "237",
+    "Name": "Pirate Deadeye",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pirate_Deadeye.gif"
+  },
+  {
+    "NPC ID": "238",
+    "Name": "Pirate Deckhand",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pirate_Deckhand.gif"
+  },
+  {
+    "NPC ID": "239",
+    "Name": "Pirate's Curse",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Pirate's_Curse.gif"
+  },
+  {
+    "NPC ID": "240",
+    "Name": "Baby Mothron",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Baby_Mothron.gif"
+  },
+  {
+    "NPC ID": "241",
+    "Name": "Butcher",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Butcher.gif"
+  },
+  {
+    "NPC ID": "242",
+    "Name": "Creature from the Deep",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Creature_from_the_Deep.gif"
+  },
+  {
+    "NPC ID": "243",
+    "Name": "Deadly Sphere",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Deadly_Sphere.gif"
+  },
+  {
+    "NPC ID": "244",
+    "Name": "Dr. Man Fly",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Dr._Man_Fly.gif"
+  },
+  {
+    "NPC ID": "245",
+    "Name": "Eyezor",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Eyezor.gif"
+  },
+  {
+    "NPC ID": "246",
+    "Name": "Frankenstein",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Frankenstein.gif"
+  },
+  {
+    "NPC ID": "247",
+    "Name": "Fritz",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Fritz.gif"
+  },
+  {
+    "NPC ID": "248",
+    "Name": "Mothron",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Mothron.gif"
+  },
+  {
+    "NPC ID": "249",
+    "Name": "Mothron Egg",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Mothron_Egg.gif"
+  },
+  {
+    "NPC ID": "250",
+    "Name": "Nailhead",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Nailhead.gif"
+  },
+  {
+    "NPC ID": "251",
+    "Name": "Psycho",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Psycho.gif"
+  },
+  {
+    "NPC ID": "252",
+    "Name": "Reaper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Reaper.gif"
+  },
+  {
+    "NPC ID": "253",
+    "Name": "Swamp Thing",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Swamp_Thing.gif"
+  },
+  {
+    "NPC ID": "254",
+    "Name": "The Possessed",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/The_Possessed.gif"
+  },
+  {
+    "NPC ID": "255",
+    "Name": "Vampire",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Vampire.gif"
+  },
+  {
+    "NPC ID": "256",
+    "Name": "Brain Scrambler",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Brain_Scrambler.gif"
+  },
+  {
+    "NPC ID": "257",
+    "Name": "Gigazapper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Gigazapper.gif"
+  },
+  {
+    "NPC ID": "258",
+    "Name": "Gray Grunt",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Gray_Grunt.gif"
+  },
+  {
+    "NPC ID": "259",
+    "Name": "Martian Drone",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Martian_Drone.gif"
+  },
+  {
+    "NPC ID": "260",
+    "Name": "Martian Engineer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Martian_Engineer.gif"
+  },
+  {
+    "NPC ID": "261",
+    "Name": "Martian Officer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Martian_Officer.gif"
+  },
+  {
+    "NPC ID": "262",
+    "Name": "Martian Walker",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Martian_Walker.gif"
+  },
+  {
+    "NPC ID": "263",
+    "Name": "Ray Gunner",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ray_Gunner.gif"
+  },
+  {
+    "NPC ID": "264",
+    "Name": "Scutlix",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Scutlix.gif"
+  },
+  {
+    "NPC ID": "265",
+    "Name": "Scutlix Gunner",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Scutlix_Gunner.gif"
+  },
+  {
+    "NPC ID": "266",
+    "Name": "Tesla Turret",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Tesla_Turret.gif"
+  },
+  {
+    "NPC ID": "267",
+    "Name": "Headless Horseman",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Headless_Horseman.gif"
+  },
+  {
+    "NPC ID": "268",
+    "Name": "Hellhound",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Hellhound.gif"
+  },
+  {
+    "NPC ID": "269",
+    "Name": "Poltergeist",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Poltergeist.gif"
+  },
+  {
+    "NPC ID": "270",
+    "Name": "Scarecrow",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Scarecrow.gif"
+  },
+  {
+    "NPC ID": "271",
+    "Name": "Splinterling",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Splinterling.gif"
+  },
+  {
+    "NPC ID": "272",
+    "Name": "Elf Archer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Elf_Archer.gif"
+  },
+  {
+    "NPC ID": "273",
+    "Name": "Elf Copter",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Elf_Copter.gif"
+  },
+  {
+    "NPC ID": "274",
+    "Name": "Flocko",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Flocko.gif"
+  },
+  {
+    "NPC ID": "275",
+    "Name": "Gingerbread Man",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Gingerbread_Man.gif"
+  },
+  {
+    "NPC ID": "276",
+    "Name": "Krampus",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Krampus.gif"
+  },
+  {
+    "NPC ID": "277",
+    "Name": "Nutcracker",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Nutcracker.gif"
+  },
+  {
+    "NPC ID": "278",
+    "Name": "Present Mimic",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Present_Mimic.gif"
+  },
+  {
+    "NPC ID": "279",
+    "Name": "Yeti",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Yeti.gif"
+  },
+  {
+    "NPC ID": "280",
+    "Name": "Zombie Elf",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Zombie_Elf.gif"
+  },
+  {
+    "NPC ID": "281",
+    "Name": "Brain Suckler",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Brain_Suckler.gif"
+  },
+  {
+    "NPC ID": "282",
+    "Name": "Evolution Beast",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Evolution_Beast.gif"
+  },
+  {
+    "NPC ID": "283",
+    "Name": "Nebula Floater",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Nebula_Floater.gif"
+  },
+  {
+    "NPC ID": "284",
+    "Name": "Predictor",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Predictor.gif"
+  },
+  {
+    "NPC ID": "285",
+    "Name": "Corite",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Corite.gif"
+  },
+  {
+    "NPC ID": "286",
+    "Name": "Crawltipede",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crawltipede.gif"
+  },
+  {
+    "NPC ID": "287",
+    "Name": "Drakomire",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Drakomire.gif"
+  },
+  {
+    "NPC ID": "288",
+    "Name": "Drakomire Rider",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Drakomire_Rider.gif"
+  },
+  {
+    "NPC ID": "289",
+    "Name": "Drakanian",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Drakanian.gif"
+  },
+  {
+    "NPC ID": "290",
+    "Name": "Selenian",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Selenian.gif"
+  },
+  {
+    "NPC ID": "291",
+    "Name": "Sroller",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Sroller.gif"
+  },
+  {
+    "NPC ID": "292",
+    "Name": "Flow Invader",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Flow_Invader.gif"
+  },
+  {
+    "NPC ID": "293",
+    "Name": "Milkyway Weaver",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Milkyway_Weaver.gif"
+  },
+  {
+    "NPC ID": "294",
+    "Name": "Stargazer",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Stargazer.gif"
+  },
+  {
+    "NPC ID": "295",
+    "Name": "Star Cell",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Star_Cell.gif"
+  },
+  {
+    "NPC ID": "296",
+    "Name": "Twinkle",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Twinkle.gif"
+  },
+  {
+    "NPC ID": "297",
+    "Name": "Twinkle Popper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Twinkle_Popper.gif"
+  },
+  {
+    "NPC ID": "298",
+    "Name": "Alien Hornet",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Alien_Hornet.gif"
+  },
+  {
+    "NPC ID": "299",
+    "Name": "Alien Larva",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Alien_Larva.gif"
+  },
+  {
+    "NPC ID": "300",
+    "Name": "Alien Queen",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Alien_Queen.gif"
+  },
+  {
+    "NPC ID": "301",
+    "Name": "Storm Diver",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Storm_Diver.gif"
+  },
+  {
+    "NPC ID": "302",
+    "Name": "Vortexian",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Vortexian.gif"
+  },
+  {
+    "NPC ID": "303",
+    "Name": "Ancient Cultist",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ancient_Cultist.gif"
+  },
+  {
+    "NPC ID": "304",
+    "Name": "Ancient Doom",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ancient_Doom.gif"
+  },
+  {
+    "NPC ID": "305",
+    "Name": "Ancient Vision",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Ancient_Vision.gif"
+  },
+  {
+    "NPC ID": "306",
+    "Name": "Bouncy Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Bouncy_Slime.gif"
+  },
+  {
+    "NPC ID": "307",
+    "Name": "Creeper",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Creeper.gif"
+  },
+  {
+    "NPC ID": "308",
+    "Name": "Crystal Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Crystal_Slime.gif"
+  },
+  {
+    "NPC ID": "309",
+    "Name": "Diseaster Bunny",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Diseaster_Bunny.gif"
+  },
+  {
+    "NPC ID": "310",
+    "Name": "Heavenly Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Heavenly_Slime.gif"
+  },
+  {
+    "NPC ID": "311",
+    "Name": "Leech",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Leech.gif"
+  },
+  {
+    "NPC ID": "312",
+    "Name": "Old One's Skeleton",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Old_One's_Skeleton.gif"
+  },
+  {
+    "NPC ID": "313",
+    "Name": "Phantasm Dragon",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Phantasm_Dragon.gif"
+  },
+  {
+    "NPC ID": "314",
+    "Name": "Plantera's Tentacle",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Plantera's_Tentacle.gif"
+  },
+  {
+    "NPC ID": "315",
+    "Name": "Probe",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Probe.gif"
+  },
+  {
+    "NPC ID": "316",
+    "Name": "Servant of Cthulhu",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Servant_of_Cthulhu.gif"
+  },
+  {
+    "NPC ID": "317",
+    "Name": "Servant of Ocram",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Servant_of_Ocram.gif"
+  },
+  {
+    "NPC ID": "318",
+    "Name": "Spiked Slime",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Spiked_Slime.gif"
+  },
+  {
+    "NPC ID": "319",
+    "Name": "Sharkron",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/Sharkron.gif"
+  },
+  {
+    "NPC ID": "320",
+    "Name": "The Hungry",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/The_Hungry.gif"
+  },
+  {
+    "NPC ID": "321",
+    "Name": "True Eye of Cthulhu",
+    "Type": "Enemy",
+    "img": "https://terraria.wiki.gg/images/True_Eye_of_Cthulhu.gif"
+  },
+  {
+    "NPC ID": 322,
+    "Name": "Bird",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Bird.gif"
+  },
+  {
+    "NPC ID": 323,
+    "Name": "Blue Jay",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Blue_Jay.gif"
+  },
+  {
+    "NPC ID": 324,
+    "Name": "Buggy",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Buggy.gif"
+  },
+  {
+    "NPC ID": 325,
+    "Name": "Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Bunny.gif"
+  },
+  {
+    "NPC ID": 326,
+    "Name": "Explosive Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Explosive_Bunny.gif"
+  },
+  {
+    "NPC ID": 327,
+    "Name": "Amethyst Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Amethyst_Bunny.gif"
+  },
+  {
+    "NPC ID": 328,
+    "Name": "Topaz Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Topaz_Bunny.gif"
+  },
+  {
+    "NPC ID": 329,
+    "Name": "Sapphire Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Sapphire_Bunny.gif"
+  },
+  {
+    "NPC ID": 330,
+    "Name": "Emerald Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Emerald_Bunny.gif"
+  },
+  {
+    "NPC ID": 331,
+    "Name": "Ruby Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Ruby_Bunny.gif"
+  },
+  {
+    "NPC ID": 332,
+    "Name": "Diamond Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Diamond_Bunny.gif"
+  },
+  {
+    "NPC ID": 333,
+    "Name": "Amber Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Amber_Bunny.gif"
+  },
+  {
+    "NPC ID": 334,
+    "Name": "Cardinal",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Cardinal.gif"
+  },
+  {
+    "NPC ID": 335,
+    "Name": "Dolphin",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Dolphin.gif"
+  },
+  {
+    "NPC ID": 336,
+    "Name": "Duck",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Duck.gif"
+  },
+  {
+    "NPC ID": 337,
+    "Name": "Mallard Duck",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Mallard_Duck.gif"
+  },
+  {
+    "NPC ID": 338,
+    "Name": "Enchanted Nightcrawler",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Enchanted_Nightcrawler.gif"
+  },
+  {
+    "NPC ID": 339,
+    "Name": "Blue Fairy",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Blue_Fairy.gif"
+  },
+  {
+    "NPC ID": 340,
+    "Name": "Green Fairy",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Green_Fairy.gif"
+  },
+  {
+    "NPC ID": 341,
+    "Name": "Pink Fairy",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Pink_Fairy.gif"
+  },
+  {
+    "NPC ID": 342,
+    "Name": "Firefly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Firefly.gif"
+  },
+  {
+    "NPC ID": 343,
+    "Name": "Frog",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Frog.gif"
+  },
+  {
+    "NPC ID": 344,
+    "Name": "Glowing Snail",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Glowing_Snail.gif"
+  },
+  {
+    "NPC ID": 345,
+    "Name": "Goldfish",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Goldfish.gif"
+  },
+  {
+    "NPC ID": 346,
+    "Name": "Grasshopper",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Grasshopper.gif"
+  },
+  {
+    "NPC ID": 347,
+    "Name": "Grebe",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Grebe.gif"
+  },
+  {
+    "NPC ID": 348,
+    "Name": "Grubby",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Grubby.gif"
+  },
+  {
+    "NPC ID": 349,
+    "Name": "Ladybug",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Ladybug.gif"
+  },
+  {
+    "NPC ID": 350,
+    "Name": "Lavafly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Lavafly.gif"
+  },
+  {
+    "NPC ID": 351,
+    "Name": "Lightning Bug",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Lightning_Bug.gif"
+  },
+  {
+    "NPC ID": 352,
+    "Name": "Maggot",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Maggot.gif"
+  },
+  {
+    "NPC ID": 353,
+    "Name": "Magma Snail",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Magma_Snail.gif"
+  },
+  {
+    "NPC ID": 354,
+    "Name": "Mouse",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Mouse.gif"
+  },
+  {
+    "NPC ID": 355,
+    "Name": "Owl",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Owl.gif"
+  },
+  {
+    "NPC ID": 356,
+    "Name": "Penguin",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Penguin.gif"
+  },
+  {
+    "NPC ID": 357,
+    "Name": "Pupfish",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Pupfish.gif"
+  },
+  {
+    "NPC ID": 358,
+    "Name": "Rat",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Rat.gif"
+  },
+  {
+    "NPC ID": 359,
+    "Name": "Scorpion",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Scorpion.gif"
+  },
+  {
+    "NPC ID": 360,
+    "Name": "Black Scorpion",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Black_Scorpion.gif"
+  },
+  {
+    "NPC ID": 361,
+    "Name": "Seagull",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Seagull.gif"
+  },
+  {
+    "NPC ID": 362,
+    "Name": "Seahorse",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Seahorse.gif"
+  },
+  {
+    "NPC ID": 363,
+    "Name": "Sea Turtle",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Sea_Turtle.gif"
+  },
+  {
+    "NPC ID": 364,
+    "Name": "Sluggy",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Sluggy.gif"
+  },
+  {
+    "NPC ID": 365,
+    "Name": "Snail",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Snail.gif"
+  },
+  {
+    "NPC ID": 366,
+    "Name": "Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Squirrel.gif"
+  },
+  {
+    "NPC ID": 367,
+    "Name": "Red Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Red_Squirrel.gif"
+  },
+  {
+    "NPC ID": 368,
+    "Name": "Amethyst Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Amethyst_Squirrel.gif"
+  },
+  {
+    "NPC ID": 369,
+    "Name": "Topaz Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Topaz_Squirrel.gif"
+  },
+  {
+    "NPC ID": 370,
+    "Name": "Sapphire Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Sapphire_Squirrel.gif"
+  },
+  {
+    "NPC ID": 371,
+    "Name": "Emerald Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Emerald_Squirrel.gif"
+  },
+  {
+    "NPC ID": 372,
+    "Name": "Ruby Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Ruby_Squirrel.gif"
+  },
+  {
+    "NPC ID": 373,
+    "Name": "Diamond Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Diamond_Squirrel.gif"
+  },
+  {
+    "NPC ID": 374,
+    "Name": "Amber Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Amber_Squirrel.gif"
+  },
+  {
+    "NPC ID": 375,
+    "Name": "Turtle",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Turtle.gif"
+  },
+  {
+    "NPC ID": 376,
+    "Name": "Jungle Turtle",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Jungle_Turtle.gif"
+  },
+  {
+    "NPC ID": 377,
+    "Name": "Water Strider",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Water_Strider.gif"
+  },
+  {
+    "NPC ID": 378,
+    "Name": "Worm",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Worm.gif"
+  },
+  {
+    "NPC ID": 379,
+    "Name": "Julia Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Julia_Butterfly.gif"
+  },
+  {
+    "NPC ID": 380,
+    "Name": "Monarch Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Monarch_Butterfly.gif"
+  },
+  {
+    "NPC ID": 381,
+    "Name": "Purple Emperor Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Purple_Emperor_Butterfly.gif"
+  },
+  {
+    "NPC ID": 382,
+    "Name": "Red Admiral Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Red_Admiral_Butterfly.gif"
+  },
+  {
+    "NPC ID": 383,
+    "Name": "Sulphur Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Sulphur_Butterfly.gif"
+  },
+  {
+    "NPC ID": 384,
+    "Name": "Tree Nymph Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Tree_Nymph_Butterfly.gif"
+  },
+  {
+    "NPC ID": 385,
+    "Name": "Ulysses Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Ulysses_Butterfly.gif"
+  },
+  {
+    "NPC ID": 386,
+    "Name": "Zebra Swallowtail Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Zebra_Swallowtail_Butterfly.gif"
+  },
+  {
+    "NPC ID": 387,
+    "Name": "Hell Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Hell_Butterfly.gif"
+  },
+  {
+    "NPC ID": 388,
+    "Name": "Prismatic Lacewing",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Prismatic_Lacewing.gif"
+  },
+  {
+    "NPC ID": 389,
+    "Name": "Yellow Dragonfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Yellow_Dragonfly.gif"
+  },
+  {
+    "NPC ID": 390,
+    "Name": "Red Dragonfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Red_Dragonfly.gif"
+  },
+  {
+    "NPC ID": 391,
+    "Name": "Black Dragonfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Black_Dragonfly.gif"
+  },
+  {
+    "NPC ID": 392,
+    "Name": "Blue Dragonfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Blue_Dragonfly.gif"
+  },
+  {
+    "NPC ID": 393,
+    "Name": "Orange Dragonfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Orange_Dragonfly.gif"
+  },
+  {
+    "NPC ID": 394,
+    "Name": "Green Dragonfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Green_Dragonfly.gif"
+  },
+  {
+    "NPC ID": 395,
+    "Name": "Gold Bird",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Bird.gif"
+  },
+  {
+    "NPC ID": 396,
+    "Name": "Gold Bunny",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Bunny.gif"
+  },
+  {
+    "NPC ID": 397,
+    "Name": "Gold Butterfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Butterfly.gif"
+  },
+  {
+    "NPC ID": 398,
+    "Name": "Gold Dragonfly",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Dragonfly.gif"
+  },
+  {
+    "NPC ID": 399,
+    "Name": "Gold Frog",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Frog.gif"
+  },
+  {
+    "NPC ID": 400,
+    "Name": "Gold Goldfish",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Goldfish.gif"
+  },
+  {
+    "NPC ID": 401,
+    "Name": "Gold Grasshopper",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Grasshopper.gif"
+  },
+  {
+    "NPC ID": 402,
+    "Name": "Gold Ladybug",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Ladybug.gif"
+  },
+  {
+    "NPC ID": 403,
+    "Name": "Gold Mouse",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Mouse.gif"
+  },
+  {
+    "NPC ID": 404,
+    "Name": "Gold Seahorse",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Seahorse.gif"
+  },
+  {
+    "NPC ID": 405,
+    "Name": "Gold Squirrel",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Squirrel.gif"
+  },
+  {
+    "NPC ID": 406,
+    "Name": "Gold Water Strider",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Water_Strider.gif"
+  },
+  {
+    "NPC ID": 407,
+    "Name": "Gold Worm",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Gold_Worm.gif"
+  },
+  {
+    "NPC ID": 408,
+    "Name": "Prismatic Lacewing",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Prismatic_Lacewing.gif"
+  },
+  {
+    "NPC ID": 409,
+    "Name": "Truffle Worm",
+    "Type": "Critter",
+    "img": "https://terraria.wiki.gg/images/Truffle_Worm.gif"
+  },
+  {
+    "NPC ID": 410,
+    "Name": "Guide",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Guide.gif"
+  },
+  {
+    "NPC ID": 411,
+    "Name": "Merchant",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Merchant.gif"
+  },
+  {
+    "NPC ID": 412,
+    "Name": "Nurse",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Nurse.gif"
+  },
+  {
+    "NPC ID": 413,
+    "Name": "Demolitionist",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Demolitionist.gif"
+  },
+  {
+    "NPC ID": 414,
+    "Name": "Dye Trader",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Dye_Trader.gif"
+  },
+  {
+    "NPC ID": 415,
+    "Name": "Angler",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Angler.gif"
+  },
+  {
+    "NPC ID": 416,
+    "Name": "Zoologist",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Zoologist.gif"
+  },
+  {
+    "NPC ID": 417,
+    "Name": "Dryad",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Dryad.gif"
+  },
+  {
+    "NPC ID": 418,
+    "Name": "Painter",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Painter.gif"
+  },
+  {
+    "NPC ID": 419,
+    "Name": "Golfer",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Golfer.gif"
+  },
+  {
+    "NPC ID": 420,
+    "Name": "Arms Dealer",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Arms_Dealer.gif"
+  },
+  {
+    "NPC ID": 421,
+    "Name": "Tavernkeep",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Tavernkeep.gif"
+  },
+  {
+    "NPC ID": 422,
+    "Name": "Stylist",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Stylist.gif"
+  },
+  {
+    "NPC ID": 423,
+    "Name": "Goblin Tinkerer",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Goblin_Tinkerer.gif"
+  },
+  {
+    "NPC ID": 424,
+    "Name": "Witch Doctor",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Witch_Doctor.gif"
+  },
+  {
+    "NPC ID": 425,
+    "Name": "Clothier",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Clothier.gif"
+  },
+  {
+    "NPC ID": 426,
+    "Name": "Mechanic",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Mechanic.gif"
+  },
+  {
+    "NPC ID": 427,
+    "Name": "Party Girl",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Party_Girl.gif"
+  },
+  {
+    "NPC ID": 428,
+    "Name": "Wizard",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Wizard.gif"
+  },
+  {
+    "NPC ID": 429,
+    "Name": "Tax Collector",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Tax_Collector.gif"
+  },
+  {
+    "NPC ID": 430,
+    "Name": "Truffle",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Truffle.gif"
+  },
+  {
+    "NPC ID": 431,
+    "Name": "Pirate",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Pirate.gif"
+  },
+  {
+    "NPC ID": 432,
+    "Name": "Steampunker",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Steampunker.gif"
+  },
+  {
+    "NPC ID": 433,
+    "Name": "Cyborg",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Cyborg.gif"
+  },
+  {
+    "NPC ID": 434,
+    "Name": "Santa Claus",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Santa_Claus.gif"
+  },
+  {
+    "NPC ID": 435,
+    "Name": "Princess",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Princess.gif"
+  },
+  {
+    "NPC ID": 436,
+    "Name": "Town Cat",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Town_Cat.gif"
+  },
+  {
+    "NPC ID": 437,
+    "Name": "Town Dog",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Town_Dog.gif"
+  },
+  {
+    "NPC ID": 438,
+    "Name": "Town Bunny",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Town_Bunny.gif"
+  },
+  {
+    "NPC ID": 439,
+    "Name": "Traveling Merchant",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Traveling_Merchant.gif"
+  },
+  {
+    "NPC ID": 440,
+    "Name": "Old Man",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Old_Man.gif"
+  },
+  {
+    "NPC ID": 441,
+    "Name": "Skeleton Merchant",
+    "Type": "Town NPC",
+    "img": "https://terraria.wiki.gg/images/Skeleton_Merchant.gif"
+  },
+  {
+    "NPC ID": 442,
+    "Name": "King Slime",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/King_Slime.gif"
+  },
+  {
+    "NPC ID": 443,
+    "Name": "Eye of Cthulhu",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Eye_of_Cthulhu.gif"
+  },
+  {
+    "NPC ID": 444,
+    "Name": "Eater of Worlds",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Eater_of_Worlds.gif"
+  },
+  {
+    "NPC ID": 445,
+    "Name": "Brain of Cthulhu",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Brain_of_Cthulhu.gif"
+  },
+  {
+    "NPC ID": 446,
+    "Name": "Queen Bee",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Queen_Bee.gif"
+  },
+  {
+    "NPC ID": 447,
+    "Name": "Skeletron",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Skeletron.gif"
+  },
+  {
+    "NPC ID": 448,
+    "Name": "Wall of Flesh",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Wall_of_Flesh.gif"
+  },
+  {
+    "NPC ID": 449,
+    "Name": "Queen Slime",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Queen_Slime.gif"
+  },
+  {
+    "NPC ID": 450,
+    "Name": "The Twins",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/The_Twins.gif"
+  },
+  {
+    "NPC ID": 451,
+    "Name": "The Destroyer",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/The_Destroyer.gif"
+  },
+  {
+    "NPC ID": 452,
+    "Name": "Skeletron Prime",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Skeletron_Prime.gif"
+  },
+  {
+    "NPC ID": 453,
+    "Name": "Plantera",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Plantera.gif"
+  },
+  {
+    "NPC ID": 454,
+    "Name": "Golem",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Golem.gif"
+  },
+  {
+    "NPC ID": 455,
+    "Name": "Empress of Light",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Empress_of_Light.gif"
+  },
+  {
+    "NPC ID": 456,
+    "Name": "Duke Fishron",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Duke_Fishron.gif"
+  },
+  {
+    "NPC ID": 457,
+    "Name": "Lunatic Cultist",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Lunatic_Cultist.gif"
+  },
+  {
+    "NPC ID": 458,
+    "Name": "Moon Lord",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Moon_Lord.gif"
+  },
+  {
+    "NPC ID": 459,
+    "Name": "Dark Mage",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Dark_Mage.gif"
+  },
+  {
+    "NPC ID": 460,
+    "Name": "Ogre",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Ogre.gif"
+  },
+  {
+    "NPC ID": 461,
+    "Name": "Betsy",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Betsy.gif"
+  },
+  {
+    "NPC ID": 462,
+    "Name": "Flying Dutchman",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Flying_Dutchman.gif"
+  },
+  {
+    "NPC ID": 463,
+    "Name": "Mourning Wood",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Mourning_Wood.gif"
+  },
+  {
+    "NPC ID": 464,
+    "Name": "Pumpking",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Pumpking.gif"
+  },
+  {
+    "NPC ID": 465,
+    "Name": "Everscream",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Everscream.gif"
+  },
+  {
+    "NPC ID": 466,
+    "Name": "Santa-NK1",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Santa-NK1.gif"
+  },
+  {
+    "NPC ID": 467,
+    "Name": "Ice Queen",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Ice_Queen.gif"
+  },
+  {
+    "NPC ID": 468,
+    "Name": "Martian Saucer",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Martian_Saucer.gif"
+  },
+  {
+    "NPC ID": 469,
+    "Name": "Solar Pillar",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Solar_Pillar.gif"
+  },
+  {
+    "NPC ID": 470,
+    "Name": "Nebula Pillar",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Nebula_Pillar.gif"
+  },
+  {
+    "NPC ID": 471,
+    "Name": "Vortex Pillar",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Vortex_Pillar.gif"
+  },
+  {
+    "NPC ID": 472,
+    "Name": "Stardust Pillar",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Stardust_Pillar.gif"
+  },
+  {
+    "NPC ID": 473,
+    "Name": "Ocram",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Ocram.gif"
+  },
+  {
+    "NPC ID": 474,
+    "Name": "Lepus",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Lepus.gif"
+  },
+  {
+    "NPC ID": 475,
+    "Name": "Turkor the Ungrateful",
+    "Type": "Boss",
+    "img": "https://terraria.wiki.gg/images/Turkor_the_Ungrateful.gif"
+  }
+]

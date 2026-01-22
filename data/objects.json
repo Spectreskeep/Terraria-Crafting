@@ -1,0 +1,257 @@
+[
+  {
+    "name": "Ash tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Ash%29.png"
+  },
+  {
+    "name": "Boreal tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Boreal%29.png"
+  },
+  {
+    "name": "Forest tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Forest%29.png"
+  },
+  {
+    "name": "Pearlwood tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Hallow%29.png"
+  },
+  {
+    "name": "Palm tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Palm%29.png"
+  },
+  {
+    "name": "Gemcorn tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Gemcorn%29.png"
+  },
+  {
+    "name": "Living tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Living_Wood%29.png"
+  },
+  {
+    "name": "Corrupt tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Corrupt%29.png"
+  },
+  {
+    "name": "Crimson tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Crimson%29.png"
+  },
+  {
+    "name": "Hallowed tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Hallow%29.png"
+  },
+  {
+    "name": "Mahogany tree",
+    "type": "Tree",
+    "img": "https://terraria.wiki.gg/images/Tree_%28Rich_Mahogany%29.png"
+  },
+  {
+    "name": "Pot",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Pot.png"
+  },
+  {
+    "name": "Urn",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Urn.png"
+  },
+  {
+    "name": "Chest",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Chest.png"
+  },
+  {
+    "name": "Gold Chest",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Gold_Chest.png"
+  },
+  {
+    "name": "Frozen Chest",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Frozen_Chest.png"
+  },
+  {
+    "name": "Ivy Chest",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Ivy_Chest.png"
+  },
+  {
+    "name": "Web Covered Chest",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Web_Covered_Chest.png"
+  },
+  {
+    "name": "Locked Gold Chest",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Locked_Gold_Chest.png"
+  },
+  {
+    "name": "Locked Shadow Chest",
+    "type": "Container",
+    "img": "https://terraria.wiki.gg/images/Locked_Shadow_Chest.png"
+  },
+  {
+    "name": "Wooden Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Wooden_Crate.png"
+  },
+  {
+    "name": "Iron Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Iron_Crate.png"
+  },
+  {
+    "name": "Golden Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Golden_Crate.png"
+  },
+  {
+    "name": "Pearlwood Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Pearlwood_Crate.png"
+  },
+  {
+    "name": "Mythril Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Mythril_Crate.png"
+  },
+  {
+    "name": "Titanium Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Titanium_Crate.png"
+  },
+  {
+    "name": "Bramble Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Bramble_Crate.png"
+  },
+  {
+    "name": "Azure Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Azure_Crate.png"
+  },
+  {
+    "name": "Violet Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Violet_Crate.png"
+  },
+  {
+    "name": "Boreal Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Boreal_Crate.png"
+  },
+  {
+    "name": "Oasis Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Oasis_Crate.png"
+  },
+  {
+    "name": "Mirage Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Mirage_Crate.png"
+  },
+  {
+    "name": "Sandstone Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Sandstone_Crate.png"
+  },
+  {
+    "name": "Obsidian Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Obsidian_Crate.png"
+  },
+  {
+    "name": "Hellstone Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Hellstone_Crate.png"
+  },
+  {
+    "name": "Jungle Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Jungle_Crate.png"
+  },
+  {
+    "name": "Corrupt Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Corrupt_Crate.png"
+  },
+  {
+    "name": "Crimson Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Crimson_Crate.png"
+  },
+  {
+    "name": "Hallowed Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Hallowed_Crate.png"
+  },
+  {
+    "name": "Dungeon Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Dungeon_Crate.png"
+  },
+  {
+    "name": "Stockade Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Stockade_Crate.png"
+  },
+  {
+    "name": "Seaside Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Seaside_Crate.png"
+  },
+  {
+    "name": "Defiled Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Defiled_Crate.png"
+  },
+  {
+    "name": "Divine Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Divine_Crate.png"
+  },
+  {
+    "name": "Frozen Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Frozen_Crate.png"
+  },
+  {
+    "name": "Ocean Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Ocean_Crate.png"
+  },
+  {
+    "name": "Sky Crate",
+    "type": "Crate",
+    "img": "https://terraria.wiki.gg/images/Sky_Crate.png"
+  },
+  {
+    "name": "Shadow Orb",
+    "type": "Object",
+    "img": "https://terraria.wiki.gg/images/Shadow_Orb.png"
+  },
+  {
+    "name": "Crimson Heart",
+    "type": "Object",
+    "img": "https://terraria.wiki.gg/images/Crimson_Heart.png"
+  },
+  {
+    "name": "Life Crystal",
+    "type": "Object",
+    "img": "https://terraria.wiki.gg/images/Life_Crystal.png"
+  },
+  {
+    "name": "Life Fruit",
+    "type": "Object",
+    "img": "https://terraria.wiki.gg/images/Life_Fruit.png"
+  }
+]
