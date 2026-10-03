@@ -70,8 +70,10 @@ header button {
   transition: opacity 0.2s;
 }
 
+@media (hover: hover) {
 header button:hover {
   opacity: 0.9;
+}
 }
 
 #btnSettings {
@@ -137,9 +139,11 @@ header button:hover {
   text-align: left;
 }
 
+@media (hover: hover) {
 .category-btn:hover {
   background: #f5f5f5;
   color: var(--text-primary);
+}
 }
 
 .category-btn.active {
@@ -177,8 +181,10 @@ header button:hover {
   transition: background 0.2s, border-color 0.3s;
 }
 
+@media (hover: hover) {
 .card:hover {
   background: var(--card-hover);
+}
 }
 .card img { 
   width: 44px; 
@@ -262,8 +268,10 @@ header button:hover {
   color: var(--text-primary);
 }
 
+@media (hover: hover) {
 .modalBtns button:hover { 
   background: var(--card-hover);
+}
 }
 
 .modalClose {
@@ -277,7 +285,9 @@ header button:hover {
   opacity: 0.7;
   color: var(--text-primary);
 }
+@media (hover: hover) {
 .modalClose:hover { opacity: 1; }
+}
 
 /* ---- TREE OVERLAY ---- */
 .tree {
@@ -401,8 +411,10 @@ header button:hover {
 }
 
 /* Increase z-index on hover */
+@media (hover: hover) {
 .treeNode:hover {
   z-index: 1000;
+}
 }
 
 /* Timeline styles */
@@ -488,11 +500,13 @@ header button:hover {
   color: var(--text-primary);
 }
 
+@media (hover: hover) {
 .timeline-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px var(--shadow);
   border-color: #667eea;
   background: var(--card-hover);
+}
 }
 
 .timeline-item img {
@@ -625,8 +639,10 @@ header button:hover {
   font-weight: 600;
 }
 
+@media (hover: hover) {
 .timeline-header button:hover {
   opacity: 0.9;
+}
 }
 
 /* Simple scrollbar color changes */
@@ -643,10 +659,12 @@ body::-webkit-scrollbar-thumb,
   border-radius: 6px;
 }
 
+@media (hover: hover) {
 html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
+}
 }
 
 html::-webkit-scrollbar-track,
@@ -689,15 +707,19 @@ body,
   height: 11px;
 }
 
+@media (hover: hover) {
 .treeNode:hover .item-info-icon {
   opacity: 1;
 }
+}
 
+@media (hover: hover) {
 .item-info-icon:hover {
   background: rgba(102, 126, 234, 0.2);
   border-color: rgba(102, 126, 234, 0.5);
   color: #667eea;
   transform: scale(1.1);
+}
 }
 
 .item-info-icon:active {
@@ -769,10 +791,12 @@ body,
   height: 11px;
 }
 
+@media (hover: hover) {
 .modal-info-icon:hover {
   background: rgba(102, 126, 234, 0.2);
   border-color: rgba(102, 126, 234, 0.5);
   transform: scale(1.15);
+}
 }
 
 .modal-info-icon:active {
@@ -796,8 +820,10 @@ body,
   position: relative;
 }
 
+@media (hover: hover) {
 .cat-item:hover {
   background: var(--card-hover);
+}
 }
 
 .cat-item.active {
@@ -870,9 +896,11 @@ body,
   margin-bottom: 2px;
 }
 
+@media (hover: hover) {
 .cat-sub-item:hover {
   background: var(--card-hover);
   color: var(--text-primary);
+}
 }
 
 .cat-sub-item.active {
@@ -920,10 +948,12 @@ body,
   cursor: pointer;
   transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
 }
+@media (hover: hover) {
 .timeline-menu-card:hover {
   background: var(--card-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px var(--shadow);
+}
 }
 .timeline-menu-card.soon { opacity: 0.55; }
 .tm-icon { font-size: 40px; line-height: 1; width: 56px; text-align: center; }
@@ -956,7 +986,9 @@ body,
   cursor: pointer;
   font-size: 13px;
 }
+@media (hover: hover) {
 .info-chip:hover { background: var(--card-hover); }
+}
 
 /* ================= MOBILE / TOUCH SUPPORT ================= */
 
@@ -973,10 +1005,26 @@ body,
   #btnSettings { margin-left: 0; }
   #btnCategories { display: block; }
 
-  /* let the page scroll normally */
-  .main-layout { display: block; height: auto; overflow: visible; }
-  .results-container { overflow: visible; }
+  /* page = header on top, grid fills the rest and scrolls by itself */
+  body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+  header { flex: 0 0 auto; }
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    overflow: hidden;
+  }
   .results-container, #results {
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 
@@ -1003,3 +1051,8 @@ body,
   .treeTitle { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tree-legend { display: none !important; }
 }
+
+/* No grey tap flash, no double-tap delay */
+* { -webkit-tap-highlight-color: transparent; }
+button, .card, .cat-item, .cat-sub-item, .treeNode { touch-action: manipulation; }
+.treeViewport, .treeViewport * { touch-action: none; }

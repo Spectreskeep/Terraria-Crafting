@@ -537,12 +537,12 @@ function buildIndexes() {
 }
 
 // FIXED: No info icon in grid cards
-function renderItems(list) {
+function renderItems(list, append = false) {
   const el = document.getElementById("results");
-  el.innerHTML = "";
+  if (!append) el.innerHTML = "";
 
   if (!list.length) {
-    el.textContent = "No matches.";
+    if (!append) el.textContent = "No matches.";
     return;
   }
 
@@ -561,6 +561,7 @@ function renderItems(list) {
     }
     img.alt = item.name;
     img.loading = "lazy";
+    img.decoding = "async";
     img.referrerPolicy = "no-referrer";
 
     const text = document.createElement("div");
@@ -630,11 +631,13 @@ function loadMoreIfNeeded() {
   if (!nearBottom) return;
 
   if (visibleCount < FILTERED.length) {
+    const prevCount = visibleCount;
     visibleCount = Math.min(
       visibleCount + PAGE_SIZE,
       FILTERED.length
     );
-    renderItems(FILTERED.slice(0, visibleCount));
+    // only add the NEW cards instead of rebuilding the whole grid
+    renderItems(FILTERED.slice(prevCount, visibleCount), true);
     fillScreenIfNeeded();
   }
 }
@@ -2321,6 +2324,10 @@ function buildSubcategoryUI() {
 }
 
 function updateCategoryCounts() {
+  // Counts only depend on ITEMS, so skip the work if already done
+  if (updateCategoryCounts._doneFor === ITEMS.length) return;
+  updateCategoryCounts._doneFor = ITEMS.length;
+
   // Count items in each main category
   const catCounts = { all: ITEMS.length };
   const subCounts = {};
