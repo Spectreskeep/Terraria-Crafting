@@ -2450,6 +2450,8 @@ async function main() {
   document.getElementById("treeBack").addEventListener("click", closeTreeView);
 
   document.getElementById("btnTimeline").addEventListener("click", openTimeline);
+  document.getElementById("btnEvil").addEventListener("click", openEvil);
+  document.getElementById("btnGuide").addEventListener("click", openGuide);
   document.getElementById("timelineBack").addEventListener("click", timelineGoBack);
 
   setupPanning();
@@ -3847,18 +3849,284 @@ function renderClass(key) {
 }
 
 // ============================================================
+// BOSS PAGES (opened from the (i) button in a boss popup)
+// summon: how to fight it · classic: normal-mode drops · bagOnly: only in the Treasure Bag (Expert/Master)
+// bag: other things in the bag · master: relic + pet.  Items are "Name" or "Name|short note".
+// Every boss can also drop its Mask and Trophy, so those are not listed one by one.
+// ============================================================
+const BOSS_DATA = {
+  "King Slime": {
+    tag: "Pre-Hardmode · optional",
+    summon: "Use a Slime Crown, or wait for a Slime Rain and kill 150 slimes.",
+    classic: ["Solidifier", "Lesser Healing Potion", "Slimy Saddle|Mount", "Ninja Hood|One of the ninja pieces", "Ninja Shirt", "Ninja Pants", "Slime Gun", "Slime Hook", "Slime Staff|Rare"],
+    bagOnly: ["Royal Gel|Makes most slimes friendly"],
+    bag: ["Solidifier", "Slimy Saddle|Mount", "Ninja Hood", "Ninja Shirt", "Ninja Pants", "Slime Gun", "Slime Hook", "Slime Staff|Rare"],
+    master: ["King Slime Relic", "Royal Delight|Pet"],
+  },
+  "Eye of Cthulhu": {
+    tag: "Pre-Hardmode",
+    summon: "Use a Suspicious Looking Eye at night. He can also show up on his own once you have a few town NPCs.",
+    classic: ["Shield of Cthulhu", "Demonite Ore|Corruption worlds", "Crimtane Ore|Crimson worlds", "Unholy Arrow|Corruption worlds", "Corrupt Seeds|Corruption worlds", "Crimson Seeds|Crimson worlds", "Lesser Healing Potion", "Binoculars|Rare"],
+    bagOnly: ["Shield of Cthulhu|Dash into enemies"],
+    bag: ["Demonite Ore|Corruption worlds", "Crimtane Ore|Crimson worlds", "Unholy Arrow|Corruption worlds", "Corrupt Seeds|Corruption worlds", "Crimson Seeds|Crimson worlds", "Binoculars|Rare"],
+    master: ["Eye of Cthulhu Relic", "Suspicious Grinning Eye|Pet", "0x33's Aviators"],
+  },
+  "Eater of Worlds": {
+    tag: "Pre-Hardmode · Corruption only",
+    summon: "Break every third Shadow Orb, or use Worm Food in the Corruption.",
+    classic: ["Demonite Ore", "Shadow Scale", "Lesser Healing Potion", "Eater's Bone|Pet, rare"],
+    bagOnly: ["Worm Scarf|Take less damage"],
+    bag: ["Demonite Ore", "Shadow Scale", "Eater's Bone|Pet, rare"],
+    master: ["Eater of Worlds Relic", "Writhing Remains|Pet"],
+  },
+  "Brain of Cthulhu": {
+    tag: "Pre-Hardmode · Crimson only",
+    summon: "Break every third Crimson Heart, or use a Bloody Spine in the Crimson.",
+    classic: ["Crimtane Ore", "Tissue Sample", "Lesser Healing Potion", "Bone Rattle|Pet, rare"],
+    bagOnly: ["Brain of Confusion|Helps you dodge and confuses enemies"],
+    bag: ["Crimtane Ore", "Tissue Sample", "Bone Rattle|Pet, rare"],
+    master: ["Brain of Cthulhu Relic", "Brain in a Jar|Pet"],
+  },
+  "Queen Bee": {
+    tag: "Pre-Hardmode",
+    summon: "Break a Larva in a Bee Hive in the Underground Jungle, or use an Abeemination in the Jungle.",
+    classic: ["Bee Wax", "Bottled Honey", "Beenade", "Bee Gun|One of three weapons", "Bee Keeper", "The Bee's Knees", "Hive Wand", "Honey Comb", "Nectar|Pet", "Honeyed Goggles|Pet", "Bee Headgear|Armor", "Bee Breastplate", "Bee Greaves"],
+    bagOnly: ["Hive Pack|Stronger bees"],
+    bag: ["Bee Wax", "Beenade", "Bee Gun|One of three weapons", "Bee Keeper", "The Bee's Knees", "Hive Wand", "Honey Comb", "Nectar|Pet", "Honeyed Goggles|Pet"],
+    master: ["Queen Bee Relic", "Sparkling Honey|Pet"],
+  },
+  "Skeletron": {
+    tag: "Pre-Hardmode · opens the Dungeon",
+    summon: "Talk to the Old Man at the Dungeon entrance at night and pick Curse. After that you can use a Clothier Voodoo Doll.",
+    classic: ["Healing Potion", "Skeletron Hand|Accessory", "Book of Skulls|Magic weapon"],
+    bagOnly: ["Bone Glove|Throws bones at enemies"],
+    bag: ["Skeletron Hand|Accessory", "Book of Skulls|Magic weapon"],
+    master: ["Skeletron Relic", "Possessed Skull|Pet"],
+  },
+  "Deerclops": {
+    tag: "Pre-Hardmode · winter boss",
+    summon: "Use a Deer Thing in the Snow biome, or he may show up at midnight during a Blizzard.",
+    classic: ["Healing Potion", "Pew-matic Horn|One of four weapons", "Weather Pain", "Houndius Shootius", "Lucy the Axe", "Eye Bone", "Eyebrella", "Radio Thing"],
+    bagOnly: ["Bone Helm|Expert accessory"],
+    bag: ["Pew-matic Horn|One of four weapons", "Weather Pain", "Houndius Shootius", "Lucy the Axe", "Eye Bone", "Eyebrella", "Radio Thing"],
+    master: ["Deerclops Relic", "Deerclops Eyeball|Pet"],
+  },
+  "Wall of Flesh": {
+    tag: "Pre-Hardmode · starts Hardmode",
+    summon: "Throw a Guide Voodoo Doll into lava in the Underworld.",
+    classic: ["Pwnhammer|Breaks Hallowed altars", "Breaker Blade|One of four weapons", "Clockwork Assault Rifle", "Laser Rifle", "Firecracker", "Warrior Emblem|One of four emblems", "Ranger Emblem", "Sorcerer Emblem", "Summoner Emblem", "Healing Potion"],
+    bagOnly: ["Demon Heart|Extra accessory slot"],
+    bag: ["Breaker Blade|One of four weapons", "Clockwork Assault Rifle", "Laser Rifle", "Firecracker", "Warrior Emblem|One of four emblems", "Ranger Emblem", "Sorcerer Emblem", "Summoner Emblem"],
+    master: ["Wall of Flesh Relic", "Goat Skull|Mount"],
+  },
+  "Queen Slime": {
+    tag: "Hardmode · optional",
+    summon: "Use a Gelatin Crystal in the Hallow.",
+    classic: ["Volatile Gelatin", "Crystal Assassin Hood|One of three armor pieces", "Crystal Assassin Shirt", "Crystal Assassin Pants", "Blade Staff", "Gelatinous Pillion|Mount", "Hook of Dissonance", "Sparkle Slime Balloon", "Greater Healing Potion"],
+    bagOnly: [],
+    bag: ["Crystal Assassin Hood|Armor pieces", "Crystal Assassin Shirt", "Crystal Assassin Pants", "Blade Staff", "Gelatinous Pillion|Mount", "Hook of Dissonance", "Greater Healing Potion"],
+    master: ["Queen Slime Relic", "Regal Delicacy|Pet"],
+  },
+  "The Twins": {
+    tag: "Hardmode · mechanical boss",
+    summon: "Use a Mechanical Eye at night.",
+    classic: ["Soul of Sight", "Hallowed Bar", "Greater Healing Potion"],
+    bagOnly: ["Mechanical Wheel Piece|Part of the Mechanical Cart"],
+    bag: ["Soul of Sight", "Hallowed Bar"],
+    master: ["Twins Relic", "Pair of Eyeballs|Pet"],
+  },
+  "The Destroyer": {
+    tag: "Hardmode · mechanical boss",
+    summon: "Use a Mechanical Worm at night.",
+    classic: ["Soul of Might", "Hallowed Bar", "Greater Healing Potion"],
+    bagOnly: ["Mechanical Wagon Piece|Part of the Mechanical Cart"],
+    bag: ["Soul of Might", "Hallowed Bar"],
+    master: ["Destroyer Relic", "Deactivated Probe|Pet"],
+  },
+  "Skeletron Prime": {
+    tag: "Hardmode · mechanical boss",
+    summon: "Use a Mechanical Skull at night.",
+    classic: ["Soul of Fright", "Hallowed Bar", "Greater Healing Potion"],
+    bagOnly: ["Mechanical Battery Piece|Part of the Mechanical Cart"],
+    bag: ["Soul of Fright", "Hallowed Bar"],
+    master: ["Skeletron Prime Relic", "Robotic Skull|Pet"],
+  },
+  "Duke Fishron": {
+    tag: "Hardmode · optional",
+    summon: "Fish in the Ocean with a Truffle Worm as bait.",
+    classic: ["Bubble Gun|One of the weapons", "Flairon", "Razorblade Typhoon", "Tempest Staff", "Tsunami", "Electric Eel", "Fishron Wings|Rare", "Shrimpy Truffle", "Greater Healing Potion"],
+    bagOnly: [],
+    bag: ["Bubble Gun|One of the weapons", "Flairon", "Razorblade Typhoon", "Tempest Staff", "Tsunami", "Electric Eel", "Fishron Wings|Rare", "Shrimpy Truffle"],
+    master: ["Duke Fishron Relic", "Pork of the Sea|Pet"],
+  },
+  "Plantera": {
+    tag: "Post-Mechanical Bosses",
+    summon: "Destroy a Plantera's Bulb in the Underground Jungle after all three mechanical bosses are down.",
+    classic: ["Temple Key|Opens the Jungle Temple", "Grenade Launcher|Always on the first kill", "Venus Magnum|One of the weapons", "Nettle Burst", "Leaf Blower", "Flower Pow", "Wasp Gun", "Seedler", "Pygmy Staff", "Thorn Hook", "The Axe|Rare", "Seedling|Pet, rare"],
+    bagOnly: ["Spore Sac|Spores guard you"],
+    bag: ["Temple Key|Opens the Jungle Temple", "Venus Magnum|One of the weapons", "Nettle Burst", "Leaf Blower", "Flower Pow", "Wasp Gun", "Seedler", "Pygmy Staff", "Thorn Hook", "The Axe|Rare", "Seedling|Pet, rare"],
+    master: ["Plantera Relic", "Plantera Seedling|Pet"],
+  },
+  "Golem": {
+    tag: "Post-Plantera",
+    summon: "Use a Lihzahrd Power Cell on the Lihzahrd Altar in the Jungle Temple.",
+    classic: ["Beetle Husk", "Stynger|One of the weapons", "Possessed Hatchet", "Sun Stone", "Eye of the Golem", "Heat Ray", "Staff of Earth", "Golem Fist", "Picksaw|Rare"],
+    bagOnly: ["Shiny Stone|Fast life regen when standing still"],
+    bag: ["Beetle Husk", "Stynger|One of the weapons", "Possessed Hatchet", "Sun Stone", "Eye of the Golem", "Heat Ray", "Staff of Earth", "Golem Fist", "Picksaw|Rare"],
+    master: ["Golem Relic", "Guardian Golem|Pet"],
+  },
+  "Empress of Light": {
+    tag: "Post-Plantera",
+    summon: "Kill a Prismatic Lacewing in the Hallow (evening, surface).",
+    classic: ["Nightglow|One of four weapons", "Starlight", "Kaleidoscope", "Eventide", "Prismatic Dye", "Empress Wings|Rare", "Stellar Tune|Rare", "Rainbow Cursor", "Terraprisma|Only if you fight her in daylight", "Greater Healing Potion"],
+    bagOnly: ["Soaring Insignia|Infinite wing flight"],
+    bag: ["Nightglow|One of four weapons", "Starlight", "Kaleidoscope", "Eventide", "Prismatic Dye", "Empress Wings|Rare", "Stellar Tune|Rare", "Rainbow Cursor", "Terraprisma|Only if you fight her in daylight"],
+    master: ["Empress of Light Relic", "Jewel of Light|Pet"],
+  },
+  "Lunatic Cultist": {
+    tag: "Post-Golem · triggers the Lunar Events",
+    summon: "Defeat the cultists outside the Dungeon entrance after Golem is down.",
+    classic: ["Ancient Manipulator|Crafting station", "Greater Healing Potion"],
+    bagOnly: [],
+    bag: ["Ancient Manipulator|Crafting station", "Greater Healing Potion"],
+    master: ["Lunatic Cultist Relic", "Tablet Fragment|Pet"],
+  },
+  "Moon Lord": {
+    tag: "Final boss",
+    summon: "Defeat all four Celestial Pillars, or use a Celestial Sigil.",
+    classic: ["Luminite", "Super Healing Potion", "Portal Gun", "Meowmere|Two of the weapons", "Terrarian", "Star Wrath", "S.D.M.G.", "Celebration Mk2", "Last Prism", "Lunar Flare", "Rainbow Crystal Staff", "Lunar Portal Staff", "Suspicious Looking Tentacle|Pet"],
+    bagOnly: ["Gravity Globe|Flip gravity"],
+    bag: ["Luminite", "Meowmere|Two of the weapons", "Terrarian", "Star Wrath", "S.D.M.G.", "Celebration Mk2", "Last Prism", "Lunar Flare", "Rainbow Crystal Staff", "Lunar Portal Staff", "Suspicious Looking Tentacle|Pet"],
+    master: ["Moon Lord Relic", "Piece of Moon Squid|Pet"],
+  },
+};
+
+function bossEntry(raw, extra = {}) {
+  const [name, note] = raw.split("|");
+  return { name, note: note || "", fallbackImg: wikiImgUrl(name), ...extra };
+}
+
+function bossItemRow(entry, sideName, label) {
+  const row = cmpEl("div", "cmp-item");
+  const ico = cmpEl("span", "cmp-ico");
+  const urls = compareImgCandidates(entry);
+  if (urls.length) {
+    const img = document.createElement("img");
+    img.alt = entry.name;
+    img.loading = "lazy";
+    setImgWithFallbacks(img, urls);
+    ico.appendChild(img);
+  }
+  row.appendChild(ico);
+  const text = cmpEl("div", "cmp-text");
+  text.appendChild(cmpEl("div", "cmp-name", entry.name));
+  if (entry.note) text.appendChild(cmpEl("div", "cmp-note", entry.note));
+  row.appendChild(text);
+  row.addEventListener("click", () => openCompareEntry(entry, sideName, label));
+  return row;
+}
+
+function renderBoss(name) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const data = BOSS_DATA[name];
+  if (!data) {
+    content.innerHTML = `<div class="timeline-soon">Coming soon</div>`;
+    return;
+  }
+  const wrap = cmpEl("div", "cmp boss");
+
+  // header: boss icon, name, tag
+  const head = cmpEl("div", "npc-head");
+  const ico = cmpEl("div", "npc-ico");
+  const img = document.createElement("img");
+  img.alt = name;
+  const icons = [...timelineImgCandidates({ name }, ITEM_BY_NAME[name]), wikiImgUrl(name, "png"), wikiImgUrl(name, "gif")];
+  setImgWithFallbacks(img, [...new Set(icons)]);
+  ico.appendChild(img);
+  head.appendChild(ico);
+  head.appendChild(cmpEl("div", "npc-name", name));
+  head.appendChild(cmpEl("div", "cmp-tag", data.tag));
+  wrap.appendChild(head);
+
+  // how to summon
+  const s1 = cmpEl("div", "cmp-section");
+  s1.appendChild(cmpEl("div", "cmp-label", "How to fight it"));
+  s1.appendChild(cmpEl("div", "npc-text", data.summon));
+  wrap.appendChild(s1);
+
+  // two columns: normal drops | treasure bag
+  const sec = cmpEl("div", "cmp-section");
+  sec.appendChild(cmpEl("div", "cmp-label", "What it drops"));
+  const heads = cmpEl("div", "cmp-cols boss-colheads");
+  heads.appendChild(cmpEl("div", "cmp-col boss-colhead", "Classic mode"));
+  heads.appendChild(cmpEl("div", "cmp-col boss-colhead bag", "Treasure Bag (Expert & Master)"));
+  sec.appendChild(heads);
+
+  const cols = cmpEl("div", "cmp-cols");
+  const left = cmpEl("div", "cmp-col");
+  for (const raw of data.classic) left.appendChild(bossItemRow(bossEntry(raw), name, "Classic mode drop"));
+  const right = cmpEl("div", "cmp-col");
+  if (data.bagOnly && data.bagOnly.length) {
+    right.appendChild(cmpEl("div", "boss-badge", "★ Only in the bag"));
+    for (const raw of data.bagOnly) right.appendChild(bossItemRow(bossEntry(raw), name, "Treasure Bag exclusive"));
+    if (data.bag.length) right.appendChild(cmpEl("div", "boss-badge plain", "Also in the bag"));
+  }
+  for (const raw of data.bag) right.appendChild(bossItemRow(bossEntry(raw), name, "Treasure Bag"));
+  cols.appendChild(left);
+  cols.appendChild(right);
+  sec.appendChild(cols);
+  wrap.appendChild(sec);
+
+  // master mode
+  if (data.master && data.master.length) {
+    const s3 = cmpEl("div", "cmp-section");
+    s3.appendChild(cmpEl("div", "cmp-label", "Master mode extras"));
+    const grid = cmpEl("div", "npc-items");
+    for (const raw of data.master) grid.appendChild(bossItemRow(bossEntry(raw), name, "Master mode"));
+    s3.appendChild(grid);
+    wrap.appendChild(s3);
+  }
+
+  wrap.appendChild(cmpEl("div", "cmp-footnote", "Every boss can also drop its Mask and Trophy. Weapon lists marked \"one of\" give you one of them per kill. Treasure Bags only drop in Expert and Master mode. Tap any item for details."));
+
+  const linkWrap = cmpEl("div", "npc-linkwrap");
+  const link = document.createElement("a");
+  link.className = "npc-wiki";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "📖 Open Wiki Page";
+  link.href = `https://terraria.wiki.gg/wiki/${encodeURIComponent(name.replace(/ /g, "_"))}`;
+  linkWrap.appendChild(link);
+  wrap.appendChild(linkWrap);
+
+  content.appendChild(wrap);
+}
+
+// ============================================================
 // TIMELINE MENU: nodes with `children` open another menu, nodes with `timeline` open that timeline
 // ============================================================
 const TIMELINE_MENU = [
   { name: "Ores & Bars", icon: "⛏️", desc: "Materials by progression", timeline: "ores" },
-  { name: "Bosses", icon: "👁️", desc: "Boss order and what they unlock", timeline: "bosses" },
-  { name: "Corruption vs Crimson", icon: "🩸", desc: "Compare mobs, drops and gear side by side", compare: "evil" },
-  { name: "NPCs", icon: "🏘️", desc: "Who they are, what they sell and how to get them", children: NPC_MENU },
+  { name: "Bosses", icon: "👁️", desc: "Boss order. Tap one, then (i) for its drops and Treasure Bag", timeline: "bosses" },
   { name: "Armor", icon: "🛡️", desc: "Every armor set with its defense level", armorAll: true },
-  { name: "Classes", icon: "🎓", desc: "Melee, Ranged, Mage and Summoner: best armor and weapons", children: CLASS_MENU },
   { name: "Pickaxes", icon: "🔨", desc: "Mining tiers", timeline: "pickaxes" },
   { name: "Events", icon: "🎪", desc: "Invasions and special events", timeline: "events" },
 ];
+
+// everything else lives in the Field Guide
+const GUIDE_MENU = [
+  { name: "NPCs", icon: "🏘️", desc: "Who they are, what they sell and how to get them", children: NPC_MENU },
+  { name: "Classes", icon: "🎓", desc: "Melee, Ranged, Mage and Summoner: best armor and weapons", children: CLASS_MENU },
+];
+
+// has its own button in the header
+const EVIL_NODE = { name: "Crimson vs Corruption", icon: "🩸", desc: "Compare mobs, drops and gear side by side", compare: "evil" };
+
+// which menu the timeline page is showing right now
+let timelineRoot = TIMELINE_MENU;
+let timelineRootTitle = "Timeline";
+let timelineMinDepth = 0; // 1 when a page was opened directly (back then closes the page)
 
 let timelinePath = []; // stack of menu nodes the user has clicked into
 
@@ -3866,7 +4134,7 @@ function timelineNodeReady(node) {
   if (node.children) return true;
   if (node.compare) return true;
   if (node.npc) return true;
-  if (node.armorAll || node.klass) return true;
+  if (node.armorAll || node.klass || node.boss) return true;
   const data = TIMELINES[node.timeline];
   return !!(data && data.length);
 }
@@ -4053,6 +4321,11 @@ function openTimelineEntry(item, stage, urls) {
     related,
     relatedLabel: isArmor ? "Armor pieces (click for crafting)" : "Trigger item (click for crafting)",
     wikiUrl: item.wiki || `https://terraria.wiki.gg/wiki/${encodeURIComponent(wikiTitle.replace(/ /g, "_"))}`,
+    onMore: BOSS_DATA[item.name] ? () => {
+      closeItemInfoModal();
+      timelinePath.push({ name: item.name, boss: item.name });
+      showTimelineLevel();
+    } : null,
   });
 }
 
@@ -4060,12 +4333,13 @@ function showTimelineLevel() {
   const node = timelinePath[timelinePath.length - 1];
 
   document.getElementById("timelineTitle").textContent =
-    ["Timeline", ...timelinePath.map(n => n.name)].join(" › ");
+    [timelineRootTitle, ...timelinePath.map(n => n.name)].filter(Boolean).join(" › ");
 
-  if (!node) renderTimelineMenu(TIMELINE_MENU);
+  if (!node) renderTimelineMenu(timelineRoot);
   else if (node.children) renderTimelineMenu(node.children);
   else if (node.compare) renderCompare(node.compare);
   else if (node.npc) renderNpc(node.npc);
+  else if (node.boss) renderBoss(node.boss);
   else if (node.armorAll) renderArmorAll();
   else if (node.klass) renderClass(node.klass);
   else renderTimeline(node.timeline);
@@ -4076,7 +4350,7 @@ function showTimelineLevel() {
 
 // Back goes up one level; from the top menu it closes the timeline
 function timelineGoBack() {
-  if (timelinePath.length) {
+  if (timelinePath.length > timelineMinDepth) {
     timelinePath.pop();
     showTimelineLevel();
   } else {
@@ -4084,12 +4358,19 @@ function timelineGoBack() {
   }
 }
 
-function openTimeline() {
+function openTimelineWith(root, title, firstNode) {
   document.getElementById("timelinePage").classList.remove("hidden");
   document.body.classList.add("no-scroll");
-  timelinePath = [];
+  timelineRoot = root;
+  timelineRootTitle = title;
+  timelinePath = firstNode ? [firstNode] : [];
+  timelineMinDepth = firstNode ? 1 : 0;
   showTimelineLevel();
 }
+
+function openTimeline() { openTimelineWith(TIMELINE_MENU, "Timeline"); }
+function openGuide() { openTimelineWith(GUIDE_MENU, "Field Guide"); }
+function openEvil() { openTimelineWith([], "", EVIL_NODE); }
 
 function closeTimeline() {
   document.getElementById("timelinePage").classList.add("hidden");
@@ -4153,7 +4434,17 @@ function openSettingsModal() {
 }
 
 // Fills in and shows the Item Info popup (#infoModalBackdrop in index.html)
-function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines = [], related = [], relatedLabel = "Related items", wikiUrl, setImgs = [], heroImgs = [] }) {
+function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines = [], related = [], relatedLabel = "Related items", wikiUrl, setImgs = [], heroImgs = [], onMore = null }) {
+  const modalBox = document.querySelector("#infoModalBackdrop .modal");
+  modalBox.querySelectorAll(".boss-more").forEach(el => el.remove());
+  if (onMore) {
+    const more = document.createElement("div");
+    more.className = "modal-info-icon boss-more";
+    more.title = "Full details: drops and Treasure Bag";
+    more.innerHTML = `<svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="9" y1="8" x2="9" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="5" r="0.9" fill="currentColor"/></svg>`;
+    more.addEventListener("click", onMore);
+    modalBox.appendChild(more);
+  }
   const imgEl = document.getElementById("infoModalImg");
   if (setImgs.length) {
     imgEl.style.display = "none"; // the whole set is shown below instead of one icon

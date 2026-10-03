@@ -1257,3 +1257,68 @@ button, .card, .cat-item, .cat-sub-item, .treeNode { touch-action: manipulation;
 .info-set-icons img { width: 44px; height: 44px; object-fit: contain; image-rendering: pixelated; }
 .info-set-hero { display: flex; justify-content: center; margin: 0 0 14px; padding: 12px; border-radius: 10px; background: var(--bg-tertiary); }
 .info-set-hero img { height: 120px; width: auto; max-width: 100%; object-fit: contain; image-rendering: pixelated; }
+
+/* ============================================================
+   HEADER: smaller search + new buttons
+   ============================================================ */
+#q { flex: 0 1 300px; min-width: 120px; }
+#btnGuide {
+  background: linear-gradient(135deg, #0ea5a4 0%, #2563eb 100%);
+  color: white; border: none;
+}
+
+/* Crimson vs Corruption: two sides fighting for control and bleeding into each other */
+#btnEvil {
+  position: relative; overflow: hidden; isolation: isolate;
+  border: 1px solid #2a0f2e; color: #fff; padding: 10px 18px;
+  background: linear-gradient(100deg, #6b21a8 0%, #a855f7 100%); /* corruption purple underneath */
+  text-shadow: 0 1px 3px rgba(0,0,0,.7), 0 0 8px rgba(0,0,0,.45);
+  letter-spacing: .01em;
+}
+#btnEvil::before, #btnEvil::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* the crimson side: its edge is jagged and keeps shifting */
+#btnEvil::before {
+  background: linear-gradient(100deg, #b4132d 0%, #e11d48 100%);
+  clip-path: polygon(0 0, 58% 0, 52% 18%, 60% 34%, 49% 52%, 57% 70%, 44% 86%, 50% 100%, 0 100%);
+  filter: drop-shadow(0 0 5px rgba(225, 29, 72, .9));
+  animation: evilFightA 3.4s ease-in-out infinite;
+}
+/* a thin dark-red bleed that leaks across the border into the purple side */
+#btnEvil::after {
+  background:
+    radial-gradient(circle at 56% 14%, rgba(180,19,45,.85) 0 3px, transparent 4px),
+    radial-gradient(circle at 53% 48%, rgba(180,19,45,.8) 0 2.5px, transparent 3.5px),
+    radial-gradient(circle at 47% 82%, rgba(180,19,45,.8) 0 3px, transparent 4px),
+    radial-gradient(ellipse at 52% 50%, rgba(120,20,90,.55) 0, transparent 38%);
+  animation: evilBleed 3.4s ease-in-out infinite;
+}
+@keyframes evilFightA {
+  0%, 100% { clip-path: polygon(0 0, 58% 0, 52% 18%, 60% 34%, 49% 52%, 57% 70%, 44% 86%, 50% 100%, 0 100%); }
+  50%      { clip-path: polygon(0 0, 48% 0, 56% 18%, 45% 34%, 57% 52%, 46% 70%, 55% 86%, 44% 100%, 0 100%); }
+}
+@keyframes evilBleed {
+  0%, 100% { transform: translateX(0); opacity: .9; }
+  50%      { transform: translateX(-5%); opacity: .6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #btnEvil::before, #btnEvil::after { animation: none; }
+}
+
+@media (max-width: 768px) {
+  #q { flex: 1 1 100%; }
+  #btnEvil { flex: 2 1 160px; }
+}
+
+/* ============================================================
+   BOSS PAGES
+   ============================================================ */
+.cmp.boss { max-width: 980px; }
+.boss-colheads { border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
+.boss-colhead { text-align: center; font-weight: 800; font-size: 16px; color: var(--text-primary); }
+.boss-colhead.bag { color: #b45309; }
+.boss-badge { text-align: center; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #b45309; margin: 6px 0 2px; }
+.boss-badge.plain { color: var(--text-secondary); font-weight: 700; margin-top: 12px; }
+
+/* the (i) button on a boss popup: same look as the item popup's, a bit easier to tap */
+.modal-info-icon.boss-more { width: 28px; height: 28px; top: 8px; right: 44px; }
+.modal-info-icon.boss-more svg { width: 14px; height: 14px; }
