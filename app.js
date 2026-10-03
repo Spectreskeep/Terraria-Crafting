@@ -2940,17 +2940,922 @@ const TIMELINES = {
 };
 
 // ============================================================
+// CORRUPTION vs CRIMSON compare page (data from the official Terraria wiki)
+// item fields: name, note (small text), info (shown in popup), icon (backup icon item/NPC name), wiki (wiki page title)
+// ============================================================
+const COMPARES = {
+  evil: {
+    sides: [
+      { key: "crimson", name: "Crimson", tag: "Red, fleshy and gory" },
+      { key: "corruption", name: "Corruption", tag: "Purple, rotting wasteland" },
+    ],
+    facts: [
+      { label: "Chasm shape",
+        crimson: "A wide circular cavity with branching tunnels that end in Crimson Hearts",
+        corruption: "Long, straight vertical drops that end in Shadow Orbs" },
+      { label: "Gear",
+        crimson: "Tools, weapons and armor generally have small power advantages",
+        corruption: "Tools are slightly faster, but gear is a bit less powerful" },
+      { label: "Enemies",
+        crimson: "Slightly higher health, defense and damage",
+        corruption: "Slightly lower health, defense and damage" },
+      { label: "Hardmode material",
+        crimson: "Ichor: lowers enemy defense",
+        corruption: "Cursed Flame: burns enemies over time" },
+    ],
+    sections: [
+      { label: "Boss",
+        crimson: [
+          { name: "Brain of Cthulhu", note: "Break 3 Crimson Hearts or use a Bloody Spine" },
+        ],
+        corruption: [
+          { name: "Eater of Worlds", note: "Break 3 Shadow Orbs or use Worm Food" },
+        ] },
+      { label: "Boss drops",
+        crimson: [
+          { name: "Crimtane Ore", note: "Ore for Crimson gear" },
+          { name: "Tissue Sample", note: "Crafting material" },
+          { name: "Brain of Confusion", note: "Expert Mode accessory" },
+        ],
+        corruption: [
+          { name: "Demonite Ore", note: "Ore for Corruption gear" },
+          { name: "Shadow Scale", note: "Crafting material" },
+          { name: "Worm Scarf", note: "Expert Mode accessory" },
+        ] },
+      { label: "Pre-Hardmode mobs",
+        crimson: [
+          { name: "Blood Crawler" }, { name: "Face Monster" },
+          { name: "Crimera" }, { name: "Vicious Goldfish" },
+        ],
+        corruption: [
+          { name: "Eater of Souls" }, { name: "Devourer" },
+          { name: "Corrupt Goldfish" },
+        ] },
+      { label: "Hardmode mobs (surface)",
+        crimson: [
+          { name: "Herpling" }, { name: "Crimslime" },
+          { name: "Blood Jelly" }, { name: "Blood Feeder" },
+        ],
+        corruption: [
+          { name: "Corruptor" }, { name: "Corrupt Slime" },
+          { name: "Slimer" }, { name: "World Feeder" },
+        ] },
+      { label: "Hardmode mobs (underground)",
+        crimson: [
+          { name: "Floaty Gross" }, { name: "Ichor Sticker" },
+          { name: "Crimson Axe" }, { name: "Crimson Mimic" },
+        ],
+        corruption: [
+          { name: "Clinger" }, { name: "Cursed Hammer" },
+          { name: "Corrupt Mimic" },
+        ] },
+      { label: "Orb / Heart treasure",
+        crimson: [
+          { name: "The Undertaker", note: "Gun (comes with Musket Balls)" },
+          { name: "The Rotted Fork", note: "Spear" },
+          { name: "Crimson Rod", note: "Magic staff" },
+          { name: "Panic Necklace", note: "Accessory" },
+        ],
+        corruption: [
+          { name: "Musket", note: "Gun (comes with Musket Balls)" },
+          { name: "Ball O' Hurt", note: "Flail" },
+          { name: "Vilethorn", note: "Magic weapon" },
+          { name: "Band of Starpower", note: "Accessory" },
+        ] },
+      { label: "Mob materials",
+        crimson: [ { name: "Vertebra", note: "From Blood Crawlers, Crimera, Face Monsters" } ],
+        corruption: [
+          { name: "Rotten Chunk", note: "From Eaters of Souls, Devourers" },
+          { name: "Worm Tooth", note: "From Devourers" },
+        ] },
+      { label: "Hardmode materials",
+        crimson: [ { name: "Ichor", note: "From Ichor Stickers and Tainted Ghouls" } ],
+        corruption: [ { name: "Cursed Flame", note: "From World Feeders, Clingers, Vile Ghouls" } ] },
+      { label: "Mimic loot",
+        crimson: [
+          { name: "Life Drain" }, { name: "Dart Pistol" }, { name: "Fetid Baghnakhs" },
+          { name: "Flesh Knuckles" }, { name: "Tendon Hook" },
+        ],
+        corruption: [
+          { name: "Dart Rifle" }, { name: "Worm Hook" }, { name: "Chain Guillotines" },
+          { name: "Clinger Staff" }, { name: "Putrid Scent" },
+        ] },
+      { label: "Gear",
+        crimson: [
+          { name: "Crimson Armor", icon: "Crimson Helmet", wiki: "Crimson armor", note: "Crimtane Bars + Tissue Samples" },
+          { name: "Deathbringer Pickaxe", note: "Crimson pickaxe" },
+        ],
+        corruption: [
+          { name: "Shadow Armor", icon: "Shadow Helmet", wiki: "Shadow armor", note: "Demonite Bars + Shadow Scales" },
+          { name: "Nightmare Pickaxe", note: "Corruption pickaxe" },
+        ] },
+      { label: "Biome chest (after Plantera)",
+        crimson: [ { name: "Vampire Knives", note: "From the Crimson Chest (Crimson Key)" } ],
+        corruption: [ { name: "Scourge of the Corruptor", note: "From the Corruption Chest (Corruption Key)" } ] },
+    ],
+    picks: {
+      crimson: [
+        "You want gear with a slight power edge",
+        "You like a tougher challenge from the enemies",
+        "You'd rather avoid long, straight chasm drops",
+      ],
+      corruption: [
+        "You want slightly faster tools",
+        "You prefer a gentler early game",
+        "You like Cursed Flame (burning damage)",
+      ],
+    },
+    footnote: "You are not locked in: in Hardmode the Dryad sells seeds for the other biome while you stand in a Graveyard, so you can build one later. Drunk worlds generate both.",
+  },
+};
+
+function compareImgCandidates(entry) {
+  const npcImg = NPC_BY_NAME[entry.name]?.img;
+  const list = [
+    entry.img,
+    npcImg,
+    ITEM_BY_NAME[entry.name]?.img,
+    ITEM_BY_NAME[entry.icon]?.img,
+    NPC_BY_NAME[entry.icon]?.img,
+    // same backup the timeline uses: if the .gif link is dead, try the .png version
+    npcImg && npcImg.endsWith(".gif") ? npcImg.replace(/\.gif$/, ".png") : null,
+    entry.fallbackImg,
+  ];
+  return [...new Set(list.filter(Boolean))];
+}
+
+function openCompareEntry(entry, sideName, label) {
+  const itemData = ITEM_BY_NAME[entry.name];
+  if (itemData) {
+    openChoiceModal(itemData);
+    return;
+  }
+  const wikiTitle = entry.wiki || entry.name;
+  showInfoPopup({
+    title: entry.name,
+    imgs: compareImgCandidates(entry),
+    subtitle: `${sideName} · ${label}`,
+    paragraph: entry.info || entry.note || "",
+    lines: [],
+    related: [],
+    wikiUrl: `https://terraria.wiki.gg/wiki/${encodeURIComponent(wikiTitle.replace(/ /g, "_"))}`,
+  });
+}
+
+function cmpEl(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text !== undefined) el.textContent = text;
+  return el;
+}
+
+function renderCompare(key) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const data = COMPARES[key];
+  if (!data) {
+    content.innerHTML = `<div class="timeline-soon">Coming soon</div>`;
+    return;
+  }
+
+  const [left, right] = data.sides;
+  const wrap = cmpEl("div", "cmp");
+
+  // Header: names with a line under them (like the sketch)
+  const head = cmpEl("div", "cmp-head");
+  for (const side of data.sides) {
+    const cell = cmpEl("div", "cmp-head-cell");
+    cell.appendChild(cmpEl("div", `cmp-title ${side.key}`, side.name));
+    cell.appendChild(cmpEl("div", "cmp-tag", side.tag));
+    head.appendChild(cell);
+  }
+  wrap.appendChild(head);
+
+  // Quick facts (plain text rows)
+  for (const fact of data.facts) {
+    const section = cmpEl("div", "cmp-section");
+    section.appendChild(cmpEl("div", "cmp-label", fact.label));
+    const cols = cmpEl("div", "cmp-cols");
+    cols.appendChild(cmpEl("div", "cmp-col cmp-fact", fact[left.key]));
+    cols.appendChild(cmpEl("div", "cmp-col cmp-fact", fact[right.key]));
+    section.appendChild(cols);
+    wrap.appendChild(section);
+  }
+
+  // Mobs / items (clickable)
+  for (const sec of data.sections) {
+    const section = cmpEl("div", "cmp-section");
+    section.appendChild(cmpEl("div", "cmp-label", sec.label));
+    const cols = cmpEl("div", "cmp-cols");
+
+    for (const side of data.sides) {
+      const col = cmpEl("div", "cmp-col");
+      for (const entry of sec[side.key] || []) {
+        const row = cmpEl("div", "cmp-item");
+
+        const ico = cmpEl("span", "cmp-ico");
+        const urls = compareImgCandidates(entry);
+        if (urls.length) {
+          const img = document.createElement("img");
+          img.alt = entry.name;
+          img.loading = "lazy";
+          setImgWithFallbacks(img, urls);
+          ico.appendChild(img);
+        }
+        row.appendChild(ico);
+
+        const text = cmpEl("div", "cmp-text");
+        text.appendChild(cmpEl("div", "cmp-name", entry.name));
+        if (entry.note) text.appendChild(cmpEl("div", "cmp-note", entry.note));
+        row.appendChild(text);
+
+        row.addEventListener("click", () => openCompareEntry(entry, side.name, sec.label));
+        col.appendChild(row);
+      }
+      cols.appendChild(col);
+    }
+    section.appendChild(cols);
+    wrap.appendChild(section);
+  }
+
+  // Which should I pick?
+  if (data.picks) {
+    const section = cmpEl("div", "cmp-section");
+    section.appendChild(cmpEl("div", "cmp-label", "Which should I pick?"));
+    const cols = cmpEl("div", "cmp-cols");
+    for (const side of data.sides) {
+      const col = cmpEl("div", "cmp-col cmp-pick");
+      col.appendChild(cmpEl("div", `cmp-pick-title ${side.key}`, `Pick ${side.name} if...`));
+      const ul = cmpEl("ul", "cmp-pick-list");
+      for (const line of data.picks[side.key] || []) ul.appendChild(cmpEl("li", "", line));
+      col.appendChild(ul);
+      cols.appendChild(col);
+    }
+    section.appendChild(cols);
+    wrap.appendChild(section);
+  }
+
+  if (data.footnote) wrap.appendChild(cmpEl("div", "cmp-footnote", data.footnote));
+
+  content.appendChild(wrap);
+}
+
+// ============================================================
+// NPC PAGES (data from the official Terraria wiki NPC table)
+// fields: name, tag, unlock (short line for the menu), about, get, sells {summary, items[]}, use, fights, list[], wiki, ext
+// "items" are highlights, not the full stock (shops change with progress, biome and moon phase)
+// ============================================================
+const NPCS = {
+  // ---------- Pre-Hardmode ----------
+  guide: { name: "Guide", tag: "Your starter helper", unlock: "Already in your world at the start",
+    about: "He gives tips on how to attract the other town NPCs and shows crafting recipes for any item you hand him.",
+    get: "He is already in the world when you start a normal new game.",
+    use: "Put an item in his slot to see every recipe that uses it. It is the fastest way to find out what an item is for.",
+    fights: "Wooden Bow" },
+  merchant: { name: "Merchant", tag: "Basic tools and supplies", unlock: "Needs 50 silver across all players",
+    about: "A general store for basic tools and supplies.",
+    get: "Together, the players must be carrying more than 50 silver. (He replaces the Guide as the starter NPC in a Not the Bees world.)",
+    sells: { summary: "Everyday supplies for the early game.", items: ["Torch", "Lesser Healing Potion", "Rope", "Glowstick", "Wooden Arrow"] },
+    use: "Cheap supplies early on. Like every shop NPC, he also buys your spare items for coins.",
+    fights: "Throwing Knife" },
+  nurse: { name: "Nurse", tag: "Heals you for coins", unlock: "Needs 100+ max health and the Merchant",
+    about: "She restores your health and removes debuffs in exchange for coins.",
+    get: "A player has more than 100 health and the Merchant is already in town.",
+    use: "Save your potions by paying her to heal you. Her syringes also heal nearby NPCs for 20 health.",
+    fights: "Syringes (poison enemies, heal NPCs)" },
+  demolitionist: { name: "Demolitionist", tag: "Explosives", unlock: "Needs an explosive in your inventory",
+    about: "Sells explosives.",
+    get: "A player is carrying an explosive and the Merchant is present. (He replaces the Guide in a For the Worthy world.)",
+    sells: { summary: "Grenades, bombs and dynamite.", items: ["Grenade", "Bomb", "Dynamite"] },
+    use: "Great for clearing rock fast. Explosives can also blow up the Ebonstone and Crimstone in evil chasms.",
+    fights: "Grenade" },
+  dye_trader: { name: "Dye Trader", tag: "Dyes and the Dye Vat", unlock: "Needs a dye item in your inventory",
+    about: "Sells the Dye Vat crafting station and trades rare dyes for Strange Plants.",
+    get: "A player carries a dye item or an item used to craft dye, plus a few other conditions.",
+    sells: { summary: "The Dye Vat, plus rare dyes for Strange Plants.", items: ["Dye Vat"] },
+    use: "Craft your own dyes at the Dye Vat. Bring him Strange Plants to swap for rare dyes.",
+    fights: "Exotic Scimitar" },
+  angler: { name: "Angler", tag: "Daily fishing quests", unlock: "Found sleeping at the Ocean",
+    about: "Gives you fishing quests and rewards you for completing them.",
+    get: "Find him sleeping in an Ocean biome and talk to him to rescue him.",
+    use: "Hand in the fish he asks for to earn rewards. You get one quest per day.",
+    fights: "Frost Daggerfish" },
+  zoologist: { name: "Zoologist", tag: "Pets, mounts and critter items", unlock: "Needs 10% of the Bestiary filled",
+    about: "Sells vanity items, mounts, pets and critter-themed items. More unlock as your Bestiary fills up.",
+    get: "At least 10% of the Bestiary (55 entries) has been filled.",
+    sells: { summary: "Pet licenses plus items that unlock with Bestiary progress. The Dog License needs 25% (137 entries) and the Bunny License needs 45% (246 entries).", items: ["Cat License", "Dog License", "Bunny License"] },
+    use: "Fill out the Bestiary to unlock more of his stock. The licenses bring town pets into your town.",
+    fights: "Claws" },
+  dryad: { name: "Dryad", tag: "Nature and purity", unlock: "Beat Eye of Cthulhu, Eater of Worlds/Brain of Cthulhu or Skeletron",
+    about: "Sells nature, Corruption and Crimson items, and can tell you how much of your world is Corrupted, Crimson or Hallowed.",
+    get: "Defeat any one of the Eye of Cthulhu, the Eater of Worlds or Brain of Cthulhu, or Skeletron. (She replaces the Guide in a Purify this world.)",
+    sells: { summary: "Purification Powder and seeds. In Hardmode, while you stand in a Graveyard, she sells Corrupt and Crimson Seeds so you can make the other evil biome.", items: ["Purification Powder", "Corrupt Seeds", "Crimson Seeds"] },
+    use: "Ask her for your world's purity report. Her aura gives players Dryad's Blessing and curses nearby enemies with Dryad's Bane.",
+    fights: "Dryad's Blessing aura" },
+  painter: { name: "Painter", tag: "Paint and paintings", unlock: "Needs 8 other town NPCs",
+    about: "Sells paint, painting tools and paintings.",
+    get: "There are 8 other town NPCs in the world.",
+    sells: { summary: "Paint, painting tools and paintings.", items: ["Paintbrush", "Paint Roller", "Paint Scraper"] },
+    use: "Recolor blocks and walls to decorate your base.",
+    fights: "Paintball Gun" },
+  golfer: { name: "Golfer", tag: "Golf gear", unlock: "Found in the Underground Desert",
+    about: "Sells golf clubs, golf balls and other golfing items.",
+    get: "Find him in the Underground Desert and talk to him to rescue him.",
+    sells: { summary: "Golf clubs, balls and other golf items.", items: ["Golf Club", "Golf Ball"] },
+    use: "Build a course and play for fun.",
+    fights: "Golf Balls" },
+  arms_dealer: { name: "Arms Dealer", tag: "Guns and ammo", unlock: "Needs bullets or a gun",
+    about: "Sells guns, bullets and other ammunition.",
+    get: "A player has bullets, or a gun that fires bullets, in their inventory.",
+    sells: { summary: "Guns and ammunition.", items: ["Musket Ball", "Flintlock Pistol"] },
+    use: "The place to restock bullets for a ranged build.",
+    fights: "Flintlock Pistol (Minishark in Hardmode)" },
+  tavernkeep: { name: "Tavernkeep", tag: "Old One's Army", unlock: "Beat Eater of Worlds or Brain of Cthulhu",
+    about: "Sells items that summon and help fight the Old One's Army. Most cost Defender Medals.",
+    get: "After beating the Eater of Worlds or Brain of Cthulhu, find and talk to the Unconscious Man.",
+    sells: { summary: "Old One's Army items, mostly bought with Defender Medals.", items: [] },
+    use: "Your doorway into the Old One's Army event. Earn Defender Medals by clearing its waves.",
+    fights: "Ale Tosser", noPylon: true },
+  stylist: { name: "Stylist", tag: "Hair and hair dye", unlock: "Rescue her from a Spider Nest",
+    about: "Changes your hairstyle and hair color, and sells hair dyes.",
+    get: "Find her webbed up in a Spider Nest and talk to her to rescue her.",
+    sells: { summary: "Hair dyes and hairstyle changes.", items: [] },
+    use: "Change your look any time you like.",
+    fights: "Stylish Scissors" },
+  goblin_tinkerer: { name: "Goblin Tinkerer", tag: "Accessories and reforging", unlock: "Beat a Goblin Army, then rescue him",
+    about: "Sells the Tinkerer's Workshop and can reforge your items.",
+    get: "After a Goblin Army has been defeated, find him bound in the Cavern layer and rescue him.",
+    sells: { summary: "The Tinkerer's Workshop and other gear.", items: ["Tinkerer's Workshop"] },
+    use: "Combine accessories at the Tinkerer's Workshop, and reforge weapons and gear for better modifiers.",
+    fights: "Spiky Ball" },
+  witch_doctor: { name: "Witch Doctor", tag: "Summoner gear", unlock: "Beat the Queen Bee",
+    about: "Sells the Blowgun, the Imbuing Station, summoner equipment, fountains and Leaf Wings.",
+    get: "The Queen Bee has been defeated.",
+    sells: { summary: "Summoner gear, fountains and more.", items: ["Blowgun", "Imbuing Station", "Leaf Wings"] },
+    use: "A key stop for summoners, and the Imbuing Station lets you imbue weapons with flasks.",
+    fights: "Blowgun" },
+  clothier: { name: "Clothier", tag: "Vanity items", unlock: "Beat Skeletron",
+    about: "Sells vanity items, including the Familiar set.",
+    get: "Skeletron has been defeated. The Old Man moves into town as the Clothier.",
+    sells: { summary: "Vanity items such as the Familiar set.", items: ["Familiar Wig", "Familiar Shirt", "Familiar Pants"] },
+    use: "Cosmetic outfits only.",
+    fights: "Shadowflame Skull" },
+  mechanic: { name: "Mechanic", tag: "Wires and mechanisms", unlock: "Rescue her in the Dungeon",
+    about: "Sells wrenches, wire and other mechanism items.",
+    get: "Find her bound in the Dungeon and talk to her to rescue her.",
+    sells: { summary: "Everything for wiring.", items: ["Wire", "Actuator", "Red Wrench"] },
+    use: "Needed for traps, switches, doors and any automated build.",
+    fights: "Mechanic's Wrench" },
+  party_girl: { name: "Party Girl", tag: "Party items", unlock: "Random after 20 other town NPCs",
+    about: "Sells novelty items that make colorful effects.",
+    get: "She has a 1/40 chance to move in once 20 other town NPCs are in the world.",
+    sells: { summary: "Novelty items with colorful effects.", items: [] },
+    use: "Mostly cosmetic fun for your town.",
+    fights: "Happy Grenade" },
+
+  // ---------- Hardmode ----------
+  wizard: { name: "Wizard", tag: "Magic items", unlock: "Rescue him in the Cavern",
+    about: "Sells magic-related items.",
+    get: "Find him bound in the Cavern layer and rescue him. (The wiki lists him as a Hardmode NPC.)",
+    sells: { summary: "Magic-related items.", items: [] },
+    use: "A stop for magic users.",
+    fights: "Ball of Fire" },
+  tax_collector: { name: "Tax Collector", tag: "Collects taxes", unlock: "Cure a Tortured Soul in the Underworld",
+    about: "Collects property taxes from your other NPCs.",
+    get: "Use Purification Powder on a Tortured Soul in the Underworld. (He replaces the Guide in a Remix world.)",
+    use: "He earns 50 copper for each NPC in your town, and you collect it by talking to him.",
+    fights: "Classy Cane" },
+  truffle: { name: "Truffle", tag: "Mushroom items", unlock: "Hardmode, with a mushroom house",
+    about: "Sells the Autohammer, the Mushroom Spear and other mushroom-themed items.",
+    get: "Have an open house in an above-ground Glowing Mushroom biome during Hardmode.",
+    sells: { summary: "Mushroom-themed items.", items: ["Autohammer", "Mushroom Spear"] },
+    use: "The Autohammer is his signature item.",
+    fights: "Truffle Spore" },
+  pirate: { name: "Pirate", tag: "Pirate items", unlock: "Beat a Pirate Invasion",
+    about: "Sells the Cannon and other pirate-themed items.",
+    get: "A Pirate Invasion has been defeated.",
+    sells: { summary: "Cannons and pirate-themed items.", items: ["Cannon"] },
+    use: "The invasion itself can rarely drop a Discount Card, which lowers shop prices.",
+    fights: "Pirate Cannon" },
+  steampunker: { name: "Steampunker", tag: "Clentaminator and jetpack", unlock: "Beat any mechanical boss",
+    about: "Sells the Clentaminator, the Jetpack and other items.",
+    get: "A mechanical boss has been defeated.",
+    sells: { summary: "In a Corruption world she sells the Decay Chamber (and Purple Solution during a Blood Moon). In a Crimson world she sells the Flesh Cloning Vat (and Red Solution during a Blood Moon).", items: ["Clentaminator", "Jetpack", "Decay Chamber", "Flesh Cloning Vat"] },
+    use: "The Clentaminator can clean or spread biomes using solutions.",
+    fights: "Clockwork Assault Rifle" },
+  cyborg: { name: "Cyborg", tag: "Rockets and mines", unlock: "Beat Plantera",
+    about: "Sells the Proximity Mine Launcher, rockets and nanites.",
+    get: "Plantera has been defeated.",
+    sells: { summary: "Rockets, nanites and explosive launchers.", items: ["Proximity Mine Launcher", "Rocket I", "Nanites"] },
+    use: "Late-game explosives and ammo.",
+    fights: "Grenade, rocket and mine launchers" },
+  santa: { name: "Santa Claus", tag: "Christmas items", unlock: "Beat the Frost Legion at Christmas",
+    about: "Sells Christmas-themed vanity and novelty items.",
+    get: "The Frost Legion has been defeated and it is Christmas.",
+    sells: { summary: "Unique Christmas items.", items: [] },
+    use: "A seasonal visitor for festive decor and outfits.",
+    fights: "Christmas Ornament" },
+  princess: { name: "Princess", tag: "Furniture and vanity", unlock: "Every other town NPC must be present",
+    about: "Sells several vanity and furniture items.",
+    get: "All other town NPCs are in the world (town pets and Santa Claus do not count).",
+    sells: { summary: "Vanity and furniture items.", items: [] },
+    use: "She moves in last, so she is needed for the Real Estate Agent achievement.",
+    fights: "Resonance Scepter" },
+
+  // ---------- Visitors and others ----------
+  traveling_merchant: { name: "Traveling Merchant", tag: "Random stock, one day only", unlock: "Random morning visitor",
+    about: "Stays until the evening and sells a different random selection of unique items each day.",
+    get: "Each morning (4:30 AM to 12:00 PM) he has a 22.12% chance to show up once two other NPCs are present.",
+    sells: { summary: "A random pick of unique items that changes every visit.", items: [] },
+    use: "Check on every visit, since the stock changes.",
+    fights: "Revolver (Pulse Bow in Hardmode)", noPylon: true },
+  old_man: { name: "Old Man", tag: "Dungeon guardian", unlock: "Waits at the Dungeon entrance",
+    about: "Stands at the entrance to the Dungeon.",
+    get: "He is there when you start a new world.",
+    use: "Talk to him at night to summon Skeletron. Once Skeletron is defeated, he moves into town as the Clothier." },
+  skeleton_merchant: { name: "Skeleton Merchant", tag: "Moon-phase shop", unlock: "Rarely found in the Caverns",
+    about: "Sells different items depending on the lunar cycle.",
+    get: "Rarely found in the Cavern layer.",
+    sells: { summary: "Stock depends on the moon phase. The Slap Hand can only be obtained from him.", items: ["Counterweight", "Spelunker Glowstick", "Magic Lantern", "Yoyo Glove", "Slap Hand"] },
+    use: "Worth a trip whenever you run into him.",
+    fights: "Thrown bones", noPylon: true },
+
+  // ---------- Town pets ----------
+  town_cat: { name: "Town Cat", ext: "gif", tag: "Zoologist pet", unlock: "Cat License from the Zoologist", pet: true,
+    about: "A cat that wanders your town.",
+    get: "Use a Cat License from the Zoologist. The cat appears at dawn (4:30 AM) the next day. Only one of each kind of pet can exist at a time.",
+    sells: { summary: "Nothing to buy. The license comes from the Zoologist.", items: ["Cat License"] },
+    use: "Cosmetic, but it counts as an NPC for pylon requirements and lowers enemy spawns." },
+  town_dog: { name: "Town Dog", ext: "gif", tag: "Zoologist pet", unlock: "Dog License at 25% Bestiary", pet: true,
+    about: "A dog that wanders your town.",
+    get: "Use a Dog License, which the Zoologist sells once your Bestiary is 25% complete (137 entries). The dog appears at dawn the next day.",
+    sells: { summary: "Nothing to buy. The license comes from the Zoologist.", items: ["Dog License"] },
+    use: "Cosmetic, but it counts as an NPC for pylon requirements and lowers enemy spawns." },
+  town_bunny: { name: "Town Bunny", ext: "gif", tag: "Zoologist pet", unlock: "Bunny License at 45% Bestiary", pet: true,
+    about: "A bunny that wanders your town.",
+    get: "Use a Bunny License, which the Zoologist sells once your Bestiary is 45% complete (246 entries). The bunny appears at dawn the next day.",
+    sells: { summary: "Nothing to buy. The license comes from the Zoologist.", items: ["Bunny License"] },
+    use: "Cosmetic, but it counts as an NPC for pylon requirements and lowers enemy spawns." },
+  town_slimes: { name: "Town Slimes", img: "Town_Slimes", ext: "gif", tag: "Eight friendly slimes", unlock: "Each has its own unlock", pet: true,
+    about: "Slime pets that move in once you meet each one's requirement. Unlike the Zoologist pets, all eight can live in your town at once.",
+    get: "Each needs its own vacant house, and each has its own trigger (below).",
+    list: [
+      { name: "Squire Slime", text: "Drop a Copper Helmet or Copper Shortsword on a slime enemy." },
+      { name: "Clumsy Slime", text: "Pop the balloon of a Clumsy Balloon Slime." },
+      { name: "Nerdy Slime", text: "Defeat King Slime." },
+      { name: "Surly Slime", text: "Fish one up during a Blood Moon." },
+      { name: "Mystic Slime", text: "Use Purification Powder on a Mystic Frog in the Jungle." },
+      { name: "Elder Slime", text: "Open an Old Shaking Chest with a Golden Key (it can appear in the Cavern after Skeletron is defeated)." },
+      { name: "Cool Slime", text: "Can move in during a naturally occurring Party." },
+      { name: "Diva Slime", text: "Throw a Sparkle Slime Balloon into Shimmer." },
+    ],
+    use: "Cosmetic companions for your town." },
+};
+
+const NPC_CATEGORIES = [
+  { name: "Pre-Hardmode NPCs", icon: "🌱", desc: "18 NPCs you can meet before Hardmode",
+    ids: ["guide", "merchant", "nurse", "demolitionist", "dye_trader", "angler", "zoologist", "dryad", "painter", "golfer", "arms_dealer", "tavernkeep", "stylist", "goblin_tinkerer", "witch_doctor", "clothier", "mechanic", "party_girl"] },
+  { name: "Hardmode NPCs", icon: "🔥", desc: "8 NPCs that arrive in Hardmode",
+    ids: ["wizard", "tax_collector", "truffle", "pirate", "steampunker", "cyborg", "santa", "princess"] },
+  { name: "Visitors & Others", icon: "🧳", desc: "NPCs that don't move into houses",
+    ids: ["traveling_merchant", "old_man", "skeleton_merchant"] },
+  { name: "Town Pets", icon: "🐾", desc: "Cat, dog, bunny and the eight Town Slimes",
+    ids: ["town_cat", "town_dog", "town_bunny", "town_slimes"] },
+];
+
+const NPC_MENU = NPC_CATEGORIES.map(cat => ({
+  name: cat.name, icon: cat.icon, desc: cat.desc,
+  children: cat.ids.map(id => ({ name: NPCS[id].name, icon: "🧑", desc: NPCS[id].unlock, npc: id })),
+}));
+
+function wikiImgUrl(name, ext = "png") {
+  return `https://terraria.wiki.gg/images/${encodeURIComponent(name.replace(/ /g, "_"))}.${ext}`;
+}
+
+function npcPortraitCandidates(npc) {
+  const fromData = NPC_BY_NAME[npc.name]?.img;
+  const list = [
+    fromData,
+    fromData && fromData.endsWith(".gif") ? fromData.replace(/\.gif$/, ".png") : null,
+    wikiImgUrl(npc.img || npc.name, npc.ext || "png"),
+  ];
+  return [...new Set(list.filter(Boolean))];
+}
+
+function renderNpc(id) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const npc = NPCS[id];
+  if (!npc) {
+    content.innerHTML = `<div class="timeline-soon">Coming soon</div>`;
+    return;
+  }
+
+  const wrap = cmpEl("div", "cmp npc");
+
+  // header: portrait, name, tagline
+  const head = cmpEl("div", "npc-head");
+  const ico = cmpEl("div", "npc-ico");
+  const portrait = document.createElement("img");
+  portrait.alt = npc.name;
+  setImgWithFallbacks(portrait, npcPortraitCandidates(npc));
+  ico.appendChild(portrait);
+  head.appendChild(ico);
+  head.appendChild(cmpEl("div", "npc-name", npc.name));
+  head.appendChild(cmpEl("div", "cmp-tag", npc.tag));
+  wrap.appendChild(head);
+
+  const section = (label) => {
+    const s = cmpEl("div", "cmp-section");
+    s.appendChild(cmpEl("div", "cmp-label", label));
+    wrap.appendChild(s);
+    return s;
+  };
+
+  if (npc.about) section("About").appendChild(cmpEl("div", "npc-text", npc.about));
+  if (npc.get) section(npc.pet ? "How to get it" : "How to get them").appendChild(cmpEl("div", "npc-text", npc.get));
+
+  if (npc.list) {
+    const s = section("The slimes");
+    const rows = cmpEl("div", "npc-rows");
+    for (const entry of npc.list) {
+      const row = cmpEl("div", "npc-row");
+      const rico = cmpEl("span", "cmp-ico");
+      const img = document.createElement("img");
+      img.alt = entry.name;
+      setImgWithFallbacks(img, npcPortraitCandidates({ name: entry.name, ext: entry.name === "Diva Slime" ? "gif" : "png" }));
+      rico.appendChild(img);
+      row.appendChild(rico);
+      const t = cmpEl("div", "cmp-text");
+      t.appendChild(cmpEl("div", "cmp-name", entry.name));
+      t.appendChild(cmpEl("div", "cmp-note", entry.text));
+      row.appendChild(t);
+      rows.appendChild(row);
+    }
+    s.appendChild(rows);
+  }
+
+  if (npc.sells) {
+    const s = section(npc.pet ? "License" : "Sells");
+    s.appendChild(cmpEl("div", "npc-text", npc.sells.summary));
+    if (npc.sells.items.length) {
+      const grid = cmpEl("div", "npc-items");
+      for (const itemName of npc.sells.items) {
+        const entry = { name: itemName, fallbackImg: wikiImgUrl(itemName) };
+        const row = cmpEl("div", "cmp-item");
+        const rico = cmpEl("span", "cmp-ico");
+        const urls = compareImgCandidates(entry);
+        if (urls.length) {
+          const img = document.createElement("img");
+          img.alt = itemName;
+          img.loading = "lazy";
+          setImgWithFallbacks(img, urls);
+          rico.appendChild(img);
+        }
+        row.appendChild(rico);
+        const t = cmpEl("div", "cmp-text");
+        t.appendChild(cmpEl("div", "cmp-name", itemName));
+        row.appendChild(t);
+        row.addEventListener("click", () => openCompareEntry(entry, npc.name, "Sells"));
+        grid.appendChild(row);
+      }
+      s.appendChild(grid);
+      s.appendChild(cmpEl("div", "npc-note", "Highlights, not the full stock. Tap an item for details, or open the wiki page for the whole shop."));
+    }
+  }
+
+  if (npc.use) section("Why you want them").appendChild(cmpEl("div", "npc-text", npc.use));
+  if (npc.fights) section("Defends the town with").appendChild(cmpEl("div", "npc-text", npc.fights));
+
+  if (npc.sells && !npc.noPylon && !npc.pet) {
+    wrap.appendChild(cmpEl("div", "cmp-footnote", "Shop NPCs also sell Pylons when another NPC is nearby, and they all buy your spare items for 1/5 of the shop price."));
+  }
+
+  const linkWrap = cmpEl("div", "npc-linkwrap");
+  const link = document.createElement("a");
+  link.className = "npc-wiki";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "📖 Open Wiki Page";
+  link.href = `https://terraria.wiki.gg/wiki/${encodeURIComponent((npc.wiki || npc.name).replace(/ /g, "_"))}`;
+  linkWrap.appendChild(link);
+  wrap.appendChild(linkWrap);
+
+  content.appendChild(wrap);
+}
+
+// ============================================================
+// ARMOR + CLASS PAGES
+// defense = full-set total (set-bonus defense included, like the wiki's armor table).
+// A [low, high] range means the total depends on which helmet you wear.
+// cls: "any" = every class can use it, otherwise the classes it is built for.
+// ============================================================
+const ARMOR_STAGES = ["Pre-Hardmode", "Hardmode", "Post-Plantera", "Endgame"];
+
+const ARMOR_SETS = {
+  // ---------- Pre-Hardmode ----------
+  wood:      { name: "Wood armor", stage: 0, def: 3,  cls: ["any"], bonus: "+1 defense", pieces: ["Wood Helmet", "Wood Breastplate", "Wood Greaves"] },
+  boreal:    { name: "Boreal Wood armor", stage: 0, def: 4, cls: ["any"], bonus: "+1 defense", pieces: ["Boreal Wood Helmet", "Boreal Wood Breastplate", "Boreal Wood Greaves"] },
+  palm:      { name: "Palm Wood armor", stage: 0, def: 4, cls: ["any"], bonus: "+1 defense", pieces: ["Palm Wood Helmet", "Palm Wood Breastplate", "Palm Wood Greaves"] },
+  mahogany:  { name: "Rich Mahogany armor", stage: 0, def: 4, cls: ["any"], bonus: "+1 defense", pieces: ["Rich Mahogany Helmet", "Rich Mahogany Breastplate", "Rich Mahogany Greaves"] },
+  ebon:      { name: "Ebonwood armor", stage: 0, def: 5, cls: ["any"], bonus: "+1 defense", pieces: ["Ebonwood Helmet", "Ebonwood Breastplate", "Ebonwood Greaves"] },
+  shade:     { name: "Shadewood armor", stage: 0, def: 5, cls: ["any"], bonus: "+1 defense", pieces: ["Shadewood Helmet", "Shadewood Breastplate", "Shadewood Greaves"] },
+  ash:       { name: "Ash Wood armor", stage: 0, def: 7, cls: ["any"], bonus: "Halves lava damage and the On Fire! debuff time", pieces: ["Ash Wood Helmet", "Ash Wood Breastplate", "Ash Wood Greaves"] },
+  cactus:    { name: "Cactus armor", stage: 0, def: 3, cls: ["any"], bonus: "Thorns: enemies that hit you take damage back", pieces: ["Cactus Helmet", "Cactus Breastplate", "Cactus Leggings"] },
+  copper:    { name: "Copper armor", stage: 0, def: 6, cls: ["any"], bonus: "+2 defense", pieces: ["Copper Helmet", "Copper Chainmail", "Copper Greaves"] },
+  tin:       { name: "Tin armor", stage: 0, def: 7, cls: ["any"], bonus: "+2 defense", pieces: ["Tin Helmet", "Tin Chainmail", "Tin Greaves"] },
+  iron:      { name: "Iron armor", stage: 0, def: 9, cls: ["any"], bonus: "+2 defense", pieces: ["Iron Helmet", "Iron Chainmail", "Iron Greaves"] },
+  lead:      { name: "Lead armor", stage: 0, def: 11, cls: ["any"], bonus: "+3 defense", pieces: ["Lead Helmet", "Lead Chainmail", "Lead Greaves"] },
+  silver:    { name: "Silver armor", stage: 0, def: 13, cls: ["any"], bonus: "+3 defense", pieces: ["Silver Helmet", "Silver Chainmail", "Silver Greaves"] },
+  tungsten:  { name: "Tungsten armor", stage: 0, def: 15, cls: ["any"], bonus: "+3 defense", pieces: ["Tungsten Helmet", "Tungsten Chainmail", "Tungsten Greaves"] },
+  gold:      { name: "Gold armor", stage: 0, def: 16, cls: ["any"], bonus: "+3 defense", pieces: ["Gold Helmet", "Gold Chainmail", "Gold Greaves"] },
+  platinum:  { name: "Platinum armor", stage: 0, def: 20, cls: ["any"], bonus: "+4 defense", pieces: ["Platinum Helmet", "Platinum Chainmail", "Platinum Greaves"] },
+  pumpkin:   { name: "Pumpkin armor", stage: 0, def: 7, cls: ["any"], bonus: "+10% damage", pieces: ["Pumpkin Helmet", "Pumpkin Breastplate", "Pumpkin Greaves"] },
+  ninja:     { name: "Ninja armor", stage: 0, def: 9, cls: ["any"], bonus: "+20% movement speed", pieces: ["Ninja Hood", "Ninja Shirt", "Ninja Pants"] },
+  fossil:    { name: "Fossil armor", stage: 0, def: 13, cls: ["ranged"], bonus: "20% chance not to use ammo", pieces: ["Fossil Helmet", "Fossil Plate", "Fossil Greaves"] },
+  bee:       { name: "Bee armor", stage: 0, def: 13, cls: ["summoner"], bonus: "+10% summon damage", pieces: ["Bee Headgear", "Bee Breastplate", "Bee Greaves"] },
+  obsidian:  { name: "Obsidian armor", stage: 0, def: 15, cls: ["summoner"], bonus: "More summon damage, whip range and whip speed", pieces: ["Obsidian Helm", "Obsidian Shirt", "Obsidian Pants"] },
+  meteor:    { name: "Meteor armor", stage: 0, def: 16, cls: ["mage"], bonus: "Space Gun, Laser Rifle and Zapinators cost no mana", pieces: ["Meteor Helmet", "Meteor Suit", "Meteor Leggings"] },
+  jungle:    { name: "Jungle armor", stage: 0, def: 17, cls: ["mage"], bonus: "-16% mana cost", pieces: ["Jungle Hat", "Jungle Shirt", "Jungle Pants"] },
+  necro:     { name: "Necro armor", stage: 0, def: 19, cls: ["ranged"], bonus: "+10% ranged critical chance", pieces: ["Necro Helmet", "Necro Breastplate", "Necro Greaves"] },
+  shadow:    { name: "Shadow armor", stage: 0, def: 19, cls: ["melee"], bonus: "Faster running speed", pieces: ["Shadow Helmet", "Shadow Scalemail", "Shadow Greaves"] },
+  crimson:   { name: "Crimson armor", stage: 0, def: 19, cls: ["any"], bonus: "Greatly increased life regeneration", pieces: ["Crimson Helmet", "Crimson Scalemail", "Crimson Greaves"] },
+  molten:    { name: "Molten armor", stage: 0, def: 25, cls: ["melee"], bonus: "+17% melee damage, immune to On Fire!", pieces: ["Molten Helmet", "Molten Breastplate", "Molten Greaves"] },
+
+  // ---------- Hardmode ----------
+  pearlwood: { name: "Pearlwood armor", stage: 1, def: 8, cls: ["any"], bonus: "+1 defense", pieces: ["Pearlwood Helmet", "Pearlwood Breastplate", "Pearlwood Greaves"] },
+  spider:    { name: "Spider armor", stage: 1, def: 20, cls: ["summoner"], bonus: "+12% summon damage", pieces: ["Spider Mask", "Spider Breastplate", "Spider Greaves"] },
+  forbidden: { name: "Forbidden armor", stage: 1, def: 26, cls: ["mage", "summoner"], bonus: "Double tap ▼ to call an ancient storm (costs mana)", pieces: ["Forbidden Mask", "Forbidden Robes", "Forbidden Treads"] },
+  cobalt:    { name: "Cobalt armor", stage: 1, def: [21, 32], cls: ["any"], bonus: "Depends on the helmet you wear", pieces: ["Cobalt Hat", "Cobalt Helmet", "Cobalt Mask", "Cobalt Breastplate", "Cobalt Leggings"] },
+  palladium: { name: "Palladium armor", stage: 1, def: [21, 32], cls: ["any"], bonus: "Rapid Healing after you hit an enemy", pieces: ["Palladium Mask", "Palladium Helmet", "Palladium Headgear", "Palladium Breastplate", "Palladium Leggings"] },
+  mythril:   { name: "Mythril armor", stage: 1, def: [24, 37], cls: ["any"], bonus: "Depends on the helmet you wear", pieces: ["Mythril Hood", "Mythril Helmet", "Mythril Hat", "Mythril Chainmail", "Mythril Greaves"] },
+  orichalcum:{ name: "Orichalcum armor", stage: 1, def: [27, 42], cls: ["any"], bonus: "Flower petals fire when you hit an enemy", pieces: ["Orichalcum Mask", "Orichalcum Helmet", "Orichalcum Headgear", "Orichalcum Breastplate", "Orichalcum Leggings"] },
+  adamantite:{ name: "Adamantite armor", stage: 1, def: [32, 50], cls: ["any"], bonus: "Faster movement; the rest depends on the helmet", pieces: ["Adamantite Headgear", "Adamantite Helmet", "Adamantite Mask", "Adamantite Breastplate", "Adamantite Leggings"] },
+  titanium:  { name: "Titanium armor", stage: 1, def: [30, 49], cls: ["any"], bonus: "Hitting enemies summons Titanium Shards that protect you", pieces: ["Titanium Mask", "Titanium Helmet", "Titanium Headgear", "Titanium Breastplate", "Titanium Leggings"] },
+  crystal:   { name: "Crystal Assassin armor", stage: 1, def: 36, cls: ["any"], bonus: "Grants a dash", pieces: ["Crystal Assassin Hood", "Crystal Assassin Shirt", "Crystal Assassin Pants"] },
+  frost:     { name: "Frost armor", stage: 1, def: 43, cls: ["melee", "ranged"], bonus: "Melee and ranged attacks inflict a frost debuff", pieces: ["Frost Helmet", "Frost Breastplate", "Frost Leggings"] },
+  hallowed:  { name: "Hallowed armor", stage: 1, def: [27, 50], cls: ["any"], bonus: "Become immune after striking an enemy (Hood: +2 minions)", pieces: ["Hallowed Mask", "Hallowed Helmet", "Hallowed Headgear", "Hallowed Hood", "Hallowed Plate Mail", "Hallowed Greaves"] },
+
+  // ---------- Post-Plantera ----------
+  chlorophyte:{ name: "Chlorophyte armor", stage: 2, def: [33, 51], cls: ["any"], bonus: "A leaf crystal shoots nearby enemies (Mask: -5% damage taken, Visor: +2 minions)", pieces: ["Chlorophyte Mask", "Chlorophyte Helmet", "Chlorophyte Headgear", "Chlorophyte Visor", "Chlorophyte Plate Mail", "Chlorophyte Greaves"] },
+  tiki:      { name: "Tiki armor", stage: 2, def: 35, cls: ["summoner"], bonus: "+1 minion and +20% whip range", pieces: ["Tiki Mask", "Tiki Shirt", "Tiki Pants"] },
+  spooky:    { name: "Spooky armor", stage: 2, def: 30, cls: ["summoner"], bonus: "+25% summon damage", pieces: ["Spooky Helmet", "Spooky Breastplate", "Spooky Leggings"] },
+  spectre:   { name: "Spectre armor", stage: 2, def: [30, 42], cls: ["mage"], bonus: "Hood: magic damage heals allies. Mask: magic hits hurt extra nearby enemies", pieces: ["Spectre Hood", "Spectre Mask", "Spectre Robe", "Spectre Pants"] },
+  shroomite: { name: "Shroomite armor", stage: 2, def: 51, cls: ["ranged"], bonus: "Stand still to turn stealthy: more ranged damage, fewer enemies target you", pieces: ["Shroomite Headgear", "Shroomite Mask", "Shroomite Helmet", "Shroomite Breastplate", "Shroomite Leggings"] },
+  turtle:    { name: "Turtle armor", stage: 2, def: 65, cls: ["melee"], bonus: "Attackers take damage back; 15% less damage taken", pieces: ["Turtle Helmet", "Turtle Scale Mail", "Turtle Leggings"] },
+  beetle:    { name: "Beetle armor", stage: 2, def: [61, 73], cls: ["melee"], bonus: "Scale Mail: beetles boost melee damage and speed. Shell: beetles protect you", pieces: ["Beetle Helmet", "Beetle Scale Mail", "Beetle Shell", "Beetle Leggings"] },
+
+  // ---------- Endgame (Lunar Events) ----------
+  stardust:  { name: "Stardust armor", stage: 3, def: 38, cls: ["summoner"], bonus: "A stardust guardian protects you", pieces: ["Stardust Helmet", "Stardust Plate", "Stardust Leggings"] },
+  nebula:    { name: "Nebula armor", stage: 3, def: 46, cls: ["mage"], bonus: "Magic hits drop buff boosters you can pick up", pieces: ["Nebula Helmet", "Nebula Breastplate", "Nebula Leggings"] },
+  vortex:    { name: "Vortex armor", stage: 3, def: 62, cls: ["ranged"], bonus: "Double tap ▼ for stealth: more ranged damage, slower movement", pieces: ["Vortex Helmet", "Vortex Breastplate", "Vortex Leggings"] },
+  solar:     { name: "Solar Flare armor", stage: 3, def: 78, cls: ["melee"], bonus: "-12% damage taken; solar shields let you dash and damage enemies", pieces: ["Solar Flare Helmet", "Solar Flare Breastplate", "Solar Flare Leggings"] },
+};
+
+// the number used for sorting and for the bar (a range counts by its best helmet)
+function armorDefMax(set) { return Array.isArray(set.def) ? set.def[1] : set.def; }
+function armorDefText(set) { return Array.isArray(set.def) ? `${set.def[0]}–${set.def[1]}` : String(set.def); }
+
+const ARMOR_BAR_MAX = 80; // the strongest set (Solar Flare, 78) fills almost the whole bar
+
+const CLASS_INFO = {
+  melee: {
+    name: "Melee", icon: "⚔️",
+    tag: "Close range · highest defense",
+    about: "Swords, spears, flails and yoyos. You fight up close, so you want the toughest armor and plenty of health.",
+    stages: [
+      { label: "Pre-Hardmode",
+        sets: [["platinum", "Best plain metal set. Fine until you find something better."], ["shadow", "Corruption boss drops. Faster running."], ["crimson", "Crimson version of Shadow armor."], ["molten", "The best melee set before Hardmode."]],
+        weapons: ["Blade of Grass", "Muramasa", "Fiery Greatsword", "Night's Edge", "Sunfury"] },
+      { label: "Hardmode",
+        sets: [["titanium", "Wear the Mask for melee."], ["adamantite", "Wear the Helmet for melee."], ["hallowed", "Wear the Mask for melee. Best defense of the ore-era sets."]],
+        weapons: ["Cobalt Sword", "Mythril Halberd", "Excalibur", "True Night's Edge"] },
+      { label: "Post-Plantera",
+        sets: [["chlorophyte", "Wear the Mask for melee."], ["turtle", "Reflects damage back at attackers. Very tanky."], ["beetle", "Needs Beetle Husks (after Golem)."]],
+        weapons: ["Chlorophyte Saber", "Terra Blade", "Flairon", "Influx Waver"] },
+      { label: "Endgame",
+        sets: [["solar", "The best melee set in the game."]],
+        weapons: ["Solar Eruption", "Daybreak", "Meowmere", "Star Wrath", "Zenith"] },
+    ],
+  },
+  ranged: {
+    name: "Ranged", icon: "🏹",
+    tag: "Long range · guns and bows",
+    about: "Bows, guns and launchers. You stay back and shoot, and your ammo and crit chance matter most.",
+    stages: [
+      { label: "Pre-Hardmode",
+        sets: [["platinum", "Best plain metal set. Fine until you find something better."], ["fossil", "Crafted from Fossil found in the Desert."], ["necro", "Dungeon drop."]],
+        weapons: ["Minishark", "The Undertaker", "Phoenix Blaster", "Molten Fury", "Demon Bow"] },
+      { label: "Hardmode",
+        sets: [["titanium", "Wear the Helmet for ranged."], ["hallowed", "Wear the Helmet for ranged."], ["frost", "Dropped by the Frost Legion."]],
+        weapons: ["Hallowed Repeater", "Daedalus Stormbow", "Clockwork Assault Rifle", "Megashark"] },
+      { label: "Post-Plantera",
+        sets: [["chlorophyte", "Wear the Helmet for ranged."], ["shroomite", "Stealth makes this the ranged set of choice."]],
+        weapons: ["Chlorophyte Shotbow", "Tactical Shotgun", "Sniper Rifle", "Tsunami"] },
+      { label: "Endgame",
+        sets: [["vortex", "The best ranged set in the game."]],
+        weapons: ["Phantasm", "Vortex Beater", "Celebration Mk2"] },
+    ],
+  },
+  mage: {
+    name: "Mage", icon: "🔮",
+    tag: "Magic · uses mana",
+    about: "Staves, tomes and wands powered by mana. Mana cost is your limit, so look for armor and accessories that cut it.",
+    stages: [
+      { label: "Pre-Hardmode",
+        sets: [["platinum", "Best plain metal set. Fine until you find something better."], ["jungle", "Easy to make from Jungle materials."], ["meteor", "Great for the early game."]],
+        weapons: ["Water Bolt", "Demon Scythe", "Space Gun", "Flower of Fire", "Vilethorn"] },
+      { label: "Hardmode",
+        sets: [["titanium", "Wear the Headgear for magic."], ["adamantite", "Wear the Headgear for magic."], ["hallowed", "Wear the Headgear for magic."], ["forbidden", "Works for both mage and summoner."]],
+        weapons: ["Crystal Storm", "Golden Shower", "Rainbow Rod", "Frost Staff"] },
+      { label: "Post-Plantera",
+        sets: [["chlorophyte", "Wear the Headgear for magic."], ["spectre", "Hood to heal your team, Mask for extra damage."]],
+        weapons: ["Razorblade Typhoon", "Staff of Earth", "Venom Staff", "Spectre Staff"] },
+      { label: "Endgame",
+        sets: [["nebula", "The best mage set in the game."]],
+        weapons: ["Last Prism", "Nebula Blaze", "Nebula Arcanum", "Lunar Flare"] },
+    ],
+  },
+  summoner: {
+    name: "Summoner", icon: "🐝",
+    tag: "Minions and whips",
+    about: "You call minions to fight for you and use whips for backup. More minion slots means more damage, so armor that adds slots is gold.",
+    stages: [
+      { label: "Pre-Hardmode",
+        sets: [["platinum", "Best plain metal set. Fine until you find something better."], ["bee", "Crafted from Bee Wax (Queen Bee)."], ["obsidian", "Boosts whip range and speed."]],
+        weapons: ["Slime Staff", "Finch Staff", "Flinx Staff", "Imp Staff"] },
+      { label: "Hardmode",
+        sets: [["spider", "Crafted from Spider Fangs."], ["hallowed", "Wear the Hood for +2 minions."], ["forbidden", "Works for both mage and summoner."]],
+        weapons: ["Optic Staff", "Spider Staff", "Pirate Staff", "Desert Tiger Staff"] },
+      { label: "Post-Plantera",
+        sets: [["chlorophyte", "Wear the Visor for +2 minions."], ["tiki", "Great if you use whips."], ["spooky", "From the Pumpkin Moon event."]],
+        weapons: ["Pygmy Staff", "Xeno Staff"] },
+      { label: "Endgame",
+        sets: [["stardust", "The best summoner set in the game."]],
+        weapons: ["Stardust Cell Staff", "Stardust Dragon Staff", "Terraprisma", "Kaleidoscope"] },
+    ],
+  },
+};
+
+const CLASS_MENU = Object.entries(CLASS_INFO).map(([key, c]) => ({
+  name: c.name, icon: c.icon, desc: c.tag, klass: key,
+}));
+
+const ARMOR_SHIELD_SVG = `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2.5 4.5 5v6.2c0 4.7 3.1 8.4 7.5 10.3 4.4-1.9 7.5-5.6 7.5-10.3V5L12 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+
+function armorPieceImgUrls(pieceName) {
+  return [...new Set([ITEM_BY_NAME[pieceName]?.img, wikiImgUrl(pieceName)].filter(Boolean))];
+}
+
+function openArmorSet(set) {
+  const pieces = set.pieces.filter(n => ITEM_BY_NAME[n]);
+  const wikiTitle = set.name.replace(/ /g, "_");
+  showInfoPopup({
+    title: set.name.replace(/ armor$/, " Armor"),
+    imgs: armorPieceImgUrls(set.pieces[Math.min(1, set.pieces.length - 1)]),
+    setImgs: set.pieces.map(armorPieceImgUrls),
+    heroImgs: [wikiImgUrl(set.name), wikiImgUrl(set.name + " female")],
+    subtitle: `Armor set · ${ARMOR_STAGES[set.stage]} · ${armorDefText(set)} defense`,
+    paragraph: set.bonus,
+    lines: [],
+    related: pieces,
+    relatedLabel: "Armor pieces (click for crafting)",
+    wikiUrl: `https://terraria.wiki.gg/wiki/${encodeURIComponent(wikiTitle)}`,
+  });
+}
+
+// One armor row: name, piece icons, defense (with a bar), set bonus
+function buildArmorRow(set, note) {
+  const row = cmpEl("div", "arm-row");
+
+  const name = cmpEl("div", "arm-name");
+  name.appendChild(cmpEl("div", "arm-title", set.name));
+  row.appendChild(name);
+
+  const pieces = cmpEl("div", "arm-pieces");
+  for (const p of set.pieces) {
+    const img = document.createElement("img");
+    img.alt = p;
+    img.title = p;
+    img.loading = "lazy";
+    setImgWithFallbacks(img, armorPieceImgUrls(p));
+    pieces.appendChild(img);
+  }
+  row.appendChild(pieces);
+
+  const def = cmpEl("div", "arm-def");
+  const shield = cmpEl("span", "arm-shield");
+  shield.innerHTML = ARMOR_SHIELD_SVG;
+  def.appendChild(shield);
+  def.appendChild(cmpEl("span", "arm-num", armorDefText(set)));
+  const bar = cmpEl("div", "arm-bar");
+  const fill = cmpEl("div", "arm-bar-fill");
+  fill.style.width = `${Math.min(100, Math.round(armorDefMax(set) / ARMOR_BAR_MAX * 100))}%`;
+  if (Array.isArray(set.def)) {
+    // the low end of the range shows as a darker part of the bar
+    const low = cmpEl("div", "arm-bar-low");
+    low.style.width = `${Math.round(set.def[0] / armorDefMax(set) * 100)}%`;
+    fill.appendChild(low);
+  }
+  bar.appendChild(fill);
+  def.appendChild(bar);
+  row.appendChild(def);
+
+  const bonus = cmpEl("div", "arm-bonus");
+  bonus.appendChild(cmpEl("div", "arm-bonus-text", set.bonus));
+  if (note) bonus.appendChild(cmpEl("div", "arm-note", note));
+  row.appendChild(bonus);
+
+  row.addEventListener("click", () => openArmorSet(set));
+  return row;
+}
+
+function renderArmorAll() {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const wrap = cmpEl("div", "cmp arm");
+
+  wrap.appendChild(cmpEl("div", "arm-legend", "Defense is the full set, including any defense from the set bonus. A range means it depends on which helmet you wear. Tap a set for its pieces."));
+
+  ARMOR_STAGES.forEach((stageName, si) => {
+    const sets = Object.values(ARMOR_SETS)
+      .filter(s => s.stage === si)
+      .sort((a, b) => armorDefMax(a) - armorDefMax(b));
+    if (!sets.length) return;
+    const section = cmpEl("div", "cmp-section");
+    section.appendChild(cmpEl("div", "cmp-label", stageName));
+    for (const set of sets) section.appendChild(buildArmorRow(set));
+    wrap.appendChild(section);
+  });
+
+  content.appendChild(wrap);
+}
+
+function renderClass(key) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const info = CLASS_INFO[key];
+  if (!info) {
+    content.innerHTML = `<div class="timeline-soon">Coming soon</div>`;
+    return;
+  }
+  const wrap = cmpEl("div", "cmp arm");
+
+  const head = cmpEl("div", "npc-head");
+  head.appendChild(cmpEl("div", "cls-icon", info.icon));
+  head.appendChild(cmpEl("div", "npc-name", info.name));
+  head.appendChild(cmpEl("div", "cmp-tag", info.tag));
+  wrap.appendChild(head);
+  wrap.appendChild(cmpEl("div", "npc-text cls-about", info.about));
+
+  for (const stage of info.stages) {
+    const section = cmpEl("div", "cmp-section");
+    section.appendChild(cmpEl("div", "cmp-label", stage.label));
+
+    section.appendChild(cmpEl("div", "cls-sub", "Armor"));
+    for (const [id, note] of stage.sets) {
+      if (ARMOR_SETS[id]) section.appendChild(buildArmorRow(ARMOR_SETS[id], note));
+    }
+
+    section.appendChild(cmpEl("div", "cls-sub", "Weapons"));
+    const grid = cmpEl("div", "npc-items");
+    for (const itemName of stage.weapons) {
+      const entry = { name: itemName, fallbackImg: wikiImgUrl(itemName) };
+      const row = cmpEl("div", "cmp-item");
+      const rico = cmpEl("span", "cmp-ico");
+      const urls = compareImgCandidates(entry);
+      if (urls.length) {
+        const img = document.createElement("img");
+        img.alt = itemName;
+        img.loading = "lazy";
+        setImgWithFallbacks(img, urls);
+        rico.appendChild(img);
+      }
+      row.appendChild(rico);
+      const t = cmpEl("div", "cmp-text");
+      t.appendChild(cmpEl("div", "cmp-name", itemName));
+      row.appendChild(t);
+      row.addEventListener("click", () => openCompareEntry(entry, info.name, stage.label));
+      grid.appendChild(row);
+    }
+    section.appendChild(grid);
+    wrap.appendChild(section);
+  }
+
+  wrap.appendChild(cmpEl("div", "cmp-footnote", "Weapons are highlights for each stage, not a full list. Tap any item or armor set for details."));
+  content.appendChild(wrap);
+}
+
+// ============================================================
 // TIMELINE MENU: nodes with `children` open another menu, nodes with `timeline` open that timeline
 // ============================================================
 const TIMELINE_MENU = [
   { name: "Ores & Bars", icon: "⛏️", desc: "Materials by progression", timeline: "ores" },
   { name: "Bosses", icon: "👁️", desc: "Boss order and what they unlock", timeline: "bosses" },
-  { name: "Armor", icon: "🛡️", desc: "Pick a class", children: [
-    { name: "Melee", icon: "⚔️", desc: "Melee armor progression", timeline: "armorMelee" },
-    { name: "Ranged", icon: "🏹", desc: "Ranged armor progression", timeline: "armorRanged" },
-    { name: "Mage", icon: "🔮", desc: "Mage armor progression", timeline: "armorMage" },
-    { name: "Summoner", icon: "🐝", desc: "Summoner armor progression", timeline: "armorSummoner" },
-  ]},
+  { name: "Corruption vs Crimson", icon: "🩸", desc: "Compare mobs, drops and gear side by side", compare: "evil" },
+  { name: "NPCs", icon: "🏘️", desc: "Who they are, what they sell and how to get them", children: NPC_MENU },
+  { name: "Armor", icon: "🛡️", desc: "Every armor set with its defense level", armorAll: true },
+  { name: "Classes", icon: "🎓", desc: "Melee, Ranged, Mage and Summoner: best armor and weapons", children: CLASS_MENU },
   { name: "Pickaxes", icon: "🔨", desc: "Mining tiers", timeline: "pickaxes" },
   { name: "Events", icon: "🎪", desc: "Invasions and special events", timeline: "events" },
 ];
@@ -2959,6 +3864,9 @@ let timelinePath = []; // stack of menu nodes the user has clicked into
 
 function timelineNodeReady(node) {
   if (node.children) return true;
+  if (node.compare) return true;
+  if (node.npc) return true;
+  if (node.armorAll || node.klass) return true;
   const data = TIMELINES[node.timeline];
   return !!(data && data.length);
 }
@@ -2969,6 +3877,8 @@ function renderTimelineMenu(nodes) {
 
   const grid = document.createElement("div");
   grid.className = "timeline-menu";
+  // NPC lists show as an even grid of compact cards instead of one long column
+  if (nodes.length && nodes.every(n => n.npc || n.klass)) grid.classList.add("tm-grid");
 
   for (const node of nodes) {
     const card = document.createElement("div");
@@ -2984,6 +3894,20 @@ function renderTimelineMenu(nodes) {
       </div>
       <div class="tm-arrow">${node.children ? "›" : ""}</div>
     `;
+
+    if (node.npc && NPCS[node.npc]) {
+      const icoEl = card.querySelector(".tm-icon");
+      const emoji = icoEl.firstChild;
+      const img = document.createElement("img");
+      img.alt = node.name;
+      setImgWithFallbacks(img, npcPortraitCandidates(NPCS[node.npc]));
+      img.style.display = "none";
+      img.addEventListener("load", () => {
+        img.style.display = "";
+        if (emoji) emoji.textContent = "";
+      });
+      icoEl.appendChild(img);
+    }
 
     card.addEventListener("click", () => {
       timelinePath.push(node);
@@ -3140,6 +4064,10 @@ function showTimelineLevel() {
 
   if (!node) renderTimelineMenu(TIMELINE_MENU);
   else if (node.children) renderTimelineMenu(node.children);
+  else if (node.compare) renderCompare(node.compare);
+  else if (node.npc) renderNpc(node.npc);
+  else if (node.armorAll) renderArmorAll();
+  else if (node.klass) renderClass(node.klass);
   else renderTimeline(node.timeline);
 
   document.getElementById("timelinePage").scrollTop = 0;
@@ -3225,9 +4153,11 @@ function openSettingsModal() {
 }
 
 // Fills in and shows the Item Info popup (#infoModalBackdrop in index.html)
-function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines = [], related = [], relatedLabel = "Related items", wikiUrl }) {
+function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines = [], related = [], relatedLabel = "Related items", wikiUrl, setImgs = [], heroImgs = [] }) {
   const imgEl = document.getElementById("infoModalImg");
-  if (imgs.length) {
+  if (setImgs.length) {
+    imgEl.style.display = "none"; // the whole set is shown below instead of one icon
+  } else if (imgs.length) {
     imgEl.style.imageRendering = "pixelated";
     setImgWithFallbacks(imgEl, imgs);
   } else {
@@ -3239,6 +4169,40 @@ function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines 
 
   const content = document.getElementById("infoModalContent");
   content.innerHTML = "";
+
+  // full armor set: every piece side by side
+  if (setImgs.length) {
+    const makePiecesRow = () => {
+      const row = document.createElement("div");
+      row.className = "info-set-icons";
+      for (const urls of setImgs) {
+        const img = document.createElement("img");
+        img.alt = "";
+        setImgWithFallbacks(img, urls);
+        row.appendChild(img);
+      }
+      return row;
+    };
+    if (heroImgs.length) {
+      // the character wearing the whole set (front and back); if it won't load, show the pieces instead
+      const hero = document.createElement("div");
+      hero.className = "info-set-hero";
+      const img = document.createElement("img");
+      img.alt = title;
+      img.referrerPolicy = "no-referrer";
+      let i = 0;
+      img.onerror = () => {
+        i++;
+        if (i < heroImgs.length) img.src = heroImgs[i];
+        else hero.replaceWith(makePiecesRow());
+      };
+      img.src = heroImgs[0];
+      hero.appendChild(img);
+      content.appendChild(hero);
+    } else {
+      content.appendChild(makePiecesRow());
+    }
+  }
 
   if (paragraph) {
     const p = document.createElement("div");

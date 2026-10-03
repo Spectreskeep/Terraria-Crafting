@@ -512,6 +512,7 @@ header button:hover {
 .timeline-item img {
   width: 48px;
   height: 48px;
+  object-fit: contain;
   image-rendering: pixelated;
   flex-shrink: 0;
 }
@@ -1056,3 +1057,203 @@ body,
 * { -webkit-tap-highlight-color: transparent; }
 button, .card, .cat-item, .cat-sub-item, .treeNode { touch-action: manipulation; }
 .treeViewport, .treeViewport * { touch-action: none; }
+
+/* ================= CORRUPTION vs CRIMSON compare page ================= */
+.cmp { max-width: 960px; margin: 0 auto; }
+
+.cmp-head, .cmp-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cmp-head { border-bottom: 2px solid var(--border-color); }
+.cmp-head-cell { text-align: center; padding: 8px 8px 16px; }
+.cmp-head-cell:first-child, .cmp-col:first-child { border-right: 2px solid var(--border-color); }
+
+.cmp-title { font-size: 32px; font-weight: 800; line-height: 1.1; }
+.cmp-title.crimson { color: #e11d48; }
+.cmp-title.corruption { color: #9333ea; }
+.cmp-tag { margin-top: 4px; font-size: 13px; color: var(--text-secondary); }
+
+.cmp-section { margin-top: 22px; }
+.cmp-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.cmp-col { padding: 0 10px; min-width: 0; }
+
+.cmp-fact { font-size: 14px; line-height: 1.4; color: var(--text-primary); text-align: center; align-self: center; }
+
+.cmp-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .cmp-item:hover { background: var(--card-hover); }
+}
+.cmp-ico {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cmp-ico img { max-width: 36px; max-height: 36px; image-rendering: pixelated; }
+.cmp-text { min-width: 0; text-align: center; }
+.cmp-name { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.cmp-note { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+
+.cmp-pick-title { font-weight: 800; font-size: 16px; text-align: center; margin-bottom: 6px; }
+.cmp-pick-title.crimson { color: #e11d48; }
+.cmp-pick-title.corruption { color: #9333ea; }
+.cmp-pick-list { margin: 0; padding: 0; list-style-position: inside; text-align: center; font-size: 14px; line-height: 1.5; color: var(--text-primary); }
+
+.cmp-footnote {
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .cmp-title { font-size: 24px; }
+  .cmp-col { padding: 0 4px; }
+  .cmp-item { gap: 6px; padding: 6px 4px; }
+  .cmp-ico { flex-basis: 28px; width: 28px; height: 28px; }
+  .cmp-ico img { max-width: 28px; max-height: 28px; }
+  .cmp-name { font-size: 13px; }
+  .cmp-note { font-size: 11px; }
+  .cmp-fact { font-size: 13px; }
+  .cmp-pick-list { font-size: 13px; }
+}
+
+/* ================= NPC pages ================= */
+.npc-head { text-align: center; padding: 0 8px 18px; border-bottom: 2px solid var(--border-color); }
+.npc-ico { height: 72px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+.npc-ico img { max-width: 72px; max-height: 72px; image-rendering: pixelated; object-fit: contain; }
+.npc-name { font-size: 32px; font-weight: 800; line-height: 1.1; color: #667eea; }
+.npc-text { max-width: 620px; margin: 0 auto; text-align: center; font-size: 15px; line-height: 1.5; color: var(--text-primary); }
+.npc-items { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; margin-top: 10px; }
+.npc-items .cmp-item { padding: 8px 12px; }
+.npc-note { text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
+.npc-rows { max-width: 620px; margin: 0 auto; }
+.npc-row { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 8px 10px; text-align: center; }
+.npc-linkwrap { text-align: center; margin-top: 26px; }
+.npc-wiki {
+  display: inline-block;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.tm-icon img { width: 48px; height: 48px; object-fit: contain; image-rendering: pixelated; vertical-align: middle; }
+
+@media (max-width: 768px) {
+  .npc-name { font-size: 24px; }
+  .npc-text { font-size: 14px; }
+  .npc-items .cmp-item { padding: 6px 8px; }
+}
+
+/* ================= NPC menu: even grid of cards ================= */
+.timeline-menu.tm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+.tm-grid .timeline-menu-card {
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  gap: 8px;
+  padding: 18px 12px;
+}
+.tm-grid .tm-icon { width: auto; height: 52px; display: flex; align-items: center; justify-content: center; }
+.tm-grid .tm-info { flex: 0 1 auto; width: 100%; }
+.tm-grid .tm-name { font-size: 16px; }
+.tm-grid .tm-desc {
+  font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tm-grid .tm-arrow { display: none; }
+
+@media (max-width: 768px) {
+  .timeline-menu.tm-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 12px; }
+  .tm-grid .timeline-menu-card { padding: 14px 8px; }
+  .tm-grid .tm-name { font-size: 14px; }
+  .tm-grid .tm-desc { font-size: 11px; }
+}
+
+/* ============================================================
+   ARMOR + CLASS PAGES
+   ============================================================ */
+.cmp.arm { max-width: 980px; }
+.arm-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 4px 0 10px; }
+.arm-chip {
+  padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border-color);
+  background: var(--bg-secondary); color: var(--text-primary); font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.arm-chip.active { background: #667eea; border-color: #667eea; color: #fff; }
+.arm-legend { text-align: center; font-size: 12px; color: var(--text-secondary); max-width: 640px; margin: 0 auto 6px; line-height: 1.4; }
+
+/* one armor row: name | pieces | defense | bonus */
+.arm-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1.1fr) minmax(120px, 1.4fr) 110px minmax(160px, 2fr);
+  align-items: center; gap: 14px;
+  padding: 12px 10px; border-bottom: 1px solid var(--border-color);
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) { .arm-row:hover { background: var(--card-hover); } }
+.arm-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.arm-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.arm-pieces { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.arm-pieces img { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
+.arm-def { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; color: var(--text-secondary); }
+.arm-shield { display: inline-flex; }
+.arm-num { font-size: 18px; font-weight: 800; color: var(--text-primary); }
+.arm-bar { flex-basis: 100%; height: 5px; border-radius: 3px; background: var(--bg-tertiary); overflow: hidden; }
+.arm-bar-fill { position: relative; height: 100%; background: #667eea; border-radius: 3px; }
+.arm-bar-low { position: absolute; left: 0; top: 0; bottom: 0; background: #4c5fd0; border-radius: 3px; }
+.arm-bonus-text { font-size: 13px; line-height: 1.4; color: var(--text-primary); }
+.arm-note { font-size: 12px; line-height: 1.4; color: var(--text-secondary); margin-top: 3px; }
+
+/* class pages */
+.cls-icon { font-size: 52px; line-height: 1; margin-bottom: 6px; }
+.cls-about { margin-top: 16px; }
+.cls-sub { margin: 14px 0 2px; padding-left: 10px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-secondary); }
+
+@media (max-width: 768px) {
+  .arm-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "name def" "pieces pieces" "bonus bonus";
+    gap: 8px 12px; padding: 12px 6px;
+  }
+  .arm-name { grid-area: name; }
+  .arm-def { grid-area: def; width: 92px; }
+  .arm-pieces { grid-area: pieces; }
+  .arm-bonus { grid-area: bonus; }
+  .arm-pieces img { width: 26px; height: 26px; }
+}
+
+/* armor set popup: all pieces in a row */
+.info-set-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 0 14px; padding: 12px; border-radius: 10px; background: var(--bg-tertiary); }
+.info-set-icons img { width: 44px; height: 44px; object-fit: contain; image-rendering: pixelated; }
+.info-set-hero { display: flex; justify-content: center; margin: 0 0 14px; padding: 12px; border-radius: 10px; background: var(--bg-tertiary); }
+.info-set-hero img { height: 120px; width: auto; max-width: 100%; object-fit: contain; image-rendering: pixelated; }
