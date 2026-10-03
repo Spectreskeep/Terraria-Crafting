@@ -2562,6 +2562,8 @@ async function main() {
   window.addEventListener("resize", debounce(fillScreenIfNeeded, 150));
   
   document.getElementById("btnSettings").addEventListener("click", openSettingsModal);
+  document.getElementById("btnAbout").addEventListener("click", () => openAboutModal("guide"));
+  maybeShowIntro();
 
   const categoryButtons = document.querySelectorAll(".category-btn");
   categoryButtons.forEach(btn => {
@@ -5281,6 +5283,88 @@ function initDarkMode() {
   if (darkMode) {
     document.body.classList.add('dark-mode');
   }
+}
+
+// ---------- About / welcome / legal ----------
+const CONTACT_EMAIL = "spectreskeep@gmail.com";
+
+// The welcome popup shows only on the very first visit. The "seen" mark is saved the moment it opens,
+// so closing it OR just refreshing the page means it never pops up again. It lives in the About button after that.
+function maybeShowIntro() {
+  try {
+    if (localStorage.getItem("tcIntroSeen")) return;
+    localStorage.setItem("tcIntroSeen", "1");
+  } catch (e) { return; }   // storage blocked: skip the popup rather than nag on every visit
+  openAboutModal("guide", true);
+}
+
+function openAboutModal(tab = "guide", firstVisit = false) {
+  if (document.getElementById("aboutBackdrop")) return;
+  const backdrop = document.createElement("div");
+  backdrop.id = "aboutBackdrop";
+  backdrop.className = "about-backdrop";
+  const modal = document.createElement("div");
+  modal.className = "about-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+
+  const guide = `
+    <h2>${firstVisit ? "Welcome to Terraria Crafting" : "Quick guide"}</h2>
+    <p class="about-lead">Look up any item in Terraria, see exactly how to craft it, and learn how the game fits together.</p>
+    <ul class="about-list">
+      <li><b>Search</b> the box at the top for any item, or open <b>Categories</b> to browse weapons, tools, armor, potions and more.</li>
+      <li><b>Click an item</b> to see its crafting tree: every ingredient and the station you need. The info button shows where it drops and what it does.</li>
+      <li><b>Timeline</b> shows what to make and fight in order, from the first pickaxe to the Moon Lord.</li>
+      <li><b>Field Guide</b> has NPCs, classes, biomes, herbs, potions and every modifier.</li>
+      <li><b>Crimson vs Corruption</b> compares the two evil biomes side by side.</li>
+      <li><b>Settings</b> has dark mode. The <b>About</b> button brings this page back any time.</li>
+    </ul>`;
+  const legal = `
+    <h2>Legal &amp; contact</h2>
+    <h3>Not affiliated</h3>
+    <p>This is a free fan-made website. It is not made, endorsed or sponsored by Re-Logic, Inc. or anyone connected with Terraria.</p>
+    <h3>Rights belong to their owners</h3>
+    <p>Terraria, its name, logo, characters, items, sprites and artwork are trademarks and copyright of Re-Logic, Inc. All game images shown here belong to Re-Logic and are used only to describe the game.</p>
+    <p>Item names, descriptions and facts come from the <a href="https://terraria.wiki.gg" target="_blank" rel="noopener noreferrer">Official Terraria Wiki</a>. Its text is available under the <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 3.0</a> license, and I link back to the wiki page for each item.</p>
+    <p>The layout and code of this site are &copy; 2026 Spectreskeep. Everything about the game itself is not mine.</p>
+    <h3>Terms of use</h3>
+    <ul class="about-list">
+      <li>Free to use, non-commercial, with no ads and nothing for sale.</li>
+      <li>Provided as is, with no promises. The data is collected from the wiki and may be out of date or wrong, so check the wiki for anything important.</li>
+      <li>Please do not copy this site's design or code and pass it off as your own, and do not overload it with automated requests.</li>
+    </ul>
+    <h3>Privacy</h3>
+    <p>No accounts, no ads and no tracking from this site. Your dark mode choice is saved in your own browser only. Pictures load from the Terraria wiki's servers, so the wiki can see a normal image request, like any website that shows their images.</p>
+    <h3>Contact and takedowns</h3>
+    <p>Questions, corrections, or a rights holder who wants something changed or removed: email <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> and I will respond quickly.</p>`;
+
+  modal.innerHTML = `
+    <button class="about-x" aria-label="Close">&times;</button>
+    <div class="about-tabs">
+      <button class="about-tab" data-tab="guide">Guide</button>
+      <button class="about-tab" data-tab="legal">Legal &amp; contact</button>
+    </div>
+    <div class="about-body">
+      <div class="about-pane" data-pane="guide">${guide}</div>
+      <div class="about-pane" data-pane="legal">${legal}</div>
+    </div>
+    <div class="about-foot"><button class="about-ok">${firstVisit ? "Start exploring" : "Close"}</button></div>`;
+
+  const show = (t) => {
+    modal.querySelectorAll(".about-tab").forEach(b => b.classList.toggle("active", b.dataset.tab === t));
+    modal.querySelectorAll(".about-pane").forEach(p => p.classList.toggle("active", p.dataset.pane === t));
+    modal.querySelector(".about-body").scrollTop = 0;
+  };
+  const close = () => { backdrop.remove(); document.removeEventListener("keydown", onKey); };
+  const onKey = (e) => { if (e.key === "Escape") close(); };
+  modal.querySelectorAll(".about-tab").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+  modal.querySelector(".about-x").addEventListener("click", close);
+  modal.querySelector(".about-ok").addEventListener("click", close);
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) close(); });
+  document.addEventListener("keydown", onKey);
+  backdrop.appendChild(modal);
+  document.body.appendChild(backdrop);
+  show(tab);
 }
 
 function openSettingsModal() {
