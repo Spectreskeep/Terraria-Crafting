@@ -100,7 +100,7 @@ const SUBCATEGORIES = {
       axes: { name: "Axes", icon: "Copper Axe" },
       hammers: { name: "Hammers", icon: "Wooden Hammer" },
       multitools: { name: "Multi-tools", icon: "Molten Hamaxe" },
-      fishing: { name: "Fishing Poles", icon: "Wooden Fishing Pole" },
+      fishing: { name: "Fishing Poles", icon: "Golden Fishing Rod" },
       nets: { name: "Bug Nets", icon: "Bug Net" },
       other_tool: { name: "Other Tools", icon: "Red Wrench" },
     }
@@ -111,6 +111,7 @@ const SUBCATEGORIES = {
       helmets: { name: "Helmets", icon: "Iron Helmet" },
       chestplates: { name: "Chestplates", icon: "Iron Chainmail" },
       leggings: { name: "Leggings", icon: "Iron Greaves" },
+      vanity_armor: { name: "Vanity & Clothes", icon: "Pink Shirt" },
     }
   },
   accessory: {
@@ -265,6 +266,8 @@ function _classify(rawName) {
   const hH = re => re.test(H);
   const hS = re => re.test(s1);
 
+  if (n === "drill containment unit") return out("tool", "drills");
+
   // ---------- 0. things that are clearly not gear ----------
   const decor = _anyTok(t, ["statue", "painting", "trophy", "banner", "relic", "mannequin", "womannequin", "rack", "pylon", "monolith", "planter", "potted", "poster", "flag"]) || ph("music box") || hH(/decorative item|\bpaintings?\b|racks/) || hS(/\bracks? are\b|\bpainting\b/);
   if (decor) return out("furniture", "decorative");
@@ -329,6 +332,7 @@ function _classify(rawName) {
     }
     if (!kind && hH(/armor (?:item|piece|set)|armor$|vanity set|set consisting/)) kind = "chestplates";
     if (kind === "chestplates" && t.has("plate") && (ph("pressure plate") || t.has("platform") || hH(/block|wall/) || ph("copper plating"))) kind = null;
+    if (kind && (hH(/vanity|social/) || hS(/vanity/) || !H && !hS(/armor|defense/))) return out("armor", "vanity_armor");
     if (kind && !(kind === "helmets" && _anyTok(t, ["halo", "ears", "antlers", "hairpin"]) && false)) return out("armor", kind);
   }
 
@@ -491,7 +495,23 @@ function debounce(fn, delay = 120) {
 async function loadItems() {
   const res = await fetch("./data/items.json");
   if (!res.ok) throw new Error("Failed to load data/items.json");
-  return await res.json();
+  return fixItemImages(await res.json());
+}
+
+// Some items added by the updater got the wrong picture (another page's image, or a weird animation).
+// A real sprite file is named after its item, so any wiki.gg image whose file name doesn't match the item
+// name is replaced with the standard sprite file for that item.
+function fixItemImages(list) {
+  const norm = s => s.toLowerCase().replace(/[_\s]+/g, " ").trim();
+  for (const it of list) {
+    const m = /^https?:\/\/terraria\.wiki\.gg\/images\/(?:thumb\/)?(?:[0-9a-f]\/[0-9a-f]{2}\/)?([^\/?]+)/.exec(it.img || "");
+    if (!m) continue;
+    let file;
+    try { file = decodeURIComponent(m[1]); } catch { continue; }
+    const base = norm(file.replace(/\.[a-z0-9]+$/i, "").replace(/_?\((?:item|placed|equipped)\)$/i, ""));
+    if (base !== norm(it.name)) it.img = wikiImgUrl(it.name);
+  }
+  return list;
 }
 
 async function loadRecipes() {
@@ -2388,7 +2408,7 @@ const MENU_ICONS = {
   "Ores & Bars": "Gold Bar", "Bosses": "Suspicious Looking Eye", "Armor": "Iron Chainmail",
   "Pickaxes": "Iron Pickaxe", "Events": "Goblin Battle Standard",
   "NPCs": "Guide", "Classes": "Night's Edge", "Crimson vs Corruption": "Crimtane Bar",
-  "Pre-Hardmode NPCs": "Guide", "Hardmode NPCs": "Wizard", "Visitors & Others": "Travelling Merchant", "Town Pets": "Town Cat",
+  "Pre-Hardmode NPCs": "Guide", "Hardmode NPCs": "Wizard", "Visitors & Others": "Traveling Merchant", "Town Pets": "Town Cat",
   "Melee": "Night's Edge", "Ranged": "Minishark", "Mage": "Water Bolt", "Summoner": "Slime Staff",
 };
 
@@ -2411,12 +2431,16 @@ function loadIconInto(host, name, cls) {
   img.alt = "";
   img.loading = "lazy";
   img.style.display = "none";
+  // hide the emoji right away (no flicker); put it back only if no picture could be loaded
+  const saved = [];
+  for (const n of [...host.childNodes]) if (n.nodeType === 3 && n.textContent.trim()) { saved.push([n, n.textContent]); n.textContent = ""; }
   img.addEventListener("load", () => {
     img.style.display = "";
-    for (const n of [...host.childNodes]) if (n.nodeType === 3) n.textContent = "";
     host.classList.add("has-img");
   });
   setImgWithFallbacks(img, iconCandidates(name));
+  const origErr = img.onerror;
+  img.onerror = () => { origErr(); if (img.style.display === "none") for (const [n, t] of saved) n.textContent = t; };
   host.appendChild(img);
 }
 
@@ -3051,6 +3075,14 @@ const TIMELINES = {
         { name: "Stardust Pickaxe", type: "Pickaxe", img: "" }
       ]
     },
+    {
+      stage: "Post-Moon Lord", class: "stage-moonlord",
+      description: "The fastest way to dig",
+      milestone: "🌙 Defeat the Moon Lord",
+      items: [
+        { name: "Drill Containment Unit", type: "Drill Mount", img: "", milestone: "Mount that mines a tunnel ahead of you (needs Luminite, Chlorophyte, Shroomite, Spectre, Hellstone and Meteorite bars)" }
+      ]
+    },
   ],
 
   events: [
@@ -3248,6 +3280,11 @@ function compareImgCandidates(entry) {
 }
 
 function openCompareEntry(entry, sideName, label) {
+  if (typeof BOSS_DATA !== "undefined" && BOSS_DATA[entry.name] && typeof timelinePath !== "undefined") {
+    timelinePath.push({ name: entry.name, boss: entry.name });
+    showTimelineLevel();
+    return;
+  }
   const itemData = ITEM_BY_NAME[entry.name];
   if (itemData) {
     openChoiceModal(itemData);
@@ -4268,7 +4305,8 @@ function bossItemRow(entry, sideName, label) {
   row.appendChild(ico);
   const text = cmpEl("div", "cmp-text");
   text.appendChild(cmpEl("div", "cmp-name", entry.name));
-  if (entry.note) text.appendChild(cmpEl("div", "cmp-note", entry.note));
+  if (entry.noteNode) { const nn = cmpEl("div", "cmp-note"); nn.appendChild(entry.noteNode); text.appendChild(nn); }
+  else if (entry.note) text.appendChild(cmpEl("div", "cmp-note", entry.note));
   row.appendChild(text);
   row.addEventListener("click", () => openCompareEntry(entry, sideName, label));
   return row;
@@ -4339,6 +4377,115 @@ function recipeSummary(name) {
   return parts.join(" + ") + (v.station ? `  ·  ${v.station}` : "");
 }
 
+function recipeNodes(name) {
+  const variants = RECIPES[name];
+  if (!variants || !variants.length) return null;
+  const v = variants[0];
+  const wrap = document.createElement("div");
+  wrap.className = "mini-list";
+  for (const i of (v.ingredients || [])) wrap.appendChild(miniItem(i.item, i.qty));
+  if (v.station) wrap.appendChild(cmpEl("span", "mini-station", v.station));
+  return wrap;
+}
+
+function renderModifiers() {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const wrap = cmpEl("div", "cmp mods");
+  const head = cmpEl("div", "npc-head");
+  const ico = cmpEl("div", "cls-icon", "✨");
+  loadIconInto(ico, "Tinkerer's Workshop");
+  head.appendChild(ico);
+  head.appendChild(cmpEl("div", "npc-name", "Modifiers"));
+  head.appendChild(cmpEl("div", "cmp-tag", "Prefixes that change an item's stats"));
+  wrap.appendChild(head);
+
+  const how = cmpEl("div", "cmp-section");
+  how.appendChild(cmpEl("div", "cmp-label", "How you get one"));
+  for (const t of [
+    "About 3 in 4 new weapons, tools and accessories get a random modifier when they are made, found or dropped.",
+    "If the first roll is a bad one (Broken, Dull, Slow and so on), there is a 2 in 3 chance it is thrown away and the item stays plain. Accessories never roll bad modifiers.",
+    "Armor, ammo, vanity items and stackable items cannot have modifiers. Fished items, Presents and Angler rewards start without one.",
+    "Reforging at the Goblin Tinkerer costs a third of the item's buy price. Every modifier that fits the item has the same chance, and bad ones are not filtered out.",
+  ]) how.appendChild(cmpEl("div", "mod-bullet", t));
+  wrap.appendChild(how);
+
+  for (const key of ["universal", "common", "melee", "ranged", "magic", "summon", "accessory"]) {
+    const g = MODIFIERS[key];
+    const pool = MODIFIER_POOLS[key].reduce((n, k) => n + MODIFIERS[k].list.length, 0);
+    const pct = Math.round(1000 / pool) / 10;
+    const sec = cmpEl("div", "cmp-section");
+    sec.appendChild(cmpEl("div", "cmp-label", g.name));
+    sec.appendChild(cmpEl("div", "mod-note", `${g.note}. When reforging${key === "universal" || key === "common" ? " a sword" : ""}, each one is about ${pct}% (1 in ${pool}).`));
+    const list = cmpEl("div", "mod-list");
+    for (const [name, effect, tier] of g.list) {
+      const row = cmpEl("div", "mod-row " + (tier < 0 ? "bad" : tier > 0 ? "good" : "meh"));
+      row.appendChild(cmpEl("span", "mod-name", name));
+      row.appendChild(cmpEl("span", "mod-effect", effect));
+      list.appendChild(row);
+    }
+    sec.appendChild(list);
+    wrap.appendChild(sec);
+  }
+
+  const best = cmpEl("div", "cmp-section");
+  best.appendChild(cmpEl("div", "cmp-label", "Best modifier to aim for"));
+  const bl = cmpEl("div", "mod-list");
+  for (const [what, mod] of MODIFIER_BEST) {
+    const row = cmpEl("div", "mod-row good");
+    row.appendChild(cmpEl("span", "mod-name", mod));
+    row.appendChild(cmpEl("span", "mod-effect", what));
+    bl.appendChild(row);
+  }
+  best.appendChild(bl);
+  wrap.appendChild(best);
+  wrap.appendChild(cmpEl("div", "cmp-footnote", "Green is better than none, red is worse, grey is a trade-off. Chances are approximate."));
+  content.appendChild(wrap);
+}
+
+// a line of text with tiny station pictures in front of each name: [icon] Placed Bottle / [icon] Alchemy Table
+function stationInline(names) {
+  const sp = document.createElement("span");
+  names.forEach((n, i) => {
+    if (i) sp.appendChild(document.createTextNode(" / "));
+    const w = document.createElement("span");
+    w.className = "inline-ico-name";
+    const img = document.createElement("img");
+    img.alt = "";
+    setImgWithFallbacks(img, stationImgCandidates(n));
+    w.appendChild(img);
+    w.appendChild(document.createTextNode(n));
+    sp.appendChild(w);
+  });
+  return sp;
+}
+
+// ingredients of the first recipe as plain inline text: 2 [icon] Gel + [icon] Mushroom
+function recipeInline(name) {
+  const v = (RECIPES[name] || [])[0];
+  if (!v) return null;
+  const line = document.createElement("div");
+  line.className = "pot-ing";
+  (v.ingredients || []).forEach((i, k) => {
+    if (k) line.appendChild(document.createTextNode(" + "));
+    const w = document.createElement("span");
+    w.className = "inline-ico-name";
+    const img = document.createElement("img");
+    img.alt = "";
+    setImgWithFallbacks(img, iconCandidates(i.item));
+    w.appendChild(img);
+    w.appendChild(document.createTextNode((i.qty > 1 ? i.qty + " " : "") + i.item));
+    line.appendChild(w);
+  });
+  return line;
+}
+
+function stationsOf(name) {
+  const out = [];
+  for (const v of (RECIPES[name] || [])) for (const s of String(v.station || "").split(/\s*\/\s*/)) if (s && !/^(none|by hand)$/i.test(s) && !out.includes(s)) out.push(s);
+  return out;
+}
+
 function renderHerbs() {
   const content = document.getElementById("timelineContent");
   content.innerHTML = "";
@@ -4351,7 +4498,7 @@ function renderHerbs() {
   wrap.appendChild(cmpEl("div", "npc-text cls-about", "Herbs only give you their best harvest while they are in bloom. You can also plant their Seeds in a Clay Pot or Planter Box so they are close to your Alchemy Table."));
 
   for (const h of HERBS) {
-    const sec = cmpEl("div", "cmp-section");
+    const sec = cmpEl("div", "cmp-section herb-card");
     sec.appendChild(bossItemRow(bossEntry(h.name), "Herbs", "Herb"));
     const facts = cmpEl("div", "herb-facts");
     facts.appendChild(cmpEl("div", "", `Grows on: ${h.grows}`));
@@ -4363,9 +4510,23 @@ function renderHerbs() {
       const c = classifyItem(out);
       if (c.cat === "potion" && c.sub !== "food") makes.push(out);
     }
-    if (makes.length) facts.appendChild(cmpEl("div", "", `Used in: ${makes.slice(0, 14).join(", ")}${makes.length > 14 ? ` and ${makes.length - 14} more` : ""}`));
+    facts.appendChild(cmpEl("div", "", `Plant the seeds in: Clay Pot, Planter Box or on ${h.grows.split(" (")[0].toLowerCase()}`));
     sec.appendChild(facts);
+    if (makes.length) {
+      const used = cmpEl("div", "herb-used");
+      used.appendChild(cmpEl("div", "herb-used-label", "Used in"));
+      const list = cmpEl("div", "mini-list");
+      for (const m of makes.slice(0, 14)) list.appendChild(miniItem(m));
+      if (makes.length > 14) list.appendChild(cmpEl("span", "mini-station", `and ${makes.length - 14} more`));
+      used.appendChild(list);
+      sec.appendChild(used);
+      const brew = cmpEl("div", "herb-brew");
+      brew.appendChild(document.createTextNode("Brew at "));
+      brew.appendChild(stationInline(["Placed Bottle", "Alchemy Table"]));
+      sec.appendChild(brew);
+    }
     const seedRow = bossItemRow(bossEntry(h.seeds + "|Plant it to grow more"), "Herbs", "Seeds");
+    seedRow.classList.add("herb-seed");
     sec.appendChild(seedRow);
     wrap.appendChild(sec);
   }
@@ -4398,10 +4559,26 @@ function renderPotions(kind) {
   head.appendChild(cmpEl("div", "cmp-tag", `${list.length} items`));
   wrap.appendChild(head);
   wrap.appendChild(cmpEl("div", "npc-text cls-about", blurbs[kind]));
-  const grid = cmpEl("div", "npc-items potion-grid");
+  const grid = cmpEl("div", "pot-list");
   for (const it of list) {
-    const note = recipeSummary(it.name);
-    grid.appendChild(bossItemRow({ name: it.name, note, fallbackImg: wikiImgUrl(it.name) }, titles[kind], "Potion"));
+    const row = cmpEl("div", "pot-row");
+    const ico = cmpEl("span", "pot-ico");
+    const img = document.createElement("img");
+    img.alt = it.name; img.loading = "lazy";
+    setImgWithFallbacks(img, compareImgCandidates({ name: it.name, fallbackImg: wikiImgUrl(it.name) }));
+    ico.appendChild(img);
+    row.appendChild(ico);
+    const txt = cmpEl("div", "pot-text");
+    txt.appendChild(cmpEl("div", "pot-name", it.name));
+    const ing = recipeInline(it.name);
+    if (ing) {
+      txt.appendChild(ing);
+      const st = stationsOf(it.name);
+      if (st.length) { const s = cmpEl("div", "pot-station"); s.appendChild(document.createTextNode("Brew at ")); s.appendChild(stationInline(st)); txt.appendChild(s); }
+    } else txt.appendChild(cmpEl("div", "pot-station", "Not crafted. Found or bought instead."));
+    row.appendChild(txt);
+    row.addEventListener("click", () => openCompareEntry({ name: it.name }, titles[kind], "Potion"));
+    grid.appendChild(row);
   }
   wrap.appendChild(grid);
   content.appendChild(wrap);
@@ -4625,12 +4802,65 @@ const PLANT_MENU = [
   { name: "Flasks", icon: "🫙", iconItem: "Flask of Fire", desc: "Weapon coatings that add effects to your melee hits", potions: "flask" },
 ];
 
+// ---------- Modifiers (reforge prefixes) ----------
+// [name, effect text, tier] -- tier below zero means it makes the item worse
+const MODIFIERS = {
+  universal: { name: "Universal", note: "Any weapon can roll these", list: [
+    ["Keen", "+3% crit", 1], ["Superior", "+10% damage, +3% crit, +10% knockback", 2], ["Forceful", "+15% knockback", 1], ["Hurtful", "+10% damage", 1],
+    ["Strong", "+15% knockback", 1], ["Zealous", "+5% crit", 1], ["Godly", "+15% damage, +5% crit, +15% knockback", 2], ["Demonic", "+15% damage, +5% crit", 2],
+    ["Unpleasant", "+5% damage, +15% knockback", 2], ["Ruthless", "+18% damage, -10% knockback", 1],
+    ["Broken", "-30% damage, -20% knockback", -2], ["Damaged", "-15% damage", -1], ["Shoddy", "-10% damage, -15% knockback", -2], ["Weak", "-20% knockback", -2] ] },
+  common: { name: "Common", note: "Swords, shortswords, whips, ranged and magic weapons, and some tools", list: [
+    ["Quick", "+10% speed", 1], ["Nimble", "+5% speed", 1], ["Agile", "+10% speed, +3% crit", 1], ["Deadly", "+10% damage, +10% speed", 2],
+    ["Murderous", "+7% damage, +6% speed, +3% crit", 2], ["Nasty", "+5% damage, +10% speed, +2% crit", 1],
+    ["Slow", "-15% speed", -1], ["Lazy", "-8% speed", -1], ["Sluggish", "-20% speed", -2], ["Annoying", "-20% damage, -15% speed", -2] ] },
+  melee: { name: "Melee", note: "Swords, shortswords, pickaxes, hammers, axes and whips", list: [
+    ["Large", "+12% size", 1], ["Massive", "+18% size", 1], ["Dangerous", "+5% damage, +2% crit, +5% size", 1], ["Savage", "+10% damage, +10% size, +10% knockback", 2],
+    ["Sharp", "+15% damage", 1], ["Pointy", "+10% damage", 1], ["Bulky", "+5% damage, -15% speed, +10% size, +10% knockback", 1], ["Heavy", "-10% speed, +15% knockback", 0],
+    ["Light", "+15% speed, -10% knockback", 0], ["Legendary", "+15% damage, +10% speed, +5% crit, +10% size, +15% knockback", 2],
+    ["Tiny", "-18% size", -1], ["Small", "-10% size", -1], ["Dull", "-15% damage", -1], ["Unhappy", "-10% speed, -10% size, -10% knockback", -2],
+    ["Terrible", "-15% damage, -13% size, -15% knockback", -2], ["Shameful", "-10% damage, +10% size, -20% knockback", -2] ] },
+  ranged: { name: "Ranged", note: "Bows, guns, launchers and other ranged weapons", list: [
+    ["Sighted", "+10% damage, +3% crit", 1], ["Rapid", "+15% speed, +10% velocity", 2], ["Hasty", "+10% speed, +15% velocity", 2], ["Intimidating", "+5% velocity, +15% knockback", 2],
+    ["Deadly", "+10% damage, +5% speed, +2% crit, +5% velocity, +5% knockback", 2], ["Staunch", "+10% damage, +15% knockback", 2], ["Powerful", "+15% damage, -10% speed, +1% crit", 1],
+    ["Frenzying", "-15% damage, +15% speed", 0], ["Unreal", "+15% damage, +10% speed, +5% crit, +10% velocity, +15% knockback", 2],
+    ["Awful", "-15% damage, -10% velocity, -10% knockback", -2], ["Lethargic", "-15% speed, -10% velocity", -2], ["Awkward", "-10% speed, -20% knockback", -2] ] },
+  magic: { name: "Magic", note: "Staves, tomes and other mana weapons", list: [
+    ["Mystic", "+10% damage, -15% mana cost", 2], ["Adept", "-15% mana cost", 1], ["Masterful", "+15% damage, -15% mana cost, +5% knockback", 2],
+    ["Celestial", "+10% damage, -10% speed, -10% mana cost, +10% knockback", 1], ["Taboo", "+10% speed, +10% mana cost, +10% knockback", 1], ["Manic", "-10% damage, +10% speed, -10% mana cost", 1],
+    ["Furious", "+15% damage, +20% mana cost, +15% knockback", 1], ["Mythical", "+15% damage, +10% speed, +5% crit, -10% mana cost, +15% knockback", 2],
+    ["Inept", "+10% mana cost", -1], ["Ignorant", "-10% damage, +20% mana cost", -2], ["Deranged", "-10% damage, -10% knockback", -1], ["Intense", "+10% damage, +15% mana cost", -1] ] },
+  summon: { name: "Summon", note: "Summoning staves (not whips)", list: [
+    ["Fabled", "+15% damage, +10 armor pierce, +3 tag damage, +15% knockback", 2], ["Loyal", "+10% damage, +5 armor pierce, +3 tag damage, +5% knockback", 2],
+    ["Worthy", "+15% damage, +8 armor pierce", 2], ["Focused", "+10% damage, +3 tag damage", 1], ["Eager", "+25 armor pierce", 2], ["Ballistic", "+5 tag damage", 1],
+    ["Scraggling", "+25% knockback", 2], ["Patient", "-5% damage, +3 tag damage", 0], ["Rabid", "+10% damage, -10% knockback", 0], ["Ill-Tempered", "-5% damage, +10 armor pierce", 1],
+    ["Petty", "-30% damage", -2], ["Feeble", "-25% knockback", -2], ["Skittish", "-15% damage, -10% knockback", -2] ] },
+  accessory: { name: "Accessory", note: "Accessories only. They are never bad, and only work in a normal (non-vanity) slot", list: [
+    ["Hard", "+1 defense", 1], ["Guarding", "+2 defense", 1], ["Armored", "+3 defense", 1], ["Warding", "+4 defense", 2],
+    ["Precise", "+2% crit", 1], ["Lucky", "+4% crit", 2],
+    ["Jagged", "+1% damage", 1], ["Spiked", "+2% damage", 1], ["Angry", "+3% damage", 1], ["Menacing", "+4% damage", 2],
+    ["Brisk", "+1% move speed", 1], ["Fleeting", "+2% move speed", 1], ["Hasty", "+3% move speed", 1], ["Quick", "+4% move speed", 2],
+    ["Wild", "+1% melee speed", 1], ["Rash", "+2% melee speed", 1], ["Intrepid", "+3% melee speed", 1], ["Violent", "+4% melee speed", 2],
+    ["Arcane", "+20 max mana", 1] ] },
+};
+// which groups an item type draws from (used for the "chance" on each row)
+const MODIFIER_POOLS = {
+  melee: ["universal", "common", "melee"], ranged: ["universal", "common", "ranged"], magic: ["universal", "common", "magic"],
+  summon: ["universal", "summon"], accessory: ["accessory"], universal: ["universal", "common", "melee"], common: ["universal", "common", "melee"],
+};
+const MODIFIER_BEST = [
+  ["Melee swords (overhead swing)", "Legendary"], ["Melee, other styles", "Godly"], ["Pickaxes, axes, hammers", "Light"],
+  ["Ranged with knockback", "Unreal"], ["Magic with knockback", "Mythical"], ["Weapons with no knockback", "Demonic"],
+  ["Summon staves", "Fabled"], ["Accessories", "Warding, Menacing or Lucky"],
+];
+
 // everything else lives in the Field Guide
 const GUIDE_MENU = [
   { name: "NPCs", icon: "🏘️", desc: "Who they are, what they sell and how to get them", children: NPC_MENU },
   { name: "Classes", icon: "🎓", desc: "Melee, Ranged, Mage and Summoner: best armor and weapons", children: CLASS_MENU },
   { name: "Biomes", icon: "🗺️", iconItem: "Acorn", desc: "Forest, Desert, Jungle, Corruption and more: enemies, loot and tips", children: BIOME_MENU },
   { name: "Plants & Potions", icon: "🌿", iconItem: "Daybloom", desc: "Herbs, healing, buff potions and flasks with their ingredients", children: PLANT_MENU },
+  { name: "Modifiers", icon: "✨", iconItem: "Tinkerer's Workshop", desc: "Every reforge modifier, what it does and your chances of getting it", modifiers: true },
 ];
 
 // has its own button in the header
@@ -4647,7 +4877,7 @@ function timelineNodeReady(node) {
   if (node.children) return true;
   if (node.compare) return true;
   if (node.npc) return true;
-  if (node.armorAll || node.klass || node.boss || node.biome || node.herbs || node.potions) return true;
+  if (node.armorAll || node.klass || node.boss || node.biome || node.herbs || node.potions || node.modifiers) return true;
   const data = TIMELINES[node.timeline];
   return !!(data && data.length);
 }
@@ -4659,7 +4889,7 @@ function renderTimelineMenu(nodes) {
   const grid = document.createElement("div");
   grid.className = "timeline-menu";
   // NPC lists show as an even grid of compact cards instead of one long column
-  if (nodes.length && nodes.every(n => n.npc || n.klass || n.biome || n.herbs || n.potions)) grid.classList.add("tm-grid");
+  if (nodes.length && nodes.every(n => n.npc || n.klass || n.biome || n.herbs || n.potions || n.modifiers)) grid.classList.add("tm-grid");
 
   for (const node of nodes) {
     const card = document.createElement("div");
@@ -4679,14 +4909,13 @@ function renderTimelineMenu(nodes) {
     if (node.npc && NPCS[node.npc]) {
       const icoEl = card.querySelector(".tm-icon");
       const emoji = icoEl.firstChild;
+      const emojiText = emoji ? emoji.textContent : "";
+      if (emoji) emoji.textContent = "";
       const img = document.createElement("img");
       img.alt = node.name;
       setImgWithFallbacks(img, npcPortraitCandidates(NPCS[node.npc]));
-      img.style.display = "none";
-      img.addEventListener("load", () => {
-        img.style.display = "";
-        if (emoji) emoji.textContent = "";
-      });
+      const origErr = img.onerror;
+      img.onerror = () => { origErr(); if (img.style.display === "none" && emoji) emoji.textContent = emojiText; };
       icoEl.appendChild(img);
     }
 
@@ -4811,6 +5040,11 @@ function renderTimeline(key) {
 // Real items open the same popup as the main grid (craft / uses / info).
 // Bosses, events and armor sets open the info popup with a wiki button.
 function openTimelineEntry(item, stage, urls) {
+  if (BOSS_DATA[item.name]) {
+    timelinePath.push({ name: item.name, boss: item.name });
+    showTimelineLevel();
+    return;
+  }
   const itemData = BOSS_DATA[item.name] ? null : ITEM_BY_NAME[item.name];
   if (itemData) {
     openChoiceModal(itemData);
@@ -4859,6 +5093,7 @@ function showTimelineLevel() {
   else if (node.npc) renderNpc(node.npc);
   else if (node.boss) renderBoss(node.boss);
   else if (node.biome) renderBiome(node.biome);
+  else if (node.modifiers) renderModifiers();
   else if (node.herbs) renderHerbs();
   else if (node.potions) renderPotions(node.potions);
   else if (node.armorAll) renderArmorAll();
@@ -5154,21 +5389,16 @@ function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines 
     }
   }
 
-  if (paragraph) {
-    const p = document.createElement("div");
-    p.className = "info-line";
-    p.textContent = paragraph;
-    content.appendChild(p);
-  }
+  if (paragraph) renderInfoText(content, paragraph);
 
   for (const line of lines) {
-    if (!line.text) continue;
+    if (!line.text && !line.node) continue;
     const d = document.createElement("div");
     d.className = "info-line";
     const strong = document.createElement("strong");
-    strong.textContent = line.label + ": ";
+    strong.textContent = line.label + (line.node && !line.inline ? "" : ": ");
     d.appendChild(strong);
-    d.appendChild(document.createTextNode(line.text));
+    if (line.node) d.appendChild(line.node); else d.appendChild(document.createTextNode(line.text));
     content.appendChild(d);
   }
 
@@ -5183,7 +5413,8 @@ function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines 
     for (const name of related) {
       const chip = document.createElement("button");
       chip.className = "info-chip";
-      chip.textContent = name;
+      chip.appendChild(miniItem(name).firstChild);
+      chip.appendChild(document.createTextNode(" " + name));
       chip.addEventListener("click", () => {
         closeItemInfoModal();
         openChoiceModal(ITEM_BY_NAME[name]);
@@ -5197,6 +5428,69 @@ function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines 
   document.getElementById("infoModalBackdrop").classList.remove("hidden");
 }
 
+// Wiki text can be one giant block (and sometimes has leftover HTML). This keeps every word but cleans it up and
+// splits it into short paragraphs: the first sentence stands out as a summary, the rest is grouped 2-3 sentences at a time.
+function cleanWikiText(raw) {
+  let s = String(raw || "");
+  s = s.replace(/<\s*br\s*\/?>/gi, " ").replace(/<[^>]*>/g, " ");
+  s = s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
+  return s.replace(/\s+/g, " ").trim();
+}
+
+function splitSentences(text) {
+  const ABBR = /(?:\b(?:Mr|Mrs|Ms|Dr|St|vs|etc|approx|No|Lv|Inc|e\.g|i\.e|cf|Jr|Sr)|\b[A-Z])\.$/;
+  const parts = text.split(/(?<=[.!?])\s+(?=[A-Z0-9"'(\u2692\u2697\u26B7])/);
+  const out = [];
+  for (const p of parts) {
+    if (out.length && ABBR.test(out[out.length - 1])) out[out.length - 1] += " " + p;
+    else out.push(p);
+  }
+  return out;
+}
+
+function renderInfoText(container, raw) {
+  const text = cleanWikiText(raw);
+  if (!text) return;
+  const sentences = splitSentences(text);
+  const box = document.createElement("div");
+  box.className = "info-text";
+  const lead = document.createElement("p");
+  lead.className = "info-lead";
+  lead.textContent = sentences[0];
+  box.appendChild(lead);
+  let buf = [];
+  const flush = () => {
+    if (!buf.length) return;
+    const p = document.createElement("p");
+    p.textContent = buf.join(" ");
+    box.appendChild(p);
+    buf = [];
+  };
+  for (const s of sentences.slice(1)) {
+    buf.push(s);
+    if (buf.join(" ").length > 230 || buf.length >= 3) flush();
+  }
+  flush();
+  container.appendChild(box);
+}
+
+// ---------- tiny item icon + name, used inside descriptive text ----------
+function miniItem(name, qty) {
+  const el = document.createElement(ITEM_BY_NAME[name] ? "button" : "span");
+  el.className = "mini-item";
+  const ico = document.createElement("span");
+  ico.className = "mini-ico";
+  const img = document.createElement("img");
+  img.alt = name;
+  img.loading = "lazy";
+  setImgWithFallbacks(img, iconCandidates(name));
+  ico.appendChild(img);
+  el.appendChild(ico);
+  el.appendChild(document.createTextNode((qty > 1 ? qty + " " : "") + name));
+  if (ITEM_BY_NAME[name]) el.addEventListener("click", (e) => { e.stopPropagation(); openChoiceModal(ITEM_BY_NAME[name]); });
+  return el;
+}
+
 function formatInfoValue(v) {
   if (!v) return "";
   if (typeof v === "string") return v;
@@ -5206,17 +5500,85 @@ function formatInfoValue(v) {
   return "";
 }
 
+// picture candidates for a crafting station (uses the station picture list first, then the item of the same name)
+function stationImgCandidates(name) {
+  const alias = { "Placed Bottle": "Bottle", "Placed Bottles": "Bottle" }[name];
+  return [...new Set([STATION_IMAGES[name], ITEM_BY_NAME[name]?.img, ...(alias ? iconCandidates(alias) : []), ...iconCandidates(name)].filter(Boolean))];
+}
+
+// a vertical column of rows: picture, name, and (optionally) a small note on the right such as a drop rate
+function iconColumn(rows) {
+  const col = document.createElement("div");
+  col.className = "icon-col" + (rows.length > 8 ? " scroll" : "");
+  for (const r of rows) {
+    const row = document.createElement("div");
+    row.className = "icon-row";
+    const ico = document.createElement("span");
+    ico.className = "icon-row-ico";
+    if (r.img && r.img.length) {
+      const img = document.createElement("img");
+      img.alt = r.name;
+      img.loading = "lazy";
+      setImgWithFallbacks(img, r.img);
+      ico.appendChild(img);
+    }
+    row.appendChild(ico);
+    const nm = document.createElement("span");
+    nm.className = "icon-row-name";
+    nm.textContent = r.name;
+    row.appendChild(nm);
+    if (r.right) {
+      const rt = document.createElement("span");
+      rt.className = "icon-row-note";
+      rt.textContent = r.right;
+      row.appendChild(rt);
+    }
+    col.appendChild(row);
+  }
+  return col;
+}
+
 function openItemInfoModal(itemName) {
   const details = ITEM_DETAILS[itemName] || {};
   const item = ITEM_BY_NAME[itemName];
 
   const lines = [];
-  const station = formatInfoValue(details.crafting_station || details.station);
-  if (station) lines.push({ label: "Crafting Station", text: station });
-  const drops = formatInfoValue(details.drops_summary);
-  if (drops) lines.push({ label: "Dropped By", text: drops });
-  const sold = formatInfoValue(details.sold_by);
-  if (sold) lines.push({ label: "Sold By", text: sold });
+  // Only items that have a real recipe get a crafting station. (The wiki's "station" field also lists
+  // things the item is used to craft, like Cloud in a Bottle -> Crystal Ball, which is not how you make it.)
+  const stationNames = [];
+  for (const v of (RECIPES[itemName] || [])) {
+    for (const s of String(v.station || "").split(/\s*\/\s*/)) {
+      if (s && !/^(none|by hand)$/i.test(s) && !stationNames.includes(s)) stationNames.push(s);
+    }
+  }
+  if (stationNames.length) {
+    const sp = document.createElement("span");
+    stationNames.forEach((n, i) => {
+      if (i) sp.appendChild(document.createTextNode(" / "));
+      const w = document.createElement("span");
+      w.className = "inline-ico-name";
+      const img = document.createElement("img");
+      img.alt = "";
+      setImgWithFallbacks(img, stationImgCandidates(n));
+      w.appendChild(img);
+      w.appendChild(document.createTextNode(n));
+      sp.appendChild(w);
+    });
+    lines.push({ label: "Crafting Station", node: sp, inline: true });
+  }
+  const dropRows = (Array.isArray(details.drops) ? details.drops : []).map(d => ({
+    name: d.enemy || d.name || "", right: d.rate || "", pct: parseFloat(d.percent) || 0,
+  })).filter(d => d.name);
+  if (dropRows.length) {
+    dropRows.sort((x, y) => y.pct - x.pct);
+    lines.push({ label: `Dropped By (${dropRows.length})`, node: iconColumn(dropRows.map(d => ({ name: d.name, right: d.right, img: compareImgCandidates({ name: d.name }) }))) });
+  } else {
+    const drops = formatInfoValue(details.drops_summary);
+    if (drops) lines.push({ label: "Dropped By", text: drops });
+  }
+  const soldRows = (Array.isArray(details.sold_by) ? details.sold_by : []).map(s => typeof s === "string" ? { name: s } : { name: s?.npc || s?.name || "", right: s?.price || "" }).filter(s => s.name);
+  if (soldRows.length) lines.push({ label: "Sold By", node: iconColumn(soldRows.map(s => ({ name: s.name, right: s.right, img: compareImgCandidates({ name: s.name }) }))) });
+  else { const sold = formatInfoValue(details.sold_by); if (sold) lines.push({ label: "Sold By", text: sold }); }
   const tags = [...(details.immunities || []), ...(details.buffs || [])];
   if (tags.length) lines.push({ label: "Buffs / Immunities", text: tags.join(", ") });
 
