@@ -60,115 +60,137 @@ const CORRUPTION_ITEMS = new Set([
   "Worm Scarf"
 ]);
 
+// ============================================================
+// ITEM CLASSIFIER
+// Every item gets exactly one main category and (inside it) exactly one sub-category.
+// The main signal is the wiki's own first sentence for the item ("...is a Hardmode bow"), which comes from
+// data/complete_list.json. The item name is only used to pick the sub-category. Rules run in a fixed order.
+// The sidebar counts and the grid both use this same function, so they can never disagree.
+// "icon" is an item whose picture is shown next to the category in the sidebar.
+// ============================================================
 const SUBCATEGORIES = {
   weapon: {
-    name: "Weapons",
-    icon: "⚔️",
+    name: "Weapons", icon: "Copper Shortsword",
     subs: {
-      broadswords: { name: "Broadswords", keywords: ["broadsword"] },
-      shortswords: { name: "Shortswords", keywords: ["shortsword"] },
-      spears: { name: "Spears", keywords: ["spear", "lance", "trident", "pike"] },
-      yoyos: { name: "Yoyos", keywords: ["yoyo", "yo-yo"] },
-      flails: { name: "Flails", keywords: ["flail"] },
-      boomerangs: { name: "Boomerangs", keywords: ["boomerang", "chakram"] },
-      whips: { name: "Whips", keywords: ["whip"] },
-      bows: { name: "Bows", keywords: ["bow"] },
-      repeaters: { name: "Repeaters", keywords: ["repeater"] },
-      guns: { name: "Guns", keywords: ["gun", "pistol", "rifle", "musket", "revolver", "shotgun"] },
-      launchers: { name: "Launchers", keywords: ["launcher", "grenade launcher", "rocket launcher"] },
-      wands: { name: "Magic Wands", keywords: ["wand"] },
-      rods: { name: "Magic Rods", keywords: [" rod"] }, // space before "rod" to avoid "broadsword"
-      tomes: { name: "Spell Tomes", keywords: ["tome", "spell tome"] },
-      summon_minions: { name: "Summon Staffs", keywords: ["summon weapon that summons"] },
-      other_magic: { name: "Other Magic", keywords: ["magic weapon"] }
+      broadswords: { name: "Swords", icon: "Iron Broadsword" },
+      shortswords: { name: "Shortswords", icon: "Iron Shortsword" },
+      spears: { name: "Spears", icon: "Spear" },
+      yoyos: { name: "Yoyos", icon: "Wooden Yoyo" },
+      flails: { name: "Flails", icon: "Ball O' Hurt" },
+      boomerangs: { name: "Boomerangs", icon: "Wooden Boomerang" },
+      whips: { name: "Whips", icon: "Leather Whip" },
+      bows: { name: "Bows", icon: "Wooden Bow" },
+      repeaters: { name: "Repeaters", icon: "Hallowed Repeater" },
+      guns: { name: "Guns", icon: "Flintlock Pistol" },
+      launchers: { name: "Launchers", icon: "Grenade Launcher" },
+      wands: { name: "Staffs & Wands", icon: "Wand of Sparking" },
+      rods: { name: "Magic Rods", icon: "Crimson Rod" },
+      tomes: { name: "Spell Tomes", icon: "Water Bolt" },
+      summon_minions: { name: "Summon Staffs", icon: "Slime Staff" },
+      other_magic: { name: "Other Magic", icon: "Amethyst Staff" },
+      thrown: { name: "Thrown & Explosives", icon: "Shuriken" },
+      other_weapon: { name: "Other Weapons", icon: "Muramasa" },
     }
   },
   tool: {
-    name: "Tools",
-    icon: "🔨",
+    name: "Tools", icon: "Iron Pickaxe",
     subs: {
-      pickaxes: { name: "Pickaxes", keywords: ["pickaxe"] },
-      drills: { name: "Drills", keywords: ["drill"] },
-      axes: { name: "Axes", keywords: [" axe", "chainsaw"] }, // space to avoid "pickaxe"
-      hammers: { name: "Hammers", keywords: ["hammer"] },
-      multitools: { name: "Multi-tools", keywords: ["hamaxe", "pickaxe axe", "drax", "picksaw"] },
-      fishing: { name: "Fishing Poles", keywords: ["fishing pole", "fishing rod"] },
-      nets: { name: "Bug Nets", keywords: ["bug net"] }
+      pickaxes: { name: "Pickaxes", icon: "Copper Pickaxe" },
+      drills: { name: "Drills", icon: "Cobalt Drill" },
+      axes: { name: "Axes", icon: "Copper Axe" },
+      hammers: { name: "Hammers", icon: "Wooden Hammer" },
+      multitools: { name: "Multi-tools", icon: "Molten Hamaxe" },
+      fishing: { name: "Fishing Poles", icon: "Wooden Fishing Pole" },
+      nets: { name: "Bug Nets", icon: "Bug Net" },
+      other_tool: { name: "Other Tools", icon: "Red Wrench" },
     }
   },
   armor: {
-    name: "Armor",
-    icon: "🛡️",
+    name: "Armor", icon: "Iron Chainmail",
     subs: {
-      helmets: { name: "Helmets", keywords: ["helmet", " hat", " hood", " mask", " cap", "headgear", "headdress", "visor"] },
-      chestplates: { name: "Chestplates", keywords: ["breastplate", " shirt", "chainmail", " robe", "scalemail", "plate mail", "platebody"] },
-      leggings: { name: "Leggings", keywords: ["greaves", " pants", "leggings"] }
+      helmets: { name: "Helmets", icon: "Iron Helmet" },
+      chestplates: { name: "Chestplates", icon: "Iron Chainmail" },
+      leggings: { name: "Leggings", icon: "Iron Greaves" },
     }
   },
   accessory: {
-    name: "Accessories",
-    icon: "💍",
+    name: "Accessories", icon: "Hermes Boots",
     subs: {
-      wings: { name: "Wings", keywords: ["wings"] },
-      boots: { name: "Boots", keywords: ["boots"] },
-      balloons: { name: "Balloons & Jump", keywords: ["balloon", "bottle", "fart in a jar", "frog leg", "bundle of balloons"] },
-      hooks: { name: "Hooks", keywords: ["hook", "grappling"] },
-      shields: { name: "Shields", keywords: ["shield"] },
-      emblems: { name: "Emblems", keywords: ["emblem"] },
-      charms: { name: "Charms", keywords: ["charm"] },
-      info: { name: "Informational", keywords: ["watch", "compass", "depth meter", "gps", "cell phone", "pda", "radar", "lifeform analyzer", "dps meter", "stopwatch", "metal detector", "tally counter", "sextant", "fish finder", "weather radio"] }
+      wings: { name: "Wings", icon: "Angel Wings" },
+      boots: { name: "Boots", icon: "Hermes Boots" },
+      balloons: { name: "Balloons & Jump", icon: "Shiny Red Balloon" },
+      hooks: { name: "Hooks", icon: "Grappling Hook" },
+      shields: { name: "Shields", icon: "Cobalt Shield" },
+      emblems: { name: "Emblems", icon: "Warrior Emblem" },
+      charms: { name: "Charms", icon: "Charm of Myths" },
+      info: { name: "Informational", icon: "Gold Watch" },
+      vanity: { name: "Vanity", icon: "Sunglasses" },
+      other_acc: { name: "Other Accessories", icon: "Band of Regeneration" },
     }
   },
   potion: {
-    name: "Potions",
-    icon: "🧪",
+    name: "Potions", icon: "Healing Potion",
     subs: {
-      healing: { name: "Healing", keywords: ["healing potion"] },
-      mana: { name: "Mana", keywords: ["mana potion"] },
-      buff: { name: "Buff Potions", keywords: ["potion"], exclude: ["healing potion", "mana potion", "restoration potion"] },
-      food: { name: "Food & Drink", keywords: ["bowl", " pie", " cake", " ale", "sake", "smoothie", "sushi", "burger", "taco", "fries", "pad thai"] }
+      healing: { name: "Healing", icon: "Healing Potion" },
+      mana: { name: "Mana", icon: "Mana Potion" },
+      buff: { name: "Buff Potions", icon: "Ironskin Potion" },
+      food: { name: "Food & Drink", icon: "Pumpkin Pie" },
     }
   },
   material: {
-    name: "Materials",
-    icon: "📦",
+    name: "Materials", icon: "Iron Bar",
     subs: {
-      ores: { name: "Ores", keywords: [" ore"] },
-      bars: { name: "Bars", keywords: [" bar"] },
-      gems: { name: "Gems", keywords: ["amethyst", "topaz", "sapphire", "emerald", " ruby", "diamond", "amber"] },
-      souls: { name: "Souls", keywords: ["soul of"] },
-      plants: { name: "Plants & Herbs", keywords: ["daybloom", "moonglow", "blinkroot", "deathweed", "waterleaf", "fireblossom", "shiverthorn"] }
+      ores: { name: "Ores", icon: "Iron Ore" },
+      bars: { name: "Bars", icon: "Iron Bar" },
+      gems: { name: "Gems", icon: "Diamond" },
+      souls: { name: "Souls", icon: "Soul of Light" },
+      plants: { name: "Plants & Herbs", icon: "Daybloom" },
+      other_material: { name: "Other Materials", icon: "Gel" },
     }
   },
   furniture: {
-    name: "Furniture",
-    icon: "🪑",
+    name: "Furniture", icon: "Work Bench",
     subs: {
-      crafting: { name: "Crafting Stations", keywords: ["work bench", " anvil", "furnace", "forge", " loom", "sawmill", "heavy work bench", "tinkerer's workshop", "imbuing station", "dye vat"] },
-      storage: { name: "Storage", keywords: ["chest", "piggy bank", "safe", "barrel", "trash can", "void vault", "defender's forge"] },
-      lighting: { name: "Lighting", keywords: ["torch", "lantern", "candle", "chandelier", " lamp", "candelabra"] },
-      comfort: { name: "Comfort", keywords: ["chair", " bed", "bench", "sofa", "throne", "toilet", "bathtub"] },
-      decorative: { name: "Decorative", keywords: ["painting", "statue", "banner", "trophy", "relic"] }
+      crafting: { name: "Crafting Stations", icon: "Anvil" },
+      storage: { name: "Storage", icon: "Chest" },
+      lighting: { name: "Lighting", icon: "Torch" },
+      comfort: { name: "Comfort", icon: "Wooden Chair" },
+      decorative: { name: "Decorative", icon: "Painting" },
+      other_furniture: { name: "Other Furniture", icon: "Wooden Door" },
     }
   },
   block: {
-    name: "Blocks",
-    icon: "🧱",
+    name: "Blocks", icon: "Dirt Block",
     subs: {
-      natural: { name: "Natural", keywords: ["dirt block", "stone block", "sand block", " mud", " clay", "silt", "snow block", "ice block"] },
-      bricks: { name: "Bricks", keywords: ["brick"] },
-      wood: { name: "Wood", keywords: [" wood"] },
-      glass: { name: "Glass", keywords: ["glass"] }
+      natural: { name: "Natural", icon: "Dirt Block" },
+      bricks: { name: "Bricks", icon: "Gray Brick" },
+      wood: { name: "Wood", icon: "Wood" },
+      glass: { name: "Glass", icon: "Glass" },
+      other_block: { name: "Walls & Platforms", icon: "Wood Platform" },
+    }
+  },
+  misc: {
+    name: "Misc", icon: "Life Crystal",
+    subs: {
+      pets: { name: "Pets & Mounts", icon: "Fairy Bell" },
+      critters: { name: "Critters & Fish", icon: "Goldfish" },
+      dyes: { name: "Dyes & Paint", icon: "Red Dye" },
+      crates: { name: "Crates & Bags", icon: "Wooden Crate" },
+      summons: { name: "Summoning Items", icon: "Suspicious Looking Eye" },
+      boosters: { name: "Boosters & Pickups", icon: "Life Crystal" },
+      mechanisms: { name: "Wiring & Traps", icon: "Red Pressure Plate" },
+      keys: { name: "Keys & Molds", icon: "Golden Key" },
+      other_misc: { name: "Everything Else", icon: "Binoculars" },
     }
   },
   ammo: {
-    name: "Ammo",
-    icon: "🏹",
+    name: "Ammo", icon: "Wooden Arrow",
     subs: {
-      arrows: { name: "Arrows", keywords: ["arrow"] },
-      bullets: { name: "Bullets", keywords: ["bullet"] },
-      rockets: { name: "Rockets", keywords: ["rocket"] },
-      darts: { name: "Darts", keywords: ["dart", " seed"] }
+      arrows: { name: "Arrows", icon: "Wooden Arrow" },
+      bullets: { name: "Bullets", icon: "Musket Ball" },
+      rockets: { name: "Rockets", icon: "Rocket I" },
+      darts: { name: "Darts & Seeds", icon: "Poison Dart" },
+      other_ammo: { name: "Other Ammo", icon: "Flare" },
     }
   }
 };
@@ -179,140 +201,284 @@ function getAlternativeType(itemName) {
   return null;
 }
 
-function getItemSubcategory(item, mainCategory) {
-  if (!SUBCATEGORIES[mainCategory]) return null;
-  
-  const subs = SUBCATEGORIES[mainCategory].subs;
-  const itemName = item.name.toLowerCase();
-  
-  // Get tooltip from ITEM_DETAILS
-  const details = ITEM_DETAILS[item.name] || {};
-  const tooltip = (details.tooltip || '').toLowerCase();
-  
-  // Get first sentence of tooltip (most reliable indicator)
-  const firstSentence = tooltip.split('.')[0] || '';
-  
-  // Special handling for each main category
-  if (mainCategory === 'weapon') {
-    // For weapons, check if the item is actually a weapon (not an accessory)
-    // Exclude yoyo accessories (strings, counterweights, bags, gloves)
-    if (itemName.includes('string') || itemName.includes('counterweight') || 
-        itemName.includes('yoyo bag') || itemName.includes('yoyo glove')) {
-      return null; // These are accessories, not weapons
-    }
-    
-    // Check first sentence for weapon type
-    for (const [subKey, subData] of Object.entries(subs)) {
-      if (subData.keywords) {
-        for (const keyword of subData.keywords) {
-          const keywordLower = keyword.toLowerCase().trim();
-          
-          // Look for "is a [modifiers] <weapon_type>" pattern
-          if (firstSentence.includes(' ' + keywordLower)) {
-            return subKey;
-          }
-        }
-      }
-    }
-  }
-  
-  else if (mainCategory === 'tool') {
-    // For tools, be specific about what we're looking for
-    for (const [subKey, subData] of Object.entries(subs)) {
-      if (subData.keywords) {
-        for (const keyword of subData.keywords) {
-          const keywordLower = keyword.toLowerCase().trim();
-          
-          // Fishing poles: must have "fishing" in name or "fishing pole/rod" in tooltip
-          if (subKey === 'fishing') {
-            if ((itemName.includes('fishing') && (itemName.includes('pole') || itemName.includes('rod'))) ||
-                (firstSentence.includes('fishing pole') || firstSentence.includes('fishing rod'))) {
-              // Exclude bobbers and bait
-              if (!itemName.includes('bobber') && !itemName.includes('bait')) {
-                return subKey;
-              }
-            }
-          }
-          // Bug nets: must actually BE a bug net, not just mention it
-          else if (subKey === 'nets') {
-            if ((itemName.includes('bug net') || firstSentence.includes('bug net is')) &&
-                !itemName.includes('cage') && !itemName.includes('jar')) {
-              return subKey;
-            }
-          }
-          // Other tools: check normally
-          else if (firstSentence.includes(' ' + keywordLower) || itemName.includes(keywordLower)) {
-            return subKey;
-          }
-        }
-      }
-    }
-  }
-  
-  else if (mainCategory === 'accessory') {
-    // Special case for wings first (they don't always say "accessory" in tooltip)
-    if (itemName.includes('wings')) {
-      // Check it's not a painting or material
-      if (!firstSentence.includes('painting') && !firstSentence.includes('material') && 
-          !firstSentence.includes('crafting') && !itemName.includes('twig') && !itemName.includes('feather') && !itemName.includes('dust')) {
-        return 'wings';
-      }
-    }
-    
-    // For other accessories, check tooltip explicitly says "accessory"
-    if (!tooltip.includes('accessory')) {
-      return null;
-    }
-    
-    // Now check specific accessory types
-    for (const [subKey, subData] of Object.entries(subs)) {
-      if (subData.keywords) {
-        for (const keyword of subData.keywords) {
-          const keywordLower = keyword.toLowerCase().trim();
-          
-          // Skip wings as we already handled it
-          if (subKey === 'wings') continue;
-          
-          // Other accessories: check name or tooltip
-          if (itemName.includes(keywordLower) || tooltip.includes(keywordLower)) {
-            return subKey;
-          }
-        }
-      }
-    }
-  }
-  
-  else {
-    // For other categories (potions, materials, furniture, blocks, ammo)
-    // Use the original simpler logic
-    const textToCheck = tooltip + ' ' + itemName;
-    
-    for (const [subKey, subData] of Object.entries(subs)) {
-      if (subData.keywords) {
-        for (const keyword of subData.keywords) {
-          const keywordLower = keyword.toLowerCase().trim();
-          
-          if (textToCheck.includes(keywordLower)) {
-            // Check exclude list if present
-            if (subData.exclude) {
-              let shouldExclude = false;
-              for (const excludeWord of subData.exclude) {
-                if (textToCheck.includes(excludeWord.toLowerCase())) {
-                  shouldExclude = true;
-                  break;
-                }
-              }
-              if (shouldExclude) continue;
-            }
-            return subKey;
-          }
-        }
-      }
-    }
-  }
-  
-  return null;
+// ---------- helpers ----------
+const _normName = s => s.toLowerCase().replace(/[’']/g, "").replace(/\s+/g, " ").trim();
+const _re = {};
+function _ph(n, phrase) {            // whole-word phrase match ("bug net" matches "Golden Bug Net")
+  const key = phrase;
+  if (!_re[key]) _re[key] = new RegExp("(^|[^a-z0-9])" + _normName(phrase).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "($|[^a-z0-9])");
+  return _re[key].test(n);
 }
+const _anyPh = (n, list) => list.some(p => _ph(n, p));
+const _anyTok = (t, list) => list.some(w => t.has(w));
+
+// ---------- word lists (lowercase, no apostrophes) ----------
+const L = {
+  multitool: ["hamaxe", "hamdrax", "drax", "picksaw", "pickaxe axe", "digging claw", "the axe"],
+  toolTok: ["pickaxe", "hamaxe", "hamdrax", "drax", "picksaw", "chainsaw", "jackhammer", "pwnhammer"],
+  otherTool: ["wrench", "wrenches", "paintbrush", "paint roller", "paint scraper", "clentaminator", "ruler", "wire cutter", "wire", "actuation rod", "rod of discord", "magic mirror", "ice mirror", "shovel", "spectre paintbrush", "spectre paint roller", "spectre paint scraper", "dirt rod", "staff of regrowth", "rod of harmony", "portal gun", "paint sprayer"],
+  explicitAcc: ["bone helm", "diving helmet", "armor polish", "armor bracing", "jellyfish diving gear", "diving gear", "neptunes shell", "yoyo bag", "yoyo glove", "counterweight", "white string", "black string", "red string", "yellow string", "green string", "blue string", "purple string", "shield of cthulhu", "brain of confusion", "worm scarf", "hive pack", "bone glove", "demon heart", "soaring insignia", "gravity globe", "spore sac", "royal gel", "shiny stone", "magma stone", "sun stone", "moon stone", "celestial stone", "philosophers stone", "ankh charm", "ankh shield", "lucky coin", "discount card", "frozen turtle shell", "celestial shell", "moon shell", "sun shell", "eye of the golem", "obsidian skull", "obsidian rose", "hand warmer", "hercules beetle", "papyrus scarab", "putrid scent", "necromantic scroll", "star veil", "star cloak", "magic cuffs", "celestial cuffs", "mana flower", "fast clock", "mechanical lens", "ivy whip", "masterful? ", "cell phone", "pda", "gps", "depth meter", "compass", "radar", "gold watch", "silver watch", "platinum watch", "tungsten watch", "copper watch", "tin watch", "iron watch", "lead watch", "stopwatch", "sextant", "lifeform analyzer", "dps meter", "metal detector", "tally counter", "fish finder", "weather radio", "goblin tech", "rifle scope", "sniper scope", "red ryder? ", "mechanical glove", "power glove", "fire gauntlet", "titan glove", "feral claws", "climbing claws", "tiger climbing gear", "master ninja gear", "tabi", "black belt", "aglet", "anklet of the wind", "flipper", "frog flipper", "frog gear", "shoe spikes", "lava charm", "obsidian shield", "paladins shield", "ankh shield", "putrid scent", "treasure magnet", "lucky horseshoe", "blindfold", "nazar", "vitamins", "countercurse mantra", "megaphone", "trifold map", "shackle", "medicated bandage", "adhesive bandage", "bundle of balloons", "fart in a jar", "fart in a balloon", "cloud in a bottle", "blizzard in a bottle", "sandstorm in a bottle", "tsunami in a bottle", "frog leg", "eye of horror", "rainbow cursor", "stellar tune", "jewel of light", "pocket mirror", "jetpack", "hoverboard", "web slinger", "skeletron hand", "tendon hook", "slime hook", "fish hook"],
+  accTok: ["wings", "boots", "balloon", "balloons", "horseshoe", "ring", "emblem", "charm", "necklace", "pendant", "shield", "band", "glove", "gloves", "gauntlet", "claws", "scarf", "cape", "cloak", "veil", "insignia", "anklet", "scarab", "bandage", "mantra", "cuffs", "pack", "sac", "ankh", "hook"],
+  weaponTok: ["sword", "broadsword", "shortsword", "greatsword", "claymore", "blade", "saber", "katana", "scimitar", "cutlass", "rapier", "edge", "bow", "stormbow", "repeater", "gun", "rifle", "shotgun", "pistol", "revolver", "musket", "launcher", "blaster", "cannon", "magnum", "minishark", "megashark", "uzi", "flamethrower", "blowpipe", "blowgun", "boomstick", "staff", "wand", "rod", "tome", "scepter", "spear", "trident", "lance", "pike", "partisan", "glaive", "harpoon", "javelin", "yoyo", "boomerang", "chakram", "flail", "whip", "knife", "knives", "dagger", "shuriken", "mace", "club", "sickle", "scythe", "axe", "hatchet", "bomb", "dynamite", "grenade", "molotov", "bananarang", "excalibur", "muramasa", "starfury", "meowmere", "zenith", "terrarian", "daybreak", "vilethorn", "flamelash", "sunfury", "gladius", "bladetongue", "terragrim", "arkhalis", "seedler", "leaf", "bat", "hammush", "slap", "starlight", "nightglow", "eventide", "kaleidoscope", "prism", "typhoon", "tsunami", "phantasm", "eruption", "wrath", "possession", "terraprisma", "stynger", "orb", "gladius", "handgun", "lights bane", "butcherer"],
+  weaponPh: ["spiky ball", "star anise", "lights bane", "blood butcherer", "gladius", "magic missile", "water bolt", "demon scythe", "flower of fire", "light disc", "book of skulls", "cursed flames", "golden shower", "crystal storm", "magnet sphere", "razorblade typhoon", "spirit flame", "lunar flare", "nettle burst", "flower pow", "wasp gun", "venus magnum", "bees knees", "bee keeper", "bee gun", "ball o hurt", "blue moon", "dao of pow", "golem fist", "drippler crippler", "meatball", "light's bane", "lights bane", "blood butcherer", "nights edge", "true nights edge", "true excalibur", "fiery greatsword", "blade of grass", "terra blade", "enchanted sword", "possessed hatchet", "paladins hammer", "bladed glove", "chain knife", "slime staff", "the undertaker", "star cannon", "coin gun", "space gun", "laser rifle", "razorpine", "rainbow gun", "last prism", "sky fracture", "crimson rod", "sdmg", "s.d.m.g.", "tactical shotgun", "sniper rifle", "chain gun", "gatligator", "xenopopper", "vortex beater", "celebration mk2", "celebration", "onyx blaster", "phoenix blaster", "dart pistol", "dart rifle", "heat ray", "staff of earth", "golem fist", "solar eruption", "star wrath", "influx waver", "ice sickle", "death sickle", "frost staff", "thunder zapper", "zapinator", "chlorophyte shotbow", "daedalus stormbow", "shadowflame bow", "hellwing bow", "molten fury", "aerial bane", "tsunami", "piranha gun", "sharkron balloon? ", "toxikarp", "bubble gun", "electric eel", "flairon", "razorblade", "chlorophyte saber", "chlorophyte claymore", "chlorophyte partisan", "orichalcum halberd", "mythril halberd", "titanium trident", "adamantite glaive", "palladium pike", "cobalt naginata", "obsidian swordfish", "swordfish", "north pole", "dark lance", "gungnir", "mushroom spear", "thunder spear", "ballista rod? ", "ice bow", "blizzard staff", "sandgun", "sand gun", "ichor arrow? ", "nimbus rod", "rainbow rod", "poison staff", "venom staff", "inferno fork", "unholy trident", "bat scepter", "ice rod", "lightning aura? ", "flamethrower", "elf melter", "snowman cannon", "stake launcher", "proximity mine launcher", "rocket launcher", "grenade launcher", "firecracker", "snapthorn", "dark harvest", "cool whip", "thorn whip", "durendal", "sanguine staff"],
+  summonStaffs: ["slime staff", "finch staff", "flinx staff", "imp staff", "hornet staff", "optic staff", "spider staff", "pirate staff", "pygmy staff", "raven staff", "tempest staff", "xeno staff", "stardust cell staff", "stardust dragon staff", "queen spider staff", "deadly sphere staff", "blade staff", "desert tiger staff", "vampire frog staff", "terraprisma", "abigails flower", "sanguine staff", "rainbow crystal staff", "lunar portal staff", "ravenstaff", "tiger staff", "frost hydra staff", "lightning aura rod", "flameburst rod", "explosive trap rod", "ballista rod", "hoplite staff"],
+  yoyoNames: ["rally", "malaise", "artery", "amazon", "code 1", "code 2", "valor", "cascade", "chik", "format:c", "format c", "hel-fire", "hel fire", "amarok", "gradient", "yelets", "reds throw", "valkyrie yoyo", "kraken", "the eye of cthulhu", "terrarian", "wooden yoyo", "yoyo"],
+  flailNames: ["ball o hurt", "blue moon", "sunfury", "the meatball", "dao of pow", "flower pow", "golem fist", "drippler crippler", "flail", "mace", "flaming mace", "chain knife"],
+  boomNames: ["boomerang", "chakram", "bananarang", "possessed hatchet", "flamarang", "thorn chakram", "light disc", "paladins hammer", "bladed glove", "ice boomerang", "enchanted boomerang"],
+  whipNames: ["whip", "firecracker", "snapthorn", "dark harvest", "kaleidoscope", "cool whip", "thorn whip", "durendal", "leather whip", "bone whip"],
+  tomeNames: ["tome", "book of skulls", "water bolt", "demon scythe", "cursed flames", "golden shower", "crystal storm", "magnet sphere", "razorblade typhoon", "lunar flare", "spirit flame", "nettle burst"],
+  food: ["pie", "cake", "ale", "sake", "smoothie", "sushi", "burger", "taco", "fries", "soup", "salad", "steak", "spaghetti", "sashimi", "pizza", "milkshake", "apple", "banana", "grapes", "lemon", "mango", "peach", "pineapple", "plum", "pomegranate", "cherry", "coconut", "elderberry", "blackcurrant", "rambutan", "apricot", "dragon fruit", "star fruit", "prickly pear", "escargot", "cooked fish", "cooked shrimp", "fried egg", "grub soup", "bloody moscato", "pad thai", "chicken nugget", "roasted bird", "roasted duck", "grilled squirrel", "marshmallow", "cookie", "gingerbread", "candy", "bunny stew", "ice cream", "popcorn", "tea", "juice", "sweet pad? "],
+};
+// strip the "name? " placeholders and normalise every entry once
+for (const k of Object.keys(L)) L[k] = L[k].filter(s => !s.includes("?")).map(_normName);
+const _SET = Object.fromEntries(Object.entries(L).map(([k, v]) => [k, new Set(v)]));
+
+
+const _classCache = new Map();
+
+function classifyItem(name) {
+  if (_classCache.has(name)) return _classCache.get(name);
+  const res = _classify(name);
+  _classCache.set(name, res);
+  return res;
+}
+
+// The wiki sentence that says what an item IS ("The Nightglow is a Hardmode, post-Plantera magic weapon ...").
+// `head` is the part after "is a", cut off before the details, so it is mostly just the item type.
+function _tipInfo(raw) {
+  const tip = (typeof ITEM_DETAILS !== "undefined" && ITEM_DETAILS && ITEM_DETAILS[raw] && ITEM_DETAILS[raw].tooltip) || "";
+  const s1 = tip.split(/(?<=[a-z\)\d])\.\s/)[0].toLowerCase();
+  let rest = s1;
+  const m = s1.match(/\b(?:is|are)\s+(?:a|an|the|one of the|one of|only|some|also)?\s*(.*)$/);
+  if (m) rest = m[1];
+  rest = rest.split(/\s(?:that|which|used|purchased|obtained|dropped|sold|crafted|made|found|acquired|available|capable|worn|required|requires|when|with a|can|has|by|from|for|in the|to|and the)\s|[;(]/)[0];
+  return { s1, head: rest.trim() };
+}
+
+function _classify(rawName) {
+  const n = _normName(rawName);
+  const tokens = n.split(/[^a-z0-9]+/).filter(Boolean);
+  const t = new Set(tokens);
+  const ph = p => _ph(n, p);
+  const out = (cat, sub) => ({ cat, sub });
+  const { s1, head: H } = _tipInfo(rawName);
+  const hH = re => re.test(H);
+  const hS = re => re.test(s1);
+
+  // ---------- 0. things that are clearly not gear ----------
+  const decor = _anyTok(t, ["statue", "painting", "trophy", "banner", "relic", "mannequin", "womannequin", "rack", "pylon", "monolith", "planter", "potted", "poster", "flag"]) || ph("music box") || hH(/decorative item|\bpaintings?\b|racks/) || hS(/\bracks? are\b|\bpainting\b/);
+  if (decor) return out("furniture", "decorative");
+  if (t.has("potion") || t.has("elixir") || t.has("flask") || ph("bottled honey") || ph("bottled water") || t.has("tonic") || t.has("draught")) {
+    if (ph("healing potion")) return out("potion", "healing");
+    if (ph("mana potion")) return out("potion", "mana");
+    return out("potion", "buff");
+  }
+  if (t.has("crate") || ph("treasure bag") || ph("goodie bag") || ph("grab bag") || ph("lock box") || t.has("present") || hH(/\bcrates?\b|bag-like|bag item/)) return out("misc", "crates");
+  if ((t.has("dye") || t.has("paint")) && !_anyTok(t, ["brush", "sprayer", "roller", "scraper", "paintbrush"])) return out("misc", "dyes");
+  if (hH(/\bdye\b/) && !hH(/dye (?:trader|vat)/)) return out("misc", "dyes");
+  if (hH(/pet-summoning|light pet|mount-summoning|\bmounts?\b|\bsaddle\b/) || t.has("minecart") || ph("mechanical cart") || ph("mechanical wagon piece") ) {
+    if (!hH(/track/)) return out("misc", "pets");
+  }
+  if (hH(/\bcritters?\b/) || hH(/\b(fish|fishes|bait)\b/) && !hH(/fishing (?:pole|rod)/) || ph("fishing catch") || ph("quest fish")) {
+    if (!/pole|rod|hook|rack|banner|trophy|statue|painting|bowl|jar/.test(n)) return out("misc", "critters");
+  }
+  if (hH(/(?:boss|event)-summoning/)) return out("misc", "summons");
+  if (hH(/booster item|power-up|permanent/) && !hH(/accessory|armor/)) return out("misc", "boosters");
+  if ((t.has("key") && !hH(/pet-summoning|mount/)) || (t.has("mold") && t.has("key")) || ph("key of night") || ph("key of light")) return out("misc", "keys");
+
+  if (["obsidian", "coal", "fallen star", "holy water", "unholy water", "purification powder", "vile powder", "vicious powder", "geode", "beetle shell", "sunflower", "sunflowers"].includes(n)) return out("material", n.startsWith("sunflower") ? "plants" : "other_material");
+
+  // ---------- 1. TOOLS ----------
+  const fishing = (ph("fishing") && _anyTok(t, ["pole", "rod", "hook"])) || ph("mechanics rod") || ph("hotline") || hS(/fishing poles?/);
+  const isNet = ph("bug net") && !t.has("cage") && !t.has("jar");
+  const isPaladin = ph("paladins hammer");
+  const tipTool = hH(/^(?:pickaxe|axe|hammer|drill|chainsaw|tools?|special tools?|unobtainable tools?)\b|\b(?:pickaxe|drill|chainsaw|hammer|axe)\b$/) || hH(/\b(?:pickaxe|drill|chainsaw)\b/) && !hH(/weapon/);
+  const toolWord =
+    _anyTok(t, L.toolTok) ||
+    (t.has("drill") && !t.has("containment") && !hH(/vanity/)) ||
+    (t.has("axe") && !ph("battle axe") && !hH(/weapon/)) ||
+    (t.has("hammer") && !isPaladin && !hH(/weapon/) && !t.has("hammush")) ||
+    _anyPh(n, L.otherTool) || tipTool;
+  if (fishing) return out("tool", "fishing");
+  if (isNet) return out("tool", "nets");
+  if (toolWord && !hH(/\bgolf\b/) && !hS(/golf/)) {
+    if ((_anyPh(n, L.multitool) || hH(/pickaxe and axe|axe and pickaxe|hamaxe|pickaxe axe/)) && !(t.has("pickaxe") && !t.has("axe") && !hH(/axe and|and axe/))) return out("tool", "multitools");
+    if (t.has("pickaxe") || hH(/\bpickaxe\b/) && !hH(/axe\b.*pickaxe/) ) return out("tool", "pickaxes");
+    if (t.has("drill") || hH(/\bdrill\b/)) return out("tool", "drills");
+    if (t.has("chainsaw") || hH(/\bchainsaw\b/)) return out("tool", "axes");
+    if (t.has("axe") || t.has("waraxe") || t.has("greataxe") || hH(/\baxe\b/)) return out("tool", "axes");
+    if (t.has("hammer") || t.has("pwnhammer") || t.has("jackhammer") || hH(/\bhammer\b/)) return out("tool", "hammers");
+    return out("tool", "other_tool");
+  }
+
+  // ---------- 2. accessories that look like something else ----------
+  const explicitAcc = _SET.explicitAcc.has(n) || _anyPh(n, L.explicitAcc);
+
+  // ---------- 3. ARMOR ----------
+  const notArmorTip = hH(/furniture|decorative|critter|banner|trophy|painting|statue|\bwall\b|\bblock\b/) || (hH(/accessory/) && !hH(/vanity|armor/));
+  if (!explicitAcc && !notArmorTip) {
+    const HEAD = ["helmet", "helm", "hat", "hood", "mask", "cap", "headgear", "visor", "headdress", "wig", "goggles", "crown", "tiara", "headband", "bandana", "fez", "beanie", "pith", "bonnet", "turban", "circlet", "halo", "ears", "antlers", "hairpin", "jingasa", "fedora"];
+    const CHEST = ["breastplate", "chestplate", "shirt", "chainmail", "scalemail", "robe", "robes", "mail", "suit", "tunic", "jacket", "dress", "vest", "coat", "gown", "longcoat", "torso", "uniform", "kimono", "gi", "bodice", "sweater", "coverings", "cuirass", "overalls", "plate", "garb", "hoodie", "blouse", "apron"];
+    const LEGS = ["greaves", "pants", "leggings", "skirt", "shorts", "trousers", "pantaloons", "tights", "loincloth", "heels", "shoes", "slacks", "stockings", "footwear", "geta"];
+    let kind = null;
+    for (let i = tokens.length - 1; i >= 0 && !kind; i--) {
+      const w = tokens[i];
+      if (HEAD.includes(w)) kind = "helmets";
+      else if (CHEST.includes(w)) kind = "chestplates";
+      else if (LEGS.includes(w)) kind = "leggings";
+    }
+    if (!kind && hH(/armor (?:item|piece|set)|armor$|vanity set|set consisting/)) kind = "chestplates";
+    if (kind === "chestplates" && t.has("plate") && (ph("pressure plate") || t.has("platform") || hH(/block|wall/) || ph("copper plating"))) kind = null;
+    if (kind && !(kind === "helmets" && _anyTok(t, ["halo", "ears", "antlers", "hairpin"]) && false)) return out("armor", kind);
+  }
+
+  // ---------- 5. ACCESSORIES ----------
+  const vanityTip = hH(/vanity|developer/) || hS(/vanity item|social/);
+  const accWord = explicitAcc || hH(/accessor/) ||
+    (_anyTok(t, L.accTok) && !ph("bladed glove") && !ph("fishing hook") && !(t.has("pack") && !t.has("hive") && !t.has("jet")) && !(t.has("sac") && !t.has("spore")) && !hH(/weapon|furniture|critter|block|decorative|wall|chest|flat-surface/) && !hS(/furniture|decorative|background wall|chest/));
+  if (accWord) {
+    if (vanityTip && !t.has("wings")) return out("accessory", "vanity");
+    if (t.has("wings")) return out("accessory", "wings");
+    if (t.has("boots")) return out("accessory", "boots");
+    if (_anyPh(n, ["balloon", "balloons", "bottle", "fart in a jar", "frog leg", "horseshoe", "bundle of balloons", "jump"])) return out("accessory", "balloons");
+    if (t.has("hook") || ph("ivy whip") || ph("grappling") || ph("web slinger") || ph("skeletron hand")) return out("accessory", "hooks");
+    if (t.has("shield")) return out("accessory", "shields");
+    if (t.has("emblem")) return out("accessory", "emblems");
+    if (t.has("charm")) return out("accessory", "charms");
+    if (hH(/informational/) || _anyPh(n, ["watch", "stopwatch", "compass", "depth meter", "gps", "cell phone", "pda", "radar", "lifeform analyzer", "dps meter", "metal detector", "tally counter", "sextant", "fish finder", "weather radio", "goblin tech", "fast clock", "shellphone"])) return out("accessory", "info");
+    return out("accessory", "other_acc");
+  }
+  if (vanityTip) return out("accessory", "vanity");
+  if (_anyPh(n, ["watch", "stopwatch", "compass", "gps", "radar", "sextant", "depth meter", "metal detector", "lifeform analyzer", "tally counter", "fish finder", "weather radio", "dps meter"]) && !t.has("watchtower")) return out("accessory", "info");
+
+  // ---------- AMMO (before weapons, so "Poison Dart" is not a weapon) ----------
+  const gunLike = _anyTok(t, ["pistol", "rifle", "gun", "trap", "launcher", "blaster"]);
+  if (t.has("arrow") || t.has("arrows")) return out("ammo", "arrows");
+  if (t.has("bullet") || t.has("bullets") || ph("musket ball") || ph("meteor shot")) return out("ammo", "bullets");
+  if (/^(?:cluster |wet |lava |honey |dry )?rocket (?:i|ii|iii|iv)$/.test(n) || /^(?:wet|lava|honey|dry) rocket$/.test(n) || ph("mini nuke") || n === "nuke") return out("ammo", "rockets");
+  if ((t.has("dart") && !gunLike) || n === "seed" || n === "stynger bolt" || n === "candy corn") return out("ammo", n === "seed" || t.has("dart") ? "darts" : "other_ammo");
+  if (["stake", "flare", "blue flare", "cannonball", "nanite", "nanites", "nail", "explosive jack o lantern", "endless quiver", "endless musket pouch"].includes(n) || (t.has("flare") && !gunLike) || hH(/ammunition|solution/)) return out("ammo", "other_ammo");
+  if (_anyPh(n, ["copper coin", "silver coin", "gold coin", "platinum coin"]) && !t.has("ring") && !t.has("gun")) return out("misc", "other_misc");
+
+  if (ph("spear trap") || ph("spiky ball trap") || ph("flame trap") || ph("gas trap")) return out("misc", "mechanisms");
+
+  // ---------- 6. WEAPONS (the wiki must say it is a weapon, so "Sword Rack" or "Golf Club" are not) ----------
+  const tipWeapon = hH(/weapon|sword|blade|\bbows?\b|repeater|\bguns?\b|launcher|staff|staves|wands?\b|spears?\b|yoyos?|boomerangs?|flails?|whips?|tome|spell ?book|knife|knives|explosive|javelin|\brods?\b|cannon|rifle|pistol|shotgun|scepter|claymore|saber|glaive|lance|trident|flamethrower|bomb|grenade|dagger|shuriken|chakram|\bdarts?\b|katana|scythe|sickle|mace\b|club\b|blowpipe|musket|rocket|minishark|megashark/) &&
+                    !hH(/ammunition|\barrow\b|bullet|pet-summoning|\bgolf\b|furniture/);
+  const nameWeapon = _anyTok(t, L.weaponTok) || _anyPh(n, L.weaponPh) || _anyPh(n, L.yoyoNames) || _anyPh(n, L.flailNames) || _anyPh(n, L.boomNames);
+  // when the wiki sentence is missing or odd, fall back to the name only for words that are never anything but weapons
+  const strongName = _anyTok(t, ["sword", "broadsword", "shortsword", "greatsword", "claymore", "saber", "katana", "scimitar", "cutlass", "rapier", "repeater", "shotgun", "pistol", "revolver", "musket", "launcher", "staff", "wand", "tome", "spear", "trident", "glaive", "yoyo", "boomerang", "chakram", "flail", "whip", "dagger", "shuriken"]);
+  const weaponWord = tipWeapon || (!s1 && nameWeapon) || (strongName && !hH(/furniture|decorative|block|wall|critter|mount|pet|vanity|golf|tool|accessory|armor/) && !s1.includes("furniture"));
+  const notWeapon = n === "bone" || n === "candy corn" || ph("sword statue") || t.has("flag") || ph("cat sword");
+  const ammoLike = ph("musket ball") || ph("bullet") || (t.has("arrow") || t.has("arrows")) && !t.has("bow") || hH(/ammunition/);
+  if (weaponWord && !notWeapon && !ammoLike) {
+    const has = list => _anyPh(n, list);
+    // the wiki's own word for the weapon type wins over anything guessed from the name
+    const WT = [[/shortswords?\b/, "shortswords"], [/broadswords?\b/, "broadswords"], [/boomerangs?\b/, "boomerangs"], [/yoyos?\b/, "yoyos"], [/flails?\b/, "flails"], [/\bwhips?\b/, "whips"], [/summon weapons?/, "summon_minions"], [/repeaters?\b/, "repeaters"], [/\bspears?\b/, "spears"], [/\bbows?\b/, "bows"], [/launchers?\b/, "launchers"], [/\bguns?\b/, "guns"], [/\bwands?\b/, "wands"], [/spell ?books?|\btomes?\b/, "tomes"]];
+    for (const [re, sub] of WT) if (hH(re)) return out("weapon", sub);
+    if (t.has("shortsword") || t.has("rapier") || ph("gladius") || hH(/shortsword/)) return out("weapon", "shortswords");
+    if (has(L.yoyoNames) || hH(/yoyo/)) return out("weapon", "yoyos");
+    if ((has(L.whipNames) && !ph("ivy whip")) || hH(/\bwhip/)) return out("weapon", "whips");
+    if (has(L.boomNames) || hH(/boomerang/)) return out("weapon", "boomerangs");
+    if (has(L.flailNames) || hH(/\bflail/)) return out("weapon", "flails");
+    if (has(L.summonStaffs) || hH(/summon/)) return out("weapon", "summon_minions");
+    if (has(L.tomeNames) || hH(/tome|spell ?book/)) return out("weapon", "tomes");
+    if (t.has("wand") || hH(/\bwand/)) return out("weapon", "wands");
+    if (t.has("rod") || hH(/\brod\b/)) return out("weapon", "rods");
+    if (_anyTok(t, ["spear", "lance", "trident", "pike", "partisan", "glaive", "harpoon", "javelin", "swordfish", "naginata", "halberd", "gungnir"]) || ph("dark lance") || ph("north pole") || hH(/\bspears?\b|\bpolearm/)) return out("weapon", "spears");
+    if (_anyTok(t, ["launcher", "cannon", "stynger"]) || ph("rocket launcher") || ph("celebration mk2") || ph("celebration") || hH(/launcher|cannon/)) return out("weapon", "launchers");
+    if (t.has("repeater") || hH(/repeater/)) return out("weapon", "repeaters");
+    if (t.has("bow") || t.has("stormbow") || hH(/\bbow\b/) || ph("tsunami") || ph("phantasm") || ph("aerial bane") || ph("molten fury") || ph("shotbow")) return out("weapon", "bows");
+    if (_anyTok(t, ["gun", "pistol", "rifle", "shotgun", "musket", "revolver", "blaster", "magnum", "minishark", "megashark", "uzi", "flamethrower", "blowpipe", "blowgun", "boomstick", "sdmg", "gatligator", "xenopopper", "toxikarp", "handgun"]) || ph("the undertaker") || ph("vortex beater") || ph("heat ray") || ph("laser rifle") || hH(/\bguns?\b|rifle|pistol|shotgun/)) return out("weapon", "guns");
+    if (_anyTok(t, ["staff", "scepter", "orb"]) || ph("magic missile") || ph("flower of fire") || ph("flamelash") || ph("vilethorn") || ph("last prism") || ph("sky fracture") || ph("razorpine") || hH(/magic weapon|\bstaff|scepter/)) return out("weapon", "other_magic");
+    if (_anyTok(t, ["knife", "knives", "dagger", "shuriken", "bomb", "dynamite", "grenade", "molotov"]) || ph("spiky ball") || ph("star anise") || hH(/explosive|thrown|knife|knives|ranged weapon/)) return out("weapon", "thrown");
+    if (_anyTok(t, ["sword", "broadsword", "greatsword", "claymore", "blade", "saber", "katana", "scimitar", "cutlass", "edge", "mace", "sickle", "scythe", "hatchet", "phaseblade", "phasesaber"]) || has(["excalibur", "muramasa", "starfury", "meowmere", "zenith", "daybreak", "terragrim", "arkhalis", "bladetongue", "slap hand", "seedler", "lights bane", "blood butcherer", "terra blade", "starlight", "nightglow", "eventide", "solar eruption", "star wrath", "influx waver"]) || hH(/broadsword|sword/)) return out("weapon", "broadswords");
+    return out("weapon", "other_weapon");
+  }
+
+  // ---------- FISH & BAIT by name ----------
+  if (/(fish|koi|trout|tuna|jellyfish|shrimp|tetra|minnow|carp|flounder|seahorse|oyster|lobster|bait|bass|salmon|cod|snapper|piranha|nightcrawler|starfish|fungifin|barracuda|manowar|scabbardfish|hellfish|flinxfin|plankton|wyverntail|old shoe|tin can)$/.test(n) && !hH(/furniture|decorative|weapon|armor|accessory/)) return out("misc", "critters");
+
+  if (t.has("fountain")) return out("furniture", "other_furniture");
+  // ---------- 8. WIRING, TRAPS ----------
+  if (_anyTok(t, ["plate", "timer", "pump", "switch", "lever", "teleporter", "actuator", "trap", "wire", "wires", "mine", "sensor", "detector"]) && !hH(/\bblock\b|\bwall\b/) || ph("pressure plate") || ph("logic gate") || hH(/mechanism|\btrap\b|activation/) || (t.has("spike") ) || ph("wooden spike") || ph("land mine") || ph("explosives")) {
+    return out("misc", "mechanisms");
+  }
+
+  // ---------- 9. WALLS, PLATFORMS, BLOCKS ----------
+  if (ph("stained glass")) return out("block", "glass");
+  if (t.has("wallpaper") || t.has("wall") || t.has("walls") || t.has("platform") || t.has("fence") || hH(/background wall|\bwalls?\b|platform|safe wall|wallpaper/)) return out("block", "other_block");
+  const woods = new Set(["wood", "boreal wood", "palm wood", "rich mahogany", "ebonwood", "shadewood", "pearlwood", "spooky wood", "ash wood", "dynasty wood", "living wood", "bamboo"]);
+  if (woods.has(n)) return out("block", "wood");
+  const furnTip = hH(/furniture|light source|storage|crafting station|flat-surface|chest|decorative|mechanical item/);
+  if (t.has("glass") && !furnTip || ph("stained glass")) return out("block", "glass");
+  if (t.has("block") || t.has("blocks") || t.has("stucco") || t.has("shingles") || t.has("plating") || t.has("slab")) return out("block", t.has("brick") ? "bricks" : "natural");
+  if (!furnTip) {
+    if (t.has("brick") || t.has("bricks") || t.has("shingles") || t.has("stucco") || hH(/\bbrick/)) return out("block", "bricks");
+    if (t.has("block") || hH(/\bblocks?\b|type of block|\bbeam\b/) || _anyTok(t, ["sandstone", "hardened"])) return out("block", "natural");
+  }
+
+  // ---------- 10. FOOD ----------
+  if (_anyPh(n, L.food) || ph("bowl of soup") || hH(/\bfood\b|\bdrink\b|beverage/)) return out("potion", "food");
+
+  // ---------- 11. FURNITURE ----------
+  const stations = ["work bench", "heavy work bench", "anvil", "mythril anvil", "orichalcum anvil", "adamantite forge", "titanium forge", "furnace", "hellforge", "loom", "sawmill", "tinkerers workshop", "imbuing station", "dye vat", "kiln", "glass kiln", "cooking pot", "cauldron", "alchemy table", "bottle", "solidifier", "extractinator", "ancient manipulator", "autohammer", "lihzahrd furnace", "keg", "blend-o-matic", "blend o matic", "meat grinder", "flesh cloning vat", "steampunk boiler", "bone welder", "living loom", "sky mill", "ice machine", "honey dispenser", "crystal ball", "campfire", "bonfire", "fireplace"].map(_normName);
+  const storage = ["chest", "piggy bank", "safe", "barrel", "trash can", "void vault", "defenders forge", "dresser", "bookcase", "wardrobe", "trough"];
+  const lighting = ["torch", "lantern", "candle", "chandelier", "lamp", "candelabra", "lamppost", "lava lamp", "tiki torch", "glowstick", "light", "lights", "sconce", "bulb", "garland"];
+  const comfort = ["chair", "bed", "bench", "sofa", "couch", "throne", "toilet", "bathtub", "bath", "stool"];
+  const otherFurn = ["door", "table", "clock", "piano", "sink", "mirror", "sign", "fountain", "cage", "bowl", "bookshelf", "workshop", "vase", "shelf", "gate", "rope", "cup", "chain", "pot", "dishes", "chalice", "jar", "terrarium", "tombstone", "gravestone", "headstone", "obelisk", "cross"];
+  if ((_anyPh(n, stations) && !ph("work bench")) || ph("work bench") || ph("heavy work bench") || hH(/crafting station/)) return out("furniture", "crafting");
+  if (_anyTok(t, storage) || ph("piggy bank") || ph("trash can") || ph("void vault") || hH(/storage/)) return out("furniture", "storage");
+  if (_anyTok(t, lighting) || hH(/light source/)) return out("furniture", "lighting");
+  if (_anyTok(t, comfort)) return out("furniture", "comfort");
+  if (hH(/furniture|decorative/) || s1.includes("furniture") || _anyTok(t, otherFurn)) return out("furniture", "other_furniture");
+
+  // ---------- 12. MATERIALS ----------
+  if (t.has("ore") || n === "hellstone" || n === "luminite" || n === "meteorite") return out("material", "ores");
+  if (t.has("bar") && !t.has("crowbar") || hH(/\bbars?\b/)) return out("material", "bars");
+  if (_anyTok(t, ["amethyst", "topaz", "sapphire", "emerald", "ruby", "diamond", "amber"]) && !hH(/furniture|gemspark|staff|robe|hook|block|wall/) || hH(/\bgems?\b|items designed/)) return out("material", "gems");
+  if (t.has("soul") && t.has("of")) return out("material", "souls");
+  if (_anyTok(t, ["daybloom", "moonglow", "blinkroot", "deathweed", "waterleaf", "fireblossom", "shiverthorn", "seeds", "seed", "mushroom", "vine", "herb", "acorn", "acorns", "moss", "grass"]) || hH(/\bseeds?\b|herbs?\b|grass-like plant|type of plant/)) return out("material", "plants");
+  if (hH(/material/) || hS(/crafting|craft /)) return out("material", "other_material");
+  return out("misc", "other_misc");
+}
+
+function detectCategory(itemName) {
+  return classifyItem(itemName).cat;
+}
+
+function getItemSubcategory(item, mainCategory) {
+  const c = classifyItem(item.name);
+  return c.cat === mainCategory ? c.sub : null;
+}
+
+// ============================================================
+// Broken-picture rescue. Some wiki items are animated (.gif) or have "(item)" in the file name, so the
+// first guess can fail. Any <img> that fails to load tries the other spellings before giving up.
+// ============================================================
+document.addEventListener("error", (e) => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement)) return;
+  if (img.dataset.fallbacks !== undefined) return;            // those already have their own fallback list
+  const name = (img.alt || "").trim();
+  if (!name || name.length > 60) return;
+  if (!img.dataset.rescue) {
+    const base = name.replace(/ /g, "_");
+    const enc = encodeURIComponent(base).replace(/%27/g, "'");
+    img.dataset.rescue = JSON.stringify([
+      `https://terraria.wiki.gg/images/${enc}.gif`,
+      `https://terraria.wiki.gg/images/${enc}_(item).png`,
+      `https://terraria.wiki.gg/images/${enc}_(item).gif`,
+      `https://terraria.wiki.gg/images/${enc}_(placed).png`,
+    ]);
+  }
+  let rest = [];
+  try { rest = JSON.parse(img.dataset.rescue); } catch (err) {}
+  if (!rest.length) return;
+  img.referrerPolicy = "no-referrer";
+  img.src = rest.shift();
+  img.dataset.rescue = JSON.stringify(rest);
+}, true);
 
 function debounce(fn, delay = 120) {
   let t;
@@ -320,83 +486,6 @@ function debounce(fn, delay = 120) {
     clearTimeout(t);
     t = setTimeout(() => fn(...args), delay);
   };
-}
-
-function detectCategory(itemName) {
-  const name = itemName.toLowerCase();
-  
-  if (name.includes('block') || name.includes('brick') || name.includes('wall') ||
-      name.includes('platform') || name.includes('glass') || name.includes('fence')) {
-    return 'block';
-  }
-  
-  if (name.includes('chair') || name.includes('table') || name.includes('bed') ||
-      name.includes('door') || name.includes('torch') || name.includes('lantern') ||
-      name.includes('chandelier') || name.includes('statue') || name.includes('banner') ||
-      name.includes('candle') || name.includes('lamp') || name.includes('bowl') ||
-      name.includes('painting') || name.includes('picture') || name.includes('trophy') ||
-      name.includes('book') || name.includes('chronicles')) {
-    return 'furniture';
-  }
-  
-  if (name.includes('helmet') || name.includes('breastplate') || name.includes('greaves') ||
-      name.includes('hat') || name.includes('shirt') || name.includes('pants') ||
-      name.includes('hood') || name.includes('mask') || name.includes('robe') ||
-      (name.includes('armor') && !name.includes('polish'))) {
-    return 'armor';
-  }
-  
-  if (name.includes('ring') || name.includes('necklace') || name.includes('charm') ||
-      name.includes('emblem') || name.includes('wings') || name.includes('boots') ||
-      name.includes('balloon') || name.includes('hook') || name.includes('frog leg') ||
-      name.includes('horseshoe') || name.includes('cloud in') || name.includes('shield') ||
-      name.includes('band of') || name.includes('pendant') || name.includes('cursor')) {
-    return 'accessory';
-  }
-  
-  if (name.includes('potion') || name.includes('elixir') || name.includes('flask')) {
-    return 'potion';
-  }
-  
-  if (name.includes('arrow') || name.includes('bullet') || name.includes('rocket') ||
-      name.includes('dart') || name.includes('coin') || name.includes('gel') ||
-      name.includes('stake') || name.includes('seed') && name.includes('(') ||
-      name.includes('sand') && name.includes('(')) {
-    return 'ammo';
-  }
-  
-  if (name.includes('pickaxe') || name.includes('axe') && !name.includes('battle axe') ||
-      name.includes('drill') || name.includes('chainsaw') ||
-      name.includes('hammer') && (name.includes('pwnhammer') || name.includes('hamaxe') || 
-                                   name.includes('pick') || name.includes('drill'))) {
-    return 'tool';
-  }
-  
-  if ((name.includes('sword') && !name.includes('picture') && !name.includes('cat sword')) || 
-      name.includes('blade') && !name.includes('chronicles') || 
-      name.includes('saber') || 
-      (name.includes('bow') && !name.includes('bowl') && !name.includes('rainbow')) || 
-      name.includes('gun') || 
-      (name.includes('staff') && !name.includes('flag')) ||
-      name.includes('spear') || name.includes('yoyo') || name.includes('boomerang') ||
-      name.includes('flail') || name.includes('whip') && !name.includes('leather') || 
-      name.includes('katana') ||
-      name.includes('lance') || 
-      name.includes('hammer') && !name.includes('hamaxe') ||
-      name.includes('repeater') || name.includes('launcher') || name.includes('rifle') ||
-      name.includes('shotgun') || name.includes('pistol') || name.includes('minishark') ||
-      name.includes('megashark') || name.includes('phoenix') || name.includes('blaster')) {
-    return 'weapon';
-  }
-  
-  if (name.includes('bar') || name.includes('ore') || name.includes('ingot') ||
-      name.includes('fragment') || name.includes('essence') || name.includes('crystal') ||
-      name.includes('scale') || name.includes('tissue') || name.includes('vertebrae') ||
-      name.includes('chunk')) {
-    return 'material';
-  }
-  
-  return 'material';
 }
 
 async function loadItems() {
@@ -615,6 +704,8 @@ function applyFilter() {
   FILTERED = filtered;
 
   visibleCount = PAGE_SIZE;
+  const resultsEl = document.getElementById("results");
+  if (resultsEl) resultsEl.scrollTop = 0;
   renderItems(FILTERED.slice(0, visibleCount));
   updateCategoryCounts();
   fillScreenIfNeeded();
@@ -2290,6 +2381,54 @@ function toggleSubcategories(category) {
   }
 }
 
+// ============================================================
+// TERRARIA ICONS: real item / NPC pictures instead of emojis
+// ============================================================
+const MENU_ICONS = {
+  "Ores & Bars": "Gold Bar", "Bosses": "Suspicious Looking Eye", "Armor": "Iron Chainmail",
+  "Pickaxes": "Iron Pickaxe", "Events": "Goblin Battle Standard",
+  "NPCs": "Guide", "Classes": "Night's Edge", "Crimson vs Corruption": "Crimtane Bar",
+  "Pre-Hardmode NPCs": "Guide", "Hardmode NPCs": "Wizard", "Visitors & Others": "Travelling Merchant", "Town Pets": "Town Cat",
+  "Melee": "Night's Edge", "Ranged": "Minishark", "Mage": "Water Bolt", "Summoner": "Slime Staff",
+};
+
+function iconCandidates(name) {
+  return [...new Set([
+    ITEM_BY_NAME[name]?.img,
+    NPC_BY_NAME[name]?.img,
+    wikiImgUrl(name, "png"),
+    wikiImgUrl(name, "gif"),
+  ].filter(Boolean))];
+}
+
+// Puts a picture into `host`. The old emoji / text stays until the picture has loaded, so nothing ever looks empty.
+function loadIconInto(host, name, cls) {
+  if (!host || !name) return;
+  const old = host.querySelector("img.tr-icon");
+  if (old) old.remove();
+  const img = document.createElement("img");
+  img.className = "tr-icon" + (cls ? " " + cls : "");
+  img.alt = "";
+  img.loading = "lazy";
+  img.style.display = "none";
+  img.addEventListener("load", () => {
+    img.style.display = "";
+    for (const n of [...host.childNodes]) if (n.nodeType === 3) n.textContent = "";
+    host.classList.add("has-img");
+  });
+  setImgWithFallbacks(img, iconCandidates(name));
+  host.appendChild(img);
+}
+
+function applyCategoryIcons() {
+  const allIcon = document.querySelector('.cat-item[data-category="all"] .cat-icon');
+  loadIconInto(allIcon, "Chest");
+  for (const [catKey, catData] of Object.entries(SUBCATEGORIES)) {
+    const el = document.querySelector(`.cat-item[data-category="${catKey}"] .cat-icon`);
+    loadIconInto(el, catData.icon);
+  }
+}
+
 function buildSubcategoryUI() {
   for (const [catKey, catData] of Object.entries(SUBCATEGORIES)) {
     const subsDiv = document.getElementById(`subs-${catKey}`);
@@ -2303,10 +2442,12 @@ function buildSubcategoryUI() {
     allDiv.dataset.subcategory = `${catKey}-all`;
     allDiv.onclick = () => selectCategory(catKey);
     allDiv.innerHTML = `
+      <span class="cat-sub-icon"></span>
       <span class="cat-sub-name">All ${catData.name}</span>
       <span class="cat-sub-count" id="count-${catKey}-all">0</span>
     `;
     subsDiv.appendChild(allDiv);
+    loadIconInto(allDiv.querySelector(".cat-sub-icon"), catData.icon);
     
     // Add each subcategory
     for (const [subKey, subData] of Object.entries(catData.subs)) {
@@ -2315,12 +2456,15 @@ function buildSubcategoryUI() {
       subDiv.dataset.subcategory = `${catKey}-${subKey}`;
       subDiv.onclick = () => selectSubcategory(catKey, subKey);
       subDiv.innerHTML = `
+        <span class="cat-sub-icon"></span>
         <span class="cat-sub-name">${subData.name}</span>
         <span class="cat-sub-count" id="count-${catKey}-${subKey}">0</span>
       `;
       subsDiv.appendChild(subDiv);
+      loadIconInto(subDiv.querySelector(".cat-sub-icon"), subData.icon);
     }
   }
+  applyCategoryIcons();
 }
 
 function updateCategoryCounts() {
@@ -2451,6 +2595,7 @@ async function main() {
 
   document.getElementById("btnTimeline").addEventListener("click", openTimeline);
   document.getElementById("btnEvil").addEventListener("click", openEvil);
+  setupEvilButton();
   document.getElementById("btnGuide").addEventListener("click", openGuide);
   document.getElementById("timelineBack").addEventListener("click", timelineGoBack);
 
@@ -2544,6 +2689,7 @@ const TIMELINES = {
       description: "Bosses available from the start of the game",
       items: [
         { name: "King Slime", type: "Boss (Optional)", img: "" },
+        { name: "Dark Mage", type: "Event Boss", img: "", milestone: "Old One's Army, tiers 1 and 2" },
         { name: "Eye of Cthulhu", type: "Boss", img: "" },
         { name: "Eater of Worlds", type: "Boss (Alt)", img: "" },
         { name: "Brain of Cthulhu", type: "Boss (Alt)", img: "" },
@@ -2563,6 +2709,9 @@ const TIMELINES = {
         { name: "The Destroyer", type: "Boss (Mech)", img: "" },
         { name: "Skeletron Prime", type: "Boss (Mech)", img: "" },
         { name: "Duke Fishron", type: "Boss (Optional)", img: "" },
+        { name: "Dreadnautilus", type: "Mini-Boss", img: "", milestone: "Hardmode Blood Moon" },
+        { name: "Ogre", type: "Event Boss", img: "", milestone: "Old One's Army, tiers 2 and 3" },
+        { name: "Flying Dutchman", type: "Event Boss", img: "", milestone: "Hardmode Pirate Invasion" },
       ]
     },
     {
@@ -2581,6 +2730,14 @@ const TIMELINES = {
         { name: "Golem", type: "Boss", img: "" },
         { name: "Empress of Light", type: "Boss", img: "" },
         { name: "Lunatic Cultist", type: "Boss", img: "", milestone: "Defeat Golem first" },
+        { name: "Betsy", type: "Event Boss", img: "", milestone: "Old One's Army, tier 3" },
+        { name: "Mothron", type: "Event Boss", img: "", milestone: "Solar Eclipse" },
+        { name: "Martian Saucer", type: "Event Boss", img: "", milestone: "Martian Madness" },
+        { name: "Mourning Wood", type: "Event Boss", img: "", milestone: "Pumpkin Moon" },
+        { name: "Pumpking", type: "Event Boss", img: "", milestone: "Pumpkin Moon" },
+        { name: "Everscream", type: "Event Boss", img: "", milestone: "Frost Moon" },
+        { name: "Santa-NK1", type: "Event Boss", img: "", milestone: "Frost Moon" },
+        { name: "Ice Queen", type: "Event Boss", img: "", milestone: "Frost Moon" },
       ]
     },
     {
@@ -2588,6 +2745,10 @@ const TIMELINES = {
       description: "Triggered by the Lunatic Cultist",
       milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
       items: [
+        { name: "Solar Pillar", type: "Celestial Pillar", img: "" },
+        { name: "Vortex Pillar", type: "Celestial Pillar", img: "" },
+        { name: "Nebula Pillar", type: "Celestial Pillar", img: "" },
+        { name: "Stardust Pillar", type: "Celestial Pillar", img: "" },
         { name: "Moon Lord", type: "Final Boss", img: "" },
       ]
     },
@@ -3804,7 +3965,9 @@ function renderClass(key) {
   const wrap = cmpEl("div", "cmp arm");
 
   const head = cmpEl("div", "npc-head");
-  head.appendChild(cmpEl("div", "cls-icon", info.icon));
+  const clsIcon = cmpEl("div", "cls-icon", info.icon);
+  head.appendChild(clsIcon);
+  loadIconInto(clsIcon, MENU_ICONS[info.name]);
   head.appendChild(cmpEl("div", "npc-name", info.name));
   head.appendChild(cmpEl("div", "cmp-tag", info.tag));
   wrap.appendChild(head);
@@ -3991,6 +4154,91 @@ const BOSS_DATA = {
     bag: ["Ancient Manipulator|Crafting station", "Greater Healing Potion"],
     master: ["Lunatic Cultist Relic", "Tablet Fragment|Pet"],
   },
+  "Dark Mage": {
+    tag: "Event boss · Old One's Army",
+    summon: "Hold an Eternia Crystal and put it in an Eternia Crystal Stand to start Old One's Army. The Dark Mage shows up at the end of tiers 1 and 2.",
+    classic: ["Apprentice's Scarf|Tier 1 gear", "Squire's Shield", "Dark Mage's Tome|Pet", "Gato Egg|Pet", "Dragon Egg|Pet", "War Table|Defense station"],
+    bagOnly: [], bag: [],
+    master: ["Dark Mage Relic"],
+  },
+  "Ogre": {
+    tag: "Event boss · Old One's Army",
+    summon: "Survive the waves of Old One's Army. The Ogre is the boss at the end of tiers 2 and 3.",
+    classic: ["Huntress's Buckler", "Monk's Belt", "Brand of the Inferno|One of four weapons", "Sleepy Octopod", "Ghastly Glaive", "Tome of Infinite Wisdom", "Phantom Phoenix", "Creeper Egg|Pet", "Ogre's Club|Pet"],
+    bagOnly: [], bag: [],
+    master: ["Ogre Relic"],
+  },
+  "Betsy": {
+    tag: "Event boss · Old One's Army tier 3",
+    summon: "She is the boss at the end of tier 3 of Old One's Army, which needs Golem to be defeated first.",
+    classic: ["Flying Dragon|One of four weapons", "Sky Dragon's Fury", "Aerial Bane", "Betsy's Wrath", "Betsy's Egg|Pet"],
+    bagOnly: [],
+    bag: ["Flying Dragon|One of four weapons", "Sky Dragon's Fury", "Aerial Bane", "Betsy's Wrath"],
+    master: ["Betsy Relic"],
+  },
+  "Flying Dutchman": {
+    tag: "Event boss · Pirate Invasion",
+    summon: "He appears while a Pirate Invasion is going on in Hardmode. Pirate Invasions start after a Goblin Army is defeated, or by using a Pirate Map.",
+    classic: ["Cutlass", "Discount Card", "Lucky Coin", "Coin Gun", "Pirate Staff", "Gold Ring", "The Black Spot|Pet"],
+    bagOnly: [], bag: [],
+    master: ["Flying Dutchman Relic"],
+  },
+  "Mourning Wood": {
+    tag: "Event boss · Pumpkin Moon",
+    summon: "Use a Pumpkin Moon Medallion at night after Plantera is defeated, then survive the early waves.",
+    classic: ["Spooky Wood", "Spooky Twig|Pet", "Stake Launcher", "Stake", "Cursed Sapling|Pet", "Necromantic Scroll|Accessory", "Witch's Broom|Mount", "Hexxed Branch|Pet"],
+    bagOnly: [], bag: [],
+    master: ["Mourning Wood Relic"],
+  },
+  "Pumpking": {
+    tag: "Event boss · Pumpkin Moon",
+    summon: "Use a Pumpkin Moon Medallion at night after Plantera is defeated. The Pumpking arrives in the later waves.",
+    classic: ["Candy Corn Rifle|One of the weapons", "Candy Corn", "Jack 'O Lantern Launcher", "Explosive Jack 'O Lantern", "Bat Scepter", "Raven Staff", "The Horseman's Blade", "Dark Harvest", "Spider Egg|Pet", "Black Fairy Dust|Pet", "Pumpkin Scented Candle|Pet"],
+    bagOnly: [], bag: [],
+    master: ["Pumpking Relic"],
+  },
+  "Everscream": {
+    tag: "Event boss · Frost Moon",
+    summon: "Use a Naughty Present at night after Plantera is defeated to start the Frost Moon, then survive the early waves.",
+    classic: ["Christmas Tree Sword", "Razorpine", "Shrub Star|Pet"],
+    bagOnly: [], bag: [],
+    master: ["Everscream Relic"],
+  },
+  "Santa-NK1": {
+    tag: "Event boss · Frost Moon",
+    summon: "Use a Naughty Present at night after Plantera is defeated. Santa-NK1 comes in the middle waves of the Frost Moon.",
+    classic: ["Elf Melter", "Chain Gun", "Toy Tank|Pet"],
+    bagOnly: [], bag: [],
+    master: ["Santa-NK1 Relic"],
+  },
+  "Ice Queen": {
+    tag: "Event boss · Frost Moon",
+    summon: "Use a Naughty Present at night after Plantera is defeated. The Ice Queen is the toughest enemy of the Frost Moon, in the later waves.",
+    classic: ["Blizzard Staff", "Snowman Cannon", "North Pole", "Reindeer Bells|Mount", "Baby Grinch's Mischief Whistle|Pet", "Frozen Crown|Pet"],
+    bagOnly: [], bag: [],
+    master: ["Ice Queen Relic"],
+  },
+  "Martian Saucer": {
+    tag: "Event boss · Martian Madness",
+    summon: "Martian Madness can start at random after Golem is defeated, when a Martian Probe spots you. The Saucer is the final target of the event.",
+    classic: ["Greater Healing Potion", "Xeno Staff", "Laser Machinegun", "Electrosphere Launcher", "Xenopopper", "Influx Waver", "Cosmic Car Key|Mount", "Cosmic Skateboard|Mount"],
+    bagOnly: [], bag: [],
+    master: ["Martian Saucer Relic"],
+  },
+  "Mothron": {
+    tag: "Event boss · Solar Eclipse",
+    summon: "Appears during a Solar Eclipse once Plantera has been defeated.",
+    classic: ["Broken Hero Sword|Used to craft the Terra Blade", "The Eye of Cthulhu|Yoyo"],
+    bagOnly: [], bag: [],
+    master: [],
+  },
+  "Dreadnautilus": {
+    tag: "Mini-boss · Blood Moon",
+    summon: "Appears during a Blood Moon in Hardmode, in the water.",
+    classic: ["Sanguine Staff|Summon weapon", "Bloody Tear|Summons a Blood Moon", "Chum Bucket"],
+    bagOnly: [], bag: [],
+    master: [],
+  },
   "Moon Lord": {
     tag: "Final boss",
     summon: "Defeat all four Celestial Pillars, or use a Celestial Sigil.",
@@ -4026,6 +4274,139 @@ function bossItemRow(entry, sideName, label) {
   return row;
 }
 
+// ---------- Biome page ----------
+function renderBiome(key) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const b = BIOMES[key];
+  if (!b) { content.innerHTML = `<div class="timeline-soon">Coming soon</div>`; return; }
+  const wrap = cmpEl("div", "cmp biome");
+
+  const head = cmpEl("div", "npc-head");
+  const ico = cmpEl("div", "npc-ico");
+  const img = document.createElement("img");
+  img.alt = b.name;
+  setImgWithFallbacks(img, iconCandidates(b.iconItem));
+  ico.appendChild(img);
+  head.appendChild(ico);
+  head.appendChild(cmpEl("div", "npc-name", b.name));
+  head.appendChild(cmpEl("div", "cmp-tag", b.tag));
+  wrap.appendChild(head);
+
+  const s1 = cmpEl("div", "cmp-section");
+  s1.appendChild(cmpEl("div", "cmp-label", "Where to find it"));
+  s1.appendChild(cmpEl("div", "npc-text", b.where));
+  wrap.appendChild(s1);
+
+  const s2 = cmpEl("div", "cmp-section");
+  s2.appendChild(cmpEl("div", "cmp-label", "Who lives here"));
+  const eg = cmpEl("div", "npc-items");
+  for (const raw of b.enemies) eg.appendChild(bossItemRow(bossEntry(raw), b.name, "Found here"));
+  s2.appendChild(eg);
+  wrap.appendChild(s2);
+
+  const s3 = cmpEl("div", "cmp-section");
+  s3.appendChild(cmpEl("div", "cmp-label", "What you can get here"));
+  const ig = cmpEl("div", "npc-items");
+  for (const raw of b.items) ig.appendChild(bossItemRow(bossEntry(raw), b.name, "Found here"));
+  s3.appendChild(ig);
+  wrap.appendChild(s3);
+
+  if (b.tip) {
+    const s4 = cmpEl("div", "cmp-section");
+    s4.appendChild(cmpEl("div", "cmp-label", "Good to know"));
+    s4.appendChild(cmpEl("div", "npc-text", b.tip));
+    wrap.appendChild(s4);
+  }
+  wrap.appendChild(cmpEl("div", "cmp-footnote", "Highlights, not a full list. Tap any item for its crafting and details."));
+
+  const linkWrap = cmpEl("div", "npc-linkwrap");
+  const link = document.createElement("a");
+  link.className = "npc-wiki"; link.target = "_blank"; link.rel = "noopener noreferrer";
+  link.textContent = "📖 Open Wiki Page";
+  link.href = `https://terraria.wiki.gg/wiki/${encodeURIComponent(b.name.split(" & ")[0].replace(/ /g, "_"))}`;
+  linkWrap.appendChild(link);
+  wrap.appendChild(linkWrap);
+  content.appendChild(wrap);
+}
+
+// ---------- Plants & Potions ----------
+function recipeSummary(name) {
+  const variants = RECIPES[name];
+  if (!variants || !variants.length) return "";
+  const v = variants[0];
+  const parts = (v.ingredients || []).map(i => (i.qty > 1 ? `${i.qty} ` : "") + i.item);
+  return parts.join(" + ") + (v.station ? `  ·  ${v.station}` : "");
+}
+
+function renderHerbs() {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const wrap = cmpEl("div", "cmp herbs");
+  const head = cmpEl("div", "npc-head");
+  head.appendChild(cmpEl("div", "cls-icon", "🌿"));
+  head.appendChild(cmpEl("div", "npc-name", "Herbs & Plants"));
+  head.appendChild(cmpEl("div", "cmp-tag", "The seven herbs used in potions"));
+  wrap.appendChild(head);
+  wrap.appendChild(cmpEl("div", "npc-text cls-about", "Herbs only give you their best harvest while they are in bloom. You can also plant their Seeds in a Clay Pot or Planter Box so they are close to your Alchemy Table."));
+
+  for (const h of HERBS) {
+    const sec = cmpEl("div", "cmp-section");
+    sec.appendChild(bossItemRow(bossEntry(h.name), "Herbs", "Herb"));
+    const facts = cmpEl("div", "herb-facts");
+    facts.appendChild(cmpEl("div", "", `Grows on: ${h.grows}`));
+    facts.appendChild(cmpEl("div", "", `Blooms: ${h.blooms}`));
+    // potions that use this herb
+    const makes = [];
+    for (const [out, variants] of Object.entries(RECIPES)) {
+      if (!variants.some(v => (v.ingredients || []).some(i => i.item === h.name))) continue;
+      const c = classifyItem(out);
+      if (c.cat === "potion" && c.sub !== "food") makes.push(out);
+    }
+    if (makes.length) facts.appendChild(cmpEl("div", "", `Used in: ${makes.slice(0, 14).join(", ")}${makes.length > 14 ? ` and ${makes.length - 14} more` : ""}`));
+    sec.appendChild(facts);
+    const seedRow = bossItemRow(bossEntry(h.seeds + "|Plant it to grow more"), "Herbs", "Seeds");
+    sec.appendChild(seedRow);
+    wrap.appendChild(sec);
+  }
+  content.appendChild(wrap);
+}
+
+function renderPotions(kind) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const titles = { heal: "Healing & Mana", buff: "Buff Potions", flask: "Flasks" };
+  const blurbs = {
+    heal: "Healing potions restore health and mana potions restore mana. Higher tiers are brewed from better ingredients.",
+    buff: "Buff potions give a temporary bonus. Most are brewed at an Alchemy Table from Bottled Water and herbs.",
+    flask: "Flasks coat your melee weapons and arrows with an effect for a while. They are crafted at an Alchemy Table or Imbuing Station.",
+  };
+  const list = ITEMS.filter(it => {
+    const c = classifyItem(it.name);
+    if (c.cat !== "potion") return false;
+    const isFlask = /(^|\s)Flask\b/.test(it.name);
+    if (kind === "flask") return isFlask;
+    if (isFlask) return false;
+    if (kind === "heal") return c.sub === "healing" || c.sub === "mana";
+    return c.sub === "buff";
+  }).sort((a, b) => a.id - b.id);
+
+  const wrap = cmpEl("div", "cmp potions");
+  const head = cmpEl("div", "npc-head");
+  head.appendChild(cmpEl("div", "cls-icon", kind === "flask" ? "🫙" : "🧪"));
+  head.appendChild(cmpEl("div", "npc-name", titles[kind]));
+  head.appendChild(cmpEl("div", "cmp-tag", `${list.length} items`));
+  wrap.appendChild(head);
+  wrap.appendChild(cmpEl("div", "npc-text cls-about", blurbs[kind]));
+  const grid = cmpEl("div", "npc-items potion-grid");
+  for (const it of list) {
+    const note = recipeSummary(it.name);
+    grid.appendChild(bossItemRow({ name: it.name, note, fallbackImg: wikiImgUrl(it.name) }, titles[kind], "Potion"));
+  }
+  wrap.appendChild(grid);
+  content.appendChild(wrap);
+}
+
 function renderBoss(name) {
   const content = document.getElementById("timelineContent");
   content.innerHTML = "";
@@ -4041,7 +4422,7 @@ function renderBoss(name) {
   const ico = cmpEl("div", "npc-ico");
   const img = document.createElement("img");
   img.alt = name;
-  const icons = [...timelineImgCandidates({ name }, ITEM_BY_NAME[name]), wikiImgUrl(name, "png"), wikiImgUrl(name, "gif")];
+  const icons = [...timelineImgCandidates({ name }, null), wikiImgUrl(name, "png"), wikiImgUrl(name, "gif")];
   setImgWithFallbacks(img, [...new Set(icons)]);
   ico.appendChild(img);
   head.appendChild(ico);
@@ -4058,9 +4439,10 @@ function renderBoss(name) {
   // two columns: normal drops | treasure bag
   const sec = cmpEl("div", "cmp-section");
   sec.appendChild(cmpEl("div", "cmp-label", "What it drops"));
+  const hasBag = !!((data.bagOnly && data.bagOnly.length) || data.bag.length);
   const heads = cmpEl("div", "cmp-cols boss-colheads");
-  heads.appendChild(cmpEl("div", "cmp-col boss-colhead", "Classic mode"));
-  heads.appendChild(cmpEl("div", "cmp-col boss-colhead bag", "Treasure Bag (Expert & Master)"));
+  heads.appendChild(cmpEl("div", "cmp-col boss-colhead", hasBag ? "Classic mode" : "Drops"));
+  if (hasBag) heads.appendChild(cmpEl("div", "cmp-col boss-colhead bag", "Treasure Bag (Expert & Master)"));
   sec.appendChild(heads);
 
   const cols = cmpEl("div", "cmp-cols");
@@ -4074,7 +4456,8 @@ function renderBoss(name) {
   }
   for (const raw of data.bag) right.appendChild(bossItemRow(bossEntry(raw), name, "Treasure Bag"));
   cols.appendChild(left);
-  cols.appendChild(right);
+  if (hasBag) cols.appendChild(right);
+  else { cols.classList.add("boss-single"); heads.classList.add("boss-single"); }
   sec.appendChild(cols);
   wrap.appendChild(sec);
 
@@ -4114,10 +4497,140 @@ const TIMELINE_MENU = [
   { name: "Events", icon: "🎪", desc: "Invasions and special events", timeline: "events" },
 ];
 
+// ============================================================
+// FIELD GUIDE: BIOMES + PLANTS & POTIONS
+// Item names that are not in the item list still show (with their wiki picture), so a typo can never break a page.
+// Items are "Name" or "Name|short note".
+// ============================================================
+const BIOMES = {
+  forest: {
+    name: "Forest", icon: "🌳", iconItem: "Acorn", tag: "Surface · where you start",
+    where: "The green, grassy surface around your spawn point. The Hallow and the evil biomes can spread into it later.",
+    enemies: ["Green Slime", "Blue Slime", "Zombie|Night", "Demon Eye|Night"],
+    items: ["Wood|From trees", "Acorn|Plant new trees", "Daybloom|Herb", "Gel", "Lens|From Demon Eyes", "Fallen Star|Night sky"],
+    tip: "Almost everything early on starts here. Chop trees for Wood, then build a house so NPCs move in.",
+  },
+  desert: {
+    name: "Desert", icon: "🏜️", iconItem: "Sand Block", tag: "Surface and underground",
+    where: "Large sandy area, usually next to the Ocean or the Jungle. It has an Underground Desert full of hard sandstone.",
+    enemies: ["Antlion|Spits sand", "Vulture", "Tomb Crawler|Underground", "Mummy|Hardmode"],
+    items: ["Sand Block", "Cactus", "Waterleaf|Herb", "Antlion Mandible", "Amber|Underground Desert", "Forbidden Fragment|Hardmode", "Desert Fossil"],
+    tip: "Waterleaf only blooms while it rains. Dig down for the Underground Desert and its fossils.",
+  },
+  snow: {
+    name: "Snow", icon: "❄️", iconItem: "Snow Block", tag: "Surface and underground",
+    where: "A cold biome of snow and ice. It is also where the Ice Biome caves, frozen chests and Deerclops are found.",
+    enemies: ["Ice Slime", "Undead Viking", "Zombie Eskimo|Night", "Ice Bat|Underground", "Ice Tortoise|Hardmode"],
+    items: ["Snow Block", "Ice Block", "Shiverthorn|Herb", "Ice Skates|Frozen chests", "Ice Blade|Frozen chests", "Ice Boomerang|Frozen chests", "Blizzard in a Bottle|Frozen chests", "Flinx Fur"],
+    tip: "Shiverthorn only grows here, so stock up before brewing potions that need it.",
+  },
+  jungle: {
+    name: "Jungle", icon: "🌴", iconItem: "Jungle Spores", tag: "Surface and underground",
+    where: "A thick biome of mud, vines and Rich Mahogany. Underneath it hides the Bee Hive and, later, the Jungle Temple.",
+    enemies: ["Jungle Slime", "Hornet", "Man Eater", "Giant Tortoise|Hardmode", "Derpling|Hardmode"],
+    items: ["Jungle Spores", "Stinger", "Vine", "Moonglow|Herb", "Rich Mahogany", "Ivy Whip|Ivy chests", "Feral Claws|Ivy chests", "Staff of Regrowth|Ivy chests", "Anklet of the Wind|Ivy chests", "Life Fruit|After Plantera", "Chlorophyte Ore|Hardmode"],
+    tip: "Jungle enemies hit hard before you have good armor. Come back for Chlorophyte after the mechanical bosses.",
+  },
+  ocean: {
+    name: "Ocean", icon: "🌊", iconItem: "Seashell", tag: "Both edges of the world",
+    where: "The large bodies of water on the far left and right of the world.",
+    enemies: ["Crab", "Pink Jellyfish", "Shark", "Squid|Night"],
+    items: ["Seashell", "Starfish", "Coral", "Shark Fin", "Water Walking Boots|Water chests", "Flipper|Water chests", "Breathing Reed|Water chests", "Trident|Water chests"],
+    tip: "Good place to fish, and the Angler NPC shows up when you are near here.",
+  },
+  caves: {
+    name: "Underground & Caverns", icon: "⛏️", iconItem: "Life Crystal", tag: "Below the surface",
+    where: "Everything under the grass: dirt, stone, then the big caverns. Most ore, chests and Life Crystals are here.",
+    enemies: ["Cave Bat", "Skeleton", "Giant Worm", "Undead Miner", "Black Recluse|Spider Nest"],
+    items: ["Copper Ore", "Iron Ore", "Silver Ore", "Gold Ore", "Life Crystal", "Cobweb", "Bone", "Blinkroot|Herb", "Diamond", "Ruby"],
+    tip: "Each Life Crystal adds 20 health. Light the way with Torches and take a Spelunker Potion for ore.",
+  },
+  underworld: {
+    name: "Underworld", icon: "🔥", iconItem: "Hellstone", tag: "Bottom of the world",
+    where: "A fiery layer at the very bottom. You reach it by digging straight down (a Hellevator). Lava will destroy items, so be careful.",
+    enemies: ["Fire Imp", "Lava Slime", "Hellbat", "Demon", "Bone Serpent"],
+    items: ["Hellstone", "Obsidian", "Ash Block", "Fireblossom|Herb", "Obsidian Rose|Demons", "Guide Voodoo Doll|Demons, needed for Wall of Flesh", "Hellforge|Craft here"],
+    tip: "The Wall of Flesh is fought here, and beating it starts Hardmode.",
+  },
+  corruption: {
+    name: "Corruption", icon: "💜", iconItem: "Demonite Ore", tag: "Evil biome",
+    where: "A purple, spreading evil biome that is picked at world creation. It has deep chasms with Shadow Orbs.",
+    enemies: ["Eater of Souls", "Devourer", "Corruptor|Hardmode", "World Feeder|Hardmode"],
+    items: ["Demonite Ore", "Shadow Scale", "Rotten Chunk", "Ebonstone Block", "Vile Mushroom", "Deathweed|Herb", "Shadow Orb", "Vilethorn|Orb drop", "Ball O' Hurt|Orb drop", "Band of Starpower|Orb drop"],
+    tip: "Smash Shadow Orbs to summon the Eater of Worlds. Compare it with the Crimson using the Crimson vs Corruption button.",
+  },
+  crimson: {
+    name: "Crimson", icon: "❤️‍🔥", iconItem: "Crimtane Ore", tag: "Evil biome",
+    where: "The red, fleshy evil biome. It is the alternative to the Corruption in every world, and it has Crimson Hearts instead of Shadow Orbs.",
+    enemies: ["Face Monster", "Blood Crawler", "Herpling", "Crimera", "Floaty Gross|Hardmode"],
+    items: ["Crimtane Ore", "Tissue Sample", "Vertebra", "Crimstone Block", "Vicious Mushroom", "Deathweed|Herb", "Crimson Heart", "Crimson Rod|Heart drop", "Panic Necklace|Heart drop", "The Rotted Fork|Heart drop"],
+    tip: "Break Crimson Hearts to summon the Brain of Cthulhu.",
+  },
+  hallow: {
+    name: "Hallow", icon: "🦄", iconItem: "Pixie Dust", tag: "Hardmode biome",
+    where: "Appears after the Wall of Flesh falls. It is a bright, rainbow-colored biome that spreads like the evil biomes.",
+    enemies: ["Pixie", "Unicorn", "Gastropod", "Chaos Elemental", "Enchanted Sword"],
+    items: ["Pixie Dust", "Unicorn Horn", "Crystal Shard", "Soul of Light", "Rod of Discord|Chaos Elemental", "Pearlstone Block", "Hallowed Seeds"],
+    tip: "Use Hallowed Seeds to turn evil biomes back. Pixies and Gastropods drop Souls of Light.",
+  },
+  mushroom: {
+    name: "Glowing Mushroom", icon: "🍄", iconItem: "Glowing Mushroom", tag: "Underground · mud and giant mushrooms",
+    where: "A glowing patch of mud and mushrooms, usually in the Caverns. Truffle moves in here once you have a house in this biome (Hardmode).",
+    enemies: ["Spore Bat", "Fungi Bulb", "Anomura Fungus", "Zombie Mushroom|Hardmode"],
+    items: ["Glowing Mushroom", "Mushroom Grass Seeds", "Truffle Worm|Hardmode, bait for Duke Fishron"],
+    tip: "Mushroom grass can grow in the Underground, and the glow is bright enough to see without Torches.",
+  },
+  dungeon: {
+    name: "Dungeon", icon: "💀", iconItem: "Golden Key", tag: "Pre-Hardmode · opens after Skeletron",
+    where: "A blue, green or pink brick structure at one side of the world. Skeletron guards the entrance, and Locked Chests inside need Golden Keys.",
+    enemies: ["Angry Bones", "Dark Caster", "Cursed Skull", "Necromancer|Hardmode", "Bone Lee|Hardmode"],
+    items: ["Golden Key|From dungeon enemies", "Muramasa|Locked Gold Chest", "Cobalt Shield|Locked Gold Chest", "Aqua Scepter|Locked Gold Chest", "Blue Moon|Locked Gold Chest", "Handgun|Locked Gold Chest", "Water Bolt|Locked Gold Chest", "Bone Welder"],
+    tip: "Enter before Skeletron is dead and the Dungeon Guardian will chase you, so beat him first.",
+  },
+  temple: {
+    name: "Jungle Temple", icon: "🗿", iconItem: "Lihzahrd Brick", tag: "Post-Plantera",
+    where: "A large temple deep in the Underground Jungle. It is sealed until Plantera is defeated, then opened with a Temple Key.",
+    enemies: ["Lihzahrd", "Flying Snake", "Lihzahrd Crawler", "Golem|Boss"],
+    items: ["Temple Key|Plantera", "Lihzahrd Brick", "Lihzahrd Altar", "Lihzahrd Power Cell|Summons Golem", "Picksaw|Mines Lihzahrd Bricks", "Solar Tablet Fragment|Solar Eclipse"],
+    tip: "You need a Picksaw to break the Lihzahrd Bricks. Use a Lihzahrd Power Cell on the Altar to call Golem.",
+  },
+  sky: {
+    name: "Sky Islands", icon: "☁️", iconItem: "Starfury", tag: "High above the surface",
+    where: "Floating islands high in the sky, made of Cloud and Sunplate blocks. The loot is in the Skyware Chest.",
+    enemies: ["Harpy", "Wyvern|Hardmode"],
+    items: ["Starfury|Skyware chest", "Shiny Red Balloon|Skyware chest", "Lucky Horseshoe|Skyware chest", "Sunplate Block", "Cloud", "Fallen Star"],
+    tip: "Use a Rocket Boots or Wings jump or a grappling hook to get up. A Wyvern flies here in Hardmode.",
+  },
+};
+
+const BIOME_MENU = Object.entries(BIOMES).map(([key, b]) => ({
+  name: b.name, icon: b.icon, iconItem: b.iconItem, desc: b.tag, biome: key,
+}));
+
+// herbs: what they grow on and when they bloom (from the wiki text in your data)
+const HERBS = [
+  { name: "Daybloom", seeds: "Daybloom Seeds", grows: "Normal and Hallowed grass", blooms: "Daytime, 4:30 AM to 7:29 PM" },
+  { name: "Moonglow", seeds: "Moonglow Seeds", grows: "Jungle grass", blooms: "Nighttime, 7:30 PM to 4:29 AM" },
+  { name: "Blinkroot", seeds: "Blinkroot Seeds", grows: "Dirt or Mud with no grass on it", blooms: "Any time" },
+  { name: "Deathweed", seeds: "Deathweed Seeds", grows: "Corruption and Crimson stone and grass", blooms: "During a Blood Moon or Full Moon" },
+  { name: "Waterleaf", seeds: "Waterleaf Seeds", grows: "Sand (but never in the Ocean)", blooms: "While it is raining" },
+  { name: "Fireblossom", seeds: "Fireblossom Seeds", grows: "Ash blocks and Ash grass in the Underworld", blooms: "Sunset, 3:45 PM to 7:30 PM, unless it rains" },
+  { name: "Shiverthorn", seeds: "Shiverthorn Seeds", grows: "Snow and Ice", blooms: "Randomly, and then stays bloomed" },
+];
+
+const PLANT_MENU = [
+  { name: "Herbs & Plants", icon: "🌿", iconItem: "Daybloom", desc: "Where each herb grows, when it blooms and what it makes", herbs: true },
+  { name: "Healing & Mana", icon: "🧪", iconItem: "Healing Potion", desc: "Healing and mana potions with their ingredients", potions: "heal" },
+  { name: "Buff Potions", icon: "⚗️", iconItem: "Ironskin Potion", desc: "Every buff potion and what it takes to brew it", potions: "buff" },
+  { name: "Flasks", icon: "🫙", iconItem: "Flask of Fire", desc: "Weapon coatings that add effects to your melee hits", potions: "flask" },
+];
+
 // everything else lives in the Field Guide
 const GUIDE_MENU = [
   { name: "NPCs", icon: "🏘️", desc: "Who they are, what they sell and how to get them", children: NPC_MENU },
   { name: "Classes", icon: "🎓", desc: "Melee, Ranged, Mage and Summoner: best armor and weapons", children: CLASS_MENU },
+  { name: "Biomes", icon: "🗺️", iconItem: "Acorn", desc: "Forest, Desert, Jungle, Corruption and more: enemies, loot and tips", children: BIOME_MENU },
+  { name: "Plants & Potions", icon: "🌿", iconItem: "Daybloom", desc: "Herbs, healing, buff potions and flasks with their ingredients", children: PLANT_MENU },
 ];
 
 // has its own button in the header
@@ -4134,7 +4647,7 @@ function timelineNodeReady(node) {
   if (node.children) return true;
   if (node.compare) return true;
   if (node.npc) return true;
-  if (node.armorAll || node.klass || node.boss) return true;
+  if (node.armorAll || node.klass || node.boss || node.biome || node.herbs || node.potions) return true;
   const data = TIMELINES[node.timeline];
   return !!(data && data.length);
 }
@@ -4146,7 +4659,7 @@ function renderTimelineMenu(nodes) {
   const grid = document.createElement("div");
   grid.className = "timeline-menu";
   // NPC lists show as an even grid of compact cards instead of one long column
-  if (nodes.length && nodes.every(n => n.npc || n.klass)) grid.classList.add("tm-grid");
+  if (nodes.length && nodes.every(n => n.npc || n.klass || n.biome || n.herbs || n.potions)) grid.classList.add("tm-grid");
 
   for (const node of nodes) {
     const card = document.createElement("div");
@@ -4177,6 +4690,8 @@ function renderTimelineMenu(nodes) {
       icoEl.appendChild(img);
     }
 
+    if (!node.npc && (node.iconItem || MENU_ICONS[node.name])) loadIconInto(card.querySelector(".tm-icon"), node.iconItem || MENU_ICONS[node.name]);
+
     card.addEventListener("click", () => {
       timelinePath.push(node);
       showTimelineLevel();
@@ -4190,6 +4705,7 @@ function renderTimelineMenu(nodes) {
 
 // Every icon we could use for an entry, best first. If one fails to load, the next is tried.
 function timelineImgCandidates(item, itemData) {
+  if (typeof BOSS_DATA !== "undefined" && BOSS_DATA[item.name]) itemData = null;   // "The Destroyer" is also a painting item
   const npcImg = NPC_BY_NAME[item.name]?.img;
   const list = [
     item.img,
@@ -4198,6 +4714,8 @@ function timelineImgCandidates(item, itemData) {
     ITEM_BY_NAME[item.iconItem]?.img,
     NPC_BY_NAME[item.iconNpc]?.img,
     npcImg && npcImg.endsWith(".gif") ? npcImg.replace(/\.gif$/, ".png") : null,
+    (item.type || "").match(/Boss|Pillar/) ? wikiImgUrl(item.name, "png") : null,
+    (item.type || "").match(/Boss|Pillar/) ? wikiImgUrl(item.name, "gif") : null,
     ITEM_BY_NAME[`${item.name} Mask`]?.img,     // boss mask as a backup icon
     ITEM_BY_NAME[`${item.name} Trophy`]?.img,   // boss trophy as a last resort
   ];
@@ -4293,7 +4811,7 @@ function renderTimeline(key) {
 // Real items open the same popup as the main grid (craft / uses / info).
 // Bosses, events and armor sets open the info popup with a wiki button.
 function openTimelineEntry(item, stage, urls) {
-  const itemData = ITEM_BY_NAME[item.name];
+  const itemData = BOSS_DATA[item.name] ? null : ITEM_BY_NAME[item.name];
   if (itemData) {
     openChoiceModal(itemData);
     return;
@@ -4340,6 +4858,9 @@ function showTimelineLevel() {
   else if (node.compare) renderCompare(node.compare);
   else if (node.npc) renderNpc(node.npc);
   else if (node.boss) renderBoss(node.boss);
+  else if (node.biome) renderBiome(node.biome);
+  else if (node.herbs) renderHerbs();
+  else if (node.potions) renderPotions(node.potions);
   else if (node.armorAll) renderArmorAll();
   else if (node.klass) renderClass(node.klass);
   else renderTimeline(node.timeline);
@@ -4366,6 +4887,144 @@ function openTimelineWith(root, title, firstNode) {
   timelinePath = firstNode ? [firstNode] : [];
   timelineMinDepth = firstNode ? 1 : 0;
   showTimelineLevel();
+}
+
+// ============================================================
+// Crimson vs Corruption button: a tiny pixel scene.
+// Crimson (red sky, red trees) on the left, Corruption (purple sky, dark eyed trees) on the right.
+// ============================================================
+function setupEvilButton() {
+  const btn = document.getElementById("btnEvil");
+  const cv = btn && btn.querySelector(".evil-canvas");
+  if (!cv || !cv.getContext) return;
+  const ctx = cv.getContext("2d");
+  const PX = 2; // one scene "pixel" is 2 screen pixels
+  let W = 0, H = 0;
+
+  const hash = (x, y, s) => {
+    let h = (x * 374761393 + y * 668265263 + s * 1274126177) | 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+  };
+  const mix = (c1, c2, t) => {
+    const p = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+    const a = p(c1), b = p(c2);
+    return "#" + a.map((v, i) => Math.round(v + (b[i] - v) * t).toString(16).padStart(2, "0")).join("");
+  };
+
+  const PAL = {
+    crimson: {
+      skyTop: "#4a1826", skyBot: "#7d3042",
+      grass: ["#e0364a", "#b01a2c"], dirt: ["#3d1118", "#4d171f", "#2c0b11"],
+      trunk: ["#3f2b32", "#5a3f48"],
+      leaf: ["#b5202f", "#d83a4c", "#8a1224"], leafEdge: "#5a0c18",
+    },
+    corrupt: {
+      skyTop: "#1a1450", skyBot: "#3b3786",
+      grass: ["#8b4fd0", "#5f2fa0"], dirt: ["#241a3c", "#2e2150", "#190f2c"],
+      trunk: ["#2f2c48", "#46426a"],
+      leaf: ["#2a2036", "#3a2d4c", "#1a1224"], leafEdge: "#0f0a18",
+    },
+  };
+
+  function draw() {
+    if (!W) return;
+    const mid = Math.round(W * 0.5);
+    const G = Math.max(4, Math.round(H * 0.2));   // ground thickness
+    const groundY = H - G;                         // first ground row
+    // grid of colors, so trees can be painted over the sky
+    const grid = new Array(W * H);
+    const sideAt = (x, y) => {
+      return x < mid ? "crimson" : "corrupt";   // a clean, flush line where the two sides meet
+    };
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const side = sideAt(x, y), p = PAL[side];
+        let col;
+        if (y < groundY) {
+          col = mix(p.skyTop, p.skyBot, y / groundY);       // sky, a little lighter near the horizon
+        } else if (y === groundY || (y === groundY + 1 && hash(x, y, 6) < 0.5)) {
+          col = p.grass[y === groundY && hash(x, y, 2) < 0.6 ? 0 : 1];       // grass line
+        } else {
+          const r = hash(x, y, 7);
+          col = r > 0.94 ? p.dirt[1] : r < 0.1 ? p.dirt[2] : p.dirt[0];
+        }
+        grid[y * W + x] = col;
+      }
+    }
+    const put = (x, y, col) => { if (x >= 0 && x < W && y >= 0 && y < H) grid[y * W + x] = col; };
+
+    // a tree: trunk, round canopy, little clusters on the sides
+    function tree(cx, trunkH, r, side) {
+      const p = PAL[side];
+      const base = groundY;                       // trunk stands on the grass
+      for (let i = 1; i <= trunkH + r; i++) {
+        put(cx - 1, base - i, p.trunk[0]);
+        put(cx, base - i, p.trunk[1]);
+        put(cx + 1, base - i, p.trunk[0]);
+      }
+      const cy = Math.max(r, base - trunkH - r + 2); // canopy center
+      for (let y = cy - r; y <= cy + r; y++) {
+        for (let x = cx - r; x <= cx + r + 1; x++) {
+          const dx = x - (cx + 0.5), dy = y - cy;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          const edge = r + (hash(x, y, 31) - 0.5) * 1.6;
+          if (d > edge) continue;
+          const rr = hash(x, y, 17);
+          let col = rr < 0.18 ? p.leaf[2] : rr > 0.8 ? p.leaf[1] : p.leaf[0];
+          if (d > edge - 1) col = p.leafEdge;    // darker rim
+          put(x, y, col);
+        }
+      }
+      // small clusters hanging off the trunk
+      const cl = Math.max(2, Math.round(r / 2.2));
+      const clusters = [[-cl - 2, base - Math.round(trunkH * 0.7)], [cl + 2, base - Math.round(trunkH * 0.45)]];
+      for (const [ox, oy] of clusters) {
+        for (let y = -1; y <= 1; y++) for (let x = -1; x <= 1; x++) {
+          if (Math.abs(x) + Math.abs(y) > 2) continue;
+          put(cx + ox + x, oy + y, hash(cx + ox + x, oy + y, 41) < 0.3 ? p.leaf[1] : p.leaf[0]);
+        }
+        // little branch connecting the cluster to the trunk
+        const step = ox < 0 ? 1 : -1;
+        for (let x = ox + step * 2; x !== (ox < 0 ? -1 : 1); x += step) put(cx + x, oy + 1, p.trunk[0]);
+      }
+      // corruption trees watch you
+      if (side === "corrupt") {
+        const eyes = [[-Math.round(r * 0.35), -Math.round(r * 0.3)], [Math.round(r * 0.45), Math.round(r * 0.1)]];
+        for (const [ex, ey] of eyes) {
+          put(cx + ex, cy + ey, "#c9bfe6");
+          put(cx + ex + 1, cy + ey, "#6a58a0");
+        }
+      }
+    }
+
+    const big = Math.round(H * 0.21), small = Math.round(H * 0.17);
+    const bigT = Math.round(H * 0.46), smallT = Math.round(H * 0.36);
+    tree(Math.round(W * 0.14), bigT, big, "crimson");
+    tree(Math.round(W * 0.33), smallT, small, "crimson");
+    tree(Math.round(W * 0.68), smallT, small, "corrupt");
+    tree(Math.round(W * 0.87), bigT, big, "corrupt");
+
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        ctx.fillStyle = grid[y * W + x];
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+
+  function resize() {
+    const r = btn.getBoundingClientRect();
+    W = Math.max(40, Math.round(r.width / PX));
+    H = Math.max(20, Math.round(r.height / PX));
+    cv.width = W;
+    cv.height = H;
+    draw();
+  }
+
+  resize();
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(btn);
+  else window.addEventListener("resize", resize);
 }
 
 function openTimeline() { openTimelineWith(TIMELINE_MENU, "Timeline"); }
