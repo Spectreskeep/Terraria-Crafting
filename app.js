@@ -428,7 +428,10 @@ async function loadItemDetails() {
         drops: itemData.drops || [],
         drops_summary: itemData.drops_summary || "",
         sold_by: itemData.sold_by || [],
-        tooltip: itemData.tooltip || ""
+        tooltip: itemData.tooltip || "",
+        // Include immunities and buffs from JSON
+        immunities: itemData.immunities || itemData.debuff_immunities || [],
+        buffs: itemData.buffs || []
       };
     }
     
@@ -616,6 +619,7 @@ function applyFilter() {
   visibleCount = PAGE_SIZE;
   renderItems(FILTERED.slice(0, visibleCount));
   updateCategoryCounts();
+  fillScreenIfNeeded();
 }
 
 function loadMoreIfNeeded() {
@@ -634,7 +638,22 @@ function loadMoreIfNeeded() {
       FILTERED.length
     );
     renderItems(FILTERED.slice(0, visibleCount));
+    fillScreenIfNeeded();
   }
+}
+
+// Keep loading until the grid overflows the container (no scrollbar = no scroll event, e.g. 4K)
+function fillScreenIfNeeded() {
+  const container = document.getElementById("results");
+  if (!container) return;
+  requestAnimationFrame(() => {
+    if (
+      visibleCount < FILTERED.length &&
+      container.scrollHeight <= container.clientHeight + 300
+    ) {
+      loadMoreIfNeeded();
+    }
+  });
 }
 
 let selectedItem = null;
@@ -2298,6 +2317,8 @@ async function main() {
   if (resultsContainer) {
     resultsContainer.addEventListener("scroll", loadMoreIfNeeded);
   }
+
+  window.addEventListener("resize", debounce(fillScreenIfNeeded, 150));
   
   document.getElementById("btnSettings").addEventListener("click", openSettingsModal);
 
@@ -2356,7 +2377,7 @@ async function main() {
   document.getElementById("treeBack").addEventListener("click", closeTreeView);
 
   document.getElementById("btnTimeline").addEventListener("click", openTimeline);
-  document.getElementById("timelineBack").addEventListener("click", closeTimeline);
+  document.getElementById("timelineBack").addEventListener("click", timelineGoBack);
 
   setupPanning();
 
@@ -2364,7 +2385,7 @@ async function main() {
   qEl.focus();
 }
 
-const TIMELINE_DATA = [
+const TIMELINE_ORES = [
   {
     stage: "Pre-Hardmode",
     class: "stage-prehardmode",
@@ -2433,11 +2454,518 @@ const TIMELINE_DATA = [
   }
 ];
 
-function renderTimeline() {
+// ============================================================
+// TIMELINES: add a new timeline by adding data here + a menu entry below
+// stage classes available: stage-prehardmode, stage-hardmode, stage-plantera, stage-golem, stage-moonlord
+// item fields: name, type, img (optional), milestone (optional), search (optional grid search term)
+// ============================================================
+const TIMELINES = {
+  ores: TIMELINE_ORES,
+
+  bosses: [
+    {
+      stage: "Pre-Hardmode", class: "stage-prehardmode",
+      description: "Bosses available from the start of the game",
+      items: [
+        { name: "King Slime", type: "Boss (Optional)", img: "" },
+        { name: "Eye of Cthulhu", type: "Boss", img: "" },
+        { name: "Eater of Worlds", type: "Boss (Alt)", img: "" },
+        { name: "Brain of Cthulhu", type: "Boss (Alt)", img: "" },
+        { name: "Queen Bee", type: "Boss", img: "" },
+        { name: "Skeletron", type: "Boss", img: "" },
+        { name: "Deerclops", type: "Boss", img: "https://terraria.wiki.gg/images/Deerclops.gif" }, // not in npc.json, URL guessed from wiki pattern
+        { name: "Wall of Flesh", type: "Boss", img: "", milestone: "Starts Hardmode" },
+      ]
+    },
+    {
+      stage: "Hardmode", class: "stage-hardmode",
+      description: "Unlocked after defeating Wall of Flesh",
+      milestone: "🎯 Defeat Wall of Flesh to unlock Hardmode",
+      items: [
+        { name: "Queen Slime", type: "Boss", img: "" },
+        { name: "The Twins", type: "Boss (Mech)", img: "" },
+        { name: "The Destroyer", type: "Boss (Mech)", img: "" },
+        { name: "Skeletron Prime", type: "Boss (Mech)", img: "" },
+        { name: "Duke Fishron", type: "Boss (Optional)", img: "" },
+      ]
+    },
+    {
+      stage: "Post-Mechanical Bosses", class: "stage-plantera",
+      description: "Unlocked after defeating all three mechanical bosses",
+      milestone: "🌺 Defeat all three mechanical bosses",
+      items: [
+        { name: "Plantera", type: "Boss", img: "" },
+      ]
+    },
+    {
+      stage: "Post-Plantera", class: "stage-golem",
+      description: "Available after defeating Plantera",
+      milestone: "🌺 Defeat Plantera",
+      items: [
+        { name: "Golem", type: "Boss", img: "" },
+        { name: "Empress of Light", type: "Boss", img: "" },
+        { name: "Lunatic Cultist", type: "Boss", img: "", milestone: "Defeat Golem first" },
+      ]
+    },
+    {
+      stage: "Lunar Events", class: "stage-moonlord",
+      description: "Triggered by the Lunatic Cultist",
+      milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
+      items: [
+        { name: "Moon Lord", type: "Final Boss", img: "" },
+      ]
+    },
+  ],
+
+  // Armor timelines: every set lists its pieces (shown in the info popup).
+  armorMelee: [
+    {
+      stage: "Starter Armor", class: "stage-prehardmode",
+      description: "Early armor usable by every class",
+      items: [
+        { name: "Wood Armor", type: "Armor Set", img: "", iconItem: "Wood Breastplate", related: ["Wood Helmet", "Wood Breastplate", "Wood Greaves"] },
+        { name: "Cactus Armor", type: "Armor Set", img: "", iconItem: "Cactus Breastplate", related: ["Cactus Helmet", "Cactus Breastplate", "Cactus Leggings"] },
+        { name: "Copper Armor", type: "Armor Set", img: "", iconItem: "Copper Chainmail", related: ["Copper Greaves", "Copper Chainmail", "Copper Helmet"] },
+        { name: "Tin Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tin Chainmail", related: ["Tin Helmet", "Tin Chainmail", "Tin Greaves"] },
+        { name: "Iron Armor", type: "Armor Set", img: "", iconItem: "Iron Chainmail", related: ["Iron Greaves", "Iron Chainmail", "Iron Helmet"] },
+        { name: "Lead Armor", type: "Armor Set (Alt)", img: "", iconItem: "Lead Chainmail", related: ["Lead Helmet", "Lead Chainmail", "Lead Greaves"] },
+        { name: "Silver Armor", type: "Armor Set", img: "", iconItem: "Silver Chainmail", related: ["Silver Greaves", "Silver Chainmail", "Silver Helmet"] },
+        { name: "Tungsten Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tungsten Chainmail", related: ["Tungsten Helmet", "Tungsten Chainmail", "Tungsten Greaves"] },
+        { name: "Gold Armor", type: "Armor Set", img: "", iconItem: "Gold Chainmail", related: ["Gold Greaves", "Gold Chainmail", "Gold Helmet"] },
+        { name: "Platinum Armor", type: "Armor Set (Alt)", img: "", iconItem: "Platinum Chainmail", related: ["Platinum Helmet", "Platinum Chainmail", "Platinum Greaves"] },
+      ]
+    },
+    {
+      stage: "Pre-Hardmode", class: "stage-prehardmode",
+      description: "Class-specific early armor",
+      items: [
+        { name: "Shadow Armor", type: "Armor Set", img: "", iconItem: "Shadow Scalemail", related: ["Shadow Greaves", "Shadow Scalemail", "Shadow Helmet"] },
+        { name: "Crimson Armor", type: "Armor Set (Alt)", img: "", iconItem: "Crimson Scalemail", related: ["Crimson Helmet", "Crimson Scalemail", "Crimson Greaves"] },
+        { name: "Molten Armor", type: "Armor Set", img: "", iconItem: "Molten Breastplate", related: ["Molten Helmet", "Molten Breastplate", "Molten Greaves"] },
+      ]
+    },
+    {
+      stage: "Hardmode", class: "stage-hardmode",
+      description: "Pick the helmet variant for your class",
+      milestone: "🎯 Defeat Wall of Flesh to unlock Hardmode",
+      items: [
+        { name: "Cobalt Armor", type: "Armor Set", img: "", iconItem: "Cobalt Breastplate", related: ["Cobalt Hat", "Cobalt Helmet", "Cobalt Mask", "Cobalt Breastplate", "Cobalt Leggings"] },
+        { name: "Palladium Armor", type: "Armor Set (Alt)", img: "", iconItem: "Palladium Breastplate", related: ["Palladium Mask", "Palladium Helmet", "Palladium Headgear", "Palladium Breastplate", "Palladium Leggings"] },
+        { name: "Mythril Armor", type: "Armor Set", img: "", iconItem: "Mythril Chainmail", related: ["Mythril Hood", "Mythril Helmet", "Mythril Hat", "Mythril Chainmail", "Mythril Greaves"] },
+        { name: "Orichalcum Armor", type: "Armor Set (Alt)", img: "", iconItem: "Orichalcum Breastplate", related: ["Orichalcum Mask", "Orichalcum Helmet", "Orichalcum Headgear", "Orichalcum Breastplate", "Orichalcum Leggings"] },
+        { name: "Adamantite Armor", type: "Armor Set", img: "", iconItem: "Adamantite Breastplate", related: ["Adamantite Headgear", "Adamantite Helmet", "Adamantite Mask", "Adamantite Breastplate", "Adamantite Leggings"] },
+        { name: "Titanium Armor", type: "Armor Set (Alt)", img: "", iconItem: "Titanium Breastplate", related: ["Titanium Mask", "Titanium Helmet", "Titanium Headgear", "Titanium Breastplate", "Titanium Leggings"] },
+        { name: "Hallowed Armor", type: "Armor Set", img: "", iconItem: "Hallowed Plate Mail", related: ["Hallowed Plate Mail", "Hallowed Greaves", "Hallowed Helmet", "Hallowed Headgear", "Hallowed Mask", "Hallowed Hood"] },
+      ]
+    },
+    {
+      stage: "Post-Plantera", class: "stage-plantera",
+      description: "Jungle and endgame armor",
+      milestone: "🌺 Defeat Plantera",
+      items: [
+        { name: "Chlorophyte Armor", type: "Armor Set", img: "", iconItem: "Chlorophyte Plate Mail", related: ["Chlorophyte Mask", "Chlorophyte Helmet", "Chlorophyte Headgear", "Chlorophyte Plate Mail", "Chlorophyte Greaves"] },
+        { name: "Turtle Armor", type: "Armor Set", img: "", iconItem: "Turtle Scale Mail", related: ["Turtle Helmet", "Turtle Scale Mail", "Turtle Leggings"] },
+      ]
+    },
+    {
+      stage: "Post-Golem", class: "stage-golem",
+      description: "Available after defeating Golem",
+      milestone: "🗿 Defeat Golem",
+      items: [
+        { name: "Beetle Armor", type: "Armor Set", img: "", iconItem: "Beetle Scale Mail", related: ["Beetle Helmet", "Beetle Scale Mail", "Beetle Leggings"] },
+      ]
+    },
+    {
+      stage: "Lunar Events", class: "stage-moonlord",
+      description: "Best armor for this class",
+      milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
+      items: [
+        { name: "Solar Flare Armor", type: "Armor Set", img: "", iconItem: "Solar Flare Breastplate", related: ["Solar Flare Helmet", "Solar Flare Breastplate", "Solar Flare Leggings"] },
+      ]
+    },
+  ],
+
+  armorRanged: [
+    {
+      stage: "Starter Armor", class: "stage-prehardmode",
+      description: "Early armor usable by every class",
+      items: [
+        { name: "Wood Armor", type: "Armor Set", img: "", iconItem: "Wood Breastplate", related: ["Wood Helmet", "Wood Breastplate", "Wood Greaves"] },
+        { name: "Cactus Armor", type: "Armor Set", img: "", iconItem: "Cactus Breastplate", related: ["Cactus Helmet", "Cactus Breastplate", "Cactus Leggings"] },
+        { name: "Copper Armor", type: "Armor Set", img: "", iconItem: "Copper Chainmail", related: ["Copper Greaves", "Copper Chainmail", "Copper Helmet"] },
+        { name: "Tin Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tin Chainmail", related: ["Tin Helmet", "Tin Chainmail", "Tin Greaves"] },
+        { name: "Iron Armor", type: "Armor Set", img: "", iconItem: "Iron Chainmail", related: ["Iron Greaves", "Iron Chainmail", "Iron Helmet"] },
+        { name: "Lead Armor", type: "Armor Set (Alt)", img: "", iconItem: "Lead Chainmail", related: ["Lead Helmet", "Lead Chainmail", "Lead Greaves"] },
+        { name: "Silver Armor", type: "Armor Set", img: "", iconItem: "Silver Chainmail", related: ["Silver Greaves", "Silver Chainmail", "Silver Helmet"] },
+        { name: "Tungsten Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tungsten Chainmail", related: ["Tungsten Helmet", "Tungsten Chainmail", "Tungsten Greaves"] },
+        { name: "Gold Armor", type: "Armor Set", img: "", iconItem: "Gold Chainmail", related: ["Gold Greaves", "Gold Chainmail", "Gold Helmet"] },
+        { name: "Platinum Armor", type: "Armor Set (Alt)", img: "", iconItem: "Platinum Chainmail", related: ["Platinum Helmet", "Platinum Chainmail", "Platinum Greaves"] },
+      ]
+    },
+    {
+      stage: "Pre-Hardmode", class: "stage-prehardmode",
+      description: "Class-specific early armor",
+      items: [
+        { name: "Necro Armor", type: "Armor Set", img: "", iconItem: "Necro Breastplate", related: ["Necro Helmet", "Necro Breastplate", "Necro Greaves"] },
+      ]
+    },
+    {
+      stage: "Hardmode", class: "stage-hardmode",
+      description: "Pick the helmet variant for your class",
+      milestone: "🎯 Defeat Wall of Flesh to unlock Hardmode",
+      items: [
+        { name: "Cobalt Armor", type: "Armor Set", img: "", iconItem: "Cobalt Breastplate", related: ["Cobalt Hat", "Cobalt Helmet", "Cobalt Mask", "Cobalt Breastplate", "Cobalt Leggings"] },
+        { name: "Palladium Armor", type: "Armor Set (Alt)", img: "", iconItem: "Palladium Breastplate", related: ["Palladium Mask", "Palladium Helmet", "Palladium Headgear", "Palladium Breastplate", "Palladium Leggings"] },
+        { name: "Mythril Armor", type: "Armor Set", img: "", iconItem: "Mythril Chainmail", related: ["Mythril Hood", "Mythril Helmet", "Mythril Hat", "Mythril Chainmail", "Mythril Greaves"] },
+        { name: "Orichalcum Armor", type: "Armor Set (Alt)", img: "", iconItem: "Orichalcum Breastplate", related: ["Orichalcum Mask", "Orichalcum Helmet", "Orichalcum Headgear", "Orichalcum Breastplate", "Orichalcum Leggings"] },
+        { name: "Adamantite Armor", type: "Armor Set", img: "", iconItem: "Adamantite Breastplate", related: ["Adamantite Headgear", "Adamantite Helmet", "Adamantite Mask", "Adamantite Breastplate", "Adamantite Leggings"] },
+        { name: "Titanium Armor", type: "Armor Set (Alt)", img: "", iconItem: "Titanium Breastplate", related: ["Titanium Mask", "Titanium Helmet", "Titanium Headgear", "Titanium Breastplate", "Titanium Leggings"] },
+        { name: "Hallowed Armor", type: "Armor Set", img: "", iconItem: "Hallowed Plate Mail", related: ["Hallowed Plate Mail", "Hallowed Greaves", "Hallowed Helmet", "Hallowed Headgear", "Hallowed Mask", "Hallowed Hood"] },
+      ]
+    },
+    {
+      stage: "Post-Plantera", class: "stage-plantera",
+      description: "Jungle and endgame armor",
+      milestone: "🌺 Defeat Plantera",
+      items: [
+        { name: "Chlorophyte Armor", type: "Armor Set", img: "", iconItem: "Chlorophyte Plate Mail", related: ["Chlorophyte Mask", "Chlorophyte Helmet", "Chlorophyte Headgear", "Chlorophyte Plate Mail", "Chlorophyte Greaves"] },
+        { name: "Shroomite Armor", type: "Armor Set", img: "", iconItem: "Shroomite Breastplate", related: ["Shroomite Headgear", "Shroomite Mask", "Shroomite Helmet", "Shroomite Breastplate", "Shroomite Leggings"] },
+      ]
+    },
+    {
+      stage: "Lunar Events", class: "stage-moonlord",
+      description: "Best armor for this class",
+      milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
+      items: [
+        { name: "Vortex Armor", type: "Armor Set", img: "", iconItem: "Vortex Breastplate", related: ["Vortex Helmet", "Vortex Breastplate", "Vortex Leggings"] },
+      ]
+    },
+  ],
+
+  armorMage: [
+    {
+      stage: "Starter Armor", class: "stage-prehardmode",
+      description: "Early armor usable by every class",
+      items: [
+        { name: "Wood Armor", type: "Armor Set", img: "", iconItem: "Wood Breastplate", related: ["Wood Helmet", "Wood Breastplate", "Wood Greaves"] },
+        { name: "Cactus Armor", type: "Armor Set", img: "", iconItem: "Cactus Breastplate", related: ["Cactus Helmet", "Cactus Breastplate", "Cactus Leggings"] },
+        { name: "Copper Armor", type: "Armor Set", img: "", iconItem: "Copper Chainmail", related: ["Copper Greaves", "Copper Chainmail", "Copper Helmet"] },
+        { name: "Tin Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tin Chainmail", related: ["Tin Helmet", "Tin Chainmail", "Tin Greaves"] },
+        { name: "Iron Armor", type: "Armor Set", img: "", iconItem: "Iron Chainmail", related: ["Iron Greaves", "Iron Chainmail", "Iron Helmet"] },
+        { name: "Lead Armor", type: "Armor Set (Alt)", img: "", iconItem: "Lead Chainmail", related: ["Lead Helmet", "Lead Chainmail", "Lead Greaves"] },
+        { name: "Silver Armor", type: "Armor Set", img: "", iconItem: "Silver Chainmail", related: ["Silver Greaves", "Silver Chainmail", "Silver Helmet"] },
+        { name: "Tungsten Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tungsten Chainmail", related: ["Tungsten Helmet", "Tungsten Chainmail", "Tungsten Greaves"] },
+        { name: "Gold Armor", type: "Armor Set", img: "", iconItem: "Gold Chainmail", related: ["Gold Greaves", "Gold Chainmail", "Gold Helmet"] },
+        { name: "Platinum Armor", type: "Armor Set (Alt)", img: "", iconItem: "Platinum Chainmail", related: ["Platinum Helmet", "Platinum Chainmail", "Platinum Greaves"] },
+      ]
+    },
+    {
+      stage: "Pre-Hardmode", class: "stage-prehardmode",
+      description: "Class-specific early armor",
+      items: [
+        { name: "Jungle Armor", type: "Armor Set", img: "", iconItem: "Jungle Shirt", related: ["Jungle Hat", "Jungle Shirt", "Jungle Pants"] },
+        { name: "Meteor Armor", type: "Armor Set", img: "", iconItem: "Meteor Suit", related: ["Meteor Helmet", "Meteor Suit", "Meteor Leggings"] },
+      ]
+    },
+    {
+      stage: "Hardmode", class: "stage-hardmode",
+      description: "Pick the hat/hood variant for your class",
+      milestone: "🎯 Defeat Wall of Flesh to unlock Hardmode",
+      items: [
+        { name: "Cobalt Armor", type: "Armor Set", img: "", iconItem: "Cobalt Breastplate", related: ["Cobalt Hat", "Cobalt Helmet", "Cobalt Mask", "Cobalt Breastplate", "Cobalt Leggings"] },
+        { name: "Palladium Armor", type: "Armor Set (Alt)", img: "", iconItem: "Palladium Breastplate", related: ["Palladium Mask", "Palladium Helmet", "Palladium Headgear", "Palladium Breastplate", "Palladium Leggings"] },
+        { name: "Mythril Armor", type: "Armor Set", img: "", iconItem: "Mythril Chainmail", related: ["Mythril Hood", "Mythril Helmet", "Mythril Hat", "Mythril Chainmail", "Mythril Greaves"] },
+        { name: "Orichalcum Armor", type: "Armor Set (Alt)", img: "", iconItem: "Orichalcum Breastplate", related: ["Orichalcum Mask", "Orichalcum Helmet", "Orichalcum Headgear", "Orichalcum Breastplate", "Orichalcum Leggings"] },
+        { name: "Adamantite Armor", type: "Armor Set", img: "", iconItem: "Adamantite Breastplate", related: ["Adamantite Headgear", "Adamantite Helmet", "Adamantite Mask", "Adamantite Breastplate", "Adamantite Leggings"] },
+        { name: "Titanium Armor", type: "Armor Set (Alt)", img: "", iconItem: "Titanium Breastplate", related: ["Titanium Mask", "Titanium Helmet", "Titanium Headgear", "Titanium Breastplate", "Titanium Leggings"] },
+        { name: "Hallowed Armor", type: "Armor Set", img: "", iconItem: "Hallowed Plate Mail", related: ["Hallowed Plate Mail", "Hallowed Greaves", "Hallowed Helmet", "Hallowed Headgear", "Hallowed Mask", "Hallowed Hood"] },
+        { name: "Forbidden Armor", type: "Armor Set", img: "", iconItem: "Forbidden Robes", related: ["Forbidden Mask", "Forbidden Robes"] },
+      ]
+    },
+    {
+      stage: "Post-Plantera", class: "stage-plantera",
+      description: "Jungle and endgame armor",
+      milestone: "🌺 Defeat Plantera",
+      items: [
+        { name: "Chlorophyte Armor", type: "Armor Set", img: "", iconItem: "Chlorophyte Plate Mail", related: ["Chlorophyte Mask", "Chlorophyte Helmet", "Chlorophyte Headgear", "Chlorophyte Plate Mail", "Chlorophyte Greaves"] },
+        { name: "Spectre Armor", type: "Armor Set", img: "", iconItem: "Spectre Robe", related: ["Spectre Hood", "Spectre Robe", "Spectre Pants", "Spectre Mask"] },
+      ]
+    },
+    {
+      stage: "Lunar Events", class: "stage-moonlord",
+      description: "Best armor for this class",
+      milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
+      items: [
+        { name: "Nebula Armor", type: "Armor Set", img: "", iconItem: "Nebula Breastplate", related: ["Nebula Helmet", "Nebula Breastplate", "Nebula Leggings"] },
+      ]
+    },
+  ],
+
+  armorSummoner: [
+    {
+      stage: "Starter Armor", class: "stage-prehardmode",
+      description: "Early armor usable by every class",
+      items: [
+        { name: "Wood Armor", type: "Armor Set", img: "", iconItem: "Wood Breastplate", related: ["Wood Helmet", "Wood Breastplate", "Wood Greaves"] },
+        { name: "Cactus Armor", type: "Armor Set", img: "", iconItem: "Cactus Breastplate", related: ["Cactus Helmet", "Cactus Breastplate", "Cactus Leggings"] },
+        { name: "Copper Armor", type: "Armor Set", img: "", iconItem: "Copper Chainmail", related: ["Copper Greaves", "Copper Chainmail", "Copper Helmet"] },
+        { name: "Tin Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tin Chainmail", related: ["Tin Helmet", "Tin Chainmail", "Tin Greaves"] },
+        { name: "Iron Armor", type: "Armor Set", img: "", iconItem: "Iron Chainmail", related: ["Iron Greaves", "Iron Chainmail", "Iron Helmet"] },
+        { name: "Lead Armor", type: "Armor Set (Alt)", img: "", iconItem: "Lead Chainmail", related: ["Lead Helmet", "Lead Chainmail", "Lead Greaves"] },
+        { name: "Silver Armor", type: "Armor Set", img: "", iconItem: "Silver Chainmail", related: ["Silver Greaves", "Silver Chainmail", "Silver Helmet"] },
+        { name: "Tungsten Armor", type: "Armor Set (Alt)", img: "", iconItem: "Tungsten Chainmail", related: ["Tungsten Helmet", "Tungsten Chainmail", "Tungsten Greaves"] },
+        { name: "Gold Armor", type: "Armor Set", img: "", iconItem: "Gold Chainmail", related: ["Gold Greaves", "Gold Chainmail", "Gold Helmet"] },
+        { name: "Platinum Armor", type: "Armor Set (Alt)", img: "", iconItem: "Platinum Chainmail", related: ["Platinum Helmet", "Platinum Chainmail", "Platinum Greaves"] },
+      ]
+    },
+    {
+      stage: "Pre-Hardmode", class: "stage-prehardmode",
+      description: "Class-specific early armor",
+      items: [
+        { name: "Bee Armor", type: "Armor Set", img: "", iconItem: "Bee Breastplate", related: ["Bee Hat", "Bee Shirt", "Bee Pants", "Bee Headgear", "Bee Breastplate", "Bee Greaves"] },
+      ]
+    },
+    {
+      stage: "Hardmode", class: "stage-hardmode",
+      description: "Hardmode summoner armor",
+      milestone: "🎯 Defeat Wall of Flesh to unlock Hardmode",
+      items: [
+        { name: "Spider Armor", type: "Armor Set", img: "", iconItem: "Spider Breastplate", related: ["Spider Mask", "Spider Breastplate", "Spider Greaves"] },
+      ]
+    },
+    {
+      stage: "Post-Plantera", class: "stage-plantera",
+      description: "Jungle and endgame armor",
+      milestone: "🌺 Defeat Plantera",
+      items: [
+        { name: "Tiki Armor", type: "Armor Set", img: "", iconItem: "Tiki Shirt", related: ["Tiki Mask", "Tiki Shirt", "Tiki Pants"] },
+        { name: "Spooky Armor", type: "Armor Set", img: "", iconItem: "Spooky Breastplate", related: ["Spooky Helmet", "Spooky Breastplate", "Spooky Leggings"] },
+      ]
+    },
+    {
+      stage: "Lunar Events", class: "stage-moonlord",
+      description: "Best armor for this class",
+      milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
+      items: [
+        { name: "Stardust Armor", type: "Armor Set", img: "", iconItem: "Stardust Plate", related: ["Stardust Helmet", "Stardust Plate", "Stardust Leggings"] },
+      ]
+    },
+  ],
+
+  pickaxes: [
+    {
+      stage: "Pre-Hardmode", class: "stage-prehardmode",
+      description: "Pickaxes available from the start of the game",
+      items: [
+        { name: "Copper Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Tin Pickaxe", type: "Pickaxe (Alt)", img: "" },
+        { name: "Iron Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Lead Pickaxe", type: "Pickaxe (Alt)", img: "" },
+        { name: "Silver Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Tungsten Pickaxe", type: "Pickaxe (Alt)", img: "" },
+        { name: "Gold Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Platinum Pickaxe", type: "Pickaxe (Alt)", img: "" },
+        { name: "Nightmare Pickaxe", type: "Pickaxe (Alt)", img: "", milestone: "Crafted from Demonite Bars" },
+        { name: "Deathbringer Pickaxe", type: "Pickaxe (Alt)", img: "", milestone: "Crafted from Crimtane Bars" },
+        { name: "Molten Pickaxe", type: "Pickaxe", img: "", milestone: "Crafted from Hellstone Bars" }
+      ]
+    },
+    {
+      stage: "Hardmode", class: "stage-hardmode",
+      description: "Unlocked after defeating Wall of Flesh",
+      milestone: "🎯 Defeat Wall of Flesh to unlock Hardmode",
+      items: [
+        { name: "Cobalt Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Palladium Pickaxe", type: "Pickaxe (Alt)", img: "" },
+        { name: "Mythril Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Orichalcum Pickaxe", type: "Pickaxe (Alt)", img: "" },
+        { name: "Adamantite Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Titanium Pickaxe", type: "Pickaxe (Alt)", img: "" },
+        { name: "Chlorophyte Pickaxe", type: "Pickaxe", img: "" }
+      ]
+    },
+    {
+      stage: "Post-Mechanical Bosses", class: "stage-plantera",
+      description: "Crafted from Hallowed Bars",
+      milestone: "🌺 Defeat all three mechanical bosses",
+      items: [
+        { name: "Drax", type: "Drill-Axe", img: "" },
+        { name: "Pickaxe Axe", type: "Pickaxe-Axe", img: "" }
+      ]
+    },
+    {
+      stage: "Post-Plantera", class: "stage-golem",
+      description: "Available after defeating Plantera",
+      milestone: "🌺 Defeat Plantera",
+      items: [
+        { name: "Spectre Pickaxe", type: "Pickaxe", img: "", milestone: "Crafted from Spectre Bars" },
+        { name: "Shroomite Digging Claw", type: "Digging Claw", img: "" },
+        { name: "Picksaw", type: "Pickaxe-Saw", img: "", milestone: "Drops from Golem" }
+      ]
+    },
+    {
+      stage: "Lunar Events", class: "stage-moonlord",
+      description: "Crafted from Lunar Fragments",
+      milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
+      items: [
+        { name: "Vortex Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Nebula Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Solar Flare Pickaxe", type: "Pickaxe", img: "" },
+        { name: "Stardust Pickaxe", type: "Pickaxe", img: "" }
+      ]
+    },
+  ],
+
+  events: [
+    {
+      stage: "Pre-Hardmode", class: "stage-prehardmode",
+      description: "Events available from the start of the game",
+      items: [
+        { name: "Blood Moon", type: "Event", img: "", iconItem: "Bloody Tear", search: "Bloody Tear" },
+        { name: "Slime Rain", type: "Event", img: "", iconNpc: "Green Slime" },
+        { name: "Goblin Army", type: "Invasion", img: "", iconItem: "Goblin Battle Standard", search: "Goblin Battle Standard" },
+        { name: "Old One's Army", type: "Invasion", img: "", iconItem: "Eternia Crystal Stand", search: "Eternia Crystal Stand", milestone: "Tier 2 after a mechanical boss, Tier 3 after Golem" }
+      ]
+    },
+    {
+      stage: "Hardmode", class: "stage-hardmode",
+      description: "Unlocked after defeating Wall of Flesh",
+      milestone: "🎯 Defeat Wall of Flesh to unlock Hardmode",
+      items: [
+        { name: "Frost Legion", type: "Invasion", img: "", iconItem: "Snow Globe", search: "Snow Globe" },
+        { name: "Pirate Invasion", type: "Invasion", img: "", iconItem: "Pirate Map", search: "Pirate Map" },
+        { name: "Solar Eclipse", type: "Event", img: "", iconItem: "Solar Tablet", search: "Solar Tablet" }
+      ]
+    },
+    {
+      stage: "Post-Plantera", class: "stage-plantera",
+      description: "Available after defeating Plantera",
+      milestone: "🌺 Defeat Plantera",
+      items: [
+        { name: "Pumpkin Moon", type: "Invasion", img: "", iconItem: "Pumpkin Moon Medallion", search: "Pumpkin Moon Medallion" },
+        { name: "Frost Moon", type: "Invasion", img: "", iconItem: "Naughty Present", search: "Naughty Present" }
+      ]
+    },
+    {
+      stage: "Post-Golem", class: "stage-golem",
+      description: "Available after defeating Golem",
+      milestone: "🗿 Defeat Golem",
+      items: [
+        { name: "Martian Madness", type: "Invasion", img: "", iconNpc: "Martian Saucer" }
+      ]
+    },
+    {
+      stage: "Lunar Events", class: "stage-moonlord",
+      description: "Triggered by the Lunatic Cultist",
+      milestone: "🌙 Defeat Lunatic Cultist to trigger Lunar Events",
+      items: [
+        { name: "Lunar Events", type: "Event", img: "", iconItem: "Celestial Sigil" }
+      ]
+    },
+  ],
+};
+
+// ============================================================
+// TIMELINE MENU: nodes with `children` open another menu, nodes with `timeline` open that timeline
+// ============================================================
+const TIMELINE_MENU = [
+  { name: "Ores & Bars", icon: "⛏️", desc: "Materials by progression", timeline: "ores" },
+  { name: "Bosses", icon: "👁️", desc: "Boss order and what they unlock", timeline: "bosses" },
+  { name: "Armor", icon: "🛡️", desc: "Pick a class", children: [
+    { name: "Melee", icon: "⚔️", desc: "Melee armor progression", timeline: "armorMelee" },
+    { name: "Ranged", icon: "🏹", desc: "Ranged armor progression", timeline: "armorRanged" },
+    { name: "Mage", icon: "🔮", desc: "Mage armor progression", timeline: "armorMage" },
+    { name: "Summoner", icon: "🐝", desc: "Summoner armor progression", timeline: "armorSummoner" },
+  ]},
+  { name: "Pickaxes", icon: "🔨", desc: "Mining tiers", timeline: "pickaxes" },
+  { name: "Events", icon: "🎪", desc: "Invasions and special events", timeline: "events" },
+];
+
+let timelinePath = []; // stack of menu nodes the user has clicked into
+
+function timelineNodeReady(node) {
+  if (node.children) return true;
+  const data = TIMELINES[node.timeline];
+  return !!(data && data.length);
+}
+
+function renderTimelineMenu(nodes) {
   const content = document.getElementById("timelineContent");
   content.innerHTML = "";
 
-  for (const stage of TIMELINE_DATA) {
+  const grid = document.createElement("div");
+  grid.className = "timeline-menu";
+
+  for (const node of nodes) {
+    const card = document.createElement("div");
+    card.className = "timeline-menu-card";
+    const ready = timelineNodeReady(node);
+    if (!ready) card.classList.add("soon");
+
+    card.innerHTML = `
+      <div class="tm-icon">${node.icon || "📅"}</div>
+      <div class="tm-info">
+        <div class="tm-name">${node.name}</div>
+        <div class="tm-desc">${ready ? (node.desc || "") : "Coming soon"}</div>
+      </div>
+      <div class="tm-arrow">${node.children ? "›" : ""}</div>
+    `;
+
+    card.addEventListener("click", () => {
+      timelinePath.push(node);
+      showTimelineLevel();
+    });
+
+    grid.appendChild(card);
+  }
+
+  content.appendChild(grid);
+}
+
+// Every icon we could use for an entry, best first. If one fails to load, the next is tried.
+function timelineImgCandidates(item, itemData) {
+  const npcImg = NPC_BY_NAME[item.name]?.img;
+  const list = [
+    item.img,
+    itemData?.img,
+    npcImg,
+    ITEM_BY_NAME[item.iconItem]?.img,
+    NPC_BY_NAME[item.iconNpc]?.img,
+    npcImg && npcImg.endsWith(".gif") ? npcImg.replace(/\.gif$/, ".png") : null,
+    ITEM_BY_NAME[`${item.name} Mask`]?.img,     // boss mask as a backup icon
+    ITEM_BY_NAME[`${item.name} Trophy`]?.img,   // boss trophy as a last resort
+  ];
+  return [...new Set(list.filter(Boolean))];
+}
+
+function setImgWithFallbacks(img, urls) {
+  img.referrerPolicy = "no-referrer";
+  img.dataset.fallbacks = JSON.stringify(urls.slice(1));
+  img.onerror = () => {
+    let rest = [];
+    try { rest = JSON.parse(img.dataset.fallbacks || "[]"); } catch (e) {}
+    if (rest.length) {
+      img.src = rest.shift();
+      img.dataset.fallbacks = JSON.stringify(rest);
+    } else {
+      img.style.display = "none";
+    }
+  };
+  img.style.display = "";
+  img.src = urls[0];
+}
+
+function renderTimeline(key) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+
+  const data = TIMELINES[key];
+  if (!data || !data.length) {
+    content.innerHTML = `<div class="timeline-soon">Coming soon</div>`;
+    return;
+  }
+
+  for (const stage of data) {
     const stageDiv = document.createElement("div");
     stageDiv.className = `timeline-stage ${stage.class}`;
 
@@ -2465,23 +2993,28 @@ function renderTimeline() {
     for (const item of stage.items) {
       const itemDiv = document.createElement("div");
       itemDiv.className = "timeline-item";
+      itemDiv.style.cursor = "pointer";
 
       const itemData = ITEM_BY_NAME[item.name];
-      const imgSrc = itemData?.img || "";
+      const urls = timelineImgCandidates(item, itemData);
 
-      itemDiv.innerHTML = `
-        <img src="${imgSrc}" alt="${item.name}" referrerpolicy="no-referrer" />
-        <div class="timeline-item-info">
-          <div class="timeline-item-name">${item.name}</div>
-          <div class="timeline-item-type">${item.type}</div>
-        </div>
+      if (urls.length) {
+        const img = document.createElement("img");
+        img.alt = item.name;
+        setImgWithFallbacks(img, urls);
+        itemDiv.appendChild(img);
+      }
+
+      const info = document.createElement("div");
+      info.className = "timeline-item-info";
+      info.innerHTML = `
+        <div class="timeline-item-name">${item.name}</div>
+        <div class="timeline-item-type">${item.type}</div>
       `;
+      itemDiv.appendChild(info);
 
-      itemDiv.addEventListener("click", () => {
-        closeTimeline();
-        document.getElementById("q").value = item.name;
-        applyFilter();
-      });
+      // Everything is clickable
+      itemDiv.addEventListener("click", () => openTimelineEntry(item, stage, urls));
 
       itemsGrid.appendChild(itemDiv);
     }
@@ -2491,10 +3024,69 @@ function renderTimeline() {
   }
 }
 
+// Real items open the same popup as the main grid (craft / uses / info).
+// Bosses, events and armor sets open the info popup with a wiki button.
+function openTimelineEntry(item, stage, urls) {
+  const itemData = ITEM_BY_NAME[item.name];
+  if (itemData) {
+    openChoiceModal(itemData);
+    return;
+  }
+
+  const lines = [];
+  const aboutName = item.iconItem;
+  const aboutTip = aboutName ? ITEM_DETAILS[aboutName]?.tooltip : null;
+  if (aboutTip) lines.push({ label: `About the ${aboutName}`, text: aboutTip });
+  if (stage.description) lines.push({ label: "Available", text: stage.description });
+  if (item.milestone) lines.push({ label: "Note", text: item.milestone });
+
+  let related = item.related || (aboutName && ITEM_BY_NAME[aboutName] ? [aboutName] : []);
+  related = related.filter(n => ITEM_BY_NAME[n]);
+  const isArmor = (item.type || "").startsWith("Armor Set");
+
+  const wikiTitle = item.wikiTitle || (isArmor ? item.name.replace(/ Armor$/, " armor") : item.name);
+
+  showInfoPopup({
+    title: item.name,
+    imgs: urls,
+    subtitle: `${item.type} · ${stage.stage}`,
+    paragraph: item.info || "",
+    lines,
+    related,
+    relatedLabel: isArmor ? "Armor pieces (click for crafting)" : "Trigger item (click for crafting)",
+    wikiUrl: item.wiki || `https://terraria.wiki.gg/wiki/${encodeURIComponent(wikiTitle.replace(/ /g, "_"))}`,
+  });
+}
+
+function showTimelineLevel() {
+  const node = timelinePath[timelinePath.length - 1];
+
+  document.getElementById("timelineTitle").textContent =
+    ["Timeline", ...timelinePath.map(n => n.name)].join(" › ");
+
+  if (!node) renderTimelineMenu(TIMELINE_MENU);
+  else if (node.children) renderTimelineMenu(node.children);
+  else renderTimeline(node.timeline);
+
+  document.getElementById("timelinePage").scrollTop = 0;
+  document.getElementById("timelineContent").scrollTop = 0;
+}
+
+// Back goes up one level; from the top menu it closes the timeline
+function timelineGoBack() {
+  if (timelinePath.length) {
+    timelinePath.pop();
+    showTimelineLevel();
+  } else {
+    closeTimeline();
+  }
+}
+
 function openTimeline() {
   document.getElementById("timelinePage").classList.remove("hidden");
   document.body.classList.add("no-scroll");
-  renderTimeline();
+  timelinePath = [];
+  showTimelineLevel();
 }
 
 function closeTimeline() {
@@ -2558,183 +3150,97 @@ function openSettingsModal() {
   });
 }
 
-function openItemInfoModal(itemName) {
-  const item = ITEM_BY_NAME[itemName];
-  const details = ITEM_DETAILS[itemName] || {};
-  
-  if (!item) return;
-  
-  const infoImg = document.getElementById("infoModalImg");
-  infoImg.src = item.img || "";
-  
-  // Handle "Any" items with animated GIFs - use smooth rendering
-  if (itemName && (itemName.startsWith("Any ") || itemName === "Any Wood" || itemName === "Any Sand" || itemName === "Any Iron Bar" || itemName === "Any Balloon")) {
-    infoImg.style.imageRendering = "auto";
+// Fills in and shows the Item Info popup (#infoModalBackdrop in index.html)
+function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines = [], related = [], relatedLabel = "Related items", wikiUrl }) {
+  const imgEl = document.getElementById("infoModalImg");
+  if (imgs.length) {
+    imgEl.style.imageRendering = "pixelated";
+    setImgWithFallbacks(imgEl, imgs);
   } else {
-    infoImg.style.imageRendering = "pixelated";
+    imgEl.style.display = "none";
   }
-  
-  document.getElementById("infoModalTitle").textContent = itemName;
-  
-  const station = details.station || "No crafting station";
-  const stationEl = document.getElementById("infoModalStation");
-  
-  if (station && station !== "No crafting station") {
-    const stationItem = ITEM_BY_NAME[station];
-    if (stationItem?.img) {
-      stationEl.innerHTML = `<img src="${stationItem.img}" style="width: 16px; height: 16px; vertical-align: middle; image-rendering: pixelated; margin-right: 4px;" referrerpolicy="no-referrer" /> ${station}`;
-    } else if (station === "By Hand") {
-      stationEl.textContent = `✋ ${station}`;
-    } else {
-      stationEl.textContent = `🏭 ${station}`;
+
+  document.getElementById("infoModalTitle").textContent = title;
+  document.getElementById("infoModalStation").textContent = subtitle;
+
+  const content = document.getElementById("infoModalContent");
+  content.innerHTML = "";
+
+  if (paragraph) {
+    const p = document.createElement("div");
+    p.className = "info-line";
+    p.textContent = paragraph;
+    content.appendChild(p);
+  }
+
+  for (const line of lines) {
+    if (!line.text) continue;
+    const d = document.createElement("div");
+    d.className = "info-line";
+    const strong = document.createElement("strong");
+    strong.textContent = line.label + ": ";
+    d.appendChild(strong);
+    d.appendChild(document.createTextNode(line.text));
+    content.appendChild(d);
+  }
+
+  if (related.length) {
+    const label = document.createElement("div");
+    label.className = "info-related-label";
+    label.textContent = relatedLabel;
+    content.appendChild(label);
+
+    const chips = document.createElement("div");
+    chips.className = "info-chips";
+    for (const name of related) {
+      const chip = document.createElement("button");
+      chip.className = "info-chip";
+      chip.textContent = name;
+      chip.addEventListener("click", () => {
+        closeItemInfoModal();
+        openChoiceModal(ITEM_BY_NAME[name]);
+      });
+      chips.appendChild(chip);
     }
-  } else {
-    stationEl.textContent = station;
+    content.appendChild(chips);
   }
-  
-  let contentHTML = "";
-  
-  if (details.tooltip) {
-    contentHTML += `<div style="margin-bottom: 16px; padding: 12px 0; line-height: 1.6; color: var(--text-primary); opacity: 0.9;">
-      ${details.tooltip}
-    </div>`;
-  }
-  
-  if (details.drops && details.drops.length > 0) {
-    const DROP_THRESHOLD = 5;
-    const dropId = `drops-${itemName.replace(/\s/g, '-')}`;
-    
-    const firstDrop = details.drops[0].enemy.toLowerCase();
-    const isMob = NPC_BY_NAME[details.drops[0].enemy] !== undefined;
-    const isTree = firstDrop.includes('tree');
-    const dropHeader = isTree ? '🌳 Found in' : (isMob ? '💀 Dropped by' : '📦 Found in');
-    
-    if (details.drops.length > DROP_THRESHOLD) {
-      contentHTML += `<div style="margin-bottom: 12px;"><div style="font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">${dropHeader}</div>`;
-      contentHTML += `<div id="${dropId}" style="display: flex; flex-direction: column; gap: 6px;">`;
-      
-      const dropsToShow = details.drops.slice(0, 3);
-      dropsToShow.forEach(drop => {
-        const obj = OBJECTS_BY_NAME[drop.enemy];
-        const npc = NPC_BY_NAME[drop.enemy];
-        const dropItem = ITEM_BY_NAME[drop.enemy];
-        const imgSrc = obj?.img || npc?.img || dropItem?.img || "";
-        const rate = drop.percent ? `${drop.percent}%` : (drop.rate || "");
-        
-        const isTree = obj?.type === 'Tree';
-        const containerSize = isTree ? '60px' : '32px';
-        const maxImageSize = isTree ? '56px' : '32px';
-        
-        contentHTML += `<div style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--bg-tertiary); border-radius: 6px;">
-          <div style="width: ${containerSize}; height: ${containerSize}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            ${imgSrc ? `<img src="${imgSrc}" referrerpolicy="no-referrer" style="max-height: ${maxImageSize}; max-width: ${maxImageSize}; height: auto; width: auto; image-rendering: pixelated;" onerror="this.style.display='none'" />` : ''}
-          </div>
-          <span style="flex: 1; color: var(--text-primary);">${drop.enemy}</span>
-          <span style="opacity: 0.7; font-size: 13px; color: var(--text-secondary);">${rate}</span>
-        </div>`;
-      });
-      
-      const remainingDrops = details.drops.slice(3);
-      contentHTML += `<div id="${dropId}-hidden" style="display: none; flex-direction: column; gap: 6px;">`;
-      remainingDrops.forEach(drop => {
-        const obj = OBJECTS_BY_NAME[drop.enemy];
-        const npc = NPC_BY_NAME[drop.enemy];
-        const dropItem = ITEM_BY_NAME[drop.enemy];
-        const imgSrc = obj?.img || npc?.img || dropItem?.img || "";
-        const rate = drop.percent ? `${drop.percent}%` : (drop.rate || "");
-        
-        const isTree = obj?.type === 'Tree';
-        const containerSize = isTree ? '60px' : '32px';
-        const maxImageSize = isTree ? '56px' : '32px';
-        
-        contentHTML += `<div style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--bg-tertiary); border-radius: 6px;">
-          <div style="width: ${containerSize}; height: ${containerSize}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            ${imgSrc ? `<img src="${imgSrc}" referrerpolicy="no-referrer" style="max-height: ${maxImageSize}; max-width: ${maxImageSize}; height: auto; width: auto; image-rendering: pixelated;" onerror="this.style.display='none'" />` : ''}
-          </div>
-          <span style="flex: 1; color: var(--text-primary);">${drop.enemy}</span>
-          <span style="opacity: 0.7; font-size: 13px; color: var(--text-secondary);">${rate}</span>
-        </div>`;
-      });
-      contentHTML += '</div>';
-      
-      const remaining = remainingDrops.length;
-      contentHTML += `<button id="${dropId}-toggle" onclick="toggleDropsList('${dropId}')" style="padding: 8px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; color: var(--text-primary); font-weight: 600; transition: all 0.2s;">
-        <span id="${dropId}-toggle-text">+${remaining} more</span>
-      </button>`;
-      
-      contentHTML += '</div></div>';
-    } else {
-      const firstDrop = details.drops[0].enemy.toLowerCase();
-      const isMob = NPC_BY_NAME[details.drops[0].enemy] !== undefined;
-      const isTree = firstDrop.includes('tree');
-      const dropHeader = isTree ? '🌳 Found in' : (isMob ? '💀 Dropped by' : '📦 Found in');
-      
-      contentHTML += `<div style="margin-bottom: 12px;"><div style="font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">${dropHeader}</div>`;
-      contentHTML += '<div style="display: flex; flex-direction: column; gap: 6px;">';
-      
-      details.drops.forEach(drop => {
-        const obj = OBJECTS_BY_NAME[drop.enemy];
-        const npc = NPC_BY_NAME[drop.enemy];
-        const dropItem = ITEM_BY_NAME[drop.enemy];
-        const imgSrc = obj?.img || npc?.img || dropItem?.img || "";
-        const rate = drop.percent ? `${drop.percent}%` : (drop.rate || "");
-        
-        const isTree = obj?.type === 'Tree';
-        const containerSize = isTree ? '60px' : '32px';
-        const maxImageSize = isTree ? '56px' : '32px';
-        
-        contentHTML += `<div style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--bg-tertiary); border-radius: 6px;">
-          <div style="width: ${containerSize}; height: ${containerSize}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            ${imgSrc ? `<img src="${imgSrc}" referrerpolicy="no-referrer" style="max-height: ${maxImageSize}; max-width: ${maxImageSize}; height: auto; width: auto; image-rendering: pixelated;" onerror="this.style.display='none'" />` : ''}
-          </div>
-          <span style="flex: 1; color: var(--text-primary);">${drop.enemy}</span>
-          <span style="opacity: 0.7; font-size: 13px; color: var(--text-secondary);">${rate}</span>
-        </div>`;
-      });
-      
-      contentHTML += '</div></div>';
-    }
-  }
-  
-  if (details.sold_by && details.sold_by.length > 0) {
-    contentHTML += '<div style="margin-bottom: 12px;"><div style="font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">💰 Sold by</div>';
-    contentHTML += '<div style="display: flex; flex-direction: column; gap: 6px;">';
-    
-    details.sold_by.forEach(npcName => {
-      const npc = NPC_BY_NAME[npcName];
-      const npcItem = ITEM_BY_NAME[npcName];
-      const imgSrc = npc?.img || npcItem?.img || "";
-      
-      contentHTML += `<div style="display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--bg-tertiary); border-radius: 6px;">
-        <div style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          ${imgSrc ? `<img src="${imgSrc}" referrerpolicy="no-referrer" style="max-height: 32px; max-width: 32px; height: auto; width: auto; image-rendering: pixelated;" onerror="this.style.display='none'" />` : ''}
-        </div>
-        <span style="color: var(--text-primary);">${npcName}</span>
-      </div>`;
-    });
-    
-    contentHTML += '</div></div>';
-  }
-  
-  if (!contentHTML) {
-    contentHTML = '<div style="opacity: 0.7; font-style: italic;">No additional information available.</div>';
-  }
-  
-  // Add note about buffs/debuffs if this is an accessory or armor
-  const itemCategory = detectCategory(itemName);
-  if (itemCategory === 'accessory' || itemCategory === 'armor' || itemName.toLowerCase().includes('charm') || itemName.toLowerCase().includes('emblem')) {
-    contentHTML += '<div style="margin-top: 16px; padding: 12px; background: var(--bg-tertiary); border-left: 3px solid #667eea; border-radius: 6px;">';
-    contentHTML += '<div style="font-weight: 600; margin-bottom: 4px; color: var(--text-primary);">💡 Buffs & Debuffs</div>';
-    contentHTML += '<div style="font-size: 13px; opacity: 0.9; color: var(--text-secondary);">For detailed buff/debuff information, click the "Open Wiki Page" button below.</div>';
-    contentHTML += '</div>';
-  }
-  
-  document.getElementById("infoModalContent").innerHTML = contentHTML;
-  
-  const wikiLink = details.wiki || `https://terraria.wiki.gg/wiki/${itemName.replace(/ /g, '_')}`;
-  document.getElementById("infoModalWikiLink").href = wikiLink;
-  
+
+  document.getElementById("infoModalWikiLink").href = wikiUrl;
   document.getElementById("infoModalBackdrop").classList.remove("hidden");
+}
+
+function formatInfoValue(v) {
+  if (!v) return "";
+  if (typeof v === "string") return v;
+  if (Array.isArray(v)) {
+    return v.map(x => typeof x === "string" ? x : (x?.name || x?.npc || x?.item || "")).filter(Boolean).join(", ");
+  }
+  return "";
+}
+
+function openItemInfoModal(itemName) {
+  const details = ITEM_DETAILS[itemName] || {};
+  const item = ITEM_BY_NAME[itemName];
+
+  const lines = [];
+  const station = formatInfoValue(details.crafting_station || details.station);
+  if (station) lines.push({ label: "Crafting Station", text: station });
+  const drops = formatInfoValue(details.drops_summary);
+  if (drops) lines.push({ label: "Dropped By", text: drops });
+  const sold = formatInfoValue(details.sold_by);
+  if (sold) lines.push({ label: "Sold By", text: sold });
+  const tags = [...(details.immunities || []), ...(details.buffs || [])];
+  if (tags.length) lines.push({ label: "Buffs / Immunities", text: tags.join(", ") });
+
+  showInfoPopup({
+    title: itemName,
+    imgs: item?.img ? [item.img] : [],
+    subtitle: details.category || "",
+    paragraph: details.tooltip || "",
+    lines,
+    wikiUrl: details.wiki_url || details.wiki ||
+      `https://terraria.wiki.gg/wiki/${encodeURIComponent(itemName.replace(/ /g, "_"))}`,
+  });
 }
 
 function toggleDropsList(dropId) {

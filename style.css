@@ -900,3 +900,60 @@ body,
   min-width: 24px;
   text-align: center;
 }
+
+/* Timeline category menu */
+.timeline-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 24px 0;
+  padding: 0 32px;
+}
+.timeline-menu-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 28px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.timeline-menu-card:hover {
+  background: var(--card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow);
+}
+.timeline-menu-card.soon { opacity: 0.55; }
+.tm-icon { font-size: 40px; line-height: 1; width: 56px; text-align: center; }
+.tm-info { flex: 1; min-width: 0; }
+.tm-name { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+.tm-desc { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+.tm-arrow { font-size: 28px; color: var(--text-secondary); }
+.timeline-soon {
+  text-align: center;
+  padding: 80px 20px;
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+/* Popups opened from the timeline must sit above it (timeline page is z-index 10000) */
+#modalBackdrop { z-index: 15000; }
+#treeOverlay { z-index: 10500; }
+
+/* Info popup content */
+.info-line { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--text-secondary); }
+.info-line strong { color: var(--text-primary); }
+.info-related-label { margin: 16px 0 6px; font-weight: 600; font-size: 14px; color: var(--text-primary); }
+.info-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.info-chip {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.info-chip:hover { background: var(--card-hover); }
