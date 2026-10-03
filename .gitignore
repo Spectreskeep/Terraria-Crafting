@@ -1,1 +1,6 @@
 node_modules/
+update_buffs.py
+test_scraper.py
+test_list_updated.json
+package-lock.json
+my_test.json

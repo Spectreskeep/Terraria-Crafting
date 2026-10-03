@@ -957,3 +957,49 @@ body,
   font-size: 13px;
 }
 .info-chip:hover { background: var(--card-hover); }
+
+/* ================= MOBILE / TOUCH SUPPORT ================= */
+
+/* Lets the crafting tree be dragged and pinch-zoomed by touch */
+.treeViewport { touch-action: none; }
+
+#btnCategories { display: none; }
+.sidebar-backdrop { display: none; }
+
+@media (max-width: 768px) {
+  header { flex-wrap: wrap; }
+  #q { flex: 1 1 100%; order: -1; }
+  header button { flex: 1; padding: 10px 8px; font-size: 14px; }
+  #btnSettings { margin-left: 0; }
+  #btnCategories { display: block; }
+
+  /* let the page scroll normally */
+  .main-layout { display: block; height: auto; overflow: visible; }
+  .results-container { overflow: visible; }
+  .results-container, #results {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  /* sidebar becomes a slide-in drawer */
+  .category-sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 260px; max-width: 80vw;
+    z-index: 2000;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .category-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+  }
+  .sidebar-backdrop.open {
+    display: block;
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1500;
+  }
+
+  .treeTitle { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tree-legend { display: none !important; }
+}

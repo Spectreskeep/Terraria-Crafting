@@ -428,10 +428,7 @@ async function loadItemDetails() {
         drops: itemData.drops || [],
         drops_summary: itemData.drops_summary || "",
         sold_by: itemData.sold_by || [],
-        tooltip: itemData.tooltip || "",
-        // Include immunities and buffs from JSON
-        immunities: itemData.immunities || itemData.debuff_immunities || [],
-        buffs: itemData.buffs || []
+        tooltip: itemData.tooltip || ""
       };
     }
     
@@ -1404,45 +1401,114 @@ function setWorldTransform() {
   world.style.transformOrigin = "0 0";
 }
 
+function zoomAt(clientX, clientY, newZoom) {
+  const viewport = document.getElementById("treeViewport");
+  const rect = viewport.getBoundingClientRect();
+  newZoom = Math.max(0.1, Math.min(3, newZoom));
+  const mx = clientX - rect.left;
+  const my = clientY - rect.top;
+  const worldX = (mx - panX) / zoomLevel;
+  const worldY = (my - panY) / zoomLevel;
+  panX = mx - worldX * newZoom;
+  panY = my - worldY * newZoom;
+  zoomLevel = newZoom;
+}
+
 function setupPanning() {
   const viewport = document.getElementById("treeViewport");
+  const pointers = new Map();
+  let moved = false;
+  let downX = 0, downY = 0;
+  let lastDist = 0, lastMidX = 0, lastMidY = 0;
 
-  viewport.addEventListener("mousedown", (e) => {
-    if (e.target.closest(".treeNode")) return;
-    isPanning = true;
-    startX = e.clientX - panX;
-    startY = e.clientY - panY;
+  const getPinch = () => {
+    const [a, b] = [...pointers.values()];
+    return {
+      dist: Math.hypot(a.x - b.x, a.y - b.y),
+      midX: (a.x + b.x) / 2,
+      midY: (a.y + b.y) / 2
+    };
+  };
+
+  viewport.addEventListener("pointerdown", (e) => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) {
+      isPanning = true;
+      moved = false;
+      downX = e.clientX;
+      downY = e.clientY;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+    } else if (pointers.size === 2) {
+      isPanning = false;
+      moved = true; // never treat a pinch as a tap
+      const p = getPinch();
+      lastDist = p.dist; lastMidX = p.midX; lastMidY = p.midY;
+    }
   });
 
-  window.addEventListener("mousemove", (e) => {
+  viewport.addEventListener("pointermove", (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.size >= 2) {
+      const p = getPinch();
+      if (lastDist > 0) {
+        panX += p.midX - lastMidX;
+        panY += p.midY - lastMidY;
+        zoomAt(p.midX, p.midY, zoomLevel * (p.dist / lastDist));
+      }
+      lastDist = p.dist; lastMidX = p.midX; lastMidY = p.midY;
+      setWorldTransform();
+      return;
+    }
+
     if (!isPanning) return;
-    panX = e.clientX - startX;
-    panY = e.clientY - startY;
-    setWorldTransform();
+    if (!moved && Math.hypot(e.clientX - downX, e.clientY - downY) > 6) {
+      moved = true;
+      try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
+    }
+    if (moved) {
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      setWorldTransform();
+    }
   });
 
-  window.addEventListener("mouseup", () => {
-    isPanning = false;
-  });
+  const endPointer = (e) => {
+    pointers.delete(e.pointerId);
+    if (pointers.size === 1) {
+      // went from pinch back to one finger: continue panning smoothly
+      const p = [...pointers.values()][0];
+      isPanning = true;
+      startX = p.x - panX;
+      startY = p.y - panY;
+    } else if (pointers.size === 0) {
+      isPanning = false;
+    }
+  };
+  viewport.addEventListener("pointerup", endPointer);
+  viewport.addEventListener("pointercancel", endPointer);
 
   viewport.addEventListener("wheel", (e) => {
     e.preventDefault();
-    
-    const delta = e.deltaY > 0 ? 0.9 : 1.1;
-    const newZoom = Math.max(0.1, Math.min(3, zoomLevel * delta));
-    
-    const rect = viewport.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    
-    const worldX = (mouseX - panX) / zoomLevel;
-    const worldY = (mouseY - panY) / zoomLevel;
-    
-    panX = mouseX - worldX * newZoom;
-    panY = mouseY - worldY * newZoom;
-    
-    zoomLevel = newZoom;
+    zoomAt(e.clientX, e.clientY, zoomLevel * (e.deltaY > 0 ? 0.9 : 1.1));
     setWorldTransform();
+  }, { passive: false });
+}
+
+function setupMobileDrawer() {
+  const sidebar = document.querySelector(".category-sidebar");
+  const backdrop = document.getElementById("sidebarBackdrop");
+  const open = () => { sidebar.classList.add("open"); backdrop.classList.add("open"); };
+  const close = () => { sidebar.classList.remove("open"); backdrop.classList.remove("open"); };
+
+  document.getElementById("btnCategories").addEventListener("click", open);
+  backdrop.addEventListener("click", close);
+
+  // close the drawer after picking "All Items" or a subcategory
+  sidebar.addEventListener("click", (e) => {
+    if (e.target.closest(".cat-sub-item") || e.target.closest('.cat-item[data-category="all"]')) close();
   });
 }
 
@@ -2380,9 +2446,10 @@ async function main() {
   document.getElementById("timelineBack").addEventListener("click", timelineGoBack);
 
   setupPanning();
+  setupMobileDrawer();
 
   applyFilter();
-  qEl.focus();
+  if (window.matchMedia("(hover: hover)").matches) qEl.focus();
 }
 
 const TIMELINE_ORES = [
