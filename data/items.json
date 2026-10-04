@@ -30743,5 +30743,220 @@
     "id": 6193,
     "name": "Chaos Cylinder (Random)",
     "img": "https://terraria.wiki.gg/images/Chaos_Cylinder_(Random).png"
+  },
+  {
+    "id": 5457,
+    "name": "The Beheaded's Head",
+    "img": "https://terraria.wiki.gg/images/The_Beheaded's_Head.png"
+  },
+  {
+    "id": 5485,
+    "name": "Chicken Charm",
+    "img": "https://terraria.wiki.gg/images/Chicken_Charm.png"
+  },
+  {
+    "id": 5486,
+    "name": "The Sea of Silence",
+    "img": "https://terraria.wiki.gg/images/The_Sea_of_Silence.png"
+  },
+  {
+    "id": 5487,
+    "name": "Heroes From Another World",
+    "img": "https://terraria.wiki.gg/images/Heroes_From_Another_World.png"
+  },
+  {
+    "id": 5488,
+    "name": "Crystallize",
+    "img": "https://terraria.wiki.gg/images/Crystallize.png"
+  },
+  {
+    "id": 5489,
+    "name": "Eater Of Life",
+    "img": "https://terraria.wiki.gg/images/Eater_Of_Life.png"
+  },
+  {
+    "id": 5491,
+    "name": "Winter At Varingskollen",
+    "img": "https://terraria.wiki.gg/images/Winter_At_Varingskollen.png"
+  },
+  {
+    "id": 5499,
+    "name": "Froggy Neckband",
+    "img": "https://terraria.wiki.gg/images/Froggy_Neckband.png"
+  },
+  {
+    "id": 5500,
+    "name": "Goat's Tuft",
+    "img": "https://terraria.wiki.gg/images/Goat's_Tuft.png"
+  },
+  {
+    "id": 5503,
+    "name": "Dog Collar",
+    "img": "https://terraria.wiki.gg/images/Dog_Collar.png"
+  },
+  {
+    "id": 5504,
+    "name": "Turkey Wattle Necklace",
+    "img": "https://terraria.wiki.gg/images/Turkey_Wattle_Necklace.png"
+  },
+  {
+    "id": 5505,
+    "name": "Mean Goblin's Spikes",
+    "img": "https://terraria.wiki.gg/images/Mean_Goblin's_Spikes.png"
+  },
+  {
+    "id": 5506,
+    "name": "Crow's Beak",
+    "img": "https://terraria.wiki.gg/images/Crow's_Beak.png"
+  },
+  {
+    "id": 5507,
+    "name": "Balloony Beads",
+    "img": "https://terraria.wiki.gg/images/Balloony_Beads.png"
+  },
+  {
+    "id": 5508,
+    "name": "Grim Old Barb",
+    "img": "https://terraria.wiki.gg/images/Grim_Old_Barb.png"
+  },
+  {
+    "id": 5527,
+    "name": "Of Sea and Dreams",
+    "img": "https://terraria.wiki.gg/images/Of_Sea_and_Dreams.png"
+  },
+  {
+    "id": 5528,
+    "name": "The Runic Pixie",
+    "img": "https://terraria.wiki.gg/images/The_Runic_Pixie.png"
+  },
+  {
+    "id": 5529,
+    "name": "Banner of the Beast",
+    "img": "https://terraria.wiki.gg/images/Banner_of_the_Beast.png"
+  },
+  {
+    "id": 5538,
+    "name": "Music Box (Queen Bee)",
+    "img": "https://terraria.wiki.gg/images/Music_Box_(Queen_Bee).png"
+  },
+  {
+    "id": 5578,
+    "name": "Music Box (King Slime)",
+    "img": "https://terraria.wiki.gg/images/Music_Box_(King_Slime).png"
+  },
+  {
+    "id": 5579,
+    "name": "Music Box (Alt Queen Bee)",
+    "img": "https://terraria.wiki.gg/images/Music_Box_(Alt_Queen_Bee).png"
+  },
+  {
+    "id": 5580,
+    "name": "Music Box (Lunatic Cultist)",
+    "img": "https://terraria.wiki.gg/images/Music_Box_(Lunatic_Cultist).png"
+  },
+  {
+    "id": 5583,
+    "name": "Chicken Bones' Visor",
+    "img": "https://terraria.wiki.gg/images/Chicken_Bones'_Visor.png"
+  },
+  {
+    "id": 5584,
+    "name": "Chicken Bones' Vest",
+    "img": "https://terraria.wiki.gg/images/Chicken_Bones'_Vest.png"
+  },
+  {
+    "id": 5588,
+    "name": "Prospector Helmet",
+    "img": "https://terraria.wiki.gg/images/Prospector_Helmet.png"
+  },
+  {
+    "id": 5591,
+    "name": "Captain Hat",
+    "img": "https://terraria.wiki.gg/images/Captain_Hat.png"
+  },
+  {
+    "id": 5626,
+    "name": "Chippy's Greaves",
+    "img": "https://terraria.wiki.gg/images/Chippy's_Greaves.png"
+  },
+  {
+    "id": 5630,
+    "name": "R/Terraria 2023",
+    "img": "https://terraria.wiki.gg/images/R%2FTerraria_2023.png"
+  },
+  {
+    "id": 5631,
+    "name": "Bould and Bash",
+    "img": "https://terraria.wiki.gg/images/Bould_and_Bash.png"
+  },
+  {
+    "id": 5632,
+    "name": "Dark Forebodings",
+    "img": "https://terraria.wiki.gg/images/Dark_Forebodings.png"
+  },
+  {
+    "id": 5633,
+    "name": "Oktober",
+    "img": "https://terraria.wiki.gg/images/Oktober.png"
+  },
+  {
+    "id": 5634,
+    "name": "It's Scragglin' Time",
+    "img": "https://terraria.wiki.gg/images/It's_Scragglin'_Time.png"
+  },
+  {
+    "id": 5642,
+    "name": "Party Roller Skates",
+    "img": "https://terraria.wiki.gg/images/Party_Roller_Skates.png"
+  },
+  {
+    "id": 5674,
+    "name": "Dull Red Team Block",
+    "img": "https://terraria.wiki.gg/images/Dull_Red_Team_Block.png"
+  },
+  {
+    "id": 5675,
+    "name": "Dull Green Team Block",
+    "img": "https://terraria.wiki.gg/images/Dull_Green_Team_Block.png"
+  },
+  {
+    "id": 5676,
+    "name": "Dull Blue Team Block",
+    "img": "https://terraria.wiki.gg/images/Dull_Blue_Team_Block.png"
+  },
+  {
+    "id": 5680,
+    "name": "Lilac Dusk Hairclip",
+    "img": "https://terraria.wiki.gg/images/Lilac_Dusk_Hairclip.png"
+  },
+  {
+    "id": 5683,
+    "name": "Kazzymodus' Hood",
+    "img": "https://terraria.wiki.gg/images/Kazzymodus'_Hood.png"
+  },
+  {
+    "id": 5839,
+    "name": "Trapped Flinx Fur Chest",
+    "img": "https://terraria.wiki.gg/images/Trapped_Flinx_Fur_Chest.png"
+  },
+  {
+    "id": 6141,
+    "name": "Luna's Runic Pixie Cloak",
+    "img": "https://terraria.wiki.gg/images/Luna's_Runic_Pixie_Cloak.png"
+  },
+  {
+    "id": 6144,
+    "name": "Music Box (Skeletron)",
+    "img": "https://terraria.wiki.gg/images/Music_Box_(Skeletron).png"
+  },
+  {
+    "id": 6168,
+    "name": "Chaos Cylinder",
+    "img": "https://terraria.wiki.gg/images/Chaos_Cylinder.png"
+  },
+  {
+    "id": 6184,
+    "name": "Sweet Barb",
+    "img": "https://terraria.wiki.gg/images/Sweet_Barb.png"
   }
 ]

@@ -14,6 +14,7 @@ let ITEM_DETAILS = {};
 let NPC_BY_NAME = {};
 let OBJECTS_BY_NAME = {};
 let STATION_IMAGES = {};
+const HEAVY_BENCH_IMG = ["https://terraria.wiki.gg/images/Heavy_Work_Bench_%28old%29.png", "https://terraria.wiki.gg/images/Heavy_Assembler_%28placed%29.png"];
 
 const NODE_W = 180;
 const NODE_H = 60;
@@ -845,6 +846,7 @@ function resetUsesTreeState() {
   USES_TREE_STATE.nodeData.clear();
   USES_TREE_STATE.nodeCounter = 0;
   USES_TREE_STATE.rootItem = null;
+  USES_TREE_STATE.rootCollapsed = false;
 }
 
 function getUniqueNodeId(prefix) {
@@ -1268,9 +1270,7 @@ function drawUsesTreeNode(world, node) {
   d.title = node.name;
   
   if (node.type === 'group') {
-    d.style.background = "#ffffff";
-    d.style.border = "2px solid #ddd";
-    d.style.cursor = "pointer";
+    d.classList.add("treeGroup");
     
     const icon = document.createElement("span");
     icon.textContent = USES_TREE_STATE.expandedNodes.has(node.id) ? "📂" : "📁";
@@ -1279,22 +1279,26 @@ function drawUsesTreeNode(world, node) {
     const text = document.createElement("div");
     text.innerHTML = `
       <div style="font-weight:800">${node.name}</div>
-      <div style="font-size:12px;opacity:0.6">${node.items.length} items</div>
+      <div class="treeSub">${node.items.length} items</div>
     `;
     
     d.appendChild(icon);
     d.appendChild(text);
+
+    // same + / minus marker the item cards have, so it is clear the folder opens and closes
+    const gOpen = USES_TREE_STATE.expandedNodes.has(node.id);
+    const gIcon = document.createElement("div");
+    gIcon.className = "treeToggle";
+    gIcon.textContent = gOpen ? "\u2212" : "+";
+    d.appendChild(gIcon);
+    d.title = gOpen ? "Click to close" : "Click to open";
     
     d.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleGroupNode(node.id);
     });
   } else if (node.type === 'loadmore') {
-    d.style.background = "#f0f0f0";
-    d.style.border = "2px dashed #999";
-    d.style.cursor = "pointer";
-    d.style.fontStyle = "italic";
-    d.style.justifyContent = "center";
+    d.classList.add("treeLoadMore");
     
     const text = document.createElement("div");
     text.textContent = node.name;
@@ -1397,8 +1401,7 @@ function drawUsesTreeNode(world, node) {
         expandIcon.textContent = USES_TREE_STATE.expandedNodes.has(node.id) ? "−" : "+";
         expandIcon.style.position = "absolute";
         expandIcon.style.right = "8px";
-        expandIcon.style.top = "50%";
-        expandIcon.style.transform = "translateY(-50%)";
+        expandIcon.style.bottom = "3px";   // sits under the info icon with a gap, not right against it
         expandIcon.style.fontSize = "20px";
         expandIcon.style.fontWeight = "bold";
         expandIcon.style.color = "#667eea";
@@ -1440,8 +1443,10 @@ function toggleItemNode(nodeId) {
   
   if (USES_TREE_STATE.expandedNodes.has(nodeId)) {
     USES_TREE_STATE.expandedNodes.delete(nodeId);
+    if (node.depth === 0) USES_TREE_STATE.rootCollapsed = true;   // the top item can be closed too
   } else {
     USES_TREE_STATE.expandedNodes.add(nodeId);
+    if (node.depth === 0) USES_TREE_STATE.rootCollapsed = false;
   }
   
   rebuildAndRerenderUsesTree();
@@ -1489,7 +1494,8 @@ function rebuildAndRerenderUsesTree() {
   USES_TREE_STATE.expandedNodes = expandedNodes;
   USES_TREE_STATE.loadedPages = loadedPages;
   
-  USES_TREE_STATE.expandedNodes.add(newRootNode.id);
+  if (!USES_TREE_STATE.rootCollapsed) USES_TREE_STATE.expandedNodes.add(newRootNode.id);
+  else USES_TREE_STATE.expandedNodes.delete(newRootNode.id);
   
   buildUsesTreeChildren(newRootNode);
   layoutUsesTree(newRootNode);
@@ -1980,8 +1986,7 @@ function makeTreeNode(item, label, sub, x, y, station) {
       expandIcon.textContent = isExpanded ? "−" : "+";
       expandIcon.style.position = "absolute";
       expandIcon.style.right = "8px";
-      expandIcon.style.top = "50%";
-      expandIcon.style.transform = "translateY(-50%)";
+      expandIcon.style.bottom = "3px";   // under the info icon with a clear gap
       expandIcon.style.fontSize = "20px";
       expandIcon.style.fontWeight = "bold";
       expandIcon.style.color = "#667eea";
@@ -2497,7 +2502,7 @@ function updateCategoryCounts() {
   updateCategoryCounts._doneFor = ITEMS.length;
 
   // Count items in each main category
-  const catCounts = { all: ITEMS.length };
+  const catCounts = { all: ITEMS.filter(it => it.id >= 0).length };   // the 4 "Any ..." helper entries are not real items
   const subCounts = {};
   
   for (const item of ITEMS) {
@@ -2540,6 +2545,7 @@ async function main() {
   NPC_BY_NAME = await loadNPCs();
   OBJECTS_BY_NAME = await loadObjects();
   STATION_IMAGES = await loadStationImages();
+  STATION_IMAGES["Heavy Work Bench"] = HEAVY_BENCH_IMG[0];
   buildIndexes();
   buildSubcategoryUI();
 
@@ -4315,6 +4321,187 @@ function bossItemRow(entry, sideName, label) {
 }
 
 // ---------- Biome page ----------
+// ---------- Bestiary ----------
+let _dropsByEnemy = null;
+function dropsByEnemy() {
+  if (_dropsByEnemy) return _dropsByEnemy;
+  _dropsByEnemy = {};
+  for (const [item, d] of Object.entries(ITEM_DETAILS)) {
+    for (const x of (d.drops || [])) {
+      if (!x.enemy) continue;
+      (_dropsByEnemy[x.enemy] = _dropsByEnemy[x.enemy] || []).push({ item, rate: x.rate || "", pct: parseFloat(x.percent) || 0 });
+    }
+  }
+  for (const list of Object.values(_dropsByEnemy)) list.sort((p, q) => q.pct - p.pct);
+  return _dropsByEnemy;
+}
+
+function beastImgs(npc) {
+  const gif = npc.img || "";
+  return [...new Set([gif, gif.replace(/\.gif$/, ".png"), wikiImgUrl(npc.Name, "png")].filter(Boolean))];
+}
+
+function openBeast(name) {
+  timelinePath.push(BOSS_DATA[name] ? { name, boss: name } : { name, beast: name });
+  showTimelineLevel();
+}
+
+function renderBestiary() {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const all = Object.values(NPC_BY_NAME).filter(n => n.Type !== "Town NPC").sort((p, q) => p.Name.localeCompare(q.Name));
+  const wrap = cmpEl("div", "cmp bestiary");
+  const head = cmpEl("div", "npc-head");
+  const ico = cmpEl("div", "cls-icon", "📕");
+  loadIconInto(ico, "Lifeform Analyzer");
+  head.appendChild(ico);
+  head.appendChild(cmpEl("div", "npc-name", "Bestiary"));
+  head.appendChild(cmpEl("div", "cmp-tag", `${all.length} creatures`));
+  wrap.appendChild(head);
+
+  const bar = cmpEl("div", "bst-bar");
+  const input = document.createElement("input");
+  input.type = "text"; input.className = "bst-search"; input.placeholder = "Search the bestiary...";
+  bar.appendChild(input);
+  const pills = cmpEl("div", "bst-pills");
+  let kind = "All";
+  const kinds = [["All", "All"], ["Enemy", "Enemies"], ["Critter", "Critters"], ["Boss", "Bosses"]];
+  const pillEls = kinds.map(([k, label]) => {
+    const b = cmpEl("button", "bst-pill", label);
+    b.addEventListener("click", () => { kind = k; refresh(); });
+    pills.appendChild(b);
+    return [k, b];
+  });
+  bar.appendChild(pills);
+  wrap.appendChild(bar);
+
+  const grid = cmpEl("div", "bst-grid");
+  wrap.appendChild(grid);
+  const empty = cmpEl("div", "bst-empty", "Nothing matches that search.");
+  wrap.appendChild(empty);
+
+  function refresh() {
+    for (const [k, b] of pillEls) b.classList.toggle("active", k === kind);
+    const q = input.value.trim().toLowerCase();
+    const list = all.filter(n => (kind === "All" || n.Type === kind) && (!q || n.Name.toLowerCase().includes(q)));
+    grid.innerHTML = "";
+    for (const n of list) {
+      const card = cmpEl("div", "bst-card");
+      const im = cmpEl("span", "bst-ico");
+      const img = document.createElement("img");
+      img.alt = n.Name; img.loading = "lazy";
+      setImgWithFallbacks(img, beastImgs(n));
+      im.appendChild(img);
+      card.appendChild(im);
+      card.appendChild(cmpEl("span", "bst-name", n.Name));
+      card.addEventListener("click", () => openBeast(n.Name));
+      grid.appendChild(card);
+    }
+    empty.style.display = list.length ? "none" : "";
+  }
+  input.addEventListener("input", refresh);
+  refresh();
+  content.appendChild(wrap);
+}
+
+function renderBeast(name) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const npc = NPC_BY_NAME[name];
+  if (!npc) { content.innerHTML = `<div class="timeline-soon">Coming soon</div>`; return; }
+  const wrap = cmpEl("div", "cmp biome beast");
+  const head = cmpEl("div", "npc-head");
+  const ico = cmpEl("div", "npc-ico");
+  const img = document.createElement("img");
+  img.alt = name;
+  setImgWithFallbacks(img, beastImgs(npc));
+  ico.appendChild(img);
+  head.appendChild(ico);
+  head.appendChild(cmpEl("div", "npc-name", name));
+  head.appendChild(cmpEl("div", "cmp-tag", { Enemy: "Enemy", Critter: "Critter", Boss: "Boss" }[npc.Type] || npc.Type));
+  wrap.appendChild(head);
+
+  const drops = dropsByEnemy()[name] || [];
+  const s = cmpEl("div", "cmp-section");
+  s.appendChild(cmpEl("div", "cmp-label", drops.length ? `Drops (${drops.length})` : "Drops"));
+  if (drops.length) {
+    s.appendChild(iconColumn(drops.map(d => ({
+      name: d.item, right: d.rate, img: compareImgCandidates({ name: d.item }),
+      click: ITEM_BY_NAME[d.item] ? () => openChoiceModal(ITEM_BY_NAME[d.item]) : null,
+    }))));
+    s.appendChild(cmpEl("div", "cmp-footnote", "Gold numbers are Expert Mode rates. Tap an item for its crafting and details."));
+  } else {
+    s.appendChild(cmpEl("div", "npc-text", "No tracked item drops for this one."));
+  }
+  wrap.appendChild(s);
+
+  const linkWrap = cmpEl("div", "npc-linkwrap");
+  const link = document.createElement("a");
+  link.className = "npc-wiki"; link.target = "_blank"; link.rel = "noopener noreferrer";
+  link.textContent = "📖 Open Wiki Page";
+  link.href = `https://terraria.wiki.gg/wiki/${encodeURIComponent(name.replace(/ /g, "_"))}`;
+  linkWrap.appendChild(link);
+  wrap.appendChild(linkWrap);
+  content.appendChild(wrap);
+}
+
+function renderEvent(name) {
+  const content = document.getElementById("timelineContent");
+  content.innerHTML = "";
+  const e = EVENTS[name];
+  if (!e) { content.innerHTML = `<div class="timeline-soon">Coming soon</div>`; return; }
+  const wrap = cmpEl("div", "cmp biome event");
+
+  const head = cmpEl("div", "npc-head");
+  const ico = cmpEl("div", "npc-ico");
+  const img = document.createElement("img");
+  img.alt = name;
+  setImgWithFallbacks(img, iconCandidates(e.icon || e.iconNpc));
+  ico.appendChild(img);
+  head.appendChild(ico);
+  head.appendChild(cmpEl("div", "npc-name", name));
+  head.appendChild(cmpEl("div", "cmp-tag", e.tag));
+  wrap.appendChild(head);
+
+  const s1 = cmpEl("div", "cmp-section");
+  s1.appendChild(cmpEl("div", "cmp-label", "How it starts"));
+  s1.appendChild(cmpEl("div", "npc-text", e.start));
+  if (e.where) s1.appendChild(cmpEl("div", "npc-text", e.where));
+  wrap.appendChild(s1);
+
+  if (e.enemies.length) {
+    const s2 = cmpEl("div", "cmp-section");
+    s2.appendChild(cmpEl("div", "cmp-label", "Who attacks"));
+    const eg = cmpEl("div", "npc-items");
+    for (const raw of e.enemies) eg.appendChild(bossItemRow(bossEntry(raw), name, "Enemy"));
+    s2.appendChild(eg);
+    wrap.appendChild(s2);
+  }
+  if (e.items.length) {
+    const s3 = cmpEl("div", "cmp-section");
+    s3.appendChild(cmpEl("div", "cmp-label", "What you can get"));
+    const ig = cmpEl("div", "npc-items");
+    for (const raw of e.items) ig.appendChild(bossItemRow(bossEntry(raw), name, "Reward"));
+    s3.appendChild(ig);
+    wrap.appendChild(s3);
+  }
+  if (e.tip) {
+    const s4 = cmpEl("div", "cmp-section");
+    s4.appendChild(cmpEl("div", "cmp-label", "Good to know"));
+    s4.appendChild(cmpEl("div", "npc-text", e.tip));
+    wrap.appendChild(s4);
+  }
+  wrap.appendChild(cmpEl("div", "cmp-footnote", "Highlights, not a full list. Tap any item for its crafting and details."));
+  const linkWrap = cmpEl("div", "npc-linkwrap");
+  const link = document.createElement("a");
+  link.className = "npc-wiki"; link.target = "_blank"; link.rel = "noopener noreferrer";
+  link.textContent = "📖 Open Wiki Page";
+  link.href = `https://terraria.wiki.gg/wiki/${encodeURIComponent(name.replace(/ /g, "_"))}`;
+  linkWrap.appendChild(link);
+  wrap.appendChild(linkWrap);
+  content.appendChild(wrap);
+}
+
 function renderBiome(key) {
   const content = document.getElementById("timelineContent");
   content.innerHTML = "";
@@ -4804,6 +4991,317 @@ const PLANT_MENU = [
   { name: "Flasks", icon: "🫙", iconItem: "Flask of Fire", desc: "Weapon coatings that add effects to your melee hits", potions: "flask" },
 ];
 
+// ---------- Event pages ----------
+const EVENTS = {
+  "Blood Moon": {
+    "icon": "Bloody Tear",
+    "tag": "Night event · Pre-Hardmode",
+    "start": "It begins on its own at night (about 1 night in 9), or use a Bloody Tear to start one. The sky turns red.",
+    "where": "Everywhere, from dusk until dawn.",
+    "enemies": [
+      "Blood Zombie",
+      "Drippler",
+      "Blood Eel",
+      "Hemogoblin Shark",
+      "Wandering Eye Fish",
+      "Zombie Merman",
+      "Clown|Hardmode only",
+      "The Bride|Rare visitor",
+      "The Groom|Rare visitor"
+    ],
+    "items": [
+      "Bloody Tear",
+      "Chum Bucket",
+      "Shark Tooth Necklace",
+      "Money Trough",
+      "Blood Rain Bow",
+      "Vampire Frog Staff",
+      "Drippler Crippler",
+      "Haemorrhaxe",
+      "Blood Thorn",
+      "Wedding Dress",
+      "Wedding Veil",
+      "Top Hat",
+      "Tuxedo Shirt",
+      "Tuxedo Pants"
+    ],
+    "tip": "Many more enemies spawn and zombies can break down doors, so build a safe room. Some enemies only appear during a Blood Moon, and the Bride and Groom can drop their outfits."
+  },
+  "Slime Rain": {
+    "iconNpc": "Green Slime",
+    "tag": "Day event · Pre-Hardmode",
+    "start": "Starts at random during the day. Slimes fall from the sky in the Forest.",
+    "where": "Above ground, mostly the Forest.",
+    "enemies": [
+      "Green Slime",
+      "Blue Slime",
+      "Purple Slime",
+      "Pinky",
+      "Black Slime",
+      "Mother Slime"
+    ],
+    "items": [
+      "Gel",
+      "Slime Staff",
+      "Pink Gel",
+      "Compass",
+      "Bomb",
+      "Ironskin Potion",
+      "Mining Potion",
+      "Spelunker Potion",
+      "Swiftness Potion",
+      "Recall Potion"
+    ],
+    "tip": "Kill enough slimes and King Slime will show up. Slimes can drop ores and potions, so it is a good time to stock up."
+  },
+  "Goblin Army": {
+    "icon": "Goblin Battle Standard",
+    "tag": "Invasion · Pre-Hardmode",
+    "start": "Can start on its own after you smash your first Shadow Orb or Crimson Heart, or use a Goblin Battle Standard.",
+    "where": "They march in from the left or right edge of the world toward your base.",
+    "enemies": [
+      "Goblin Peon",
+      "Goblin Thief",
+      "Goblin Warrior",
+      "Goblin Archer",
+      "Goblin Sorcerer",
+      "Goblin Summoner"
+    ],
+    "items": [
+      "Goblin Battle Standard",
+      "Spiky Ball",
+      "Harpoon",
+      "Tattered Cloth",
+      "Shadowflame Hex Doll",
+      "Shadowflame Knife",
+      "Shadowflame Bow"
+    ],
+    "tip": "Defeating the army also lets you rescue the Goblin Tinkerer (found tied up underground), who reforges items. The Goblin Summoner is the one to hunt for the Shadowflame weapons."
+  },
+  "Old One's Army": {
+    "icon": "Eternia Crystal Stand",
+    "tag": "Event · stronger after each boss",
+    "start": "Place an Eternia Crystal Stand and hold an Eternia Crystal against the stand. You protect the crystal for several waves.",
+    "where": "A flat open area works best. Enemies come from both sides.",
+    "enemies": [
+      "Dark Mage",
+      "Ogre",
+      "Betsy",
+      "Etherian Goblin",
+      "Etherian Javelin Thrower",
+      "Etherian Wyvern",
+      "Kobold",
+      "Drakin"
+    ],
+    "items": [
+      "Eternia Crystal Stand",
+      "Defender Medal",
+      "Flameburst Staff",
+      "Ballista Rod",
+      "Lightning Aura Rod"
+    ],
+    "tip": "It gets harder after a mechanical boss (tier 2) and after Golem (tier 3). Defender Medals pay for your defenses and sentries."
+  },
+  "Frost Legion": {
+    "icon": "Snow Globe",
+    "tag": "Invasion · Hardmode",
+    "start": "Use a Snow Globe in Hardmode to start it.",
+    "where": "Snowmen soldiers attack from the sides of the world.",
+    "enemies": [
+      "Mister Stabby",
+      "Snow Balla",
+      "Snowman Gangsta"
+    ],
+    "items": [
+      "Snow Globe",
+      "Snowball Launcher",
+      "Snow Block"
+    ],
+    "tip": "It's a small, quick event. Take it on after Wall of Flesh for easy loot."
+  },
+  "Pirate Invasion": {
+    "icon": "Pirate Map",
+    "tag": "Invasion · Hardmode",
+    "start": "It can start on its own after Wall of Flesh, or use a Pirate Map.",
+    "where": "Pirates arrive from the edge of the world. The Flying Dutchman sails in late in the invasion.",
+    "enemies": [
+      "Pirate Deadeye",
+      "Pirate Corsair",
+      "Pirate Crossbower",
+      "Pirate Captain",
+      "Flying Dutchman"
+    ],
+    "items": [
+      "Pirate Map",
+      "Coin Gun",
+      "Cutlass",
+      "Pirate Staff",
+      "Lucky Coin",
+      "Discount Card",
+      "Gold Ring",
+      "The Black Spot",
+      "Eye Patch",
+      "Buccaneer Bandana",
+      "Buccaneer Tunic",
+      "Buccaneer Pantaloons"
+    ],
+    "tip": "Win the invasion and the Pirate moves into town. The Black Spot from the Flying Dutchman unlocks more pirate gear."
+  },
+  "Solar Eclipse": {
+    "icon": "Solar Tablet",
+    "tag": "Day event · Hardmode",
+    "start": "Starts at random during the day in Hardmode, or use a Solar Tablet.",
+    "where": "Everywhere. The sky goes dark and special enemies appear in daylight.",
+    "enemies": [
+      "Swamp Thing",
+      "Frankenstein",
+      "Vampire",
+      "Creature from the Deep",
+      "Fritz",
+      "Butcher",
+      "Reaper",
+      "Deadly Sphere",
+      "Dr. Man Fly",
+      "Nailhead",
+      "Psycho",
+      "The Possessed",
+      "Mothron|After Plantera"
+    ],
+    "items": [
+      "Solar Tablet",
+      "Death Sickle",
+      "Butcher's Chainsaw",
+      "Nail Gun",
+      "Neptune's Shell",
+      "Moon Stone",
+      "Broken Hero Sword",
+      "Broken Bat Wing",
+      "Toxic Flask",
+      "Deadly Sphere Staff",
+      "Psycho Knife"
+    ],
+    "tip": "It's dangerous but rewarding. Mothron only appears after Plantera, and it drops the Broken Hero Sword used for the Terra Blade."
+  },
+  "Pumpkin Moon": {
+    "icon": "Pumpkin Moon Medallion",
+    "tag": "Night event · after Plantera",
+    "start": "Use a Pumpkin Moon Medallion at night after defeating Plantera. It's fifteen waves.",
+    "where": "Best fought in an open arena. It runs through the night.",
+    "enemies": [
+      "Scarecrow",
+      "Splinterling",
+      "Hellhound",
+      "Poltergeist",
+      "Headless Horseman",
+      "Mourning Wood",
+      "Pumpking"
+    ],
+    "items": [
+      "Pumpkin Moon Medallion",
+      "Spooky Wood",
+      "Candy Corn Rifle",
+      "The Horseman's Blade",
+      "Jack 'O Lantern Launcher",
+      "Raven Staff",
+      "Bat Scepter",
+      "Dark Harvest",
+      "Stake Launcher",
+      "Necromantic Scroll",
+      "Spooky Twig",
+      "Cursed Sapling",
+      "Hexxed Branch",
+      "Witch's Broom"
+    ],
+    "tip": "Mourning Wood and Pumpking are the big bosses of the event. Finishing it earns good Halloween weapons."
+  },
+  "Frost Moon": {
+    "icon": "Naughty Present",
+    "tag": "Night event · after Plantera",
+    "start": "Use a Naughty Present at night after defeating Plantera. It's fifteen waves.",
+    "where": "Best fought in an open arena. It runs through the night.",
+    "enemies": [
+      "Zombie Elf",
+      "Gingerbread Man",
+      "Elf Archer",
+      "Nutcracker",
+      "Elf Copter",
+      "Krampus",
+      "Flocko",
+      "Present Mimic",
+      "Everscream",
+      "Santa-NK1",
+      "Ice Queen"
+    ],
+    "items": [
+      "Naughty Present",
+      "Razorpine",
+      "Christmas Tree Sword",
+      "Shrub Star",
+      "Elf Melter",
+      "Chain Gun",
+      "Toy Tank",
+      "Blizzard Staff",
+      "Snowman Cannon",
+      "North Pole",
+      "Frozen Crown",
+      "Reindeer Bells"
+    ],
+    "tip": "Everscream, Santa-NK1 and the Ice Queen are the main bosses. It is the Christmas version of the Pumpkin Moon."
+  },
+  "Martian Madness": {
+    "iconNpc": "Martian Saucer",
+    "tag": "Invasion · after Golem",
+    "start": "Starts at random after you defeat Golem, or from a Martian Probe that spots you.",
+    "where": "Martians land on the surface and a Saucer flies in.",
+    "enemies": [
+      "Martian Walker",
+      "Gray Grunt",
+      "Ray Gunner",
+      "Brain Scrambler",
+      "Gigazapper",
+      "Martian Officer",
+      "Scutlix Gunner",
+      "Tesla Turret",
+      "Martian Drone",
+      "Martian Saucer"
+    ],
+    "items": [
+      "Xenopopper",
+      "Xeno Staff",
+      "Laser Machinegun",
+      "Electrosphere Launcher",
+      "Influx Waver",
+      "Cosmic Car Key",
+      "Charged Blaster Cannon",
+      "Anti-Gravity Hook",
+      "Laser Drill",
+      "Martian Conduit Plating",
+      "Martian Uniform Helmet"
+    ],
+    "tip": "The Martian Saucer is the boss of the invasion. Hit its turrets first."
+  },
+  "Lunar Events": {
+    "icon": "Celestial Sigil",
+    "tag": "Event · after the Lunatic Cultist",
+    "start": "Defeat the Lunatic Cultist and four pillars rise across the world.",
+    "where": "Solar, Vortex, Nebula and Stardust Pillars appear at different spots. Each is guarded by enemies of its theme.",
+    "enemies": [
+      "Solar Pillar",
+      "Vortex Pillar",
+      "Nebula Pillar",
+      "Stardust Pillar"
+    ],
+    "items": [
+      "Solar Fragment",
+      "Vortex Fragment",
+      "Nebula Fragment",
+      "Stardust Fragment",
+      "Celestial Sigil"
+    ],
+    "tip": "Destroy all four pillars and the Moon Lord arrives. Fragments are used to craft the best armor and weapons in the game."
+  }
+};
+
 // ---------- Modifiers (reforge prefixes) ----------
 // [name, effect text, tier] -- tier below zero means it makes the item worse
 const MODIFIERS = {
@@ -4862,6 +5360,7 @@ const GUIDE_MENU = [
   { name: "Classes", icon: "🎓", desc: "Melee, Ranged, Mage and Summoner: best armor and weapons", children: CLASS_MENU },
   { name: "Biomes", icon: "🗺️", iconItem: "Acorn", desc: "Forest, Desert, Jungle, Corruption and more: enemies, loot and tips", children: BIOME_MENU },
   { name: "Plants & Potions", icon: "🌿", iconItem: "Daybloom", desc: "Herbs, healing, buff potions and flasks with their ingredients", children: PLANT_MENU },
+  { name: "Bestiary", icon: "📕", iconItem: "Lifeform Analyzer", desc: "Every enemy, critter and boss, and what each one drops", bestiary: true },
   { name: "Modifiers", icon: "✨", iconItem: "Tinkerer's Workshop", desc: "Every reforge modifier, what it does and your chances of getting it", modifiers: true },
 ];
 
@@ -4879,7 +5378,7 @@ function timelineNodeReady(node) {
   if (node.children) return true;
   if (node.compare) return true;
   if (node.npc) return true;
-  if (node.armorAll || node.klass || node.boss || node.biome || node.herbs || node.potions || node.modifiers) return true;
+  if (node.armorAll || node.klass || node.boss || node.biome || node.herbs || node.potions || node.modifiers || node.bestiary || node.beast) return true;
   const data = TIMELINES[node.timeline];
   return !!(data && data.length);
 }
@@ -5042,6 +5541,11 @@ function renderTimeline(key) {
 // Real items open the same popup as the main grid (craft / uses / info).
 // Bosses, events and armor sets open the info popup with a wiki button.
 function openTimelineEntry(item, stage, urls) {
+  if (EVENTS[item.name]) {
+    timelinePath.push({ name: item.name, event: item.name });
+    showTimelineLevel();
+    return;
+  }
   if (BOSS_DATA[item.name]) {
     timelinePath.push({ name: item.name, boss: item.name });
     showTimelineLevel();
@@ -5094,7 +5598,10 @@ function showTimelineLevel() {
   else if (node.compare) renderCompare(node.compare);
   else if (node.npc) renderNpc(node.npc);
   else if (node.boss) renderBoss(node.boss);
+  else if (node.event) renderEvent(node.event);
   else if (node.biome) renderBiome(node.biome);
+  else if (node.bestiary) renderBestiary();
+  else if (node.beast) renderBeast(node.beast);
   else if (node.modifiers) renderModifiers();
   else if (node.herbs) renderHerbs();
   else if (node.potions) renderPotions(node.potions);
@@ -5532,6 +6039,33 @@ function splitSentences(text) {
   return out;
 }
 
+// Drop rates are written "Classic / Expert / Master", e.g. "1/40 (2.5%) / 1/20 (5%)".
+// The wiki shows the Expert one in gold (and Master in orange). Do the same, with a hover note that says why.
+const RATE_ONE = "\\d+(?:\\.\\d+)?\\/\\d+(?:\\.\\d+)?(?:\\s*\\(\\d+(?:\\.\\d+)?%\\))?";
+const RATE_CHAIN_RE = new RegExp(`${RATE_ONE}(?:\\s\\/\\s${RATE_ONE}){1,2}`, "g");
+const RATE_ONE_RE = new RegExp(RATE_ONE, "g");
+function rateFragment(text) {
+  const frag = document.createDocumentFragment();
+  let last = 0;
+  for (const m of text.matchAll(RATE_CHAIN_RE)) {
+    if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+    const parts = m[0].match(RATE_ONE_RE) || [];
+    parts.forEach((p, i) => {
+      if (i) frag.appendChild(document.createTextNode(" / "));
+      if (i === 0) { frag.appendChild(document.createTextNode(p)); return; }
+      const s = document.createElement("span");
+      s.className = i === 1 ? "rate-expert" : "rate-master";
+      s.dataset.tip = i === 1 ? "Expert Mode drop rate" : "Master Mode drop rate";
+      s.tabIndex = 0;
+      s.textContent = p;
+      frag.appendChild(s);
+    });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+  return frag;
+}
+
 function renderInfoText(container, raw) {
   const text = cleanWikiText(raw);
   if (!text) return;
@@ -5540,13 +6074,13 @@ function renderInfoText(container, raw) {
   box.className = "info-text";
   const lead = document.createElement("p");
   lead.className = "info-lead";
-  lead.textContent = sentences[0];
+  lead.appendChild(rateFragment(sentences[0]));
   box.appendChild(lead);
   let buf = [];
   const flush = () => {
     if (!buf.length) return;
     const p = document.createElement("p");
-    p.textContent = buf.join(" ");
+    p.appendChild(rateFragment(buf.join(" ")));
     box.appendChild(p);
     buf = [];
   };
@@ -5587,13 +6121,31 @@ function formatInfoValue(v) {
 // picture candidates for a crafting station (uses the station picture list first, then the item of the same name)
 function stationImgCandidates(name) {
   const alias = { "Placed Bottle": "Bottle", "Placed Bottles": "Bottle" }[name];
-  return [...new Set([STATION_IMAGES[name], ITEM_BY_NAME[name]?.img, ...(alias ? iconCandidates(alias) : []), ...iconCandidates(name)].filter(Boolean))];
+  const first = name === "Heavy Work Bench" ? [...HEAVY_BENCH_IMG, ITEM_BY_NAME[name]?.img] : [STATION_IMAGES[name], ITEM_BY_NAME[name]?.img];
+  return [...new Set([...first, ...(alias ? iconCandidates(alias) : []), ...iconCandidates(name)].filter(Boolean))];
+}
+
+// Some "Dropped By" names are groups or things that are not in the NPC list (Mummies, Jellyfish, trees...).
+// Map them to a picture that exists; anything else tries the wiki file of the same name.
+const DROP_ICON_ALIAS = {
+  "Mimics": "Mimic", "Mummies": "Mummy", "Ghouls": "Ghoul", "Jellyfish": "Blue Jellyfish", "Sand Sharks": "Sand Shark",
+  "Slimes": "Green Slime", "Goblin Warlock": "Goblin Summoner", "Celestial Pillars": "Celestial Sigil",
+  "Forest tree": "Wood", "Palm tree": "Palm Wood", "Boreal tree": "Boreal Wood", "Ash tree": "Ash Wood", "Mahogany tree": "Rich Mahogany",
+  "Pearlwood tree": "Pearlwood", "Pearlwood Palm tree": "Pearlwood", "Ebonwood tree": "Ebonwood", "Ebonwood Palm tree": "Ebonwood",
+  "Shadewood tree": "Shadewood", "Shadewood Palm tree": "Shadewood", "Giant Glowing Mushroom": "Glowing Mushroom",
+};
+function dropIconCandidates(name) {
+  const via = DROP_ICON_ALIAS[name];
+  const list = [...compareImgCandidates({ name })];
+  if (via) list.unshift(...compareImgCandidates({ name: via }));
+  else list.push(wikiImgUrl(name, "png"), wikiImgUrl(name, "gif"));
+  return [...new Set(list.filter(Boolean))];
 }
 
 // a vertical column of rows: picture, name, and (optionally) a small note on the right such as a drop rate
 function iconColumn(rows) {
   const col = document.createElement("div");
-  col.className = "icon-col" + (rows.length > 8 ? " scroll" : "");
+  col.className = "icon-col";
   for (const r of rows) {
     const row = document.createElement("div");
     row.className = "icon-row";
@@ -5607,6 +6159,7 @@ function iconColumn(rows) {
       ico.appendChild(img);
     }
     row.appendChild(ico);
+    if (r.click) { row.classList.add("clickable"); row.addEventListener("click", r.click); }
     const nm = document.createElement("span");
     nm.className = "icon-row-name";
     nm.textContent = r.name;
@@ -5614,7 +6167,7 @@ function iconColumn(rows) {
     if (r.right) {
       const rt = document.createElement("span");
       rt.className = "icon-row-note";
-      rt.textContent = r.right;
+      rt.appendChild(rateFragment(r.right));
       row.appendChild(rt);
     }
     col.appendChild(row);
@@ -5622,7 +6175,29 @@ function iconColumn(rows) {
   return col;
 }
 
+// "Any ..." entries are recipe groups, not real items, so they have no wiki data of their own.
+const ANY_GROUPS = {
+  "Any Wood": { text: "Any Wood is a recipe group, not a single item. Any one of these woods works in the recipe. Dynasty Wood, Feywood and Pine Wood are the exceptions: they cannot be used.", members: ["Wood", "Boreal Wood", "Palm Wood", "Rich Mahogany", "Ebonwood", "Shadewood", "Ash Wood", "Pearlwood", "Spooky Wood"], wiki: "Wood" },
+  "Any Iron Bar": { text: "Any Iron Bar is a recipe group, not a single item. Either bar works, so you can use whichever ore your world has.", members: ["Iron Bar", "Lead Bar"], wiki: "Iron_Bar" },
+  "Any Sand": { text: "Any Sand is a recipe group, not a single item. Any of these sand blocks works in the recipe.", members: ["Sand Block", "Ebonsand Block", "Pearlsand Block", "Crimsand Block"], wiki: "Sand_Block" },
+  "Any Balloon": { text: "Any Balloon is a recipe group, not a single item. Several different balloon accessories can be used in this slot of the recipe.", members: [], wiki: "Balloon_Platform" },
+};
+
 function openItemInfoModal(itemName) {
+  if (ANY_GROUPS[itemName]) {
+    const g = ANY_GROUPS[itemName];
+    showInfoPopup({
+      title: itemName,
+      imgs: ITEM_BY_NAME[itemName]?.img ? [ITEM_BY_NAME[itemName].img] : [],
+      subtitle: "Recipe group",
+      paragraph: g.text,
+      lines: [],
+      related: g.members.filter(n => ITEM_BY_NAME[n]),
+      relatedLabel: "Any of these work (click for crafting)",
+      wikiUrl: `https://terraria.wiki.gg/wiki/${g.wiki}`,
+    });
+    return;
+  }
   const details = ITEM_DETAILS[itemName] || {};
   const item = ITEM_BY_NAME[itemName];
 
@@ -5652,10 +6227,10 @@ function openItemInfoModal(itemName) {
   }
   const dropRows = (Array.isArray(details.drops) ? details.drops : []).map(d => ({
     name: d.enemy || d.name || "", right: d.rate || "", pct: parseFloat(d.percent) || 0,
-  })).filter(d => d.name);
+  })).filter(d => d.name && !/^\[\d+\]$/.test(d.name));
   if (dropRows.length) {
     dropRows.sort((x, y) => y.pct - x.pct);
-    lines.push({ label: `Dropped By (${dropRows.length})`, node: iconColumn(dropRows.map(d => ({ name: d.name, right: d.right, img: compareImgCandidates({ name: d.name }) }))) });
+    lines.push({ label: `Dropped By (${dropRows.length})`, node: iconColumn(dropRows.map(d => ({ name: d.name, right: d.right, img: dropIconCandidates(d.name) }))) });
   } else {
     const drops = formatInfoValue(details.drops_summary);
     if (drops) lines.push({ label: "Dropped By", text: drops });
@@ -5701,9 +6276,9 @@ function addInfoIconToNode(nodeElement, itemName) {
   
   const infoIcon = document.createElement("div");
   infoIcon.className = "item-info-icon";
-  infoIcon.innerHTML = `<svg viewBox="-7 -5 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="9" y1="8" x2="9" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    <circle cx="9" cy="5" r="0.9" fill="currentColor"/>
+  infoIcon.innerHTML = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="10" cy="5" r="1.7" fill="currentColor"/>
+    <rect x="8.6" y="8.4" width="2.8" height="7.6" rx="1.2" fill="currentColor"/>
   </svg>`;
   infoIcon.title = "View item info";
   
