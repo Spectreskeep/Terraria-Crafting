@@ -44358,5 +44358,9901 @@
         }
       ]
     }
+  ],
+  "Alchemy Flask": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Alchemy Table¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cobwhip": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cobweb¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Decorative Cobweb": [
+    {
+      "station": "Loom and Ecto Mist",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cobweb¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flint": [
+    {
+      "station": "Adamantite Forge",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Any Adamantite Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Hellstone Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Item Flask": [
+    {
+      "station": "Furnace",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jungle Juice": [
+    {
+      "station": "Placed Bottle",
+      "result_qty": 3,
+      "ingredients": [
+        {
+          "item": "¦Greater Healing Potion¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Life Fruit¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Magic Shimmer Dropper": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Empty Dropper¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Mushroom Staff": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Glowing Mushroom¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Mushroom Grass Seeds¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Shadow Scale¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Glowing Mushroom¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Mushroom Grass Seeds¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Tissue Sample¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Replica Crimson Altar": [
+    {
+      "station": "Heavy Assembler and Ecto Mist",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimstone Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Crimtane Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Tissue Sample¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Replica Crimson Heart": [
+    {
+      "station": "Demon Altar",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Tissue Sample¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Replica Shadow Orb": [
+    {
+      "station": "Demon Altar",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Shadow Scale¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Shimmer Gun": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Slime Gun¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Shimmerfall Block": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Waterfall Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Shimmerfall Wall¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Shimmerfall Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Shimmerfall Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Soulscourge": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Starcrash": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Meteorite Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Fallen Star¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "The Beheaded's Trousers": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Ancient Cloth¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Tattered Cloth¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Vasculash": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Axearang": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Axe of Regrowth¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Blackened Fish": [
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Atlantic Cod¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Bass¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flounder¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Neon Tetra¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Red Snapper¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Salmon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Trout¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Campfire",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Tuna¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Chlorophyte Visor": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Chlorophyte Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Friendly Boulder": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Friendly Rainbow Boulder¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Ghoulder": [
+    {
+      "station": "Heavy Assembler and Ecto Mist",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Infused Fertilizer": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fertilizer¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Lava Boulder": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Lava Bomb¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Magic Yoyo Bag": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Magic String¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Yoyo Bag¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pink Phaseblade": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Meteorite Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Pink Pearl¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pink Phasesaber": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pink Phaseblade¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Crystal Shard¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Poo Boulder": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Poo¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Puffer Shrimp": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pufferfish¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Shrimp¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pufferfish Cage": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Terrarium¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Pufferfish¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Rainbow Boulder": [
+    {
+      "station": "Crystal Ball",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Fallen Star¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Slasher's Mysterious Skull": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Sturdy Fossil¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Amber¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Fallen Star¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spider Boulder": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Cobweb¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "White Banner": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aetherium Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Lava Cloud": [
+    {
+      "station": "Sky Mill and Lava",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Mud Ball": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Mud Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Natural Dirt Wall": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Dirt Wall¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Overgrown Living Wood Wall": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Living Wood Wall¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Rainbow Cloud": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 10,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Rainbow Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Star Cloud": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 10,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Fallen Star¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Strung Counterweight": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦White String¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Black Counterweight¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦White String¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Blue Counterweight¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦White String¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Green Counterweight¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦White String¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Purple Counterweight¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦White String¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Red Counterweight¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦White String¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Yellow Counterweight¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Torch God's Flavor": [
+    {
+      "station": "Placed Bottle",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Bottled Water¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Daybloom¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Moonglow¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Fireblossom¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Aetherium Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aetherium Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Captain Vest": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Angler Vest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Mythril Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Power Bomb": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 5,
+      "ingredients": [
+        {
+          "item": "¦Bomb¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Cobalt Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Prospector Shirt": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Mining Shirt¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Mythril Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Sticky Power Bomb": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Power Bomb¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Gel¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Iron Anvil",
+      "result_qty": 5,
+      "ingredients": [
+        {
+          "item": "¦Sticky Bomb¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Cobalt Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Welding Mask": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Mythril Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Wilted Clover": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Lucky Clover¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aether Pylon": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cavern Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Desert Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forest Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallow Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jungle Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Mushroom Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Ocean Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Underworld Pylon¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Universal Pylon¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Blue Bikini Bottom": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Chippy's Cloak": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Chippy's Cloak (Inactive)¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Flight¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Hallowed Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Furnace",
+      "result_qty": 25,
+      "ingredients": [
+        {
+          "item": "¦Stone Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Fallen Star¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fallen Star Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Friendly Rainbow Boulder": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Friendly Boulder¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gray Swimshorts": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Green Swimshorts": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Crown": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Heroicis' Wings": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Heroicis' Wings (Inactive)¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Flight¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Hallowed Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Music Box (Alt Torch God)": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Music Box (Torch God)¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Red Swimsuit": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Rock Candy": [
+    {
+      "station": "Cooking Pot",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Any Gem Critter¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Scrying Orb": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Any Magic Mirror¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Lens¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wormhole Potion¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Fallen Star Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fallen Star Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Dull White Team Block": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦White Team Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Dull Yellow Team Block": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Yellow Team Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Bathtub": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Bed": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Bookcase": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Candelabra": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Candle": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Chair": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Chandelier": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Chest": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Clock": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Door": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Dresser": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Lamp": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Lantern": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Rainbow Phaseblade": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Meteorite Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Amethyst¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Topaz¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Sapphire¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Emerald¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Ruby¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Diamond¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Amber¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Rainbow Phasesaber": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Rainbow Phaseblade¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Crystal Shard¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Slime Spear": [
+    {
+      "station": "Solidifier",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gel¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Slime Whip": [
+    {
+      "station": "Solidifier",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gel¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "True Copper Shortsword": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Zenith¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Fancy Hallowed Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Living Loom",
+      "result_qty": 20,
+      "ingredients": [
+        {
+          "item": "¦Any Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Mushroom¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Piano": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Sink": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Sofa": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Table": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Toilet": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Feywood Work Bench": [
+    {
+      "station": "Living Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Fancy Hallowed Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Fancy Hallowed Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Feywood Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Feywood Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Bathtub": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Bed": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Candelabra": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Candle": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Chandelier": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Chest": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Clock": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Door": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Dresser": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Lamp": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Lantern": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Piano": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Sink": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Sofa": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Toilet": [
+    {
+      "station": "Bone Welder",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Brick": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Furnace",
+      "result_qty": 25,
+      "ingredients": [
+        {
+          "item": "¦Pearlstone Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Hallowed Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Brick Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Hallowed Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Hallowed Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Gothic Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Demonite Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crimtane Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Bathtub": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Bed": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Bookcase": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Candelabra": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Candle": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Chair": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Chandelier": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Chest": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Clock": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Door": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Dresser": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Lamp": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Lantern": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Piano": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Sink": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Sofa": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Table": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Toilet": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Snow Work Bench": [
+    {
+      "station": "Ice Machine",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Crimtane Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crimtane Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Snow Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snow Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Bathtub": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Bed": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Bookcase": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Candelabra": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Candle": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Chair": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Chandelier": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Clock": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Pine Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Dresser": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Lamp": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Lantern": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Piano": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Sink": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Sofa": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Table": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Toilet": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Stone Work Bench": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gray Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Stone Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Stone Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Wall¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Easter Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Easter Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 20,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Brick": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Bone Welder",
+      "result_qty": 20,
+      "ingredients": [
+        {
+          "item": "¦Stone Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Cobweb¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Gothic Brick Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Gothic Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Bathtub": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Bed": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Bookcase": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Candelabra": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Candle": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Chair": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Chandelier": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Chest": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Clock": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Door": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Dresser": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Lamp": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Lantern": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Piano": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Sink": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Wall¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Jellyfish Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Tree Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Wood": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Tree Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood Wall¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pine Wood Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Pine Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Jellyfish Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Jellyfish Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Bathtub": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Bed": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Bookcase": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Candelabra": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Candle": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Chair": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Chandelier": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Chest": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Clock": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Door": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Dresser": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Lamp": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Lantern": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Piano": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Sink": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Sofa": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Table": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Toilet": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Cloud Work Bench": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Bathtub": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Bed": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Bookcase": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Sky Mill",
+      "result_qty": 10,
+      "ingredients": [
+        {
+          "item": "¦Feather¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Sofa": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Table": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Toilet": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Work Bench": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Cloud Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cloud Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Harpy Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crescent Wall": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Disc Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Candelabra": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Candle": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Chair": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Chandelier": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Chest": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Clock": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Door": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Dresser": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Lamp": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Lantern": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Piano": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Sink": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Sofa": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Table": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Toilet": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Duskware Work Bench": [
+    {
+      "station": "Sky Mill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Moonplate Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Bathtub": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Bed": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Bookcase": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Candelabra": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Candle": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Chair": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Chandelier": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Chest": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Clock": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Door": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Moonplate Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Duskware Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Sunplate Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Crescent Wall¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Duskware Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Duskware Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Bookcase",
+      "result_qty": 20,
+      "ingredients": [
+        {
+          "item": "¦Any Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Dresser": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Lamp": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Lantern": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Piano": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Sink": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Sofa": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Table": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Toilet": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Librarian Work Bench": [
+    {
+      "station": "Bookcase",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Librarian Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Librarian Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 10,
+      "ingredients": [
+        {
+          "item": "¦Any Wood¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Gel¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Office Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Sharp Spike Block¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 5,
+      "ingredients": [
+        {
+          "item": "¦Stone Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Spike¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Spike Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Office Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Office Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Spike Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 150,
+      "ingredients": [
+        {
+          "item": "¦Stone Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Forbidden Fragment¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Bookcase": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Candelabra": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Candle": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Chair": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Chandelier": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Chest": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Clock": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Forbidden Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Forbidden Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Forbidden Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench and Water",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Door": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Dresser": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Lamp": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Lantern": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Piano": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Sink": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Sofa": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Table": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Toilet": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Aquarium Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Aquarium Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Bathtub": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Bed": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Bookcase": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Candelabra": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Candle": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Chair": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Chandelier": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Chain¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Clock": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Iron Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Glass¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Door": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Dresser": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Lamp": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Lantern": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Piano": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Bone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Platform": [
+    {
+      "station": "By Hand",
+      "result_qty": 2,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Sink": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Water Bucket¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Sofa": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Block": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Platform¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Wall¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 5,
+      "ingredients": [
+        {
+          "item": "¦Boulder¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Table": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Toilet": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Wall": [
+    {
+      "station": "Work Bench",
+      "result_qty": 4,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Boulder Work Bench": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Clay Bud Staff": [
+    {
+      "station": "Furnace",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Clay Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Lesser Healing Potion¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Daybloom¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Blinkroot¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Daybloom Staff": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Daybloom¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Gel¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wood¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Glacier Fang": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snowball Cannon¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Lightning Strike": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Thunder Zapper¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Adamantite Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Night¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Mystic Bloom": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Nature's Gift¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Moonglow¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Vine¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Rich Mahogany¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Ouroboros Ring": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snake Band¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Mobius Strip¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Ruinous Staff": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Dark Shard¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Light Shard¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Forbidden Fragment¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Night¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Light¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Sharp Spike Block": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Spike Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Boulder Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Boulder Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trusty Cattiva": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Cattiva¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Kinship Peach¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trusty Chillet Ignis": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Chillet Ignis¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Little Kinship Peach¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trusty Foxparks": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Foxparks¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Kinship Peach¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Twilight Grasp": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silver Bracer¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wicked Armlet¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Armlet Of Ruin": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snapping Stone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wicked Armlet¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Catalyst Band": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Poison Barb¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Philosopher's Stone¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Crossed Heart Necklace": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Panic Necklace¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Cross Necklace¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Druidic Serpent Cloak": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snake Band¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Star Cloak¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Harpy Charm": [
+    {
+      "station": "Iron Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Amber¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Feather¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Silver Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Kinship Peach": [
+    {
+      "station": "Crystal Ball",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Life Fruit¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Light¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Night¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Little Kinship Peach": [
+    {
+      "station": "Crystal Ball",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Any Fruit¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Light¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Soul of Night¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Mystic Arts Sash": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Mana Regeneration Band¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Black Belt¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Phoenix Quiver": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Charm¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Molten Quiver¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pyroclastic Stone": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Snapping Stone¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Magma Stone¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Replica Demon Altar": [
+    {
+      "station": "Heavy Assembler and Ecto Mist",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Ebonstone Block¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Demonite Bar¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Shadow Scale¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Restoration Shield": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Mana Regeneration Band¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Cobalt Shield¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Royal Guard's Harness": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Heavy Sling¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Cobalt Shield¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Scout's Sling": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Heavy Sling¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Putrid Scent¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Seraph Necklace": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Harpy Charm¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Cross Necklace¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Silver Shield": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silver Bracer¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Obsidian Shield¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Templar's Sling": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Heavy Sling¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Eye of the Golem¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "The Beheaded's Cuirass": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Ancient Cloth¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Shackle¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trusty Digtoise": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Digtoise¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Little Kinship Peach¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Wicked Claws": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Wicked Armlet¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Feral Claws¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Blue Bikini Top": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Captain Pants": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Angler Pants¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Mythril Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Bathtub": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Demonite Bed": [
+    {
+      "station": "Sawmill",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Demonite Brick¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Dull Pink Team Block": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Pink Team Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Flinx Fur Work Bench": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Music Box (Torch God)": [
+    {
+      "station": "Work Bench",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Music Box¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch God's Flavor¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Torch¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Pink Banner": [
+    {
+      "station": "Loom",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Silk¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Prospector Pants": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Mining Pants¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Mythril Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Easter Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Easter Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Captain Hat": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Angler Hat¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Mythril Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Guide to Old World Parkour": [
+    {
+      "station": "Ancient Manipulator",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Book¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Luminite Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Music Box (Alt Queen Bee)": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Music Box (Queen Bee)¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Music Box (Silence)": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Music Box¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Prospector Helmet": [
+    {
+      "station": "Mythril Anvil",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Mining Helmet¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Any Mythril Bar¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "The Beheaded's Head": [
+    {
+      "station": "Demon Altar",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Soul of Night¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Shadow Candle¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Rotten Chunk¦",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "station": "Demon Altar",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Soul of Night¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Shadow Candle¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Vertebra¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trusty Chillet": [
+    {
+      "station": "By Hand",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Chillet¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Little Kinship Peach¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Dull Blue Team Block": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Blue Team Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Dull Green Team Block": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Green Team Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Dull Red Team Block": [
+    {
+      "station": "Shimmer",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Red Team Block¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Sweet Barb": [
+    {
+      "station": "Tinkerer's Workshop",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Poison Barb¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Honey Comb¦",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "Trapped Flinx Fur Chest": [
+    {
+      "station": "Heavy Assembler",
+      "result_qty": 1,
+      "ingredients": [
+        {
+          "item": "¦Flinx Fur Chest¦",
+          "qty": 1
+        },
+        {
+          "item": "¦Wire¦",
+          "qty": 1
+        }
+      ]
+    }
   ]
 }

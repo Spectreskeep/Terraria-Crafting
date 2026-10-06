@@ -536,7 +536,15 @@ function fixItemImages(list) {
 async function loadRecipes() {
   const res = await fetch("./data/recipes.json");
   if (!res.ok) throw new Error("Failed to load data/recipes.json");
-  return await res.json();
+  const data = await res.json();
+  // clean up stray "¦" marks the wiki puts around some ingredient names, so the picture and name match the item
+  for (const recipes of Object.values(data)) {
+    for (const r of recipes) {
+      for (const ing of r.ingredients || []) ing.item = String(ing.item).replace(/[¦|]/g, "").trim();
+      if (r.station) r.station = String(r.station).replace(/[¦|]/g, "").trim();
+    }
+  }
+  return data;
 }
 
 async function loadItemDetails() {
@@ -621,6 +629,49 @@ async function loadStationImages() {
   }
 }
 
+// Recipe groups ("Any Bird", "Any Adamantite Bar" ...): which real items count, and what to say about them.
+const ANY_EXTRA = {
+  "Any Adamantite Bar": { members: ["Adamantite Bar", "Titanium Bar"], wiki: "Adamantite_Bar", text: "Either bar works, so you can use whichever ore your world has." },
+  "Any Bird": { members: ["Bird", "Blue Jay", "Cardinal"], wiki: "Bird", text: "Any of these birds works." },
+  "Any Butterfly": { members: ["Monarch Butterfly", "Purple Emperor Butterfly", "Red Admiral Butterfly", "Ulysses Butterfly", "Sulphur Butterfly", "Tree Nymph Butterfly", "Zebra Swallowtail Butterfly", "Julia Butterfly"], wiki: "Butterfly", text: "Any butterfly works." },
+  "Any Cockatiel": { members: [], wiki: "Cockatiel", text: "Any cockatiel works." },
+  "Any Dragonfly": { members: ["Black Dragonfly", "Blue Dragonfly", "Green Dragonfly", "Orange Dragonfly", "Red Dragonfly", "Yellow Dragonfly"], wiki: "Dragonfly", text: "Any dragonfly works." },
+  "Any Duck": { members: ["Duck", "Mallard Duck"], wiki: "Duck", text: "Either duck works." },
+  "Any Firefly": { members: ["Firefly"], wiki: "Firefly", text: "Any firefly works." },
+  "Any Fruit": { members: ["Apple", "Banana", "Cherry", "Grapefruit", "Lemon", "Mango", "Peach", "Pineapple", "Plum", "Coconut", "Apricot", "Dragon Fruit", "Star Fruit", "Pomegranate", "Rambutan", "Elderberry", "Blackcurrant"], wiki: "Fruit", text: "Any of these fruits works." },
+  "Any Guide to Critter Companionship": { members: ["Guide to Critter Companionship", "Guide to Critter Companionship (Inactive)"], wiki: "Guide_to_Critter_Companionship", text: "Either version of the guide works." },
+  "Any Guide to Environmental Preservation": { members: ["Guide to Environmental Preservation", "Guide to Environmental Preservation (Inactive)"], wiki: "Guide_to_Environmental_Preservation", text: "Either version of the guide works." },
+  "Any Jungle Bug": { members: [], wiki: "Jungle_Bug", text: "Any jungle bug works." },
+  "Any Macaw": { members: ["Scarlet Macaw", "Blue Macaw"], wiki: "Macaw", text: "Either macaw works." },
+  "Any Pressure Plate": { members: ["Gray Pressure Plate", "Red Pressure Plate", "Green Pressure Plate", "Brown Pressure Plate", "Blue Pressure Plate", "Yellow Pressure Plate"], wiki: "Pressure_Plate", text: "Any of these pressure plates works." },
+  "Any Scorpion": { members: ["Scorpion", "Black Scorpion"], wiki: "Scorpion", text: "Either scorpion works." },
+  "Any Snail": { members: ["Snail", "Glowing Snail"], wiki: "Snail", text: "Either snail works." },
+  "Any Squirrel": { members: ["Squirrel", "Red Squirrel"], wiki: "Squirrel", text: "Either squirrel works." },
+  "Any Torch": { members: ["Torch"], wiki: "Torch", text: "Any torch works." },
+  "Any Turtle": { members: ["Turtle", "Jungle Turtle"], wiki: "Turtle", text: "Either turtle works." },
+};
+// "Any ..." entries that use the animated picture from the wiki (smooth). The rest use a normal item sprite.
+function isAnyGif(item) {
+  const name = typeof item === "string" ? item : item && item.name;
+  return !!name && name.startsWith("Any ") && !(item && item.anySprite) && !ANY_EXTRA[name];
+}
+
+// The "Any ..." groups flip through their real items, like the wiki's animated pictures do.
+function startAnyCycler() {
+  let tick = 0;
+  setInterval(() => {
+    tick++;
+    for (const img of document.querySelectorAll('img[alt^="Any "]')) {
+      const g = ANY_EXTRA[img.alt.replace(/ x\d+$/, "")];   // tree boxes put the amount after the name
+      if (!g) continue;
+      const list = g.members.map(n => ITEM_BY_NAME[n]).filter(it => it && it.img);
+      if (list.length < 2) continue;
+      const next = list[tick % list.length].img;
+      if (img.getAttribute("src") !== next) img.src = next;
+    }
+  }, 1000);
+}
+
 function buildIndexes() {
   ITEM_BY_NAME = {};
   for (const it of ITEMS) ITEM_BY_NAME[it.name] = it;
@@ -638,6 +689,16 @@ function buildIndexes() {
       ITEM_BY_NAME[anyItem.name] = anyItem;
       ITEMS.push(anyItem);
     }
+  }
+
+  // The other "Any ..." groups use the picture of one real member, so they never show a "?"
+  let anyId = -10;
+  for (const [groupName, g] of Object.entries(ANY_EXTRA)) {
+    if (ITEM_BY_NAME[groupName]) continue;
+    const rep = g.members.map(n => ITEM_BY_NAME[n]).find(Boolean);
+    const helper = { name: groupName, img: rep ? rep.img : NO_IMAGE, id: anyId--, anySprite: true };
+    ITEM_BY_NAME[groupName] = helper;
+    ITEMS.push(helper);
   }
 
   USES_INDEX = {};
@@ -676,7 +737,7 @@ function renderItems(list, append = false) {
     const img = document.createElement("img");
     img.referrerPolicy = "no-referrer";   // must be set before src or the request leaks a referrer and gets blocked
     // "Any" items use an animated cycling GIF
-    if (item.name && (item.name.startsWith("Any ") || item.name === "Any Wood" || item.name === "Any Sand" || item.name === "Any Iron Bar" || item.name === "Any Balloon")) {
+    if (item.name && isAnyGif(item.name)) {
       img.src = item.img;
       img.style.imageRendering = "auto"; // smooth rendering for the animated GIF
     } else {
@@ -796,7 +857,7 @@ function openChoiceModal(item) {
   mImg.referrerPolicy = "no-referrer";
 
   // "Any" items are animated GIFs, so use smooth rendering
-  if (item.name && (item.name.startsWith("Any ") || item.name === "Any Wood" || item.name === "Any Sand" || item.name === "Any Iron Bar" || item.name === "Any Balloon")) {
+  if (item.name && isAnyGif(item.name)) {
     mImg.style.imageRendering = "auto";
   } else {
     mImg.style.imageRendering = "pixelated";
@@ -1330,7 +1391,7 @@ function drawUsesTreeNode(world, node) {
     const img = document.createElement("img");
     img.referrerPolicy = "no-referrer";
     // "Any" items use an animated cycling GIF
-    if (node.name && (node.name.startsWith("Any ") || node.name === "Any Wood" || node.name === "Any Sand" || node.name === "Any Iron Bar" || node.name === "Any Balloon")) {
+    if (node.name && isAnyGif(node.name)) {
       const anyItem = ITEM_BY_NAME[node.name];
       img.src = anyItem?.img || "";
       img.style.imageRendering = "auto"; // smooth rendering for the animated GIF
@@ -2019,7 +2080,7 @@ function makeTreeNode(item, label, sub, x, y, station) {
   const img = document.createElement("img");
   img.referrerPolicy = "no-referrer";
   // "Any" items use an animated cycling GIF
-  if (label && (label.startsWith("Any ") || label === "Any Wood" || label === "Any Sand" || label === "Any Iron Bar" || label === "Any Balloon")) {
+  if (label && isAnyGif(label)) {
     const anyItem = ITEM_BY_NAME[label.replace(/ x\d+$/, '')];
     img.src = anyItem?.img || "";
     img.style.imageRendering = "auto"; // smooth rendering for the animated GIF
@@ -2699,6 +2760,7 @@ async function main() {
   STATION_IMAGES = await loadStationImages();
   STATION_IMAGES["Heavy Work Bench"] = HEAVY_BENCH_IMG[0];
   buildIndexes();
+  startAnyCycler();
   buildSubcategoryUI();
 
   FILTERED = ITEMS;
@@ -6321,6 +6383,10 @@ const ANY_GROUPS = {
   "Any Sand": { text: "Any Sand is a recipe group, not a single item. Any of these sand blocks works in the recipe.", members: ["Sand Block", "Ebonsand Block", "Pearlsand Block", "Crimsand Block"], wiki: "Sand_Block" },
   "Any Balloon": { text: "Any Balloon is a recipe group, not a single item. Several different balloon accessories can be used in this slot of the recipe.", members: [], wiki: "Balloon_Platform" },
 };
+
+for (const [name, g] of Object.entries(ANY_EXTRA)) {
+  if (!ANY_GROUPS[name]) ANY_GROUPS[name] = { text: `${name} is a recipe group, not a single item. ${g.text}`, members: g.members, wiki: g.wiki };
+}
 
 function openItemInfoModal(itemName) {
   if (ANY_GROUPS[itemName]) {
