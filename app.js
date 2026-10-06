@@ -2789,6 +2789,8 @@ function updateCategoryCounts() {
 
 async function main() {
   initDarkMode();
+  const versionTag = document.getElementById("gameVersion");
+  if (versionTag) versionTag.querySelector("b").textContent = `Terraria ${GAME_VERSION}`;
   setupBackButton();
 
   ITEMS = await loadItems();
@@ -6032,7 +6034,12 @@ function initDarkMode() {
 }
 
 // ---------- About / welcome / legal ----------
+// The Terraria update the items and recipes match. Change it here when you update the data for a newer version.
+const GAME_VERSION = "1.4.5.8";
 const CONTACT_EMAIL = "spectreskeep@gmail.com";
+// Bug reports are saved in a Google Form (free, no monthly limit) and shown in its Google Sheet.
+// This is the form's "pre-filled link". To use a different form, paste its link here instead.
+const BUG_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSd6-uydjNtaosWl3P3evorm5UPbHX0sm2IBXUP2J97rYjlL3A/viewform?usp=pp_url&entry.45291208=Test";
 
 // The welcome popup shows only on the very first visit. The "seen" mark is saved the moment it opens,
 // so closing it or refreshing the page means it does not pop up again. It lives in the About button after that.
@@ -6064,6 +6071,8 @@ function openAboutModal(tab = "guide", firstVisit = false) {
       <li><b>Field Guide</b> has NPCs, classes, biomes, herbs, potions and every modifier.</li>
       <li><b>Crimson vs Corruption</b> compares the two evil biomes side by side.</li>
       <li><b>Settings</b> has dark mode. The <b>About</b> button brings this page back any time.</li>
+      <li>Items and recipes match <b>Terraria ${GAME_VERSION}</b>.</li>
+      <li>Found a bug or a wrong recipe? Open the <b>Report a bug</b> tab and tell me.</li>
     </ul>`;
   const legal = `
     <h2>Legal &amp; contact</h2>
@@ -6080,18 +6089,38 @@ function openAboutModal(tab = "guide", firstVisit = false) {
       <li>Please do not copy this site's design or code and pass it off as your own, and do not overload it with automated requests.</li>
     </ul>
     <h3>Privacy</h3>
-    <p>No accounts, no ads and no tracking from this site. Your dark mode choice is saved in your own browser only. Pictures load from the Terraria wiki's servers, so the wiki can see a normal image request, like any website that shows their images.</p>
+    <p>No accounts, no ads and no tracking from this site. Your dark mode choice is saved in your own browser only. If you send a bug report, your message (and the email address, only if you type one) is saved in a Google Form that only I can open. Pictures load from the Terraria wiki's servers, so the wiki can see a normal image request, like any website that shows their images.</p>
     <h3>Contact and takedowns</h3>
     <p>Questions, corrections, or a rights holder who wants something changed or removed: email <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> and I will respond quickly.</p>`;
+
+  const report = `
+    <h2>Report a bug</h2>
+    <p>Something wrong, missing or confusing? Tell me and I will look into it.</p>
+    <form id="bugForm" class="bug-form" novalidate>
+      <label>What went wrong?
+        <textarea name="message" rows="5" maxlength="2000" required placeholder="Example: the Mushroom Staff crafting tree shows the wrong amounts"></textarea>
+      </label>
+      <label>Your email <span class="bug-opt">(optional, only if you want a reply)</span>
+        <input type="email" name="email" maxlength="200" autocomplete="email">
+      </label>
+      <input type="checkbox" name="botcheck" class="bug-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="bug-row">
+        <button type="submit" class="bug-send">Send report</button>
+        <span class="bug-status" role="status"></span>
+      </div>
+    </form>
+    <p class="bug-note">Sent along with your message: the page you were looking at, your browser and your screen size. Nothing else.</p>`;
 
   modal.innerHTML = `
     <button class="about-x" aria-label="Close">&times;</button>
     <div class="about-tabs">
       <button class="about-tab" data-tab="guide">Guide</button>
+      <button class="about-tab" data-tab="report">Report a bug</button>
       <button class="about-tab" data-tab="legal">Legal &amp; contact</button>
     </div>
     <div class="about-body">
       <div class="about-pane" data-pane="guide">${guide}</div>
+      <div class="about-pane" data-pane="report">${report}</div>
       <div class="about-pane" data-pane="legal">${legal}</div>
     </div>
     <div class="about-foot"><button class="about-ok">${firstVisit ? "Start exploring" : "Close"}</button></div>`;
@@ -6104,6 +6133,7 @@ function openAboutModal(tab = "guide", firstVisit = false) {
   const close = () => { backdrop.remove(); document.removeEventListener("keydown", onKey); };
   const onKey = (e) => { if (e.key === "Escape") close(); };
   modal.querySelectorAll(".about-tab").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+  setupBugForm(modal.querySelector("#bugForm"));
   modal.querySelector(".about-x").addEventListener("click", close);
   modal.querySelector(".about-ok").addEventListener("click", close);
   backdrop.addEventListener("click", (e) => { if (e.target === backdrop) close(); });
@@ -6111,6 +6141,69 @@ function openAboutModal(tab = "guide", firstVisit = false) {
   backdrop.appendChild(modal);
   document.body.appendChild(backdrop);
   show(tab);
+}
+
+// What the visitor was looking at, so a bug report is easier to understand
+function describeCurrentView() {
+  const open = id => { const el = document.getElementById(id); return !!el && !el.classList.contains("hidden"); };
+  const bits = [];
+  if (open("treeOverlay")) bits.push(document.getElementById("treeTitle").textContent);
+  if (open("timelinePage")) bits.push(document.getElementById("timelineTitle").textContent);
+  const q = document.getElementById("q");
+  if (q && q.value) bits.push(`search: "${q.value}"`);
+  if (currentCategory && currentCategory !== "all") bits.push(`category: ${currentCategory}${currentSubcategory ? "/" + currentSubcategory : ""}`);
+  return bits.join(" | ") || "main item grid";
+}
+
+// Reads the Google Form link: where to send the report and which box (entry.123456) is the answer field
+function googleFormTarget() {
+  try {
+    const u = new URL(BUG_FORM_LINK);
+    const entry = [...u.searchParams.keys()].find(k => k.startsWith("entry."));
+    if (!u.hostname.endsWith("google.com") || !u.pathname.includes("/forms/") || !entry) return null;
+    return { action: u.origin + u.pathname.replace(/\/viewform.*$/, "/formResponse"), entry };
+  } catch (e) {
+    return null;
+  }
+}
+
+function setupBugForm(form) {
+  if (!form) return;
+  const status = form.querySelector(".bug-status");
+  const btn = form.querySelector(".bug-send");
+  const say = (text, ok) => { status.textContent = text; status.className = "bug-status " + (ok ? "ok" : "bad"); };
+  const google = googleFormTarget();
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const message = form.message.value.trim();
+    if (message.length < 5) { say("Please describe what went wrong.", false); return; }
+    if (form.botcheck.checked) { say("Thank you! Your report was sent.", true); return; }   // hidden spam trap: pretend it worked
+    if (!google) {
+      say(`Reports are not switched on yet. Please email ${CONTACT_EMAIL}.`, false);
+      return;
+    }
+    const email = form.email.value.trim();
+    const details = {
+      page: location.href,
+      viewing: describeCurrentView(),
+      browser: navigator.userAgent,
+      screen: `${window.innerWidth}x${window.innerHeight}`,
+    };
+    btn.disabled = true;
+    say("Sending...", true);
+    try {
+      // Google answers in a way the browser will not let us read, so a network error is the only failure we can see
+      const text = [message, "", `Reply email: ${email || "(none given)"}`, ...Object.entries(details).map(([k, v]) => `${k}: ${v}`)].join("\n");
+      await fetch(google.action, { method: "POST", mode: "no-cors", body: new URLSearchParams({ [google.entry]: text }) });
+      form.reset();
+      say("Thank you! Your report was sent.", true);
+      setTimeout(() => { btn.disabled = false; }, 15000);   // stops accidental double sends
+    } catch (err) {
+      btn.disabled = false;
+      say(`Could not send it. Please email ${CONTACT_EMAIL} instead.`, false);
+    }
+  });
 }
 
 function openSettingsModal() {

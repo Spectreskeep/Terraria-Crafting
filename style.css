@@ -81,7 +81,7 @@ header button:hover {
 }
 }
 
-#btnAbout { margin-left: auto; }
+#btnAbout { margin-left: 0; }
 /* Main Layout with Sidebar */
 .main-layout {
   display: flex;
@@ -1486,3 +1486,31 @@ button.mini-item:hover { background: var(--card-hover); }
   background: linear-gradient(135deg, #667eea 0%, #4a56c4 100%);
 }
 @media (hover: hover) { .info-action-btn:hover { filter: brightness(1.12); } }
+
+/* bug report form (inside the About window) */
+.bug-form { display: flex; flex-direction: column; gap: 14px; margin: 14px 0 6px; }
+.bug-form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.bug-opt { font-weight: 400; color: var(--text-secondary); }
+.bug-form textarea, .bug-form input[type="email"] {
+  font: inherit; font-weight: 400; font-size: 14px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary); resize: vertical;
+}
+.bug-form textarea:focus, .bug-form input[type="email"]:focus { outline: 2px solid #667eea; outline-offset: 1px; }
+.bug-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.bug-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.bug-send { padding: 10px 20px; border: none; border-radius: 10px; font: inherit; font-weight: 700; color: #fff; cursor: pointer; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.bug-send:disabled { opacity: .55; cursor: default; }
+.bug-status { font-size: 14px; }
+.bug-status.ok { color: #3fb27f; }
+.bug-status.bad { color: #e5506b; }
+.bug-note { font-size: 12px !important; }
+
+/* which Terraria update the site's data matches: same height and corners as the buttons, centered between Field Guide and About */
+.game-version {
+  margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px;
+  padding: 0 22px; border-radius: 8px; white-space: nowrap;
+  background: var(--bg-tertiary); border: 1px solid var(--border-color);
+}
+.game-version small { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-secondary); }
+.game-version b { font-size: 15px; font-weight: 800; color: var(--text-primary); }
+@media (max-width: 768px) { .game-version { display: none; } }
