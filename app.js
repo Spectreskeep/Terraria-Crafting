@@ -2477,6 +2477,16 @@ function applyCategoryIcons() {
   }
 }
 
+// Opens / closes the list of subcategories under a main category in the sidebar
+function toggleSubcategories(category) {
+  const subsDiv = document.getElementById(`subs-${category}`);
+  const catItem = document.querySelector(`[data-category="${category}"]`);
+  if (!subsDiv) return;
+  const open = subsDiv.style.display === "none" || !subsDiv.style.display;
+  subsDiv.style.display = open ? "block" : "none";
+  if (catItem) catItem.classList.toggle("expanded", open);
+}
+
 function buildSubcategoryUI() {
   for (const [catKey, catData] of Object.entries(SUBCATEGORIES)) {
     const subsDiv = document.getElementById(`subs-${catKey}`);
