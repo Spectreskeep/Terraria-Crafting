@@ -544,6 +544,11 @@ async function loadRecipes() {
       if (r.station) r.station = String(r.station).replace(/[¦|]/g, "").trim();
     }
   }
+  // amounts that differ from what the data file says (checked against the wiki)
+  const AMOUNT_FIXES = { "Endless Quiver": { "Wooden Arrow": 9999 }, "Endless Musket Pouch": { "Musket Ball": 9999 } };
+  for (const [result, fixes] of Object.entries(AMOUNT_FIXES)) {
+    for (const r of data[result] || []) for (const ing of r.ingredients || []) if (fixes[ing.item]) ing.qty = fixes[ing.item];
+  }
   return data;
 }
 
@@ -713,9 +718,26 @@ function buildIndexes() {
           USES_INDEX[ing.item].push({
             output: outName,
             station: variant.station,
-            qty: variant.result_qty || 1
+            qty: variant.result_qty || 1,   // how many one craft makes
+            needs: ing.qty || 1             // how many of this ingredient one craft uses
           });
         }
+      }
+    }
+  }
+  shareRecipesWithForms();
+}
+
+// Items that are just another form of one item (the Shellphone's four locations, the "Inactive" guides)
+// show the same crafting tree and uses as the main item. This runs after USES_INDEX is built,
+// so the extra forms do not clutter the "what it crafts into" trees of the ingredients.
+const FORM_BASES = ["Shellphone", "Guide to Peaceful Coexistence", "Guide to Critter Companionship", "Guide to Environmental Preservation"];
+function shareRecipesWithForms() {
+  for (const it of ITEMS) {
+    for (const base of FORM_BASES) {
+      if (it.name.startsWith(base + " (") && it.name.endsWith(")")) {
+        if (!RECIPES[it.name] && RECIPES[base]) RECIPES[it.name] = RECIPES[base];
+        if (!USES_INDEX[it.name] && USES_INDEX[base]) USES_INDEX[it.name] = USES_INDEX[base];
       }
     }
   }
@@ -992,6 +1014,7 @@ function buildUsesTreeChildren(parentNode) {
       name: use.output,
       station: use.station,
       qty: use.qty,
+      needs: use.needs,
       isCycle: ancestry.has(use.output)
     }));
 
@@ -1009,6 +1032,7 @@ function buildUsesTreeChildren(parentNode) {
         name: output.name,
         itemName: output.name,
         qty: output.qty,
+        needs: output.needs,
         station: output.station,
         depth: parentNode.depth + 1,
         parent: parentNode,
@@ -1081,6 +1105,7 @@ function createGroupNodes(outputs, parentNode) {
           name: item.name,
           itemName: item.name,
           qty: item.qty,
+          needs: item.needs,
           station: item.station,
           depth: parentNode.depth + 1,
           parent: parentNode,
@@ -1188,6 +1213,7 @@ function expandGroupNode(groupNode) {
         name: item.name,
         itemName: item.name,
         qty: item.qty,
+        needs: item.needs,
         station: item.station,
         depth: groupNode.depth + 1,
         parent: groupNode,
@@ -1335,6 +1361,18 @@ function drawUsesTreeEdge(parent, child) {
   line3.setAttribute("stroke", "#999");
   line3.setAttribute("stroke-width", "2");
   TREE_SVG.appendChild(line3);
+
+  // the amounts: how many of the parent item one craft uses, and how many it makes
+  if (child.needs) {
+    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    label.textContent = `needs ${child.needs}` + (child.qty > 1 ? ` · makes ${child.qty}` : "");
+    label.setAttribute("x", x2 + 7);
+    label.setAttribute("y", (midY + y2) / 2 + 4);
+    label.setAttribute("font-size", "11");
+    label.setAttribute("font-weight", "700");
+    label.style.fill = "var(--text-secondary)";
+    TREE_SVG.appendChild(label);
+  }
 }
 
 function drawUsesTreeNode(world, node) {
@@ -1405,7 +1443,8 @@ function drawUsesTreeNode(world, node) {
     img.style.height = "40px";
 
     const text = document.createElement("div");
-    const displayName = node.qty ? `${node.name} x${node.qty}` : node.name;
+    const displayName = node.name;   // the amounts are written on the line above (see drawUsesTreeEdge)
+    if (node.needs) d.title = `${node.name}: one craft uses ${node.needs} and makes ${node.qty || 1}`;
 
     let stationHTML = "";
     if (node.station) {
@@ -1792,8 +1831,8 @@ function setupBackButton() {
       setTimeout(() => { restoring = false; }, 600);   // safety, in case no event ever arrives
       return;
     }
-    // the little "Craft / Uses" chooser is only a step on the way, so it does not get its own entry
-    if (cur > 0 && snaps[cur].choice && !now.choice) {
+    // the little "Craft / Uses" chooser and the info popup are only steps on the way, so they do not keep their own entry
+    if (cur > 0 && ((snaps[cur].choice && !now.choice) || (snaps[cur].info && !now.info))) {
       snaps[cur] = now;
       history.replaceState({ sid, idx: cur }, "");
       return;
@@ -6120,7 +6159,7 @@ function openSettingsModal() {
 }
 
 // Fills in and shows the Item Info popup (#infoModalBackdrop in index.html)
-function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines = [], related = [], relatedLabel = "Related items", wikiUrl, setImgs = [], heroImgs = [], onMore = null }) {
+function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines = [], related = [], relatedLabel = "Related items", wikiUrl, setImgs = [], heroImgs = [], onMore = null, actions = [] }) {
   const modalBox = document.querySelector("#infoModalBackdrop .modal");
   modalBox.querySelectorAll(".boss-more").forEach(el => el.remove());
   if (onMore) {
@@ -6146,6 +6185,20 @@ function showInfoPopup({ title, imgs = [], subtitle = "", paragraph = "", lines 
 
   const content = document.getElementById("infoModalContent");
   content.innerHTML = "";
+
+  // quick buttons, e.g. open this item's crafting tree
+  if (actions.length) {
+    const row = document.createElement("div");
+    row.className = "info-actions";
+    for (const act of actions) {
+      const btn = document.createElement("button");
+      btn.className = "info-action-btn";
+      btn.textContent = act.label;
+      btn.addEventListener("click", act.onClick);
+      row.appendChild(btn);
+    }
+    content.appendChild(row);
+  }
 
   // full armor set: every piece side by side
   if (setImgs.length) {
@@ -6446,11 +6499,17 @@ function openItemInfoModal(itemName) {
   const tags = [...(details.immunities || []), ...(details.buffs || [])];
   if (tags.length) lines.push({ label: "Buffs / Immunities", text: tags.join(", ") });
 
+  // jump straight into this item's trees, from anywhere (also while another tree is open)
+  const actions = [];
+  if (item && RECIPES[itemName]) actions.push({ label: "How to craft", onClick: () => { closeItemInfoModal(); openTreeView(item, "craft"); } });
+  if (item && USES_INDEX[itemName]) actions.push({ label: "What it crafts into", onClick: () => { closeItemInfoModal(); openTreeView(item, "uses"); } });
+
   showInfoPopup({
     title: itemName,
     imgs: item?.img ? [item.img] : [],
     subtitle: details.category || "",
     paragraph: details.tooltip || "",
+    actions,
     lines,
     wikiUrl: details.wiki_url || details.wiki ||
       `https://terraria.wiki.gg/wiki/${encodeURIComponent(itemName.replace(/ /g, "_"))}`,
