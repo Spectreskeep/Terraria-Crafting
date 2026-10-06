@@ -1381,14 +1381,14 @@ function drawUsesTreeNode(world, node) {
       }
 
       if (stationImgSrc) {
-        stationHTML = `<div style="font-size:11px;opacity:.6;display:flex;align-items:center;gap:4px;">
-          <img src="${stationImgSrc}" referrerpolicy="no-referrer" style="width:14px;height:14px;image-rendering:pixelated;" onerror="this.style.display='none'" />
-          <span>${node.station}</span>
+        stationHTML = `<div style="font-size:11px;opacity:.6;display:flex;align-items:center;gap:4px;min-width:0;">
+          <img src="${stationImgSrc}" referrerpolicy="no-referrer" style="width:14px;height:14px;flex:none;image-rendering:pixelated;" onerror="this.style.display='none'" />
+          <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${node.station}</span>
         </div>`;
       } else {
         stationHTML = node.station === "By Hand"
         ? `<div style="font-size:11px;opacity:.6">✋ Hand</div>`
-        : `<div style="font-size:11px;opacity:.6">📍 ${node.station}</div>`;
+        : `<div style="font-size:11px;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📍 ${node.station}</div>`;
       }
     }
 
@@ -1397,6 +1397,7 @@ function drawUsesTreeNode(world, node) {
       ${stationHTML}
     `;
 
+    d.title = node.station ? `${displayName} (${node.station})` : displayName;   // full text on hover
     d.appendChild(img);
     d.appendChild(text);
 
