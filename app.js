@@ -5,7 +5,8 @@ const PAGE_SIZE = 100;
 let currentCategory = "all";
 let currentSubcategory = null;
 
-let darkMode = localStorage.getItem('darkMode') === 'true';
+// dark mode is the default; it is only off if the visitor switched it off in Settings
+let darkMode = localStorage.getItem('darkMode') !== 'false';
 
 let RECIPES = {};
 let USES_INDEX = {};
@@ -820,6 +821,7 @@ function closeChoiceModal() {
 }
 
 function openTreeView(item, mode) {
+  NAV_TREE = { item, mode };
   if (mode === "craft" && !RECIPES[item.name]) {
     alert(`Cannot craft "${item.name}" - this item has no crafting recipe!`);
     return;
@@ -1645,6 +1647,125 @@ function setupMobileDrawer() {
   sidebar.addEventListener("click", (e) => {
     if (e.target.closest(".cat-sub-item") || e.target.closest('.cat-item[data-category="all"]')) close();
   });
+}
+
+// ---------- Browser Back / Forward buttons (and the mouse's side buttons) ----------
+// Each screen the visitor moves to (a tree, a timeline / field-guide page and every level inside it,
+// a popup, the categories menu) becomes one browser history entry that remembers what was on screen.
+// Back and Forward then step through those screens instead of leaving the site.
+let NAV_TREE = null;          // the tree that is open: { item, mode }
+let navHook = null;
+function navChanged() { if (navHook) navHook(); }
+
+function setupBackButton() {
+  const $ = id => document.getElementById(id);
+  const sidebar = document.querySelector(".category-sidebar");
+  const sid = Date.now() + "-" + Math.random();   // so entries left over from before a reload are ignored
+  const ids = new WeakMap();
+  let idCount = 0;
+  const idOf = o => { if (!o) return 0; if (!ids.has(o)) ids.set(o, ++idCount); return ids.get(o); };
+  const isOpen = id => { const el = $(id); return !!el && !el.classList.contains("hidden"); };
+
+  // what is on screen right now
+  function capture() {
+    return {
+      tree: isOpen("treeOverlay") && NAV_TREE ? NAV_TREE : null,
+      tl: isOpen("timelinePage") ? { root: timelineRoot, title: timelineRootTitle, path: [...timelinePath], min: timelineMinDepth } : null,
+      choice: isOpen("modalBackdrop") ? selectedItem : null,
+      info: isOpen("infoModalBackdrop"),
+      drawer: sidebar.classList.contains("open"),
+      about: !!$("aboutBackdrop"),
+      settings: !!$("settingsBackdrop"),
+    };
+  }
+  const sig = t => [
+    t.tree ? idOf(t.tree.item) + t.tree.mode : "",
+    t.tl ? idOf(t.tl.root) + "|" + t.tl.min + "|" + t.tl.path.map(idOf).join(",") : "",
+    t.choice ? idOf(t.choice) : "", t.info, t.drawer, t.about, t.settings,
+  ].join("/");
+
+  // put the screen into a remembered state
+  function applyState(t) {
+    const cur = capture();
+    if (cur.info && !t.info) closeItemInfoModal();
+    if (cur.about && !t.about) $("aboutBackdrop").remove();
+    if (cur.settings && !t.settings) $("settingsBackdrop").remove();
+    if (t.about && !cur.about) openAboutModal();
+    if (t.settings && !cur.settings) openSettingsModal();
+    if (t.drawer !== cur.drawer) { sidebar.classList.toggle("open", t.drawer); $("sidebarBackdrop").classList.toggle("open", t.drawer); }
+
+    if (cur.choice && cur.choice !== t.choice) closeChoiceModal();
+    if (t.choice && t.choice !== cur.choice) openChoiceModal(t.choice);
+
+    const sameTree = t.tree && cur.tree && t.tree.item === cur.tree.item && t.tree.mode === cur.tree.mode;
+    if (cur.tree && !sameTree) closeTreeView();
+    if (t.tree && !sameTree) openTreeView(t.tree.item, t.tree.mode);
+
+    if (!t.tl) {
+      if (cur.tl) closeTimeline();
+    } else if (!cur.tl || sig({ tl: t.tl }) !== sig({ tl: cur.tl })) {
+      timelineRoot = t.tl.root;
+      timelineRootTitle = t.tl.title;
+      timelinePath = [...t.tl.path];
+      timelineMinDepth = t.tl.min;
+      $("timelinePage").classList.remove("hidden");
+      showTimelineLevel();
+    }
+    document.body.classList.toggle("no-scroll", isOpen("timelinePage") || isOpen("treeOverlay"));
+  }
+
+  const snaps = [capture()];   // snaps[n] = what history entry n shows
+  let cur = 0;
+  let restoring = false;       // true while the screen is being moved by Back / Forward
+  history.replaceState({ sid, idx: 0 }, "");
+
+  navHook = function () {
+    if (restoring) return;
+    const now = capture(), nowSig = sig(now);
+    if (nowSig === sig(snaps[cur])) { snaps[cur] = now; return; }
+
+    // closing / stepping back to the screen before this one: really go back, so Forward still works
+    if (cur > 0 && sig(snaps[cur - 1]) === nowSig) {
+      restoring = true;
+      history.back();
+      setTimeout(() => { restoring = false; }, 600);   // safety, in case no event ever arrives
+      return;
+    }
+    // the little "Craft / Uses" chooser is only a step on the way, so it does not get its own entry
+    if (cur > 0 && snaps[cur].choice && !now.choice) {
+      snaps[cur] = now;
+      history.replaceState({ sid, idx: cur }, "");
+      return;
+    }
+    snaps.length = cur + 1;     // a new move forgets the old "forward" screens
+    cur++;
+    snaps[cur] = now;
+    history.pushState({ sid, idx: cur }, "");
+  };
+
+  window.addEventListener("popstate", (e) => {
+    const st = e.state;
+    let target;
+    if (st && st.sid === sid && snaps[st.idx]) {
+      cur = st.idx;
+      target = snaps[cur];
+    } else {
+      cur = 0;                  // an entry from an earlier visit: show the home screen
+      history.replaceState({ sid, idx: 0 }, "");
+      target = snaps[0];
+    }
+    restoring = true;
+    applyState(target);
+    setTimeout(() => { restoring = false; snaps[cur] = capture(); }, 0);
+  });
+
+  const watch = new MutationObserver(navChanged);
+  for (const id of ["modalBackdrop", "treeOverlay", "timelinePage", "infoModalBackdrop"]) {
+    const el = $(id);
+    if (el) watch.observe(el, { attributes: true, attributeFilter: ["class"] });
+  }
+  watch.observe(sidebar, { attributes: true, attributeFilter: ["class"] });
+  watch.observe(document.body, { childList: true });
 }
 
 function renderRealTree(item, mode) {
@@ -2568,6 +2689,7 @@ function updateCategoryCounts() {
 
 async function main() {
   initDarkMode();
+  setupBackButton();
 
   ITEMS = await loadItems();
   RECIPES = await loadRecipes();
@@ -5626,6 +5748,7 @@ function showTimelineLevel() {
 
   document.getElementById("timelinePage").scrollTop = 0;
   document.getElementById("timelineContent").scrollTop = 0;
+  navChanged();
 }
 
 // Back goes up one level; from the top menu it closes the timeline
@@ -5891,6 +6014,7 @@ function openAboutModal(tab = "guide", firstVisit = false) {
 
 function openSettingsModal() {
   const backdrop = document.createElement('div');
+  backdrop.id = 'settingsBackdrop';
   backdrop.className = 'modal-backdrop';
   backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:10000;';
 
