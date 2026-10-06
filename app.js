@@ -1972,68 +1972,7 @@ function autoExpandAllCraftNodes(itemName, seen, isRoot = false) {
 
   CRAFT_EXPANDED.add(itemName);
 
-  const recipeVariants = RECIPES[itemName];
-  if (!recipeVariants || !recipeVariants.length) return;
-
-  const conversionStations = ["Shimmer", "Chlorophyte Extractinator", "Extractinator"];
-
-  let properRecipes;
-  // Special case: for root ores, only use conversion recipes
-  if (isRoot && itemName.includes("Ore") && !itemName.includes("Meteorite")) {
-    properRecipes = recipeVariants.filter(r => {
-        if (isPlatformReverse(r, itemName)) return false;
-      return conversionStations.some(station => r.station && r.station.includes(station));
-    });
-  }
-  // Special case: for root bars, prioritize Furnace recipes
-  else if (isRoot && itemName.includes("Bar") && !itemName.includes("Sandstone")) {
-    const furnaceRecipes = recipeVariants.filter(r => r.station === "Furnace");
-    if (furnaceRecipes.length > 0) {
-      properRecipes = furnaceRecipes;
-    } else {
-      // If no Furnace recipe, filter out conversion stations
-      properRecipes = recipeVariants.filter(r => {
-        if (isPlatformReverse(r, itemName)) return false;
-        if (conversionStations.some(station => r.station && r.station.includes(station))) {
-          return false;
-        }
-        if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
-          const ingredient = r.ingredients[0].item;
-          const output = itemName;
-          const isWallConversion =
-            (ingredient.includes("Wall") && !output.includes("Wall")) ||
-            (!ingredient.includes("Wall") && output.includes("Wall"));
-          if (isWallConversion) {
-            return false;
-          }
-        }
-        return true;
-      });
-    }
-  } else {
-    // For non-root or non-ores/bars, filter out conversion stations
-    properRecipes = recipeVariants.filter(r => {
-        if (isPlatformReverse(r, itemName)) return false;
-      if (conversionStations.some(station => r.station && r.station.includes(station))) {
-        return false;
-      }
-
-      if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
-        const ingredient = r.ingredients[0].item;
-        const output = itemName;
-
-        const isWallConversion =
-          (ingredient.includes("Wall") && !output.includes("Wall")) ||
-          (!ingredient.includes("Wall") && output.includes("Wall"));
-
-        if (isWallConversion) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-  }
+  const properRecipes = craftRecipeList(itemName);
 
   if (!properRecipes.length) return;
 
@@ -2195,36 +2134,7 @@ function makeTreeNode(item, label, sub, x, y, station) {
   if (currentMode === "craft") {
     const itemName = label.replace(/ x\d+$/, '');
 
-    const recipeVariants = RECIPES[itemName];
-    let hasProperRecipe = false;
-
-    if (recipeVariants && recipeVariants.length > 0) {
-      const conversionStations = ["Shimmer", "Chlorophyte Extractinator", "Extractinator"];
-
-      const properRecipes = recipeVariants.filter(r => {
-        if (isPlatformReverse(r, itemName)) return false;
-        if (conversionStations.some(station => r.station && r.station.includes(station))) {
-          return false;
-        }
-
-        if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
-          const ingredient = r.ingredients[0].item;
-          const output = itemName;
-
-          const isWallConversion =
-            (ingredient.includes("Wall") && !output.includes("Wall")) ||
-            (!ingredient.includes("Wall") && output.includes("Wall"));
-
-          if (isWallConversion) {
-            return false;
-          }
-        }
-
-        return true;
-      });
-
-      hasProperRecipe = properRecipes.length > 0;
-    }
+    const hasProperRecipe = craftRecipeList(itemName).length > 0;
 
     if (hasProperRecipe) {
       d.style.cursor = "pointer";
@@ -2279,9 +2189,22 @@ function toggleCraftNode(itemName) {
   }
 }
 
-function getChildren(name, mode) {
-  if (mode === "craft") {
-    const recipeVariants = RECIPES[name];
+// ONE place that decides which recipes count for the crafting tree (used by the tree, the +/- button and the station label)
+function craftRecipeList(name) {
+  const base = craftRecipeListRaw(name);
+  const isRootItem = (CRAFT_ROOT_ITEM && CRAFT_ROOT_ITEM.name === name);
+  // drop "reverse" recipes: made from something that is itself crafted from this item (Wood <- Wooden Fence)
+  const forward = base.filter(r => {
+    const ing = r.ingredients || [];
+    if (ing.length !== 1) return true;
+    const src = RECIPES[ing[0].item];
+    return !(src && src.some(s => (s.ingredients || []).some(x => x.item === name)));
+  });
+  return (forward.length || !isRootItem) ? forward : base;
+}
+
+function craftRecipeListRaw(name) {
+  const recipeVariants = RECIPES[name];
     if (!recipeVariants || !recipeVariants.length) return [];
 
     const isRootItem = (CRAFT_ROOT_ITEM && CRAFT_ROOT_ITEM.name === name);
@@ -2393,6 +2316,12 @@ function getChildren(name, mode) {
         return true;
       });
     }
+    return properRecipes;
+}
+
+function getChildren(name, mode) {
+  if (mode === "craft") {
+    const properRecipes = craftRecipeList(name);
 
     if (!properRecipes.length) return [];
 
@@ -2498,67 +2427,10 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
 
   let station = null;
   if (mode === "craft" && RECIPES[name]) {
-    const conversionStations = ["Shimmer", "Chlorophyte Extractinator", "Extractinator"];
-    const isRootItem = (CRAFT_ROOT_ITEM && CRAFT_ROOT_ITEM.name === name);
-
-    let properRecipes;
-    // Special case: for root ores, show conversion station recipes
-    if (isRootItem && name.includes("Ore") && !name.includes("Meteorite")) {
-      properRecipes = RECIPES[name].filter(r => {
-        if (isPlatformReverse(r, name)) return false;
-        return conversionStations.some(s => r.station && r.station.includes(s));
-      });
-    }
-    // Special case: for root bars, prioritize Furnace
-    else if (isRootItem && name.includes("Bar") && !name.includes("Sandstone")) {
-      const furnaceRecipes = RECIPES[name].filter(r => r.station === "Furnace");
-      if (furnaceRecipes.length > 0) {
-        properRecipes = furnaceRecipes;
-      } else {
-        // For non-root items or non-ores/bars, filter out conversion stations
-        properRecipes = RECIPES[name].filter(r => {
-        if (isPlatformReverse(r, name)) return false;
-          if (conversionStations.some(s => r.station && r.station.includes(s))) {
-            return false;
-          }
-          return true;
-        });
-      }
-    } else {
-      // For non-root items (ingredients), filter out conversion stations and reverse wall conversions
-      properRecipes = RECIPES[name].filter(r => {
-        if (isPlatformReverse(r, name)) return false;
-        // Filter conversion stations
-        if (conversionStations.some(s => r.station && r.station.includes(s))) {
-          return false;
-        }
-
-        // Filter reverse wall conversions only (Wall → Block, e.g., Obsidian Wall -> Obsidian)
-        // Block → Wall is normal crafting and is allowed
-        if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
-          const ingredient = r.ingredients[0].item;
-          const output = name;
-          // Only filter if ingredient has "Wall" but output doesn't (reverse crafting)
-          const isReverseWallConversion = (ingredient.includes("Wall") && !output.includes("Wall"));
-          if (isReverseWallConversion) return false;
-        }
-
-        // Filter reverse crafting
-        if (r.station === "By Hand" && r.ingredients && r.ingredients.length === 1) {
-          const ingredient = r.ingredients[0].item;
-          if (ingredient.includes(name) && ingredient !== name) return false;
-        }
-
-        return true;
-      });
-    }
-
-    // Only show a station if there are valid recipes and the first recipe has one
-    if (properRecipes && properRecipes.length > 0 && properRecipes[0].station) {
+    const properRecipes = craftRecipeList(name);
+    if (properRecipes.length > 0 && properRecipes[0].station) {
       station = properRecipes[0].station;
-      if (station && station.includes('/')) {
-        station = station.split('/')[0].trim();
-      }
+      if (station.includes('/')) station = station.split('/')[0].trim();
     }
   }
 
