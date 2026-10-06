@@ -20,8 +20,6 @@ const NODE_W = 180;
 const NODE_H = 60;
 const CRAFT_X_GAP = 200;
 const CRAFT_Y_GAP = 85;
-const USES_X_GAP = 200;
-const USES_Y_GAP = 100;
 
 let TREE_SVG = null;
 let zoomLevel = 1;
@@ -35,7 +33,7 @@ const CRIMSON_ITEMS = new Set([
   "Crimtane Ore",
   "Crimtane Bar",
   "Crimson Helmet",
-  "Crimson Scalemail", 
+  "Crimson Scalemail",
   "Crimson Greaves",
   "Vertebrae",
   "Ichor",
@@ -461,25 +459,31 @@ function getItemSubcategory(item, mainCategory) {
 // Broken-picture rescue. Some wiki items are animated (.gif) or have "(item)" in the file name, so the
 // first guess can fail. Any <img> that fails to load tries the other spellings before giving up.
 // ============================================================
+const NO_IMAGE = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><rect x="3" y="3" width="34" height="34" rx="6" fill="#8884" stroke="#8886"/><text x="20" y="27" font-size="20" font-family="sans-serif" text-anchor="middle" fill="#888">?</text></svg>');
+
 document.addEventListener("error", (e) => {
   const img = e.target;
   if (!(img instanceof HTMLImageElement)) return;
   if (img.dataset.fallbacks !== undefined) return;            // those already have their own fallback list
+  if (img.dataset.dead) return;
   const name = (img.alt || "").trim();
   if (!name || name.length > 60) return;
   if (!img.dataset.rescue) {
-    const base = name.replace(/ /g, "_");
-    const enc = encodeURIComponent(base).replace(/%27/g, "'");
-    img.dataset.rescue = JSON.stringify([
-      `https://terraria.wiki.gg/images/${enc}.gif`,
-      `https://terraria.wiki.gg/images/${enc}_(item).png`,
-      `https://terraria.wiki.gg/images/${enc}_(item).gif`,
-      `https://terraria.wiki.gg/images/${enc}_(placed).png`,
-    ]);
+    const bases = [...new Set([name.replace(/ /g, "_"), name.replace(/\//g, "-").replace(/ /g, "_"), name.replace(/\//g, "_").replace(/ /g, "_"), name.replace(/\//g, "").replace(/ /g, "_")])];
+    const list = [];
+    for (const base of bases) {
+      const enc = encodeURIComponent(base).replace(/%27/g, "'");
+      list.push(`https://terraria.wiki.gg/images/${enc}.png`, `https://terraria.wiki.gg/images/${enc}.gif`, `https://terraria.wiki.gg/images/${enc}_(item).png`, `https://terraria.wiki.gg/images/${enc}_(item).gif`, `https://terraria.wiki.gg/images/${enc}_(placed).png`);
+    }
+    img.dataset.rescue = JSON.stringify([...new Set(list)].filter(u => u !== img.src));
   }
   let rest = [];
   try { rest = JSON.parse(img.dataset.rescue); } catch (err) {}
-  if (!rest.length) return;
+  if (!rest.length) {
+    // nothing worked: show a plain "?" tile instead of a broken picture with its text
+    if (!img.dataset.dead) { img.dataset.dead = "1"; img.src = NO_IMAGE; }
+    return;
+  }
   img.referrerPolicy = "no-referrer";
   img.src = rest.shift();
   img.dataset.rescue = JSON.stringify(rest);
@@ -499,10 +503,22 @@ async function loadItems() {
   return fixItemImages(await res.json());
 }
 
-// Some items added by the updater got the wrong picture (another page's image, or a weird animation).
+// Some items have the wrong picture (another page's image, or an unrelated animation).
 // A real sprite file is named after its item, so any wiki.gg image whose file name doesn't match the item
 // name is replaced with the standard sprite file for that item.
+// the four Strange Plants (by item ID) each get their own colored picture
+const OWN_IMAGES = { 3385: "data/img/strange_plant_purple.png", 3386: "data/img/strange_plant_orange.png", 3387: "data/img/strange_plant_green.png", 3388: "data/img/strange_plant_red.png" };
+
+// items listed as "n/a (No official name)" in the data, renamed by item ID
+const NAME_FIXES = { 4722: "First Fractal", 5013: "SleepingIcon" };
+const FIXED_IMAGES = { 4722: "First Fractal" };   // these load their picture from the wiki under the new name
+
 function fixItemImages(list) {
+  for (const it of list) {
+    if (NAME_FIXES[it.id]) it.name = NAME_FIXES[it.id];
+    if (FIXED_IMAGES[it.id]) it.img = wikiImgUrl(FIXED_IMAGES[it.id], "png");
+  }
+  for (const it of list) if (OWN_IMAGES[it.id]) it.img = OWN_IMAGES[it.id];
   const norm = s => s.toLowerCase().replace(/[_\s]+/g, " ").trim();
   for (const it of list) {
     const m = /^https?:\/\/terraria\.wiki\.gg\/images\/(?:thumb\/)?(?:[0-9a-f]\/[0-9a-f]{2}\/)?([^\/?]+)/.exec(it.img || "");
@@ -512,6 +528,7 @@ function fixItemImages(list) {
     const base = norm(file.replace(/\.[a-z0-9]+$/i, "").replace(/_?\((?:item|placed|equipped)\)$/i, ""));
     if (base !== norm(it.name)) it.img = wikiImgUrl(it.name);
   }
+  list.sort((p, q) => p.id - q.id);   // items added later are stored at the end of the file; show everything in ID order
   return list;
 }
 
@@ -529,7 +546,7 @@ async function loadItemDetails() {
       return {};
     }
     const data = await res.json();
-    
+
     const transformed = {};
     for (const [itemName, itemData] of Object.entries(data)) {
       transformed[itemName] = {
@@ -541,7 +558,7 @@ async function loadItemDetails() {
         tooltip: itemData.tooltip || ""
       };
     }
-    
+
     return transformed;
   } catch (e) {
     console.warn("Failed to load complete_list.json:", e);
@@ -557,13 +574,11 @@ async function loadNPCs() {
       return {};
     }
     const npcs = await res.json();
-    
+
     const npcByName = {};
     for (const npc of npcs) {
       npcByName[npc.Name] = npc;
     }
-    
-    console.log(`Loaded ${npcs.length} NPCs`);
     return npcByName;
   } catch (e) {
     console.warn("Failed to load npc.json:", e);
@@ -579,13 +594,11 @@ async function loadObjects() {
       return {};
     }
     const objects = await res.json();
-    
+
     const objByName = {};
     for (const obj of objects) {
       objByName[obj.name] = obj;
     }
-    
-    console.log(`Loaded ${objects.length} objects`);
     return objByName;
   } catch (e) {
     console.warn("Failed to load objects.json:", e);
@@ -610,15 +623,15 @@ async function loadStationImages() {
 function buildIndexes() {
   ITEM_BY_NAME = {};
   for (const it of ITEMS) ITEM_BY_NAME[it.name] = it;
-  
-  // Add special "Any" items that are used in recipes but don't exist as standalone items
+
+  // Add "Any ..." helper items that appear in recipes but are not standalone items
   const anyItems = [
     { name: "Any Wood", img: "https://terraria.wiki.gg/images/Any_Wood.gif?952c00", id: -1 },
     { name: "Any Iron Bar", img: "https://terraria.wiki.gg/images/Any_Iron_Bar.gif", id: -2 },
     { name: "Any Sand", img: "https://terraria.wiki.gg/images/Sand.gif?af5b00", id: -3 },
     { name: "Any Balloon", img: "https://terraria.wiki.gg/images/Any_Balloon.gif", id: -4 }
   ];
-  
+
   for (const anyItem of anyItems) {
     if (!ITEM_BY_NAME[anyItem.name]) {
       ITEM_BY_NAME[anyItem.name] = anyItem;
@@ -631,12 +644,12 @@ function buildIndexes() {
     for (const variant of (recipeVariants || [])) {
       for (const ing of (variant.ingredients || [])) {
         if (!USES_INDEX[ing.item]) USES_INDEX[ing.item] = [];
-        
+
         const alreadyExists = USES_INDEX[ing.item].some(use => use.output === outName);
-        
+
         if (!alreadyExists) {
-          USES_INDEX[ing.item].push({ 
-            output: outName, 
+          USES_INDEX[ing.item].push({
+            output: outName,
             station: variant.station,
             qty: variant.result_qty || 1
           });
@@ -646,7 +659,6 @@ function buildIndexes() {
   }
 }
 
-// FIXED: No info icon in grid cards
 function renderItems(list, append = false) {
   const el = document.getElementById("results");
   if (!append) el.innerHTML = "";
@@ -661,10 +673,11 @@ function renderItems(list, append = false) {
     card.className = "card";
 
     const img = document.createElement("img");
-    // Special handling for "Any" items - use animated cycling GIF
+    img.referrerPolicy = "no-referrer";   // must be set before src or the request leaks a referrer and gets blocked
+    // "Any" items use an animated cycling GIF
     if (item.name && (item.name.startsWith("Any ") || item.name === "Any Wood" || item.name === "Any Sand" || item.name === "Any Iron Bar" || item.name === "Any Balloon")) {
       img.src = item.img;
-      img.style.imageRendering = "auto"; // Smooth rendering for animated GIF
+      img.style.imageRendering = "auto"; // smooth rendering for the animated GIF
     } else {
       img.src = item.img;
       img.style.imageRendering = "pixelated";
@@ -702,26 +715,26 @@ function applyFilter() {
   const normalizedQuery = normalizeText(q);
 
   let filtered = ITEMS;
-  
+
   if (currentCategory !== "all") {
     filtered = filtered.filter(x => {
       const itemCat = detectCategory(x.name);
       if (itemCat !== currentCategory) return false;
-      
+
       // Apply subcategory filter if set
       if (currentSubcategory) {
         const itemSubcat = getItemSubcategory(x, currentCategory);
         if (itemSubcat !== currentSubcategory) return false;
       }
-      
+
       return true;
     });
   }
-  
+
   if (normalizedQuery) {
     filtered = filtered.filter(x => normalizeText(x.name).includes(normalizedQuery));
   }
-  
+
   FILTERED = filtered;
 
   visibleCount = PAGE_SIZE;
@@ -735,7 +748,7 @@ function applyFilter() {
 function loadMoreIfNeeded() {
   const container = document.getElementById("results");
   if (!container) return;
-  
+
   const nearBottom =
     container.scrollTop + container.clientHeight >=
     container.scrollHeight - 300;
@@ -770,25 +783,25 @@ function fillScreenIfNeeded() {
 
 let selectedItem = null;
 
-// FIXED: Added modal info button handler
 function openChoiceModal(item) {
   selectedItem = item;
 
   document.getElementById("modalTitle").textContent = item.name;
 
   const mImg = document.getElementById("modalImg");
+  mImg.referrerPolicy = "no-referrer";
   mImg.src = item.img;
   mImg.alt = item.name;
   mImg.referrerPolicy = "no-referrer";
-  
-  // Handle "Any" items with animated GIFs - use smooth rendering
+
+  // "Any" items are animated GIFs, so use smooth rendering
   if (item.name && (item.name.startsWith("Any ") || item.name === "Any Wood" || item.name === "Any Sand" || item.name === "Any Iron Bar" || item.name === "Any Balloon")) {
     mImg.style.imageRendering = "auto";
   } else {
     mImg.style.imageRendering = "pixelated";
   }
 
-  // Set up modal info button click handler
+  // Modal info button click handler
   const modalInfoBtn = document.getElementById("btnModalInfo");
   if (modalInfoBtn) {
     modalInfoBtn.onclick = (e) => {
@@ -856,11 +869,11 @@ function getUniqueNodeId(prefix) {
 function renderUsesTree(item) {
   const world = document.getElementById("treeWorld");
   world.innerHTML = "";
-  
+
   resetUsesTreeState();
-  
+
   USES_TREE_STATE.rootItem = item;
-  
+
   const viewport = document.getElementById("treeViewport");
   panX = viewport.clientWidth / 2 - NODE_W / 2;
   panY = viewport.clientHeight - 150;
@@ -868,7 +881,7 @@ function renderUsesTree(item) {
   setWorldTransform();
 
   ensureTreeSvg(world);
-  
+
   const rootNode = {
     id: getUniqueNodeId(`item_${item.name}`),
     type: 'item',
@@ -879,10 +892,10 @@ function renderUsesTree(item) {
     x: 0,
     y: 0
   };
-  
+
   USES_TREE_STATE.nodeData.set(rootNode.id, rootNode);
   USES_TREE_STATE.expandedNodes.add(rootNode.id);
-  
+
   buildUsesTreeChildren(rootNode);
   layoutUsesTree(rootNode);
   renderUsesTreeNodes(world);
@@ -890,16 +903,16 @@ function renderUsesTree(item) {
 
 function buildUsesTreeChildren(parentNode) {
   parentNode.children = [];
-  
+
   if (!USES_TREE_STATE.expandedNodes.has(parentNode.id)) {
     return;
   }
-  
+
   if (!parentNode.itemName) {
     console.warn("Node has no itemName:", parentNode);
     return;
   }
-  
+
   const ancestry = new Set();
   let current = parentNode;
   while (current) {
@@ -908,7 +921,7 @@ function buildUsesTreeChildren(parentNode) {
     }
     current = current.parent;
   }
-  
+
   const uses = USES_INDEX[parentNode.itemName] || [];
   const outputs = uses
     .filter(use => use.station !== "Shimmer")
@@ -918,15 +931,15 @@ function buildUsesTreeChildren(parentNode) {
       qty: use.qty,
       isCycle: ancestry.has(use.output)
     }));
-  
+
   if (outputs.length === 0) {
     return;
   }
-  
+
   if (outputs.length <= 30) {
     for (const output of outputs) {
       const childId = getUniqueNodeId(`item_${output.name}`);
-      
+
       const childNode = {
         id: childId,
         type: 'item',
@@ -939,10 +952,10 @@ function buildUsesTreeChildren(parentNode) {
         children: [],
         isCycle: output.isCycle
       };
-      
+
       USES_TREE_STATE.nodeData.set(childId, childNode);
       parentNode.children.push(childNode);
-      
+
       if (!output.isCycle && USES_TREE_STATE.expandedNodes.has(childId)) {
         buildUsesTreeChildren(childNode);
       }
@@ -955,7 +968,7 @@ function buildUsesTreeChildren(parentNode) {
 
 function createGroupNodes(outputs, parentNode) {
   const groups = [];
-  
+
   const ancestry = new Set();
   let current = parentNode;
   while (current) {
@@ -964,7 +977,7 @@ function createGroupNodes(outputs, parentNode) {
     }
     current = current.parent;
   }
-  
+
   const stationGroups = {};
   for (const output of outputs) {
     const station = output.station || "Hand";
@@ -973,7 +986,7 @@ function createGroupNodes(outputs, parentNode) {
     }
     stationGroups[station].push(output);
   }
-  
+
   for (const [station, items] of Object.entries(stationGroups)) {
     if (items.length >= 5) {
       const groupId = getUniqueNodeId(`group_${station}`);
@@ -988,10 +1001,10 @@ function createGroupNodes(outputs, parentNode) {
         children: [],
         pageSize: 24
       };
-      
+
       USES_TREE_STATE.nodeData.set(groupId, groupNode);
       groups.push(groupNode);
-      
+
       if (USES_TREE_STATE.expandedNodes.has(groupId)) {
         expandGroupNode(groupNode);
       }
@@ -1013,24 +1026,24 @@ function createGroupNodes(outputs, parentNode) {
         };
         USES_TREE_STATE.nodeData.set(itemId, itemNode);
         groups.push(itemNode);
-        
+
         if (!isCycle && USES_TREE_STATE.expandedNodes.has(itemId)) {
           buildUsesTreeChildren(itemNode);
         }
       }
     }
   }
-  
+
   if (groups.length > 20) {
     return createCategoryGroups(outputs, parentNode);
   }
-  
+
   return groups;
 }
 
 function createCategoryGroups(outputs, parentNode) {
   const categoryGroups = {};
-  
+
   for (const output of outputs) {
     const category = detectCategory(output.name);
     if (!categoryGroups[category]) {
@@ -1038,7 +1051,7 @@ function createCategoryGroups(outputs, parentNode) {
     }
     categoryGroups[category].push(output);
   }
-  
+
   const groups = [];
   const categoryNames = {
     weapon: "⚔️ Weapons",
@@ -1051,7 +1064,7 @@ function createCategoryGroups(outputs, parentNode) {
     ammo: "🎯 Ammo",
     block: "🧱 Blocks"
   };
-  
+
   for (const [category, items] of Object.entries(categoryGroups)) {
     const groupId = getUniqueNodeId(`group_${category}`);
     const groupNode = {
@@ -1065,15 +1078,15 @@ function createCategoryGroups(outputs, parentNode) {
       children: [],
       pageSize: 24
     };
-    
+
     USES_TREE_STATE.nodeData.set(groupId, groupNode);
     groups.push(groupNode);
-    
+
     if (USES_TREE_STATE.expandedNodes.has(groupId)) {
       expandGroupNode(groupNode);
     }
   }
-  
+
   return groups;
 }
 
@@ -1081,7 +1094,7 @@ function expandGroupNode(groupNode) {
   if (!USES_TREE_STATE.loadedPages[groupNode.id]) {
     USES_TREE_STATE.loadedPages[groupNode.id] = new Set([0]);
   }
-  
+
   const ancestry = new Set();
   let current = groupNode.parent;
   while (current) {
@@ -1090,22 +1103,22 @@ function expandGroupNode(groupNode) {
     }
     current = current.parent;
   }
-  
+
   const loadedPages = USES_TREE_STATE.loadedPages[groupNode.id];
   groupNode.children = [];
-  
+
   const totalPages = Math.ceil(groupNode.items.length / groupNode.pageSize);
-  
+
   for (const pageNum of loadedPages) {
     const startIdx = pageNum * groupNode.pageSize;
     const endIdx = Math.min(startIdx + groupNode.pageSize, groupNode.items.length);
-    
+
     for (let i = startIdx; i < endIdx; i++) {
       const item = groupNode.items[i];
-      
+
       const isCycle = ancestry.has(item.name);
       const itemId = getUniqueNodeId(`item_${item.name}`);
-      
+
       const itemNode = {
         id: itemId,
         type: 'item',
@@ -1118,16 +1131,16 @@ function expandGroupNode(groupNode) {
         children: [],
         isCycle: isCycle
       };
-      
+
       USES_TREE_STATE.nodeData.set(itemId, itemNode);
       groupNode.children.push(itemNode);
-      
+
       if (!isCycle && USES_TREE_STATE.expandedNodes.has(itemId)) {
         buildUsesTreeChildren(itemNode);
       }
     }
   }
-  
+
   const maxLoadedPage = Math.max(...loadedPages);
   if (maxLoadedPage < totalPages - 1) {
     const remaining = groupNode.items.length - (maxLoadedPage + 1) * groupNode.pageSize;
@@ -1142,7 +1155,7 @@ function expandGroupNode(groupNode) {
       parent: groupNode,
       children: []
     };
-    
+
     USES_TREE_STATE.nodeData.set(loadMoreId, loadMoreNode);
     groupNode.children.push(loadMoreNode);
   }
@@ -1150,9 +1163,9 @@ function expandGroupNode(groupNode) {
 
 function layoutUsesTree(rootNode) {
   assignDepths(rootNode, 0);
-  
+
   const totalWidth = assignXPositions(rootNode, 0);
-  
+
   const centerOffset = -(totalWidth / 2);
   shiftTreeX(rootNode, centerOffset);
 }
@@ -1181,43 +1194,43 @@ function assignXPositions(node, offset = 0) {
     node.width = 1;
     return 1;
   }
-  
+
   let totalWidth = 0;
   for (const child of node.children) {
     const childWidth = assignXPositions(child, offset + totalWidth);
     totalWidth += childWidth;
   }
-  
+
   const firstChild = node.children[0];
   const lastChild = node.children[node.children.length - 1];
   node.x = (firstChild.x + lastChild.x) / 2;
   node.width = totalWidth;
-  
+
   return totalWidth;
 }
 
 function renderUsesTreeNodes(world) {
   const allNodes = Array.from(USES_TREE_STATE.nodeData.values());
-  
+
   const X_SPACING = 210;
   const Y_SPACING = 100;
-  
+
   let maxDepth = 0;
   for (const node of allNodes) {
     if (node.depth > maxDepth) maxDepth = node.depth;
   }
-  
+
   for (const node of allNodes) {
     node.pixelX = node.x * X_SPACING;
     node.pixelY = -(node.depth * Y_SPACING);
   }
-  
+
   for (const node of allNodes) {
     if (node.parent && node.parent.children && node.parent.children.includes(node)) {
       drawUsesTreeEdge(node.parent, node);
     }
   }
-  
+
   for (const node of allNodes) {
     drawUsesTreeNode(world, node);
   }
@@ -1225,14 +1238,14 @@ function renderUsesTreeNodes(world) {
 
 function drawUsesTreeEdge(parent, child) {
   if (!TREE_SVG) return;
-  
+
   const x1 = parent.pixelX + NODE_W / 2;
   const y1 = parent.pixelY;
   const x2 = child.pixelX + NODE_W / 2;
   const y2 = child.pixelY + NODE_H;
-  
+
   const midY = (y1 + y2) / 2;
-  
+
   const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
   line1.setAttribute("x1", x1);
   line1.setAttribute("y1", y1);
@@ -1241,7 +1254,7 @@ function drawUsesTreeEdge(parent, child) {
   line1.setAttribute("stroke", "#999");
   line1.setAttribute("stroke-width", "2");
   TREE_SVG.appendChild(line1);
-  
+
   const line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
   line2.setAttribute("x1", x1);
   line2.setAttribute("y1", midY);
@@ -1250,7 +1263,7 @@ function drawUsesTreeEdge(parent, child) {
   line2.setAttribute("stroke", "#999");
   line2.setAttribute("stroke-width", "2");
   TREE_SVG.appendChild(line2);
-  
+
   const line3 = document.createElementNS("http://www.w3.org/2000/svg", "line");
   line3.setAttribute("x1", x2);
   line3.setAttribute("y1", midY);
@@ -1268,20 +1281,20 @@ function drawUsesTreeNode(world, node) {
   d.style.top = `${node.pixelY}px`;
   d.dataset.nodeId = node.id;
   d.title = node.name;
-  
+
   if (node.type === 'group') {
     d.classList.add("treeGroup");
-    
+
     const icon = document.createElement("span");
     icon.textContent = USES_TREE_STATE.expandedNodes.has(node.id) ? "📂" : "📁";
     icon.style.fontSize = "24px";
-    
+
     const text = document.createElement("div");
     text.innerHTML = `
       <div style="font-weight:800">${node.name}</div>
       <div class="treeSub">${node.items.length} items</div>
     `;
-    
+
     d.appendChild(icon);
     d.appendChild(text);
 
@@ -1292,32 +1305,33 @@ function drawUsesTreeNode(world, node) {
     gIcon.textContent = gOpen ? "\u2212" : "+";
     d.appendChild(gIcon);
     d.title = gOpen ? "Click to close" : "Click to open";
-    
+
     d.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleGroupNode(node.id);
     });
   } else if (node.type === 'loadmore') {
     d.classList.add("treeLoadMore");
-    
+
     const text = document.createElement("div");
     text.textContent = node.name;
     text.style.fontWeight = "600";
     d.appendChild(text);
-    
+
     d.addEventListener("click", (e) => {
       e.stopPropagation();
       loadMoreItems(node);
     });
   } else {
     const itemObj = ITEM_BY_NAME[node.itemName] || { img: "" };
-    
+
     const img = document.createElement("img");
-    // Special handling for "Any" items - use animated cycling GIF  
+    img.referrerPolicy = "no-referrer";
+    // "Any" items use an animated cycling GIF
     if (node.name && (node.name.startsWith("Any ") || node.name === "Any Wood" || node.name === "Any Sand" || node.name === "Any Iron Bar" || node.name === "Any Balloon")) {
       const anyItem = ITEM_BY_NAME[node.name];
       img.src = anyItem?.img || "";
-      img.style.imageRendering = "auto"; // Smooth rendering for animated GIF
+      img.style.imageRendering = "auto"; // smooth rendering for the animated GIF
     } else {
       img.src = itemObj.img || "";
       img.style.imageRendering = "pixelated";
@@ -1326,15 +1340,15 @@ function drawUsesTreeNode(world, node) {
     img.referrerPolicy = "no-referrer";
     img.style.width = "40px";
     img.style.height = "40px";
-    
+
     const text = document.createElement("div");
     const displayName = node.qty ? `${node.name} x${node.qty}` : node.name;
-    
+
     let stationHTML = "";
     if (node.station) {
       // First check STATION_IMAGES for direct match
       let stationImgSrc = null;
-      
+
       // Handle Demon Altar / Crimson Altar
       if (node.station.includes("Demon Altar") || node.station.includes("Crimson Altar")) {
         const parts = node.station.split('/').map(s => s.trim());
@@ -1342,7 +1356,7 @@ function drawUsesTreeNode(world, node) {
       } else {
         stationImgSrc = STATION_IMAGES[node.station] || null;
       }
-      
+
       // If not in STATION_IMAGES, try to find as item
       if (!stationImgSrc) {
         const stationToItemMap = {
@@ -1351,7 +1365,7 @@ function drawUsesTreeNode(world, node) {
         };
         const itemNameForStation = stationToItemMap[node.station] || node.station;
         let stationItem = ITEM_BY_NAME[itemNameForStation];
-        
+
         // If not found, try to extract the main station name
         if (!stationItem && node.station.includes('/')) {
           const parts = node.station.split('/').map(s => s.trim());
@@ -1360,12 +1374,12 @@ function drawUsesTreeNode(world, node) {
             if (stationItem) break;
           }
         }
-        
+
         if (stationItem && stationItem.img) {
           stationImgSrc = stationItem.img;
         }
       }
-      
+
       if (stationImgSrc) {
         stationHTML = `<div style="font-size:11px;opacity:.6;display:flex;align-items:center;gap:4px;">
           <img src="${stationImgSrc}" referrerpolicy="no-referrer" style="width:14px;height:14px;image-rendering:pixelated;" onerror="this.style.display='none'" />
@@ -1377,26 +1391,26 @@ function drawUsesTreeNode(world, node) {
         : `<div style="font-size:11px;opacity:.6">📍 ${node.station}</div>`;
       }
     }
-    
+
     text.innerHTML = `
       <div style="font-weight:800">${displayName}</div>
       ${stationHTML}
     `;
-    
+
     d.appendChild(img);
     d.appendChild(text);
-    
+
     addInfoIconToNode(d, node.itemName);
-    
+
     if (!node.isCycle) {
       const uses = USES_INDEX[node.itemName] || [];
       const actualUses = uses.filter(use => use.station !== "Shimmer");
-      
+
       if (actualUses.length > 0) {
         d.style.cursor = "pointer";
         d.style.borderColor = USES_TREE_STATE.expandedNodes.has(node.id) ? "#667eea" : "#ddd";
         d.style.borderWidth = "2px";
-        
+
         const expandIcon = document.createElement("div");
         expandIcon.textContent = USES_TREE_STATE.expandedNodes.has(node.id) ? "−" : "+";
         expandIcon.style.position = "absolute";
@@ -1406,7 +1420,7 @@ function drawUsesTreeNode(world, node) {
         expandIcon.style.fontWeight = "bold";
         expandIcon.style.color = "#667eea";
         d.appendChild(expandIcon);
-        
+
         d.addEventListener("click", (e) => {
           e.stopPropagation();
           toggleItemNode(node.id);
@@ -1417,14 +1431,14 @@ function drawUsesTreeNode(world, node) {
       d.style.borderColor = "#999";
     }
   }
-  
+
   world.appendChild(d);
 }
 
 function toggleGroupNode(nodeId) {
   const node = USES_TREE_STATE.nodeData.get(nodeId);
   if (!node) return;
-  
+
   if (USES_TREE_STATE.expandedNodes.has(nodeId)) {
     USES_TREE_STATE.expandedNodes.delete(nodeId);
   } else {
@@ -1433,14 +1447,14 @@ function toggleGroupNode(nodeId) {
       USES_TREE_STATE.loadedPages[nodeId] = new Set([0]);
     }
   }
-  
+
   rebuildAndRerenderUsesTree();
 }
 
 function toggleItemNode(nodeId) {
   const node = USES_TREE_STATE.nodeData.get(nodeId);
   if (!node) return;
-  
+
   if (USES_TREE_STATE.expandedNodes.has(nodeId)) {
     USES_TREE_STATE.expandedNodes.delete(nodeId);
     if (node.depth === 0) USES_TREE_STATE.rootCollapsed = true;   // the top item can be closed too
@@ -1448,19 +1462,19 @@ function toggleItemNode(nodeId) {
     USES_TREE_STATE.expandedNodes.add(nodeId);
     if (node.depth === 0) USES_TREE_STATE.rootCollapsed = false;
   }
-  
+
   rebuildAndRerenderUsesTree();
 }
 
 function loadMoreItems(loadMoreNode) {
   const groupNode = loadMoreNode.parentGroup;
-  
+
   if (!USES_TREE_STATE.loadedPages[groupNode.id]) {
     USES_TREE_STATE.loadedPages[groupNode.id] = new Set();
   }
-  
+
   USES_TREE_STATE.loadedPages[groupNode.id].add(loadMoreNode.nextPage);
-  
+
   rebuildAndRerenderUsesTree();
 }
 
@@ -1469,16 +1483,16 @@ function rebuildAndRerenderUsesTree() {
     console.error("No root item stored!");
     return;
   }
-  
+
   const item = USES_TREE_STATE.rootItem;
-  
+
   const expandedNodes = new Set(USES_TREE_STATE.expandedNodes);
   const loadedPages = { ...USES_TREE_STATE.loadedPages };
-  
+
   USES_TREE_STATE.nodeData.clear();
-  
+
   USES_TREE_STATE.nodeCounter = 0;
-  
+
   const newRootNode = {
     id: getUniqueNodeId(`item_${item.name}`),
     type: 'item',
@@ -1489,17 +1503,17 @@ function rebuildAndRerenderUsesTree() {
     x: 0,
     y: 0
   };
-  
+
   USES_TREE_STATE.nodeData.set(newRootNode.id, newRootNode);
   USES_TREE_STATE.expandedNodes = expandedNodes;
   USES_TREE_STATE.loadedPages = loadedPages;
-  
+
   if (!USES_TREE_STATE.rootCollapsed) USES_TREE_STATE.expandedNodes.add(newRootNode.id);
   else USES_TREE_STATE.expandedNodes.delete(newRootNode.id);
-  
+
   buildUsesTreeChildren(newRootNode);
   layoutUsesTree(newRootNode);
-  
+
   const world = document.getElementById("treeWorld");
   world.innerHTML = "";
   ensureTreeSvg(world);
@@ -1640,16 +1654,16 @@ function renderRealTree(item, mode) {
 
   if (mode === "craft") {
     CRAFT_ROOT_ITEM = item;
-    
+
     CRAFT_EXPANDED.clear();
     autoExpandAllCraftNodes(item.name, new Set(), true);
   }
 
   const viewport = document.getElementById("treeViewport");
   panX = viewport.clientWidth / 2 - NODE_W / 2;
-  
+
   panY = mode === "uses" ? viewport.clientHeight - 150 : 80;
-  
+
   zoomLevel = mode === "uses" ? 0.5 : 1;
   setWorldTransform();
 
@@ -1657,7 +1671,7 @@ function renderRealTree(item, mode) {
 
   const startX = 0;
   const startY = 0;
-  
+
   let MAX_DEPTH = 10;
   if (mode === "uses") {
     const uses = USES_INDEX[item.name] || [];
@@ -1669,7 +1683,7 @@ function renderRealTree(item, mode) {
   }
 
   renderTreeRecursive(item.name, mode, startX, startY, MAX_DEPTH);
-  
+
   // Check if tree contains Crimson/Corruption alternatives and show legend
   checkAndShowAlternativesLegend(item.name, mode);
 }
@@ -1677,33 +1691,33 @@ function renderRealTree(item, mode) {
 function checkAndShowAlternativesLegend(itemName, mode) {
   const legend = document.getElementById("treeLegend");
   if (!legend) return;
-  
-  // Check if the tree contains recipes with BOTH Crimson AND Corruption alternatives
+
+  // Check whether the tree contains recipes with both Crimson and Corruption alternatives
   let showLegend = false;
-  
+
   function checkRecipeForBothAlternatives(name, depth = 0) {
     if (depth > 10 || showLegend) return; // Stop if found or too deep
-    
+
     if (mode === "craft" && RECIPES[name]) {
       const recipeVariants = RECIPES[name];
       if (recipeVariants && recipeVariants.length > 0) {
         const ingredients = recipeVariants[0].ingredients || [];
         const ingredientNames = ingredients.map(ing => ing.item);
-        
+
         let hasCrimson = false;
         let hasCorruption = false;
-        
+
         for (const ingName of ingredientNames) {
           if (CRIMSON_ITEMS.has(ingName)) hasCrimson = true;
           if (CORRUPTION_ITEMS.has(ingName)) hasCorruption = true;
         }
-        
-        // If this recipe has BOTH, show legend
+
+        // If this recipe has both, show the legend
         if (hasCrimson && hasCorruption) {
           showLegend = true;
           return;
         }
-        
+
         // Check children
         for (const ing of ingredients) {
           checkRecipeForBothAlternatives(ing.item, depth + 1);
@@ -1712,10 +1726,10 @@ function checkAndShowAlternativesLegend(itemName, mode) {
       }
     }
   }
-  
+
   checkRecipeForBothAlternatives(itemName);
-  
-  // Show legend only if there's a recipe with BOTH alternatives (pick one scenario)
+
+  // Show the legend only if a recipe has both alternatives (pick one)
   if (showLegend) {
     legend.style.display = "flex";
   } else {
@@ -1723,21 +1737,29 @@ function checkAndShowAlternativesLegend(itemName, mode) {
   }
 }
 
+// "Platform -> raw material" un-crafting (e.g. Mushroom Platform -> Glowing Mushroom) is not a real way to make the item
+function isPlatformReverse(r, out) {
+  const ing = r && r.ingredients;
+  if (!ing || ing.length !== 1) return false;
+  return ing[0].item.includes("Platform") && !String(out).includes("Platform");
+}
+
 function autoExpandAllCraftNodes(itemName, seen, isRoot = false) {
   if (seen.has(itemName)) return;
   seen.add(itemName);
-  
+
   CRAFT_EXPANDED.add(itemName);
-  
+
   const recipeVariants = RECIPES[itemName];
   if (!recipeVariants || !recipeVariants.length) return;
-  
+
   const conversionStations = ["Shimmer", "Chlorophyte Extractinator", "Extractinator"];
-  
+
   let properRecipes;
-  // Special case: for root ores, ONLY use conversion recipes
+  // Special case: for root ores, only use conversion recipes
   if (isRoot && itemName.includes("Ore") && !itemName.includes("Meteorite")) {
     properRecipes = recipeVariants.filter(r => {
+        if (isPlatformReverse(r, itemName)) return false;
       return conversionStations.some(station => r.station && r.station.includes(station));
     });
   }
@@ -1749,13 +1771,14 @@ function autoExpandAllCraftNodes(itemName, seen, isRoot = false) {
     } else {
       // If no Furnace recipe, filter out conversion stations
       properRecipes = recipeVariants.filter(r => {
+        if (isPlatformReverse(r, itemName)) return false;
         if (conversionStations.some(station => r.station && r.station.includes(station))) {
           return false;
         }
         if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
           const ingredient = r.ingredients[0].item;
           const output = itemName;
-          const isWallConversion = 
+          const isWallConversion =
             (ingredient.includes("Wall") && !output.includes("Wall")) ||
             (!ingredient.includes("Wall") && output.includes("Wall"));
           if (isWallConversion) {
@@ -1768,32 +1791,33 @@ function autoExpandAllCraftNodes(itemName, seen, isRoot = false) {
   } else {
     // For non-root or non-ores/bars, filter out conversion stations
     properRecipes = recipeVariants.filter(r => {
+        if (isPlatformReverse(r, itemName)) return false;
       if (conversionStations.some(station => r.station && r.station.includes(station))) {
         return false;
       }
-      
+
       if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
         const ingredient = r.ingredients[0].item;
         const output = itemName;
-        
-        const isWallConversion = 
+
+        const isWallConversion =
           (ingredient.includes("Wall") && !output.includes("Wall")) ||
           (!ingredient.includes("Wall") && output.includes("Wall"));
-        
+
         if (isWallConversion) {
           return false;
         }
       }
-      
+
       return true;
     });
   }
-  
+
   if (!properRecipes.length) return;
-  
+
   const firstRecipe = properRecipes[0];
   const ingredients = firstRecipe.ingredients || [];
-  
+
   for (const ing of ingredients) {
     autoExpandAllCraftNodes(ing.item, seen, false);
   }
@@ -1818,30 +1842,30 @@ function drawSvgLine(x1, y1, x2, y2, color = null, itemName = null, parentItemNa
   l.setAttribute("y1", y1);
   l.setAttribute("x2", x2);
   l.setAttribute("y2", y2);
-  
-  // Use colored lines for Crimson/Corruption alternatives ONLY when the parent recipe has BOTH
+
+  // Use colored lines for Crimson/Corruption alternatives only when the parent recipe has both
   let lineColor = "#333";
   let lineWidth = "3";
-  
+
   if (color) {
     lineColor = color;
     lineWidth = "4";
   } else if (itemName && parentItemName) {
-    // Check if parent recipe contains BOTH Crimson and Corruption alternatives
+    // Check whether the parent recipe contains both Crimson and Corruption alternatives
     const parentRecipes = RECIPES[parentItemName];
     if (parentRecipes && parentRecipes.length > 0) {
       const ingredients = parentRecipes[0].ingredients || [];
       const ingredientNames = ingredients.map(ing => ing.item);
-      
+
       let hasCrimson = false;
       let hasCorruption = false;
-      
+
       for (const ingName of ingredientNames) {
         if (CRIMSON_ITEMS.has(ingName)) hasCrimson = true;
         if (CORRUPTION_ITEMS.has(ingName)) hasCorruption = true;
       }
-      
-      // Only color if parent has BOTH alternatives (meaning pick one)
+
+      // Only color if the parent has both alternatives (meaning pick one)
       if (hasCrimson && hasCorruption) {
         const altType = getAlternativeType(itemName);
         if (altType === "crimson") {
@@ -1854,7 +1878,7 @@ function drawSvgLine(x1, y1, x2, y2, color = null, itemName = null, parentItemNa
       }
     }
   }
-  
+
   l.setAttribute("stroke", lineColor);
   l.setAttribute("stroke-width", lineWidth);
   TREE_SVG.appendChild(l);
@@ -1871,11 +1895,12 @@ function makeTreeNode(item, label, sub, x, y, station) {
   d.title = label;
 
   const img = document.createElement("img");
-  // Special handling for "Any" items - use animated cycling GIF
+  img.referrerPolicy = "no-referrer";
+  // "Any" items use an animated cycling GIF
   if (label && (label.startsWith("Any ") || label === "Any Wood" || label === "Any Sand" || label === "Any Iron Bar" || label === "Any Balloon")) {
     const anyItem = ITEM_BY_NAME[label.replace(/ x\d+$/, '')];
     img.src = anyItem?.img || "";
-    img.style.imageRendering = "auto"; // Smooth rendering for animated GIF
+    img.style.imageRendering = "auto"; // smooth rendering for the animated GIF
   } else {
     img.src = item?.img || "";
     img.style.imageRendering = "pixelated";
@@ -1884,12 +1909,12 @@ function makeTreeNode(item, label, sub, x, y, station) {
   img.referrerPolicy = "no-referrer";
 
   const t = document.createElement("div");
-  
+
   let stationHTML = "";
   if (station) {
     // First check STATION_IMAGES for direct match
     let stationImgSrc = null;
-    
+
     // Handle Demon Altar / Crimson Altar
     if (station.includes("Demon Altar") || station.includes("Crimson Altar")) {
       const parts = station.split('/').map(s => s.trim());
@@ -1897,7 +1922,7 @@ function makeTreeNode(item, label, sub, x, y, station) {
     } else {
       stationImgSrc = STATION_IMAGES[station] || null;
     }
-    
+
     // If not in STATION_IMAGES, try to find as item
     if (!stationImgSrc) {
       const stationToItemMap = {
@@ -1906,7 +1931,7 @@ function makeTreeNode(item, label, sub, x, y, station) {
       };
       const itemNameForStation = stationToItemMap[station] || station;
       let stationItem = ITEM_BY_NAME[itemNameForStation];
-      
+
       // If not found, try to extract the main station name
       if (!stationItem && station.includes('/')) {
         const parts = station.split('/').map(s => s.trim());
@@ -1915,24 +1940,24 @@ function makeTreeNode(item, label, sub, x, y, station) {
           if (stationItem) break;
         }
       }
-      
+
       if (stationItem && stationItem.img) {
         stationImgSrc = stationItem.img;
       }
     }
-    
+
     if (stationImgSrc) {
       stationHTML = `<div style="font-size:11px;opacity:.6;margin-top:2px;display:flex;align-items:center;gap:4px;">
         <img src="${stationImgSrc}" referrerpolicy="no-referrer" style="width:14px;height:14px;image-rendering:pixelated;" onerror="this.style.display='none'" />
         <span>${station}</span>
       </div>`;
     } else {
-      stationHTML = station === "By Hand" 
+      stationHTML = station === "By Hand"
         ? `<div style="font-size:11px;opacity:.6;margin-top:2px">✋ Hand</div>`
         : `<div style="font-size:11px;opacity:.6;margin-top:2px">📍 ${station}</div>`;
     }
   }
-  
+
   t.innerHTML = `
     <div style="font-weight:800">${label}</div>
     ${stationHTML}
@@ -1941,46 +1966,47 @@ function makeTreeNode(item, label, sub, x, y, station) {
 
   d.appendChild(img);
   d.appendChild(t);
-  
+
   const itemName = label.replace(/ x\d+$/, '');
   addInfoIconToNode(d, itemName);
-  
+
   if (currentMode === "craft") {
     const itemName = label.replace(/ x\d+$/, '');
-    
+
     const recipeVariants = RECIPES[itemName];
     let hasProperRecipe = false;
-    
+
     if (recipeVariants && recipeVariants.length > 0) {
       const conversionStations = ["Shimmer", "Chlorophyte Extractinator", "Extractinator"];
-      
+
       const properRecipes = recipeVariants.filter(r => {
+        if (isPlatformReverse(r, itemName)) return false;
         if (conversionStations.some(station => r.station && r.station.includes(station))) {
           return false;
         }
-        
+
         if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
           const ingredient = r.ingredients[0].item;
           const output = itemName;
-          
-          const isWallConversion = 
+
+          const isWallConversion =
             (ingredient.includes("Wall") && !output.includes("Wall")) ||
             (!ingredient.includes("Wall") && output.includes("Wall"));
-          
+
           if (isWallConversion) {
             return false;
           }
         }
-        
+
         return true;
       });
-      
+
       hasProperRecipe = properRecipes.length > 0;
     }
-    
+
     if (hasProperRecipe) {
       d.style.cursor = "pointer";
-      
+
       const expandIcon = document.createElement("div");
       const isExpanded = CRAFT_EXPANDED.has(itemName);
       expandIcon.textContent = isExpanded ? "−" : "+";
@@ -1991,14 +2017,14 @@ function makeTreeNode(item, label, sub, x, y, station) {
       expandIcon.style.fontWeight = "bold";
       expandIcon.style.color = "#667eea";
       d.appendChild(expandIcon);
-      
+
       d.addEventListener("click", (e) => {
         e.stopPropagation();
         toggleCraftNode(itemName);
       });
     }
   }
-  
+
   world.appendChild(d);
 
   return { x, y, el: d };
@@ -2010,22 +2036,22 @@ function toggleCraftNode(itemName) {
   } else {
     CRAFT_EXPANDED.add(itemName);
   }
-  
+
   const savedPanX = panX;
   const savedPanY = panY;
   const savedZoom = zoomLevel;
-  
+
   if (CRAFT_ROOT_ITEM) {
     const world = document.getElementById("treeWorld");
     world.innerHTML = "";
-    
+
     currentMode = "craft";
-    
+
     panX = savedPanX;
     panY = savedPanY;
     zoomLevel = savedZoom;
     setWorldTransform();
-    
+
     ensureTreeSvg(world);
     renderTreeRecursive(CRAFT_ROOT_ITEM.name, "craft", 0, 0, 10);
   }
@@ -2035,24 +2061,25 @@ function getChildren(name, mode) {
   if (mode === "craft") {
     const recipeVariants = RECIPES[name];
     if (!recipeVariants || !recipeVariants.length) return [];
-    
+
     const isRootItem = (CRAFT_ROOT_ITEM && CRAFT_ROOT_ITEM.name === name);
-    
+
     // Define filters
     const conversionStations = ["Shimmer", "Chlorophyte Extractinator", "Extractinator"];
     const weirdStations = ["Bone Welder", "Flesh Cloning Vat", "Glass Kiln", "Living Loom"];
-    
+
     // Check if this is an ore or bar that has ONLY conversion recipes
-    const isConversionOnlyItem = name.includes("Ore") || (name.includes("Bar") && recipeVariants.every(r => 
+    const isConversionOnlyItem = name.includes("Ore") || (name.includes("Bar") && recipeVariants.every(r =>
       conversionStations.some(s => r.station && r.station.includes(s)) || r.station === "Furnace"
     ));
-    
+
     let properRecipes;
     if (isRootItem) {
-      // Special case: for ores at root level, ONLY show conversion recipes
+      // Special case: for ores at root level, only show conversion recipes
       if (name.includes("Ore") && !name.includes("Meteorite")) {
         properRecipes = recipeVariants.filter(r => {
-          // ONLY include conversion station recipes for ores
+        if (isPlatformReverse(r, name)) return false;
+          // Only include conversion station recipes for ores
           return conversionStations.some(s => r.station && r.station.includes(s));
         });
       }
@@ -2065,6 +2092,7 @@ function getChildren(name, mode) {
         } else {
           // If no Furnace recipe, exclude conversion stations
           properRecipes = recipeVariants.filter(r => {
+        if (isPlatformReverse(r, name)) return false;
             if (conversionStations.some(s => r.station && r.station.includes(s))) {
               return false;
             }
@@ -2072,7 +2100,7 @@ function getChildren(name, mode) {
             if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
               const ingredient = r.ingredients[0].item;
               const output = name;
-              const isWallConversion = 
+              const isWallConversion =
                 (ingredient.includes("Wall") && !output.includes("Wall")) ||
                 (!ingredient.includes("Wall") && output.includes("Wall"));
               if (isWallConversion) return false;
@@ -2086,10 +2114,11 @@ function getChildren(name, mode) {
           });
         }
       } else {
-        // Root: only filter REVERSE wall conversions and reverse crafting
+        // Root: only filter reverse wall conversions and reverse crafting
         properRecipes = recipeVariants.filter(r => {
-          // Filter REVERSE wall conversions (Wall → Block, not Block → Wall)
-          // Block → Wall is normal crafting and should be allowed!
+        if (isPlatformReverse(r, name)) return false;
+          // Filter reverse wall conversions (Wall → Block, not Block → Wall)
+          // Block → Wall is normal crafting and is allowed
           if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
             const ingredient = r.ingredients[0].item;
             const output = name;
@@ -2097,21 +2126,22 @@ function getChildren(name, mode) {
             const isReverseWallConversion = (ingredient.includes("Wall") && !output.includes("Wall"));
             if (isReverseWallConversion) return false;
           }
-          
+
           // Filter reverse crafting (e.g., Glass Platform -> Glass)
           if (r.station === "By Hand" && r.ingredients && r.ingredients.length === 1) {
             const ingredient = r.ingredients[0].item;
             // Check if ingredient is derived from output (reverse recipe)
             if (ingredient.includes(name) && ingredient !== name) return false;
           }
-          
+
           return true;
         });
       }
     } else {
-      // Ingredient: filter extractinator, weird stations, and REVERSE wall recipes
+      // Ingredient: filter extractinator, uncommon stations and reverse wall recipes
       properRecipes = recipeVariants.filter(r => {
-        // Filter REVERSE wall conversions only (Wall → Block, not Block → Wall)
+        if (isPlatformReverse(r, name)) return false;
+        // Filter reverse wall conversions only (Wall → Block, not Block → Wall)
         if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
           const ingredient = r.ingredients[0].item;
           const output = name;
@@ -2119,44 +2149,44 @@ function getChildren(name, mode) {
           const isReverseWallConversion = (ingredient.includes("Wall") && !output.includes("Wall"));
           if (isReverseWallConversion) return false;
         }
-        
+
         // Filter conversion stations
         if (conversionStations.some(s => r.station && r.station.includes(s))) return false;
-        
-        // Filter weird stations
+
+        // Filter uncommon stations
         if (weirdStations.some(s => r.station && r.station.includes(s))) return false;
-        
+
         // Filter reverse crafting
         if (r.station === "By Hand" && r.ingredients && r.ingredients.length === 1) {
           const ingredient = r.ingredients[0].item;
           if (ingredient.includes(name) && ingredient !== name) return false;
         }
-        
+
         // Also filter Bone Welder reverse recipes
         if (r.station === "Bone Welder" && r.ingredients && r.ingredients.length === 1) {
           const ingredient = r.ingredients[0].item;
           if (ingredient.includes(name) && ingredient !== name) return false;
         }
-        
+
         return true;
       });
     }
-    
+
     if (!properRecipes.length) return [];
-    
+
     const firstRecipe = properRecipes[0];
     const ingredients = firstRecipe.ingredients || [];
-    
+
     const seen = new Set();
     const unique = [];
-    
+
     for (const ing of ingredients) {
       if (!seen.has(ing.item)) {
         seen.add(ing.item);
         unique.push(ing);
       }
     }
-    
+
     return unique.map(ing => ({
       name: ing.item,
       qty: ing.qty,
@@ -2170,18 +2200,18 @@ function getChildren(name, mode) {
         name: use.output,
         qty: use.qty
       }));
-    
+
     if (uses.length > 20) {
       return groupItemsByCategory(uses);
     }
-    
+
     return uses.map(u => ({ ...u, isGroup: false }));
   }
 }
 
 function groupItemsByCategory(items) {
   const categoryGroups = {};
-  
+
   for (const item of items) {
     const category = detectCategory(item.name);
     if (!categoryGroups[category]) {
@@ -2189,11 +2219,11 @@ function groupItemsByCategory(items) {
     }
     categoryGroups[category].push(item);
   }
-  
+
   const groups = [];
   const categoryNames = {
     weapon: "⚔️ Weapons",
-    tool: "🔨 Tools", 
+    tool: "🔨 Tools",
     armor: "🛡️ Armor",
     potion: "🧪 Potions",
     material: "💎 Materials",
@@ -2202,7 +2232,7 @@ function groupItemsByCategory(items) {
     ammo: "🎯 Ammo",
     block: "🧱 Blocks"
   };
-  
+
   for (const [category, groupItems] of Object.entries(categoryGroups)) {
     groups.push({
       name: `${categoryNames[category] || category}`,
@@ -2212,7 +2242,7 @@ function groupItemsByCategory(items) {
       qty: groupItems.length
     });
   }
-  
+
   return groups;
 }
 
@@ -2243,16 +2273,17 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
   seen[key] = true;
 
   const itemObj = ITEM_BY_NAME[name] || { img: "" };
-  
+
   let station = null;
   if (mode === "craft" && RECIPES[name]) {
     const conversionStations = ["Shimmer", "Chlorophyte Extractinator", "Extractinator"];
     const isRootItem = (CRAFT_ROOT_ITEM && CRAFT_ROOT_ITEM.name === name);
-    
+
     let properRecipes;
     // Special case: for root ores, show conversion station recipes
     if (isRootItem && name.includes("Ore") && !name.includes("Meteorite")) {
       properRecipes = RECIPES[name].filter(r => {
+        if (isPlatformReverse(r, name)) return false;
         return conversionStations.some(s => r.station && r.station.includes(s));
       });
     }
@@ -2264,6 +2295,7 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
       } else {
         // For non-root items or non-ores/bars, filter out conversion stations
         properRecipes = RECIPES[name].filter(r => {
+        if (isPlatformReverse(r, name)) return false;
           if (conversionStations.some(s => r.station && r.station.includes(s))) {
             return false;
           }
@@ -2271,15 +2303,16 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
         });
       }
     } else {
-      // For non-root items (ingredients), filter out conversion stations AND REVERSE wall conversions
+      // For non-root items (ingredients), filter out conversion stations and reverse wall conversions
       properRecipes = RECIPES[name].filter(r => {
+        if (isPlatformReverse(r, name)) return false;
         // Filter conversion stations
         if (conversionStations.some(s => r.station && r.station.includes(s))) {
           return false;
         }
-        
-        // Filter REVERSE wall conversions only (Wall → Block, e.g., Obsidian Wall -> Obsidian)
-        // Block → Wall is normal crafting and should be allowed!
+
+        // Filter reverse wall conversions only (Wall → Block, e.g., Obsidian Wall -> Obsidian)
+        // Block → Wall is normal crafting and is allowed
         if (r.station && r.station.includes("Work Bench") && r.ingredients && r.ingredients.length === 1) {
           const ingredient = r.ingredients[0].item;
           const output = name;
@@ -2287,18 +2320,18 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
           const isReverseWallConversion = (ingredient.includes("Wall") && !output.includes("Wall"));
           if (isReverseWallConversion) return false;
         }
-        
+
         // Filter reverse crafting
         if (r.station === "By Hand" && r.ingredients && r.ingredients.length === 1) {
           const ingredient = r.ingredients[0].item;
           if (ingredient.includes(name) && ingredient !== name) return false;
         }
-        
+
         return true;
       });
     }
-    
-    // Only show station if there are valid recipes AND the first recipe has a station
+
+    // Only show a station if there are valid recipes and the first recipe has one
     if (properRecipes && properRecipes.length > 0 && properRecipes[0].station) {
       station = properRecipes[0].station;
       if (station && station.includes('/')) {
@@ -2306,7 +2339,7 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
       }
     }
   }
-  
+
   const displayLabel = label || name;
   const node = makeTreeNode(itemObj, displayLabel, "", x, y, station);
 
@@ -2324,7 +2357,7 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
   if (mode === "craft") {
     const X_GAP = CRAFT_X_GAP;
     const Y_GAP = CRAFT_Y_GAP;
-    
+
     const widths = kids.map(k => measureWidth(k.name, mode, depthLeft - 1, {}));
     const total = widths.reduce((a, b) => a + b, 0);
 
@@ -2358,7 +2391,7 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
 
     return node;
   }
-  
+
   console.warn("renderTreeRecursive called for uses mode - this shouldn't happen");
   return node;
 }
@@ -2366,13 +2399,13 @@ function renderTreeRecursive(name, mode, x, y, depthLeft, seen = {}, parentStati
 function selectCategory(category) {
   currentCategory = category;
   currentSubcategory = null;
-  
+
   document.querySelectorAll(".cat-item").forEach(el => el.classList.remove("active"));
   document.querySelectorAll(".cat-sub-item").forEach(el => el.classList.remove("active"));
-  
+
   const catItem = document.querySelector(`[data-category="${category}"]`);
   if (catItem) catItem.classList.add("active");
-  
+
   document.getElementById("q").value = "";
   applyFilter();
 }
@@ -2380,31 +2413,17 @@ function selectCategory(category) {
 function selectSubcategory(category, subcategory) {
   currentCategory = category;
   currentSubcategory = subcategory;
-  
+
   document.querySelectorAll(".cat-item").forEach(el => el.classList.remove("active"));
   document.querySelectorAll(".cat-sub-item").forEach(el => el.classList.remove("active"));
-  
+
   const subItem = document.querySelector(`[data-subcategory="${category}-${subcategory}"]`);
   if (subItem) subItem.classList.add("active");
-  
+
   document.getElementById("q").value = "";
   applyFilter();
 }
 
-function toggleSubcategories(category) {
-  const subsDiv = document.getElementById(`subs-${category}`);
-  const catItem = document.querySelector(`[data-category="${category}"]`);
-  
-  if (!subsDiv) return;
-  
-  if (subsDiv.style.display === "none" || !subsDiv.style.display) {
-    subsDiv.style.display = "block";
-    if (catItem) catItem.classList.add("expanded");
-  } else {
-    subsDiv.style.display = "none";
-    if (catItem) catItem.classList.remove("expanded");
-  }
-}
 
 // ============================================================
 // TERRARIA ICONS: real item / NPC pictures instead of emojis
@@ -2445,7 +2464,7 @@ function loadIconInto(host, name, cls) {
   });
   setImgWithFallbacks(img, iconCandidates(name));
   const origErr = img.onerror;
-  img.onerror = () => { origErr(); if (img.style.display === "none") for (const [n, t] of saved) n.textContent = t; };
+  img.onerror = () => { origErr(); if (img.style.display === "none") { for (const [n, t] of saved) n.textContent = t; host.classList.add("icon-failed"); } };
   host.appendChild(img);
 }
 
@@ -2462,9 +2481,9 @@ function buildSubcategoryUI() {
   for (const [catKey, catData] of Object.entries(SUBCATEGORIES)) {
     const subsDiv = document.getElementById(`subs-${catKey}`);
     if (!subsDiv) continue;
-    
+
     subsDiv.innerHTML = "";
-    
+
     // Add "All [Category]" option
     const allDiv = document.createElement("div");
     allDiv.className = "cat-sub-item";
@@ -2477,7 +2496,7 @@ function buildSubcategoryUI() {
     `;
     subsDiv.appendChild(allDiv);
     loadIconInto(allDiv.querySelector(".cat-sub-icon"), catData.icon);
-    
+
     // Add each subcategory
     for (const [subKey, subData] of Object.entries(catData.subs)) {
       const subDiv = document.createElement("div");
@@ -2502,13 +2521,13 @@ function updateCategoryCounts() {
   updateCategoryCounts._doneFor = ITEMS.length;
 
   // Count items in each main category
-  const catCounts = { all: ITEMS.filter(it => it.id >= 0).length };   // the 4 "Any ..." helper entries are not real items
+  const catCounts = { all: ITEMS.filter(it => it.id >= 0).length };   // the "Any ..." helper entries are not real items
   const subCounts = {};
-  
+
   for (const item of ITEMS) {
     const cat = detectCategory(item.name);
     catCounts[cat] = (catCounts[cat] || 0) + 1;
-    
+
     // Count subcategories
     const subcat = getItemSubcategory(item, cat);
     if (subcat) {
@@ -2516,18 +2535,18 @@ function updateCategoryCounts() {
       subCounts[key] = (subCounts[key] || 0) + 1;
     }
   }
-  
+
   // Update UI counts
   for (const [cat, count] of Object.entries(catCounts)) {
     const el = document.getElementById(`count-${cat}`);
     if (el) el.textContent = count;
   }
-  
+
   for (const [key, count] of Object.entries(subCounts)) {
     const el = document.getElementById(`count-${key}`);
     if (el) el.textContent = count;
   }
-  
+
   // Update "All [Category]" counts
   for (const catKey of Object.keys(SUBCATEGORIES)) {
     const count = catCounts[catKey] || 0;
@@ -2538,7 +2557,7 @@ function updateCategoryCounts() {
 
 async function main() {
   initDarkMode();
-  
+
   ITEMS = await loadItems();
   RECIPES = await loadRecipes();
   ITEM_DETAILS = await loadItemDetails();
@@ -2566,7 +2585,7 @@ async function main() {
   }
 
   window.addEventListener("resize", debounce(fillScreenIfNeeded, 150));
-  
+
   document.getElementById("btnSettings").addEventListener("click", openSettingsModal);
   document.getElementById("btnAbout").addEventListener("click", () => openAboutModal("guide"));
   maybeShowIntro();
@@ -2576,9 +2595,9 @@ async function main() {
     btn.addEventListener("click", () => {
       categoryButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      
+
       currentCategory = btn.dataset.category;
-      
+
       document.getElementById("q").value = "";
       applyFilter();
     });
@@ -2588,7 +2607,7 @@ async function main() {
 
   document.getElementById("btnClose").addEventListener("click", closeChoiceModal);
   document.getElementById("infoModalClose").addEventListener("click", closeItemInfoModal);
-  
+
   document.getElementById("infoModalBackdrop").addEventListener("click", (e) => {
     if (e.target.id === "infoModalBackdrop") {
       closeItemInfoModal();
@@ -2629,6 +2648,10 @@ async function main() {
   document.getElementById("btnEvil").addEventListener("click", openEvil);
   setupEvilButton();
   document.getElementById("btnGuide").addEventListener("click", openGuide);
+  loadIconInto(document.querySelector("#btnGuide .btn-ico"), "Compass");
+  loadIconInto(document.querySelector("#btnTimeline .btn-ico"), "Platinum Watch");
+  loadIconInto(document.querySelector("#btnAbout .btn-ico"), "Life Crystal");
+  loadIconInto(document.querySelector("#btnSettings .btn-ico"), "Mana Crystal");
   document.getElementById("timelineBack").addEventListener("click", timelineGoBack);
 
   setupPanning();
@@ -3329,7 +3352,7 @@ function renderCompare(key) {
   const [left, right] = data.sides;
   const wrap = cmpEl("div", "cmp");
 
-  // Header: names with a line under them (like the sketch)
+  // Header: names with a line under them
   const head = cmpEl("div", "cmp-head");
   for (const side of data.sides) {
     const cell = cmpEl("div", "cmp-head-cell");
@@ -3386,7 +3409,7 @@ function renderCompare(key) {
     wrap.appendChild(section);
   }
 
-  // Which should I pick?
+  // Which one to pick
   if (data.picks) {
     const section = cmpEl("div", "cmp-section");
     section.appendChild(cmpEl("div", "cmp-label", "Which should I pick?"));
@@ -4557,25 +4580,6 @@ function renderBiome(key) {
   content.appendChild(wrap);
 }
 
-// ---------- Plants & Potions ----------
-function recipeSummary(name) {
-  const variants = RECIPES[name];
-  if (!variants || !variants.length) return "";
-  const v = variants[0];
-  const parts = (v.ingredients || []).map(i => (i.qty > 1 ? `${i.qty} ` : "") + i.item);
-  return parts.join(" + ") + (v.station ? `  ·  ${v.station}` : "");
-}
-
-function recipeNodes(name) {
-  const variants = RECIPES[name];
-  if (!variants || !variants.length) return null;
-  const v = variants[0];
-  const wrap = document.createElement("div");
-  wrap.className = "mini-list";
-  for (const i of (v.ingredients || [])) wrap.appendChild(miniItem(i.item, i.qty));
-  if (v.station) wrap.appendChild(cmpEl("span", "mini-station", v.station));
-  return wrap;
-}
 
 function renderModifiers() {
   const content = document.getElementById("timelineContent");
@@ -4973,7 +4977,7 @@ const BIOME_MENU = Object.entries(BIOMES).map(([key, b]) => ({
   name: b.name, icon: b.icon, iconItem: b.iconItem, desc: b.tag, biome: key,
 }));
 
-// herbs: what they grow on and when they bloom (from the wiki text in your data)
+// herbs: what they grow on and when they bloom (from the wiki text in the data)
 const HERBS = [
   { name: "Daybloom", seeds: "Daybloom Seeds", grows: "Normal and Hallowed grass", blooms: "Daytime, 4:30 AM to 7:29 PM" },
   { name: "Moonglow", seeds: "Moonglow Seeds", grows: "Jungle grass", blooms: "Nighttime, 7:30 PM to 4:29 AM" },
@@ -5796,12 +5800,12 @@ function initDarkMode() {
 const CONTACT_EMAIL = "spectreskeep@gmail.com";
 
 // The welcome popup shows only on the very first visit. The "seen" mark is saved the moment it opens,
-// so closing it OR just refreshing the page means it never pops up again. It lives in the About button after that.
+// so closing it or refreshing the page means it does not pop up again. It lives in the About button after that.
 function maybeShowIntro() {
   try {
     if (localStorage.getItem("tcIntroSeen")) return;
     localStorage.setItem("tcIntroSeen", "1");
-  } catch (e) { return; }   // storage blocked: skip the popup rather than nag on every visit
+  } catch (e) { return; }   // storage blocked: skip the popup rather than show it on every visit
   openAboutModal("guide", true);
 }
 
@@ -5878,10 +5882,10 @@ function openSettingsModal() {
   const backdrop = document.createElement('div');
   backdrop.className = 'modal-backdrop';
   backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:10000;';
-  
+
   const modal = document.createElement('div');
   modal.style.cssText = 'background:var(--bg-secondary);padding:24px;border-radius:16px;min-width:350px;box-shadow:0 10px 40px rgba(0,0,0,0.3);';
-  
+
   modal.innerHTML = `
     <h2 style="margin:0 0 20px 0;font-size:24px;color:var(--text-primary);">⚙️ Settings</h2>
     <div style="display:flex;flex-direction:column;gap:20px;">
@@ -5898,19 +5902,19 @@ function openSettingsModal() {
       <button id="closeSettings" style="padding:12px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:8px;cursor:pointer;font-weight:600;color:var(--text-primary);font-size:15px;">Close</button>
     </div>
   `;
-  
+
   backdrop.appendChild(modal);
   document.body.appendChild(backdrop);
-  
+
   const toggle = document.getElementById('darkModeToggle');
   toggle.addEventListener('change', () => {
     toggleDarkMode();
   });
-  
+
   document.getElementById('closeSettings').addEventListener('click', () => {
     backdrop.remove();
   });
-  
+
   backdrop.addEventListener('click', (e) => {
     if (e.target === backdrop) {
       backdrop.remove();
@@ -6252,20 +6256,6 @@ function openItemInfoModal(itemName) {
   });
 }
 
-function toggleDropsList(dropId) {
-  const hiddenDrops = document.getElementById(`${dropId}-hidden`);
-  const toggleBtn = document.getElementById(`${dropId}-toggle`);
-  const toggleText = document.getElementById(`${dropId}-toggle-text`);
-  
-  if (hiddenDrops.style.display === 'none') {
-    hiddenDrops.style.display = 'flex';
-    toggleText.textContent = 'Show less';
-  } else {
-    hiddenDrops.style.display = 'none';
-    const count = hiddenDrops.children.length;
-    toggleText.textContent = `+${count} more`;
-  }
-}
 
 function closeItemInfoModal() {
   document.getElementById("infoModalBackdrop").classList.add("hidden");
@@ -6273,7 +6263,7 @@ function closeItemInfoModal() {
 
 function addInfoIconToNode(nodeElement, itemName) {
   if (!ITEM_BY_NAME[itemName]) return;
-  
+
   const infoIcon = document.createElement("div");
   infoIcon.className = "item-info-icon";
   infoIcon.innerHTML = `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -6281,12 +6271,12 @@ function addInfoIconToNode(nodeElement, itemName) {
     <rect x="8.6" y="8.4" width="2.8" height="7.6" rx="1.2" fill="currentColor"/>
   </svg>`;
   infoIcon.title = "View item info";
-  
+
   infoIcon.addEventListener("click", (e) => {
     e.stopPropagation();
     openItemInfoModal(itemName);
   });
-  
+
   nodeElement.appendChild(infoIcon);
 }
 

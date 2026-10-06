@@ -28,8 +28,8 @@ body.dark-mode {
   --card-hover: #3d3d3d;
 }
 
-body { 
-  font-family: system-ui, Arial; 
+body {
+  font-family: system-ui, Arial;
   margin: 0;
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -57,9 +57,9 @@ header {
   z-index: 1000;
 }
 
-#q { 
-  flex: 1; 
-  padding: 10px; 
+#q {
+  flex: 1;
+  padding: 10px;
   font-size: 16px;
   background: var(--input-bg);
   color: var(--text-primary);
@@ -81,24 +81,7 @@ header button:hover {
 }
 }
 
-#btnAbout {
-  margin-left: auto;
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-#btnSettings {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-#btnTimeline {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-}
-
+#btnAbout { margin-left: auto; }
 /* Main Layout with Sidebar */
 .main-layout {
   display: flex;
@@ -180,12 +163,12 @@ header button:hover {
 }
 
 #results { padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-.card { 
-  border: 1px solid var(--card-border); 
-  border-radius: 10px; 
-  padding: 10px; 
-  display: flex; 
-  gap: 10px; 
+.card {
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
   align-items: center;
   min-height: 64px;
   background: var(--bg-secondary);
@@ -197,9 +180,9 @@ header button:hover {
   background: var(--card-hover);
 }
 }
-.card img { 
-  width: 44px; 
-  height: 44px; 
+.card img {
+  width: 44px;
+  height: 44px;
   image-rendering: pixelated;
   object-fit: contain;
 }
@@ -251,15 +234,15 @@ header button:hover {
   object-fit: contain;
 }
 
-.modalTitle { 
-  font-weight: 800; 
+.modalTitle {
+  font-weight: 800;
   font-size: 20px;
   color: var(--text-primary);
 }
 
-.modalSub { 
-  font-size: 13px; 
-  opacity: 0.75; 
+.modalSub {
+  font-size: 13px;
+  opacity: 0.75;
   margin-top: 4px;
   color: var(--text-secondary);
 }
@@ -280,7 +263,7 @@ header button:hover {
 }
 
 @media (hover: hover) {
-.modalBtns button:hover { 
+.modalBtns button:hover {
   background: var(--card-hover);
 }
 }
@@ -1259,10 +1242,6 @@ button, .card, .cat-item, .cat-sub-item, .treeNode { touch-action: manipulation;
    HEADER: smaller search + new buttons
    ============================================================ */
 #q { flex: 0 1 300px; min-width: 120px; }
-#btnGuide {
-  background: linear-gradient(135deg, #0ea5a4 0%, #2563eb 100%);
-  color: white; border: none;
-}
 
 /* Crimson vs Corruption: pixel-art terrain. Crimson dirt + red grass vs corrupted dirt + purple grass, each trying to convert the other */
 #btnEvil {
@@ -1481,3 +1460,19 @@ button.mini-item:hover { background: var(--card-hover); }
 
 .treeNode { padding-right: 30px; }
 .dark-mode .item-info-icon { color: #9db0ff; border-color: rgba(157, 176, 255, 0.5); background: rgba(102, 126, 234, 0.18); }
+
+/* hide the placeholder emoji in the sidebar until the real Terraria picture is ready (no flash on refresh) */
+.cat-icon:not(.has-img):not(.icon-failed) { font-size: 0; width: 26px; height: 26px; }
+.cat-sub-icon:not(.has-img):not(.icon-failed) { font-size: 0; }
+
+/* Header buttons with an item icon: Timeline (Platinum Watch), Field Guide (Compass), About (Life Crystal), Settings (Mana Crystal) */
+#btnTimeline, #btnGuide, #btnAbout, #btnSettings {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  color: #fff; border: none;
+}
+#btnTimeline { background: linear-gradient(135deg, #5b7499 0%, #2f3f5e 100%); }
+#btnGuide { background: linear-gradient(135deg, #a8743a 0%, #6b4423 100%); }
+#btnAbout { background: linear-gradient(135deg, #e5506b 0%, #9b1c3a 100%); }
+#btnSettings { background: linear-gradient(135deg, #4d8df5 0%, #223f9e 100%); }
+.btn-ico { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; }
+.btn-ico img.tr-icon { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 1px 0 rgba(0,0,0,.35)); }
