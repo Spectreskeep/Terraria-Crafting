@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/favicon-192.png" />
+  <link rel="stylesheet" href="/style.css" />
+<title>How to craft Blindfold in Terraria (recipe &amp; crafting tree) | Dungeon Guardian</title>
+  <meta name="description" content="Blindfold crafting recipe in Terraria 1.4.5.7. The Blindfold is a Hardmode immunity accessory that grants the player immunity to the Darkness debuff." />
+  <link rel="canonical" href="https://dungeonguardian.com/item/blindfold/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Dungeon Guardian" />
+  <meta property="og:title" content="How to craft Blindfold in Terraria (recipe &amp; crafting tree) | Dungeon Guardian" />
+  <meta property="og:description" content="Blindfold crafting recipe in Terraria 1.4.5.7. The Blindfold is a Hardmode immunity accessory that grants the player immunity to the Darkness debuff." />
+  <meta property="og:url" content="https://dungeonguardian.com/item/blindfold/" />
+  <style>html.presetLoading header,html.presetLoading .main-layout{visibility:hidden}html.presetDark body{background:#1a1a1a}</style>
+  <script>(function(){var h=document.documentElement;h.classList.add("presetLoading");try{if(localStorage.getItem("darkMode")!=="false")h.classList.add("presetDark")}catch(e){h.classList.add("presetDark")}setTimeout(function(){h.classList.remove("presetLoading")},8000)})();</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Dungeon Guardian","url":"https://dungeonguardian.com/"}</script>
+</head>
+<body>
+
+  <!-- Header / Search -->
+  <header>
+    <input id="q" type="text" placeholder="Search items..." />
+    <button id="btnCategories">☰ Categories</button>
+    <button id="btnTimeline"><span class="btn-ico"></span>Timeline</button>
+    <button id="btnEvil"><canvas class="evil-canvas" aria-hidden="true"></canvas><span class="evil-label"><span class="ev-l">Crimson</span><span class="ev-v">vs</span><span class="ev-r">Corruption</span></span></button>
+    <button id="btnGuide"><span class="btn-ico"></span>Field Guide</button>
+    <span id="gameVersion" class="game-version" title="The Terraria update this site's items and recipes match"><small>Game version</small><b></b></span>
+    <button id="btnAbout"><span class="btn-ico"></span>About</button>
+    <button id="btnSettings"><span class="btn-ico"></span>Settings</button>
+  </header>
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+  <div class="main-layout">
+    <!-- Category Sidebar -->
+    <aside class="category-sidebar">
+      <div class="sidebar-header">Categories</div>
+      <div class="category-list">
+
+        <!-- All Items -->
+        <div class="cat-item active" data-category="all" onclick="selectCategory('all')">
+          <span class="cat-icon">📦</span>
+          <span class="cat-name">All Items</span>
+          <span class="cat-count" id="count-all">0</span>
+        </div>
+
+        <!-- Weapons with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="weapon" onclick="toggleSubcategories('weapon')">
+            <span class="cat-icon">⚔️</span>
+            <span class="cat-name">Weapons</span>
+            <span class="cat-count" id="count-weapon">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-weapon" style="display: none;"></div>
+        </div>
+
+        <!-- Tools with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="tool" onclick="toggleSubcategories('tool')">
+            <span class="cat-icon">🔨</span>
+            <span class="cat-name">Tools</span>
+            <span class="cat-count" id="count-tool">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-tool" style="display: none;"></div>
+        </div>
+
+        <!-- Armor with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="armor" onclick="toggleSubcategories('armor')">
+            <span class="cat-icon">🛡️</span>
+            <span class="cat-name">Armor</span>
+            <span class="cat-count" id="count-armor">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-armor" style="display: none;"></div>
+        </div>
+
+        <!-- Accessories with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="accessory" onclick="toggleSubcategories('accessory')">
+            <span class="cat-icon">💍</span>
+            <span class="cat-name">Accessories</span>
+            <span class="cat-count" id="count-accessory">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-accessory" style="display: none;"></div>
+        </div>
+
+        <!-- Potions with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="potion" onclick="toggleSubcategories('potion')">
+            <span class="cat-icon">🧪</span>
+            <span class="cat-name">Potions</span>
+            <span class="cat-count" id="count-potion">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-potion" style="display: none;"></div>
+        </div>
+
+        <!-- Materials with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="material" onclick="toggleSubcategories('material')">
+            <span class="cat-icon">📦</span>
+            <span class="cat-name">Materials</span>
+            <span class="cat-count" id="count-material">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-material" style="display: none;"></div>
+        </div>
+
+        <!-- Furniture with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="furniture" onclick="toggleSubcategories('furniture')">
+            <span class="cat-icon">🪑</span>
+            <span class="cat-name">Furniture</span>
+            <span class="cat-count" id="count-furniture">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-furniture" style="display: none;"></div>
+        </div>
+
+        <!-- Blocks with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="block" onclick="toggleSubcategories('block')">
+            <span class="cat-icon">🧱</span>
+            <span class="cat-name">Blocks</span>
+            <span class="cat-count" id="count-block">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-block" style="display: none;"></div>
+        </div>
+
+        <!-- Ammo with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="ammo" onclick="toggleSubcategories('ammo')">
+            <span class="cat-icon">🏹</span>
+            <span class="cat-name">Ammo</span>
+            <span class="cat-count" id="count-ammo">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-ammo" style="display: none;"></div>
+        </div>
+
+        <!-- Misc (pets, dyes, fish, crates, keys...) -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="misc" onclick="toggleSubcategories('misc')">
+            <span class="cat-icon">✨</span>
+            <span class="cat-name">Misc</span>
+            <span class="cat-count" id="count-misc">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-misc" style="display: none;"></div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Results Grid -->
+    <div id="results" class="results-container"></div>
+  </div>
+
+  <!-- Choice Modal -->
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modalTop">
+        <img id="modalImg" alt="" />
+        <div>
+          <div id="modalTitle" class="modalTitle"></div>
+          <div class="modalSub">Choose what you want to do</div>
+        </div>
+      </div>
+
+      <div class="modalBtns">
+        <button id="btnTree" class="primary">
+          Craft this (ingredients → item)
+        </button>
+        <button id="btnUses">
+          What can this craft into (item → outputs)
+        </button>
+      </div>
+
+      <button id="btnModalInfo" class="modal-info-btn">Info</button>
+      <button id="btnClose" class="modalClose">✕</button>
+    </div>
+  </div>
+
+  <!-- Item Info Modal -->
+  <div id="infoModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modalTop">
+        <img id="infoModalImg" alt="" />
+        <div>
+          <div id="infoModalTitle" class="modalTitle"></div>
+          <div id="infoModalStation" class="modalSub"></div>
+        </div>
+      </div>
+
+      <div id="infoModalContent" style="margin-top: 16px; font-size: 14px;"></div>
+
+      <div style="margin-top: 16px;">
+        <a id="infoModalWikiLink" href="#" target="_blank" rel="noopener noreferrer"
+           style="display: inline-block; padding: 10px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+          📖 Open Wiki Page
+        </a>
+      </div>
+
+      <button id="infoModalClose" class="modalClose">✕</button>
+    </div>
+  </div>
+
+  <!-- Tree Overlay -->
+  <div id="treeOverlay" class="tree hidden">
+    <div class="treeTopbar">
+      <button id="treeBack">← Back</button>
+      <div id="treeTitle" class="treeTitle"></div>
+      <div id="treeLegend" class="tree-legend" style="display: none;">
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span style="width: 20px; height: 3px; background: #dc2626;"></span>
+          <span style="font-size: 13px;">Crimson</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px; margin-left: 16px;">
+          <span style="width: 20px; height: 3px; background: #9333ea;"></span>
+          <span style="font-size: 13px;">Corruption</span>
+        </span>
+      </div>
+    </div>
+
+    <div id="treeViewport" class="treeViewport">
+      <div id="treeWorld" class="treeWorld"></div>
+    </div>
+  </div>
+
+  <!-- Timeline Page -->
+  <div id="timelinePage" class="timeline-page hidden">
+    <div class="timeline-header">
+      <button id="timelineBack">← Back</button>
+      <h1 id="timelineTitle">Timeline</h1>
+    </div>
+    <div id="timelineContent" class="timeline-content"></div>
+  </div>
+
+  <script>window.PRESET_ITEM="Blindfold";</script>
+  <script src="/app.js"></script>
+<section id="seoText" style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"><h1>Blindfold in Terraria</h1><p>Terraria item ID 888. Terraria 1.4.5.7.</p><p>The Blindfold is a Hardmode immunity accessory that grants the player immunity to the Darkness debuff. It has a 1/100 (1%) / 199/10000 (1.99%) chance to drop from Corrupt Slimes, Slimelings, Crimslimes, Dark Mummies, and Blood Mummies.</p><h2>How to craft Blindfold</h2><p>Crafted at Shimmer. Ingredients:</p><ul><li><a href="/item/pocket-mirror/">Pocket Mirror</a> x1</li></ul><h2>What Blindfold is used to craft</h2><ul><li><a href="/item/pocket-mirror/">Pocket Mirror</a></li><li><a href="/item/reflective-shades/">Reflective Shades</a></li></ul><p>Description from the <a href="https://terraria.wiki.gg/wiki/Blindfold" rel="nofollow">Terraria Wiki</a>.</p><p><a href="/">Dungeon Guardian: Terraria crafting trees for every item</a></p></section>
+</body>
+</html>

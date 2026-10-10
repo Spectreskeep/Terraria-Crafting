@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/favicon-192.png" />
+  <link rel="stylesheet" href="/style.css" />
+<title>How to craft Stone Block in Terraria (recipe &amp; crafting tree) | Dungeon Guardian</title>
+  <meta name="description" content="Stone Block crafting recipe in Terraria 1.4.5.7. The Stone Block is a type of block that is generated naturally in very large parts of the world." />
+  <link rel="canonical" href="https://dungeonguardian.com/item/stone-block/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Dungeon Guardian" />
+  <meta property="og:title" content="How to craft Stone Block in Terraria (recipe &amp; crafting tree) | Dungeon Guardian" />
+  <meta property="og:description" content="Stone Block crafting recipe in Terraria 1.4.5.7. The Stone Block is a type of block that is generated naturally in very large parts of the world." />
+  <meta property="og:url" content="https://dungeonguardian.com/item/stone-block/" />
+  <style>html.presetLoading header,html.presetLoading .main-layout{visibility:hidden}html.presetDark body{background:#1a1a1a}</style>
+  <script>(function(){var h=document.documentElement;h.classList.add("presetLoading");try{if(localStorage.getItem("darkMode")!=="false")h.classList.add("presetDark")}catch(e){h.classList.add("presetDark")}setTimeout(function(){h.classList.remove("presetLoading")},8000)})();</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Dungeon Guardian","url":"https://dungeonguardian.com/"}</script>
+</head>
+<body>
+
+  <!-- Header / Search -->
+  <header>
+    <input id="q" type="text" placeholder="Search items..." />
+    <button id="btnCategories">☰ Categories</button>
+    <button id="btnTimeline"><span class="btn-ico"></span>Timeline</button>
+    <button id="btnEvil"><canvas class="evil-canvas" aria-hidden="true"></canvas><span class="evil-label"><span class="ev-l">Crimson</span><span class="ev-v">vs</span><span class="ev-r">Corruption</span></span></button>
+    <button id="btnGuide"><span class="btn-ico"></span>Field Guide</button>
+    <span id="gameVersion" class="game-version" title="The Terraria update this site's items and recipes match"><small>Game version</small><b></b></span>
+    <button id="btnAbout"><span class="btn-ico"></span>About</button>
+    <button id="btnSettings"><span class="btn-ico"></span>Settings</button>
+  </header>
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+  <div class="main-layout">
+    <!-- Category Sidebar -->
+    <aside class="category-sidebar">
+      <div class="sidebar-header">Categories</div>
+      <div class="category-list">
+
+        <!-- All Items -->
+        <div class="cat-item active" data-category="all" onclick="selectCategory('all')">
+          <span class="cat-icon">📦</span>
+          <span class="cat-name">All Items</span>
+          <span class="cat-count" id="count-all">0</span>
+        </div>
+
+        <!-- Weapons with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="weapon" onclick="toggleSubcategories('weapon')">
+            <span class="cat-icon">⚔️</span>
+            <span class="cat-name">Weapons</span>
+            <span class="cat-count" id="count-weapon">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-weapon" style="display: none;"></div>
+        </div>
+
+        <!-- Tools with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="tool" onclick="toggleSubcategories('tool')">
+            <span class="cat-icon">🔨</span>
+            <span class="cat-name">Tools</span>
+            <span class="cat-count" id="count-tool">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-tool" style="display: none;"></div>
+        </div>
+
+        <!-- Armor with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="armor" onclick="toggleSubcategories('armor')">
+            <span class="cat-icon">🛡️</span>
+            <span class="cat-name">Armor</span>
+            <span class="cat-count" id="count-armor">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-armor" style="display: none;"></div>
+        </div>
+
+        <!-- Accessories with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="accessory" onclick="toggleSubcategories('accessory')">
+            <span class="cat-icon">💍</span>
+            <span class="cat-name">Accessories</span>
+            <span class="cat-count" id="count-accessory">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-accessory" style="display: none;"></div>
+        </div>
+
+        <!-- Potions with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="potion" onclick="toggleSubcategories('potion')">
+            <span class="cat-icon">🧪</span>
+            <span class="cat-name">Potions</span>
+            <span class="cat-count" id="count-potion">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-potion" style="display: none;"></div>
+        </div>
+
+        <!-- Materials with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="material" onclick="toggleSubcategories('material')">
+            <span class="cat-icon">📦</span>
+            <span class="cat-name">Materials</span>
+            <span class="cat-count" id="count-material">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-material" style="display: none;"></div>
+        </div>
+
+        <!-- Furniture with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="furniture" onclick="toggleSubcategories('furniture')">
+            <span class="cat-icon">🪑</span>
+            <span class="cat-name">Furniture</span>
+            <span class="cat-count" id="count-furniture">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-furniture" style="display: none;"></div>
+        </div>
+
+        <!-- Blocks with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="block" onclick="toggleSubcategories('block')">
+            <span class="cat-icon">🧱</span>
+            <span class="cat-name">Blocks</span>
+            <span class="cat-count" id="count-block">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-block" style="display: none;"></div>
+        </div>
+
+        <!-- Ammo with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="ammo" onclick="toggleSubcategories('ammo')">
+            <span class="cat-icon">🏹</span>
+            <span class="cat-name">Ammo</span>
+            <span class="cat-count" id="count-ammo">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-ammo" style="display: none;"></div>
+        </div>
+
+        <!-- Misc (pets, dyes, fish, crates, keys...) -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="misc" onclick="toggleSubcategories('misc')">
+            <span class="cat-icon">✨</span>
+            <span class="cat-name">Misc</span>
+            <span class="cat-count" id="count-misc">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-misc" style="display: none;"></div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Results Grid -->
+    <div id="results" class="results-container"></div>
+  </div>
+
+  <!-- Choice Modal -->
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modalTop">
+        <img id="modalImg" alt="" />
+        <div>
+          <div id="modalTitle" class="modalTitle"></div>
+          <div class="modalSub">Choose what you want to do</div>
+        </div>
+      </div>
+
+      <div class="modalBtns">
+        <button id="btnTree" class="primary">
+          Craft this (ingredients → item)
+        </button>
+        <button id="btnUses">
+          What can this craft into (item → outputs)
+        </button>
+      </div>
+
+      <button id="btnModalInfo" class="modal-info-btn">Info</button>
+      <button id="btnClose" class="modalClose">✕</button>
+    </div>
+  </div>
+
+  <!-- Item Info Modal -->
+  <div id="infoModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modalTop">
+        <img id="infoModalImg" alt="" />
+        <div>
+          <div id="infoModalTitle" class="modalTitle"></div>
+          <div id="infoModalStation" class="modalSub"></div>
+        </div>
+      </div>
+
+      <div id="infoModalContent" style="margin-top: 16px; font-size: 14px;"></div>
+
+      <div style="margin-top: 16px;">
+        <a id="infoModalWikiLink" href="#" target="_blank" rel="noopener noreferrer"
+           style="display: inline-block; padding: 10px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+          📖 Open Wiki Page
+        </a>
+      </div>
+
+      <button id="infoModalClose" class="modalClose">✕</button>
+    </div>
+  </div>
+
+  <!-- Tree Overlay -->
+  <div id="treeOverlay" class="tree hidden">
+    <div class="treeTopbar">
+      <button id="treeBack">← Back</button>
+      <div id="treeTitle" class="treeTitle"></div>
+      <div id="treeLegend" class="tree-legend" style="display: none;">
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span style="width: 20px; height: 3px; background: #dc2626;"></span>
+          <span style="font-size: 13px;">Crimson</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px; margin-left: 16px;">
+          <span style="width: 20px; height: 3px; background: #9333ea;"></span>
+          <span style="font-size: 13px;">Corruption</span>
+        </span>
+      </div>
+    </div>
+
+    <div id="treeViewport" class="treeViewport">
+      <div id="treeWorld" class="treeWorld"></div>
+    </div>
+  </div>
+
+  <!-- Timeline Page -->
+  <div id="timelinePage" class="timeline-page hidden">
+    <div class="timeline-header">
+      <button id="timelineBack">← Back</button>
+      <h1 id="timelineTitle">Timeline</h1>
+    </div>
+    <div id="timelineContent" class="timeline-content"></div>
+  </div>
+
+  <script>window.PRESET_ITEM="Stone Block";</script>
+  <script src="/app.js"></script>
+<section id="seoText" style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"><h1>Stone Block in Terraria</h1><p>Terraria item ID 3. Terraria 1.4.5.7.</p><p>The Stone Block is a type of block that is generated naturally in very large parts of the world. The majority of the Underground and Cavern layers is comprised of Stone Blocks. As a crafting ingredient, they are vital early in the game to craft the Furnace and Wooden Arrows. After Hardmode is activated in a world, nearby Corrupt, Crimson, and Hallowed blocks can spread through Stone Blocks, changing them into Ebonstone, Crimstone, or Pearlstone, respectively.</p><h2>How to craft Stone Block</h2><p>Crafted at Chlorophyte Extractinator. Ingredients:</p><ul><li><a href="/item/pearlstone-block/">Pearlstone Block</a> x1</li></ul><h2>How to craft Stone Block</h2><p>Crafted at Shimmer. Ingredients:</p><ul><li><a href="/item/amethyst/">Amethyst</a> x1</li></ul><h2>How to craft Stone Block</h2><p>Crafted at Work Bench. Ingredients:</p><ul><li><a href="/item/stone-wall/">Stone Wall</a> x4</li></ul><h2>What Stone Block is used to craft</h2><ul><li><a href="/item/0-statue/">&#x27;0&#x27; Statue</a></li><li><a href="/item/1-statue/">&#x27;1&#x27; Statue</a></li><li><a href="/item/2-statue/">&#x27;2&#x27; Statue</a></li><li><a href="/item/3-statue/">&#x27;3&#x27; Statue</a></li><li><a href="/item/4-statue/">&#x27;4&#x27; Statue</a></li><li><a href="/item/5-statue/">&#x27;5&#x27; Statue</a></li><li><a href="/item/6-statue/">&#x27;6&#x27; Statue</a></li><li><a href="/item/7-statue/">&#x27;7&#x27; Statue</a></li><li><a href="/item/8-statue/">&#x27;8&#x27; Statue</a></li><li><a href="/item/9-statue/">&#x27;9&#x27; Statue</a></li><li><a href="/item/a-statue/">&#x27;A&#x27; Statue</a></li><li><a href="/item/b-statue/">&#x27;B&#x27; Statue</a></li><li><a href="/item/c-statue/">&#x27;C&#x27; Statue</a></li><li><a href="/item/d-statue/">&#x27;D&#x27; Statue</a></li><li><a href="/item/e-statue/">&#x27;E&#x27; Statue</a></li><li><a href="/item/f-statue/">&#x27;F&#x27; Statue</a></li><li><a href="/item/g-statue/">&#x27;G&#x27; Statue</a></li><li><a href="/item/h-statue/">&#x27;H&#x27; Statue</a></li><li><a href="/item/i-statue/">&#x27;I&#x27; Statue</a></li><li><a href="/item/j-statue/">&#x27;J&#x27; Statue</a></li><li><a href="/item/k-statue/">&#x27;K&#x27; Statue</a></li><li><a href="/item/l-statue/">&#x27;L&#x27; Statue</a></li><li><a href="/item/m-statue/">&#x27;M&#x27; Statue</a></li><li><a href="/item/n-statue/">&#x27;N&#x27; Statue</a></li><li><a href="/item/o-statue/">&#x27;O&#x27; Statue</a></li><li><a href="/item/p-statue/">&#x27;P&#x27; Statue</a></li><li><a href="/item/q-statue/">&#x27;Q&#x27; Statue</a></li><li><a href="/item/r-statue/">&#x27;R&#x27; Statue</a></li><li><a href="/item/s-statue/">&#x27;S&#x27; Statue</a></li><li><a href="/item/t-statue/">&#x27;T&#x27; Statue</a></li><li><a href="/item/u-statue/">&#x27;U&#x27; Statue</a></li><li><a href="/item/v-statue/">&#x27;V&#x27; Statue</a></li><li><a href="/item/w-statue/">&#x27;W&#x27; Statue</a></li><li><a href="/item/x-statue/">&#x27;X&#x27; Statue</a></li><li><a href="/item/y-statue/">&#x27;Y&#x27; Statue</a></li><li><a href="/item/z-statue/">&#x27;Z&#x27; Statue</a></li><li><a href="/item/active-stone-block/">Active Stone Block</a></li><li><a href="/item/adamantite-beam/">Adamantite Beam</a></li><li><a href="/item/aetherium-brick/">Aetherium Brick</a></li><li><a href="/item/amber-gem-lock/">Amber Gem Lock</a></li><li><a href="/item/amber-stone-block/">Amber Stone Block</a></li><li><a href="/item/amethyst-gem-lock/">Amethyst Gem Lock</a></li><li><a href="/item/amethyst-stone-block/">Amethyst Stone Block</a></li><li><a href="/item/armor-statue/">Armor Statue</a></li><li><a href="/item/asphalt-block/">Asphalt Block</a></li><li><a href="/item/bird-statue/">Bird Statue</a></li><li><a href="/item/boulder/">Boulder</a></li><li><a href="/item/boulder-statue/">Boulder Statue</a></li><li><a href="/item/bubblegum-block/">Bubblegum Block</a></li><li><a href="/item/buggy-statue/">Buggy Statue</a></li><li><a href="/item/bunny-statue/">Bunny Statue</a></li><li><a href="/item/butterfly-statue/">Butterfly Statue</a></li><li><a href="/item/chlorophyte-brick/">Chlorophyte Brick</a></li><li><a href="/item/cobalt-brick/">Cobalt Brick</a></li><li><a href="/item/cockatiel-statue/">Cockatiel Statue</a></li><li><a href="/item/copper-brick/">Copper Brick</a></li><li><a href="/item/copper-plating/">Copper Plating</a></li><li><a href="/item/coralstone-block/">Coralstone Block</a></li><li><a href="/item/craggy-stone-wall/">Craggy Stone Wall</a></li><li><a href="/item/crystal-block/">Crystal Block</a></li><li><a href="/item/diamond-gem-lock/">Diamond Gem Lock</a></li><li><a href="/item/diamond-stone-block/">Diamond Stone Block</a></li><li><a href="/item/dragonfly-statue/">Dragonfly Statue</a></li><li><a href="/item/duck-statue/">Duck Statue</a></li><li><a href="/item/emerald-gem-lock/">Emerald Gem Lock</a></li><li><a href="/item/emerald-stone-block/">Emerald Stone Block</a></li><li><a href="/item/firefly-statue/">Firefly Statue</a></li><li><a href="/item/fish-statue/">Fish Statue</a></li><li><a href="/item/fractured-stone-wall/">Fractured Stone Wall</a></li><li><a href="/item/frog-statue/">Frog Statue</a></li><li><a href="/item/furnace/">Furnace</a></li><li><a href="/item/gold-brick/">Gold Brick</a></li><li><a href="/item/grasshopper-statue/">Grasshopper Statue</a></li><li><a href="/item/gray-brick/">Gray Brick</a></li><li><a href="/item/gray-stucco/">Gray Stucco</a></li><li><a href="/item/green-stucco/">Green Stucco</a></li><li><a href="/item/hellstone-brick/">Hellstone Brick</a></li><li><a href="/item/iridescent-brick/">Iridescent Brick</a></li><li><a href="/item/iron-brick/">Iron Brick</a></li><li><a href="/item/lead-brick/">Lead Brick</a></li></ul><p>Description from the <a href="https://terraria.wiki.gg/wiki/Stone_Block" rel="nofollow">Terraria Wiki</a>.</p><p><a href="/">Dungeon Guardian: Terraria crafting trees for every item</a></p></section>
+</body>
+</html>

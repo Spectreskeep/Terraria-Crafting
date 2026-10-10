@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/favicon-192.png" />
+  <link rel="stylesheet" href="/style.css" />
+<title>How to craft Glass in Terraria (recipe &amp; crafting tree) | Dungeon Guardian</title>
+  <meta name="description" content="Glass crafting recipe in Terraria 1.4.5.7. Glass is crafted from different types of sand at a Furnace. Glass can be placed as a block and is an ingredient in producing vario..." />
+  <link rel="canonical" href="https://dungeonguardian.com/item/glass/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Dungeon Guardian" />
+  <meta property="og:title" content="How to craft Glass in Terraria (recipe &amp; crafting tree) | Dungeon Guardian" />
+  <meta property="og:description" content="Glass crafting recipe in Terraria 1.4.5.7. Glass is crafted from different types of sand at a Furnace. Glass can be placed as a block and is an ingredient in producing vario..." />
+  <meta property="og:url" content="https://dungeonguardian.com/item/glass/" />
+  <style>html.presetLoading header,html.presetLoading .main-layout{visibility:hidden}html.presetDark body{background:#1a1a1a}</style>
+  <script>(function(){var h=document.documentElement;h.classList.add("presetLoading");try{if(localStorage.getItem("darkMode")!=="false")h.classList.add("presetDark")}catch(e){h.classList.add("presetDark")}setTimeout(function(){h.classList.remove("presetLoading")},8000)})();</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Dungeon Guardian","url":"https://dungeonguardian.com/"}</script>
+</head>
+<body>
+
+  <!-- Header / Search -->
+  <header>
+    <input id="q" type="text" placeholder="Search items..." />
+    <button id="btnCategories">☰ Categories</button>
+    <button id="btnTimeline"><span class="btn-ico"></span>Timeline</button>
+    <button id="btnEvil"><canvas class="evil-canvas" aria-hidden="true"></canvas><span class="evil-label"><span class="ev-l">Crimson</span><span class="ev-v">vs</span><span class="ev-r">Corruption</span></span></button>
+    <button id="btnGuide"><span class="btn-ico"></span>Field Guide</button>
+    <span id="gameVersion" class="game-version" title="The Terraria update this site's items and recipes match"><small>Game version</small><b></b></span>
+    <button id="btnAbout"><span class="btn-ico"></span>About</button>
+    <button id="btnSettings"><span class="btn-ico"></span>Settings</button>
+  </header>
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+  <div class="main-layout">
+    <!-- Category Sidebar -->
+    <aside class="category-sidebar">
+      <div class="sidebar-header">Categories</div>
+      <div class="category-list">
+
+        <!-- All Items -->
+        <div class="cat-item active" data-category="all" onclick="selectCategory('all')">
+          <span class="cat-icon">📦</span>
+          <span class="cat-name">All Items</span>
+          <span class="cat-count" id="count-all">0</span>
+        </div>
+
+        <!-- Weapons with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="weapon" onclick="toggleSubcategories('weapon')">
+            <span class="cat-icon">⚔️</span>
+            <span class="cat-name">Weapons</span>
+            <span class="cat-count" id="count-weapon">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-weapon" style="display: none;"></div>
+        </div>
+
+        <!-- Tools with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="tool" onclick="toggleSubcategories('tool')">
+            <span class="cat-icon">🔨</span>
+            <span class="cat-name">Tools</span>
+            <span class="cat-count" id="count-tool">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-tool" style="display: none;"></div>
+        </div>
+
+        <!-- Armor with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="armor" onclick="toggleSubcategories('armor')">
+            <span class="cat-icon">🛡️</span>
+            <span class="cat-name">Armor</span>
+            <span class="cat-count" id="count-armor">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-armor" style="display: none;"></div>
+        </div>
+
+        <!-- Accessories with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="accessory" onclick="toggleSubcategories('accessory')">
+            <span class="cat-icon">💍</span>
+            <span class="cat-name">Accessories</span>
+            <span class="cat-count" id="count-accessory">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-accessory" style="display: none;"></div>
+        </div>
+
+        <!-- Potions with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="potion" onclick="toggleSubcategories('potion')">
+            <span class="cat-icon">🧪</span>
+            <span class="cat-name">Potions</span>
+            <span class="cat-count" id="count-potion">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-potion" style="display: none;"></div>
+        </div>
+
+        <!-- Materials with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="material" onclick="toggleSubcategories('material')">
+            <span class="cat-icon">📦</span>
+            <span class="cat-name">Materials</span>
+            <span class="cat-count" id="count-material">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-material" style="display: none;"></div>
+        </div>
+
+        <!-- Furniture with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="furniture" onclick="toggleSubcategories('furniture')">
+            <span class="cat-icon">🪑</span>
+            <span class="cat-name">Furniture</span>
+            <span class="cat-count" id="count-furniture">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-furniture" style="display: none;"></div>
+        </div>
+
+        <!-- Blocks with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="block" onclick="toggleSubcategories('block')">
+            <span class="cat-icon">🧱</span>
+            <span class="cat-name">Blocks</span>
+            <span class="cat-count" id="count-block">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-block" style="display: none;"></div>
+        </div>
+
+        <!-- Ammo with subcategories -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="ammo" onclick="toggleSubcategories('ammo')">
+            <span class="cat-icon">🏹</span>
+            <span class="cat-name">Ammo</span>
+            <span class="cat-count" id="count-ammo">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-ammo" style="display: none;"></div>
+        </div>
+
+        <!-- Misc (pets, dyes, fish, crates, keys...) -->
+        <div class="cat-group">
+          <div class="cat-item" data-category="misc" onclick="toggleSubcategories('misc')">
+            <span class="cat-icon">✨</span>
+            <span class="cat-name">Misc</span>
+            <span class="cat-count" id="count-misc">0</span>
+            <span class="cat-toggle">▶</span>
+          </div>
+          <div class="cat-subs" id="subs-misc" style="display: none;"></div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Results Grid -->
+    <div id="results" class="results-container"></div>
+  </div>
+
+  <!-- Choice Modal -->
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modalTop">
+        <img id="modalImg" alt="" />
+        <div>
+          <div id="modalTitle" class="modalTitle"></div>
+          <div class="modalSub">Choose what you want to do</div>
+        </div>
+      </div>
+
+      <div class="modalBtns">
+        <button id="btnTree" class="primary">
+          Craft this (ingredients → item)
+        </button>
+        <button id="btnUses">
+          What can this craft into (item → outputs)
+        </button>
+      </div>
+
+      <button id="btnModalInfo" class="modal-info-btn">Info</button>
+      <button id="btnClose" class="modalClose">✕</button>
+    </div>
+  </div>
+
+  <!-- Item Info Modal -->
+  <div id="infoModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modalTop">
+        <img id="infoModalImg" alt="" />
+        <div>
+          <div id="infoModalTitle" class="modalTitle"></div>
+          <div id="infoModalStation" class="modalSub"></div>
+        </div>
+      </div>
+
+      <div id="infoModalContent" style="margin-top: 16px; font-size: 14px;"></div>
+
+      <div style="margin-top: 16px;">
+        <a id="infoModalWikiLink" href="#" target="_blank" rel="noopener noreferrer"
+           style="display: inline-block; padding: 10px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+          📖 Open Wiki Page
+        </a>
+      </div>
+
+      <button id="infoModalClose" class="modalClose">✕</button>
+    </div>
+  </div>
+
+  <!-- Tree Overlay -->
+  <div id="treeOverlay" class="tree hidden">
+    <div class="treeTopbar">
+      <button id="treeBack">← Back</button>
+      <div id="treeTitle" class="treeTitle"></div>
+      <div id="treeLegend" class="tree-legend" style="display: none;">
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span style="width: 20px; height: 3px; background: #dc2626;"></span>
+          <span style="font-size: 13px;">Crimson</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 6px; margin-left: 16px;">
+          <span style="width: 20px; height: 3px; background: #9333ea;"></span>
+          <span style="font-size: 13px;">Corruption</span>
+        </span>
+      </div>
+    </div>
+
+    <div id="treeViewport" class="treeViewport">
+      <div id="treeWorld" class="treeWorld"></div>
+    </div>
+  </div>
+
+  <!-- Timeline Page -->
+  <div id="timelinePage" class="timeline-page hidden">
+    <div class="timeline-header">
+      <button id="timelineBack">← Back</button>
+      <h1 id="timelineTitle">Timeline</h1>
+    </div>
+    <div id="timelineContent" class="timeline-content"></div>
+  </div>
+
+  <script>window.PRESET_ITEM="Glass";</script>
+  <script src="/app.js"></script>
+<section id="seoText" style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"><h1>Glass in Terraria</h1><p>Terraria item ID 170. Terraria 1.4.5.7.</p><p>Glass is crafted from different types of sand at a Furnace. Glass can be placed as a block and is an ingredient in producing various items.</p><h2>How to craft Glass</h2><p>Crafted at By Hand. Ingredients:</p><ul><li><a href="/item/glass-platform/">Glass Platform</a> x2</li></ul><h2>How to craft Glass</h2><p>Crafted at Furnace. Ingredients:</p><ul><li>Any Sand x2</li></ul><h2>How to craft Glass</h2><p>Crafted at Work Bench. Ingredients:</p><ul><li><a href="/item/glass-wall/">Glass Wall</a> x4</li></ul><h2>What Glass is used to craft</h2><ul><li><a href="/item/amber-gemspark-block/">Amber Gemspark Block</a></li><li><a href="/item/amethyst-gemspark-block/">Amethyst Gemspark Block</a></li><li><a href="/item/ash-wood-clock/">Ash Wood Clock</a></li><li><a href="/item/balloon-clock/">Balloon Clock</a></li><li><a href="/item/bamboo-clock/">Bamboo Clock</a></li><li><a href="/item/blue-starry-block/">Blue Starry Block</a></li><li><a href="/item/bone-clock/">Bone Clock</a></li><li><a href="/item/boreal-wood-clock/">Boreal Wood Clock</a></li><li><a href="/item/bottle/">Bottle</a></li><li><a href="/item/cactus-clock/">Cactus Clock</a></li><li><a href="/item/confetti-block/">Confetti Block</a></li><li><a href="/item/diamond-gemspark-block/">Diamond Gemspark Block</a></li><li><a href="/item/dynasty-clock/">Dynasty Clock</a></li><li><a href="/item/ebonwood-clock/">Ebonwood Clock</a></li><li><a href="/item/emerald-gemspark-block/">Emerald Gemspark Block</a></li><li><a href="/item/flesh-clock/">Flesh Clock</a></li><li><a href="/item/floret-protector-helmet/">Floret Protector Helmet</a></li><li><a href="/item/frozen-clock/">Frozen Clock</a></li><li><a href="/item/glass-bathtub/">Glass Bathtub</a></li><li><a href="/item/glass-bed/">Glass Bed</a></li><li><a href="/item/glass-bookcase/">Glass Bookcase</a></li><li><a href="/item/glass-bowl/">Glass Bowl</a></li><li><a href="/item/glass-candelabra/">Glass Candelabra</a></li><li><a href="/item/glass-candle/">Glass Candle</a></li><li><a href="/item/glass-chair/">Glass Chair</a></li><li><a href="/item/glass-chandelier/">Glass Chandelier</a></li><li><a href="/item/glass-chest/">Glass Chest</a></li><li><a href="/item/glass-clock/">Glass Clock</a></li><li><a href="/item/glass-door/">Glass Door</a></li><li><a href="/item/glass-dresser/">Glass Dresser</a></li><li><a href="/item/glass-lamp/">Glass Lamp</a></li><li><a href="/item/glass-lantern/">Glass Lantern</a></li><li><a href="/item/glass-piano/">Glass Piano</a></li><li><a href="/item/glass-platform/">Glass Platform</a></li><li><a href="/item/glass-sink/">Glass Sink</a></li><li><a href="/item/glass-sofa/">Glass Sofa</a></li><li><a href="/item/glass-table/">Glass Table</a></li><li><a href="/item/glass-toilet/">Glass Toilet</a></li><li><a href="/item/glass-wall/">Glass Wall</a></li><li><a href="/item/glass-work-bench/">Glass Work Bench</a></li><li><a href="/item/gold-starry-block/">Gold Starry Block</a></li><li><a href="/item/grandfather-clock/">Grandfather Clock</a></li><li><a href="/item/granite-clock/">Granite Clock</a></li><li><a href="/item/honey-clock/">Honey Clock</a></li><li><a href="/item/honeyfall-block/">Honeyfall Block</a></li><li><a href="/item/lamp-post/">Lamp Post</a></li><li><a href="/item/lavafall-block/">Lavafall Block</a></li><li><a href="/item/lesion-clock/">Lesion Clock</a></li><li><a href="/item/lihzahrd-clock/">Lihzahrd Clock</a></li><li><a href="/item/living-wood-clock/">Living Wood Clock</a></li><li><a href="/item/magic-mirror/">Magic Mirror</a></li><li><a href="/item/marble-clock/">Marble Clock</a></li><li><a href="/item/martian-astro-clock/">Martian Astro Clock</a></li><li><a href="/item/meteorite-clock/">Meteorite Clock</a></li><li><a href="/item/midnight-confetti-block/">Midnight Confetti Block</a></li><li><a href="/item/mug/">Mug</a></li><li><a href="/item/mushroom-clock/">Mushroom Clock</a></li><li><a href="/item/nebula-clock/">Nebula Clock</a></li><li><a href="/item/palm-wood-clock/">Palm Wood Clock</a></li><li><a href="/item/pearlwood-clock/">Pearlwood Clock</a></li><li><a href="/item/pumpkin-clock/">Pumpkin Clock</a></li><li><a href="/item/reef-clock/">Reef Clock</a></li><li><a href="/item/rich-mahogany-clock/">Rich Mahogany Clock</a></li><li><a href="/item/ruby-gemspark-block/">Ruby Gemspark Block</a></li><li><a href="/item/sandfall-block/">Sandfall Block</a></li><li><a href="/item/sandstone-clock/">Sandstone Clock</a></li><li><a href="/item/sapphire-gemspark-block/">Sapphire Gemspark Block</a></li><li><a href="/item/shadewood-clock/">Shadewood Clock</a></li><li><a href="/item/skyware-clock/">Skyware Clock</a></li><li><a href="/item/slime-clock/">Slime Clock</a></li><li><a href="/item/snowfall-block/">Snowfall Block</a></li><li><a href="/item/solar-clock/">Solar Clock</a></li><li><a href="/item/spider-clock/">Spider Clock</a></li><li><a href="/item/spooky-clock/">Spooky Clock</a></li><li><a href="/item/stardust-clock/">Stardust Clock</a></li><li><a href="/item/steampunk-clock/">Steampunk Clock</a></li><li><a href="/item/sunplate-clock/">Sunplate Clock</a></li><li><a href="/item/terrarium/">Terrarium</a></li><li><a href="/item/topaz-gemspark-block/">Topaz Gemspark Block</a></li><li><a href="/item/video-visage/">Video Visage</a></li></ul><p>Description from the <a href="https://terraria.wiki.gg/wiki/Glass" rel="nofollow">Terraria Wiki</a>.</p><p><a href="/">Dungeon Guardian: Terraria crafting trees for every item</a></p></section>
+</body>
+</html>

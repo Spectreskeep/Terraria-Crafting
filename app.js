@@ -499,7 +499,7 @@ function debounce(fn, delay = 120) {
 }
 
 async function loadItems() {
-  const res = await fetch("./data/items.json");
+  const res = await fetch("/data/items.json");
   if (!res.ok) throw new Error("Failed to load data/items.json");
   return fixItemImages(await res.json());
 }
@@ -508,7 +508,7 @@ async function loadItems() {
 // A real sprite file is named after its item, so any wiki.gg image whose file name doesn't match the item
 // name is replaced with the standard sprite file for that item.
 // the four Strange Plants (by item ID) each get their own colored picture
-const OWN_IMAGES = { 3385: "data/img/strange_plant_purple.png", 3386: "data/img/strange_plant_orange.png", 3387: "data/img/strange_plant_green.png", 3388: "data/img/strange_plant_red.png" };
+const OWN_IMAGES = { 3385: "/data/img/strange_plant_purple.png", 3386: "/data/img/strange_plant_orange.png", 3387: "/data/img/strange_plant_green.png", 3388: "/data/img/strange_plant_red.png" };
 
 // items listed as "n/a (No official name)" in the data, renamed by item ID
 const NAME_FIXES = { 4722: "First Fractal", 5013: "SleepingIcon" };
@@ -534,7 +534,7 @@ function fixItemImages(list) {
 }
 
 async function loadRecipes() {
-  const res = await fetch("./data/recipes.json");
+  const res = await fetch("/data/recipes.json");
   if (!res.ok) throw new Error("Failed to load data/recipes.json");
   const data = await res.json();
   // clean up stray "¦" marks the wiki puts around some ingredient names, so the picture and name match the item
@@ -554,7 +554,7 @@ async function loadRecipes() {
 
 async function loadItemDetails() {
   try {
-    const res = await fetch("./data/complete_list.json");
+    const res = await fetch("/data/complete_list.json");
     if (!res.ok) {
       console.warn("complete_list.json not found");
       return {};
@@ -582,7 +582,7 @@ async function loadItemDetails() {
 
 async function loadNPCs() {
   try {
-    const res = await fetch("./data/npc.json");
+    const res = await fetch("/data/npc.json");
     if (!res.ok) {
       console.warn("npc.json not found");
       return {};
@@ -602,7 +602,7 @@ async function loadNPCs() {
 
 async function loadObjects() {
   try {
-    const res = await fetch("./data/objects.json");
+    const res = await fetch("/data/objects.json");
     if (!res.ok) {
       console.warn("objects.json not found");
       return {};
@@ -622,7 +622,7 @@ async function loadObjects() {
 
 async function loadStationImages() {
   try {
-    const res = await fetch("./data/crafting_stations.json");
+    const res = await fetch("/data/crafting_stations.json");
     if (!res.ok) {
       console.warn("crafting_stations.json not found");
       return {};
@@ -1755,7 +1755,19 @@ function setupMobileDrawer() {
 // Back and Forward then step through those screens instead of leaving the site.
 let NAV_TREE = null;          // the tree that is open: { item, mode }
 let navHook = null;
-function navChanged() { if (navHook) navHook(); }
+function navChanged() { if (navHook) navHook(); syncAddress(); }
+
+// An item page (/item/<name>/) or a ?item= link shows the home screen again once its tree is closed,
+// so the address bar goes back to the plain home address too.
+function syncAddress() {
+  try {
+    const here = location.pathname.startsWith("/item/") || new URLSearchParams(location.search).has("item");
+    if (!here) return;
+    if ((window.PRESET_ITEM || location.search.includes("item=")) && !window.PRESET_DONE) return;   // still opening the tree
+    const ov = document.getElementById("treeOverlay");
+    if (ov && ov.classList.contains("hidden")) history.replaceState(history.state, "", "/");
+  } catch (e) {}
+}
 
 function setupBackButton() {
   const $ = id => document.getElementById(id);
@@ -1856,7 +1868,7 @@ function setupBackButton() {
     }
     restoring = true;
     applyState(target);
-    setTimeout(() => { restoring = false; snaps[cur] = capture(); }, 0);
+    setTimeout(() => { restoring = false; snaps[cur] = capture(); syncAddress(); }, 0);
   });
 
   const watch = new MutationObserver(navChanged);
@@ -2190,7 +2202,7 @@ function toggleCraftNode(itemName) {
 }
 
 // ONE place that decides which recipes count for the crafting tree (used by the tree, the +/- button and the station label)
-function craftRecipeList(name) {
+function craftRecipeList(name, strict = false) {
   const base = craftRecipeListRaw(name);
   const isRootItem = (CRAFT_ROOT_ITEM && CRAFT_ROOT_ITEM.name === name);
   // drop "reverse" recipes: made from something that is itself crafted from this item (Wood <- Wooden Fence)
@@ -2200,7 +2212,7 @@ function craftRecipeList(name) {
     const src = RECIPES[ing[0].item];
     return !(src && src.some(s => (s.ingredients || []).some(x => x.item === name)));
   });
-  return (forward.length || !isRootItem) ? forward : base;
+  return (forward.length || !isRootItem || strict) ? forward : base;
 }
 
 function craftRecipeListRaw(name) {
@@ -2766,7 +2778,24 @@ async function main() {
   setupMobileDrawer();
 
   applyFilter();
-  if (window.matchMedia("(hover: hover)").matches) qEl.focus();
+
+  // Item pages (/item/<name>/) set window.PRESET_ITEM; links like /?item=Terra%20Blade&mode=craft work too
+  const deep = new URLSearchParams(location.search);
+  const deepItem = ITEM_BY_NAME[window.PRESET_ITEM || deep.get("item") || ""];
+  if (deepItem) {
+    let deepMode = window.PRESET_MODE || deep.get("mode");
+    if (deepMode !== "uses" && deepMode !== "craft") {
+      CRAFT_ROOT_ITEM = deepItem;
+      deepMode = (RECIPES[deepItem.name] && craftRecipeList(deepItem.name, true).length) ? "craft" : "uses";
+    }
+    if ((deepMode === "craft" && RECIPES[deepItem.name]) || (deepMode === "uses" && USES_INDEX[deepItem.name])) {
+      openTreeView(deepItem, deepMode);
+    }
+  } else if (window.matchMedia("(hover: hover)").matches) {
+    qEl.focus();
+  }
+  window.PRESET_DONE = true;
+  document.documentElement.classList.remove("presetLoading");
 }
 
 const TIMELINE_ORES = [
@@ -5907,7 +5936,7 @@ function initDarkMode() {
 
 // ---------- About / welcome / legal ----------
 // The Terraria update the items and recipes match. Change it here when you update the data for a newer version.
-const GAME_VERSION = "1.4.5.8";
+const GAME_VERSION = "1.4.5.7";
 const CONTACT_EMAIL = "spectreskeep@gmail.com";
 // Bug reports are saved in a Google Form (free, no monthly limit) and shown in its Google Sheet.
 // This is the form's "pre-filled link". To use a different form, paste its link here instead.
@@ -5916,6 +5945,7 @@ const BUG_FORM_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSd6-uydjNtaosWl3
 // The welcome popup shows only on the very first visit. The "seen" mark is saved the moment it opens,
 // so closing it or refreshing the page means it does not pop up again. It lives in the About button after that.
 function maybeShowIntro() {
+  if (window.PRESET_ITEM || new URLSearchParams(location.search).get("item")) return;   // arrived on an item page / link: go straight to the tree
   try {
     if (localStorage.getItem("tcIntroSeen")) return;
     localStorage.setItem("tcIntroSeen", "1");
